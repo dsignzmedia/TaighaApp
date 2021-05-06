@@ -261,7 +261,30 @@
           <p>{{ propertyRmls.LegalDescription ? propertyRmls.LegalDescription : '-' }}</p>
         </ion-col>
        </ion-row>
-
+       <ion-row *ngIf="propertyOpenhouse.length > 0">
+        <ion-col col-12 no-padding>
+          <ion-row>
+            <ion-col col-6 no-padding>
+              <span>Open House</span>
+            </ion-col>
+            <ion-col col-6 no-padding>
+              <ion-row class="no-padding">
+                <ion-col col-12 no-padding *ngFor="let allhouse of propertyOpenhouse;">
+                  <p>{{allhouse}}</p>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+        </ion-row>
+        </ion-col>        
+       </ion-row>
+       <ion-row *ngIf="virtualTour != null ">
+        <ion-col col-6 no-padding>
+          <span>Virtual Tour</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p><a href="{{virtualTour.virtual_tour}}">Explore Tour</a></p>
+        </ion-col>
+       </ion-row>
 
        <ion-row class="description listingdesc">
         <ion-col no-padding>

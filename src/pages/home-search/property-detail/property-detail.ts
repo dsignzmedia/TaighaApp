@@ -43,6 +43,8 @@ export class PropertyDetailPage {
 public propertyshowSpinner : boolean = false;
   propertyId: any;
   public property : any = [];
+  public propertyOpenhouse : any = [];
+  public virtualTour : any = [];
   public propertyRmls : any = [];
   public propertyHistories : any = [];
   public propertySimilar : any = [];
@@ -131,6 +133,8 @@ if (auth_user_token) {
        console.log(response);
        this.showContent = "block";
        this.property = response.data;
+       this.propertyOpenhouse = response.data.all_open_house;
+       this.virtualTour = response.data.virtual_tour;
        this.propertyHistories = response.data.histories;
        this.propertyRmls = response.data.rmls_property;
        this.propertySimilar = response.data.similarLisitings;
@@ -148,6 +152,8 @@ if (auth_user_token) {
        console.log(response);
        this.showContent = "block";
        this.property = response.data;
+       this.propertyOpenhouse = response.data.all_open_house;
+       this.virtualTour = response.data.virtual_tour;
        this.propertyHistories = response.data.histories;
        this.propertyRmls = response.data.rmls_property;
        this.propertySimilar = response.data.similarLisitings;
