@@ -1,0 +1,297 @@
+<!--
+  Generated template for the NewpropertiesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar class="no-right">
+    <ion-col class="center">
+      
+       <i class="back_icon" (click)="back()"></i>
+      <p class="title" *ngIf="address">{{ address }}</p>
+      <p class="title" *ngIf="!address">New Properties</p>
+    </ion-col>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<div class="spinner center" *ngIf="showSpinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+<div>
+	<ion-card class="form-card">  
+	  <ion-card-header>
+	    <ion-card-title>Location/Type</ion-card-title>
+	  </ion-card-header>
+	  <ion-card-content>
+		<ion-grid class="form-panel"> 
+			<ion-row>
+				<ion-col col-6>
+					<div class="form-field-panel">
+						<ion-label class="form-field-label">Address*</ion-label>   
+						<ion-input type="text" placeholder="Address" id="autocomplete" name="address"  class="form-field-input" [(ngModel)] = "address" ></ion-input>
+
+						<ion-input type="hidden"  id="city" name="city" [(ngModel)] = "city" ></ion-input>  
+						<ion-input type="hidden"  id="state" name="state" [(ngModel)] = "state"></ion-input>
+						<ion-input type="hidden"  id="country" name="country" [(ngModel)] = "country"></ion-input>
+						<ion-input type="hidden"  id="zip" name="zip" [(ngModel)] = "zip"></ion-input>
+						<ion-input type="hidden"  id="lattitude" name="lattitude" [(ngModel)] = "lattitude"></ion-input>
+						<ion-input type="hidden"  id="longitude" name="longitude" [(ngModel)] = "longitude"></ion-input>
+					</div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="form-field-panel">
+						<ion-label class="form-field-label">Unit / Apt #</ion-label>
+						<ion-input class="form-field-input" placeholder="Unit / Apt #" [(ngModel)] = "unit"></ion-input>
+					</div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="form-field-panel">
+						<ion-label class="form-field-label">Property Nick Name</ion-label>
+						<ion-input class="form-field-input" placeholder="Property Nick Name" [(ngModel)] = "nick_name"></ion-input>
+					</div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="form-field-panel">
+						<ion-label class="form-field-label">Property Type</ion-label>
+						<ion-select class="form-field-select" [(ngModel)]="property_type">
+					      <ion-option value="{{ type }}" *ngFor=" let type of propertyTypes ">{{ type }}</ion-option>
+					    </ion-select>
+					</div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="form-field-panel">
+					<ion-label class="form-field-label">HOA Name</ion-label>
+	                <ion-input class="form-field-input" placeholder="HOA Name" [(ngModel)]="hoa_name"></ion-input>
+	             </div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="form-field-panel">
+					<ion-label class="form-field-label">HOA website</ion-label>
+	                <ion-input class="form-field-input" placeholder="HOA website" [(ngModel)]="hoa_website"></ion-input>
+	             </div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="form-field-panel">
+					<ion-label class="form-field-label">Mailbox Location</ion-label>
+	                <ion-input class="form-field-input" placeholder="Mailbox Location" [(ngModel)]="mailbox_location"></ion-input>
+	             </div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="form-field-panel">
+					<ion-label class="form-field-label">Mailbox Number</ion-label>
+	                <ion-input class="form-field-input" placeholder="Mailbox Number" [(ngModel)]="mailbox_number"></ion-input>
+	             </div>
+				</ion-col>
+				<ion-col col-12>
+					<div class="form-field-panel">
+					<ion-label class="form-field-label">Utility info</ion-label>
+					<tag-input [(ngModel)]="appliedUtilityInfo">
+					       <tag-input-dropdown [autocompleteItems]="preparedUtilityInfo">
+					       </tag-input-dropdown>
+					</tag-input>
+	             </div>
+				</ion-col>
+				<ion-col col-2>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	  </ion-card-content>
+	</ion-card>
+	<ion-card class="form-card">  
+	  <ion-card-header>
+	    <ion-card-title>Property/Information</ion-card-title>
+	  </ion-card-header>
+	  <ion-card-content>
+		<ion-grid class="form-panel">
+			<ion-row>
+				<ion-col col-4>
+					<div class="form-field-panel">
+						<ion-label class="form-field-label">Year Built</ion-label>
+						<ion-input class="form-field-input" placeholder="YYYY" [(ngModel)]="year_built"></ion-input>       
+					</div>
+				</ion-col>
+				<ion-col col-4>
+					<div class="form-field-panel">
+						<ion-label class="form-field-label">Square Feet</ion-label>
+						<ion-input class="form-field-input" placeholder="Square Feet" [(ngModel)]="square_feet"></ion-input>
+					</div>
+				</ion-col>
+				<ion-col col-4>
+					<div class="form-field-panel">
+						<ion-label class="form-field-label">Bedrooms</ion-label>
+						<ion-input class="form-field-input" placeholder="Bedrooms" [(ngModel)]="bedrooms"></ion-input>
+					</div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="form-field-panel">
+						<ion-label class="form-field-label">Full Bath</ion-label>
+						<ion-input class="form-field-input" placeholder="Full Bath" [(ngModel)]="full_bath"></ion-input>
+					</div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="form-field-panel">
+						<ion-label class="form-field-label">Half Bath</ion-label>
+						<ion-input class="form-field-input" placeholder="Half Bath" [(ngModel)]="half_bath"></ion-input>
+					</div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="form-field-panel">
+						<ion-label class="form-field-label">Garages</ion-label>
+						<ion-input class="form-field-input" placeholder="Garages" [(ngModel)]="garages"></ion-input>
+					</div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="form-field-panel">
+						<ion-label class="form-field-label">Parking</ion-label>
+						<ion-input class="form-field-input" placeholder="Parking" [(ngModel)]="parking"></ion-input>
+					</div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="form-field-panel">
+						<ion-label class="form-field-label">Laundry</ion-label>
+						<ion-input class="form-field-input" placeholder="Laundry" [(ngModel)]="laundry"></ion-input>
+					</div>
+				</ion-col>
+				<ion-col col-10>
+					<div class="form-field-panel">
+					<ion-label class="form-field-label">Unit Amenities</ion-label>
+					 <tag-input [(ngModel)]="appliedunitAmenities" (onAdd)="onItemAddedCommunity($event)" >
+					       <tag-input-dropdown [autocompleteItems]="preparedunitAmenities">
+					       </tag-input-dropdown>
+					</tag-input>
+
+	             </div>
+				</ion-col>
+				<ion-col col-2>
+					<button class="filladdbtn" (click) = "openPopup('Unit Amenities')" ></button>
+				</ion-col>
+				<ion-col col-10>
+					<div class="form-field-panel">
+					<ion-label class="form-field-label">Community Amenities</ion-label>
+					<tag-input [(ngModel)]="appliedcommunityAmenities" (onAdd)="onItemAddedCommunity($event)" >
+					       <tag-input-dropdown [autocompleteItems]="preparedcommunityAmenities">
+					       </tag-input-dropdown>
+					</tag-input>
+	             </div>
+				</ion-col>
+				<ion-col col-2>
+					<button class="filladdbtn" (click) = "openPopup('Community Amenities')" ></button>
+				</ion-col>
+
+				<ion-col col-12>
+					<div class="form-field-panel ">
+						<ion-label class="form-field-label">Photos</ion-label>
+						<div class="upload-btn-wrapper">
+				 <button class="u-btn">Choose Files</button>
+						<input type="file" class="form-field-input" multiple="multiple" #fileInput (change)="changeListener($event)">
+					</div>
+					</div>
+					<div class="attachment-panel-preview-group prop-attachment-panel-preview-group">
+						<div class="uploaded-images" *ngFor="let url of urls; let i = index "  >
+							<div id="uploaded_image_{{ i }}">
+								<span class="image_delete" (click) = " removeImage(i, url.name) " ></span>
+	                    		<img [src]="url.url" class="rounded mb-3" width="180">
+                    		</div>
+                    	</div>
+                    	<div *ngFor=" let image of property.property_images ">
+                    		<div id="uploaded_image_previous{{ image.id }}">
+								<span class="image_delete" (click) = " removeUploadedImage(image.id) " ></span>
+	                    		<img [src]="image.full_url" class="rounded mb-3" width="180">
+                    		</div>
+                        </div>
+                	</div>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	  </ion-card-content>
+	</ion-card>
+	<ion-card class="form-card">  
+	  <ion-card-header>
+	    <ion-card-title>General Questions</ion-card-title>
+	  </ion-card-header>
+	  <ion-card-content>
+		<ion-grid class="form-panel">
+			<ion-row>
+				<ion-col col-6>
+					<div class="form-field-panel">
+						<ion-label class="form-field-label">Listing Timeline</ion-label>
+						<ion-datetime class="form-field-input" placeholder="MM/DD/YYYY" displayFormat="MM/DD/YYYY" pickerFormat="MMMM DD YYYY" [(ngModel)]="listing_time"></ion-datetime>
+					</div>
+				</ion-col>
+				<ion-col col-6>
+					<div class="form-field-panel">
+						<ion-label class="form-field-label">Date available</ion-label>
+						<ion-datetime class="form-field-input" placeholder="MM/DD/YYYY" displayFormat="MM/DD/YYYY" pickerFormat="MMMM DD YYYY" [(ngModel)]="date_available"></ion-datetime>
+					</div>
+				</ion-col>
+				<ion-col col-12>
+					<div class="form-field-panel">
+						<ion-label class="form-field-label">Expected Rent Price Range</ion-label>
+						<ion-input class="form-field-input" placeholder="Expected Rent Price Range" [(ngModel)]="expected_rent_price_range"></ion-input>
+					</div>
+				</ion-col>
+				<ion-col col-10>
+					<div class="form-field-panel">
+					<ion-label class="form-field-label">Preferred Lease Terms</ion-label>
+					 <tag-input [(ngModel)]="appliedleaseTerms" (onAdd)="onItemAddedCommunity($event)" >
+					       <tag-input-dropdown [autocompleteItems]="preparedleaseTerms">
+					       </tag-input-dropdown>
+					</tag-input>
+	             </div>
+				</ion-col>
+				<ion-col col-2>
+					<button class="filladdbtn" (click) = "openPopup('Preferred Lease Terms')" ></button>
+				</ion-col>
+
+				<ion-col col-10>
+					<div class="form-field-panel">
+					<ion-label class="form-field-label">Pets</ion-label>
+					 <tag-input [(ngModel)]="appliedpets" (onAdd)="onItemAddedCommunity($event)" >
+					       <tag-input-dropdown [autocompleteItems]="preparedpets">
+					       </tag-input-dropdown>
+					</tag-input>
+
+	             </div>
+				</ion-col>
+				<ion-col col-2>
+					<button class="filladdbtn" (click) = "openPopup('Pets')" ></button>
+				</ion-col>
+
+				<ion-col col-4>
+					<div class="form-field-panel">
+					<ion-label class="form-field-label">HOA Contact Name</ion-label>
+	                <ion-input class="form-field-input" placeholder="HOA Contact Name" [(ngModel)]="hoa_contact_name"></ion-input>
+	             </div>
+				</ion-col>
+				<ion-col col-4>
+					<div class="form-field-panel">
+					<ion-label class="form-field-label">HOA Phone</ion-label>
+	                <ion-input class="form-field-input" placeholder="HOA Phone" [(ngModel)]="phone"></ion-input>
+	             </div>
+				</ion-col>
+				<ion-col col-4>
+					<div class="form-field-panel">
+					<ion-label class="form-field-label">Email</ion-label>
+	                <ion-input class="form-field-input" placeholder="Email" [(ngModel)]="email"></ion-input>
+	             </div>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	  </ion-card-content>
+	</ion-card>
+	<ion-row class="btn-row">
+		<ion-col col-6><button ion-button block text-uppercase (click)="back()" type="button" class="btn btn-outline-blue">Cancel</button></ion-col>
+		<ion-col col-6> <button ion-button block text-uppercase class="btn btn-blue" (click) ="store()" [disabled]="address == '' " >Save</button> </ion-col>
+	</ion-row>
+</div>
+
+
+
+</ion-content>

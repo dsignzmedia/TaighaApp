@@ -1,0 +1,119 @@
+<!--
+Generated template for the MailsPage page.
+See http://ionicframework.com/docs/components/#navigation for more info on
+Ionic pages and navigation.
+-->
+<!-- <ion-header> -->
+<!--     <ion-navbar class="header-panel">
+        <ion-col class="center">
+            <ion-title>Mails</ion-title>
+        </ion-col>
+        <ion-col class="right">
+          
+            <ion-icon class="home_icon" menuToggle></ion-icon>
+        </ion-col>
+    </ion-navbar> -->
+<!--     <ion-navbar class="no-right list-navbar">
+
+        <div class="center">
+          
+            <p class="title">Mails</p>
+        </div>
+    </ion-navbar> -->
+
+<!--     <ion-navbar class="filter-panel">
+        <ion-grid>
+            <ion-row>
+                <ion-col text-center col-6 (click)="openfilterModal({charNum: 0})">Filter
+                    <i><img src="assets/icon/filter-filled.svg" width="15" height="15">
+                        <span *ngIf="isFilterApplied" class="filter-applied"></span>
+                    </i>
+                </ion-col>
+                <ion-col text-center col-6>
+                    <span (click)="createnewMails()">Add new<i><img src="assets/icon/add.svg" width="15" height="15"></i></span>
+                    <span *ngIf="isFilterApplied" class="reset-filter" (click) = "resetFilter()" >Reset</span>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-navbar> -->
+<!-- </ion-header> -->
+
+
+<ion-header padding-left padding-right class="homesearch blue-header">
+    <ion-grid class="blue-header-inner">
+      <ion-row>
+        <ion-col no-padding class="hdr-left">
+        </ion-col>
+        <ion-col no-padding col-6 class="hdr-center">
+          Mails
+        </ion-col>
+        
+        <ion-col no-padding class="hdr-right">
+<!--           <i class="arrow-bg"  (click)="goBack()">
+                    <img src="assets/imgs/close-white.svg" width="25" height="25">
+                </i> -->
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-header>
+<ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <div *ngIf="emails.length > 0">
+<!--         <p class="records-found">{{ totalRecords }} records found.</p> -->
+        <ion-card class="list-panel tickets-listpanel" *ngFor="let email of emails">
+            <ion-card-content>
+                <ion-grid>
+                    <ion-row (click)="mailsview(email)">
+                        <ion-col col-12>
+                            <p class="has-icon">
+                                <i class="address-icon" *ngIf="email.email_from == 'tickets' "><img src="assets/icon/ticket.svg" width="20" height="20"></i> {{ email.common_subject }}
+                            </p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row (click)="mailsview(email)">
+                        <ion-col col-12>
+                            <p>
+                                <label class="d-block">Updated :</label> {{ email.last_updated_at_formatted }} -<i>{{ email.updator_name }}</i> </p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="email.showmore" [@enterAnimation] class="showBottomInfo last" (click)="mailsview(email)">
+                        <ion-col col-4>
+                            <p>
+                                <label class="d-block">Group :</label>{{ email.groupname }}</p>
+                        </ion-col>
+                        <ion-col col-4>
+                            <p>
+                                <label class="d-block">Staff :</label>{{ email.staff_name }}</p>
+                        </ion-col>
+                        <ion-col col-4>
+                            <p>
+                                <label class="d-block">Priority :</label>{{ email.common_priority }}</p>
+                        </ion-col>
+                    </ion-row>
+<!--                     <ion-row class="no-padding">
+                        <ion-col col-12 no-padding>
+                            <div class="bottom--info">
+                                <small class="moreInfo" (click)="toggleTileTexts(email)">{{ email.showmoretext ? email.showmoretext : 'More Info' }}</small>
+                                <small class="viewTickets" (click)="mailsview(email)">View 
+                                   <span *ngIf="email.email_from == 'tickets' " > Ticket</span>
+                                   <span *ngIf="email.email_from != 'tickets' " > Mail</span>
+                                </small>
+                            </div>
+                        </ion-col>
+                    </ion-row> -->
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+    </div>
+    <p class="no-records-found" *ngIf="!showSpinner && emails.length == 0">No Records Found!.</p>
+    <div class="spinner center" *ngIf="showSpinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+    <ion-infinite-scroll threshold="200px" (ionInfinite)="doInfinite($event)" *ngIf="currentPage <= totalPages">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

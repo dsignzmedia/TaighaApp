@@ -1,0 +1,94 @@
+page-propertyview {
+	.back-button {
+		display: none !important;
+
+		.back-button-text {
+			display: none;
+		}
+
+		.back-button-icon {
+			width: 20px;
+			height: 20px;
+			background-image: url(../assets/icon/right-arrow-white.svg);
+			margin-right: 10px;
+			margin: 0;
+			background-size: 100%;
+			background-position: center;
+			background-repeat: no-repeat;
+			display: inline-block;
+
+			&::before {
+				display: none;
+			}
+
+		}
+
+	}
+
+}
+
+.list-panel {
+	&.propinfo-text-panel {
+		&::before {
+			display: none;
+		}
+
+	}
+
+}
+
+.tickets-text-panel, .mails-text-panel, .documents-text-panel {
+	.list-panel {
+		padding: 10px;
+
+		&::before {
+			display: none;
+		}
+
+		.item {
+			position: relative;
+			@include border-radius(10px);
+            border-width: 1px 1px 1px 0;
+            border-style: solid;
+            border-color: #ececec;
+            margin-bottom: 10px;
+			&::before {
+				content: "";
+				position: absolute;
+				height: 100%;
+				width: 5px;
+				background-color: #3366CC;
+			}
+
+		}
+
+		.label {
+			white-space: initial;
+		}
+
+	}
+
+}
+.prop-edit{
+	
+    color: #fff;
+    background: #3366CC;
+    float: right;
+    padding: 0;
+    text-decoration: underline;
+    font-size: 15px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+h2.propertyview { font-size: 16px; background: #3366cc; padding: 10px; color: #FFF; margin: 0; font-weight: bold; }
+.wrap-h2 {
+    width: 100%;
+    float: left;
+    background: #ffffff;
+    padding: 10px 7px 7px 7px; 
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    .padding-panel {
+    	background-color: initial;
+    }
+}

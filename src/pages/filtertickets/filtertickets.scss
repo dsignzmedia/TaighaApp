@@ -1,0 +1,24 @@
+page-filtertickets {
+.back-panel{
+	display: flex;
+}
+}
+ion-header{
+    box-shadow: 0 1px 6px rgba(171, 171, 171, 30%);	
+    button{
+    	    font-size: 15px;
+    background-color: transparent;
+    }
+    h2{
+    	    color: #000;
+    font-size: 18px;
+    margin: 0;
+    }
+}
+ion-header.homesearch .hdr-center {
+    font-weight: 600;
+    text-transform: capitalize;
+    color: #fff;
+    font-size: 16px;
+
+}

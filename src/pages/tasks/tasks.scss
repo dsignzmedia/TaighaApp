@@ -1,0 +1,21 @@
+page-tasks {
+
+}
+.ionradiogroup {
+	.text-right { text-align: right; }
+	.item.item-block .item-inner{ border:0; }
+	.select { color: #3366cc; font-weight: 500; 
+		.select-icon .select-icon-inner {
+			color: #3366cc;
+		}
+	}
+	.input-wrapper { justify-content: flex-end; }
+}
+.task-filter{
+	.label{
+		color: #3366cc;
+	}
+	.select-icon{
+		top: 4px;
+	}
+}

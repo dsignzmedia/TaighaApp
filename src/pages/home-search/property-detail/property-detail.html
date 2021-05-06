@@ -1,0 +1,899 @@
+<ion-content scrollY="false" forceOverscroll="false" has-bouncing="false" no-bounce  no-padding class="bg-white">
+
+
+        <div class="spinner center" *ngIf="propertyshowSpinner">
+                      <div class="bounce1"></div>
+                      <div class="bounce2"></div>
+                      <div class="bounce3"></div>
+        </div>
+        <div [ngStyle]="{'display': showContent}">
+          </div>
+        
+<ion-grid class="over-header">
+    <ion-row>
+        <ion-col class="no-border" text-left>
+                <i class="arrow-bg"  (click)="goBack()">
+                    <img src="assets/imgs/backarrow-blue.svg" width="19" height="19">
+                </i>
+            </ion-col>
+        <ion-col class="no-border" text-right>
+                <i class="gallery">
+                    <img  (click)="viewimage(propertyRmls.ListingID)" src="assets/imgs/art-blue.svg" width="27" height="24">
+                </i>
+            </ion-col>
+    </ion-row>
+</ion-grid>
+<ion-slides *ngIf="propertyImage && propertyImage.length" autoplay="false" loop="true" pager="false" >
+
+  <ion-slide *ngFor="let property of propertyImage">
+     <img src="{{property.image}}" />
+  </ion-slide>
+</ion-slides>
+  <span *ngIf=" propertyRmls.ListingStatus != 'Active'" class="upbadge">{{propertyRmls.ListingStatus}}</span>
+  <span *ngIf="propertyRmls.is_open_house == '1'" class="upbadge">Open {{propertyRmls.open_house_date}}</span>
+  <span *ngIf="propertyRmls.shared_by_name" class="upbadge upunderbadge">Recommended by {{propertyRmls.shared_by_name}} {{propertyRmls.shared_by_date}}</span>
+<div class="property-detail">
+    <ion-grid>
+      <ion-row>
+        <ion-col no-padding col-9>
+          <h2>{{ propertyRmls.FullStreetAddress}}</h2>
+          <h4>{{ propertyRmls.City}}, {{ propertyRmls.State }} {{ propertyRmls.ZipCode }}</h4>
+        </ion-col>
+        <ion-col no-padding>
+            <ul  class="property-action">
+              <li class="favoritelist" *ngIf="propertyRmls.facCount == '1'">
+        <ion-item id="{{propertyRmls.ListingID}}card" style="padding-left: 10px;" no-lines>
+          <ion-label><i class="favorite-icon"></i></ion-label>
+          <ion-checkbox checked (click)="favorite(propertyRmls.ListingID) "></ion-checkbox>
+        </ion-item>
+              </li>
+              <li class="favoritelist" *ngIf="propertyRmls.facCount == '0'">
+        <ion-item id="{{propertyRmls.ListingID}}card" style="padding-left: 10px;" no-lines>
+          <ion-label><i class="favorite-icon"></i></ion-label>
+          <ion-checkbox (click)="favorite(propertyRmls.ListingID) "></ion-checkbox>
+        </ion-item>
+              </li>
+              <li *ngIf="IsStaff" (click)="openEdit(propertyRmls.ListingID)"><i class="share-icon"><img src="assets/imgs/outline-share.svg"></i></li>
+              <li *ngIf="!IsStaff">
+                <i class="share-icon" (click)="sharesocial(propertyRmls.County, propertyRmls.State, propertyRmls.ZipCode, propertyRmls.slug, propertyRmls.ListingID)">
+                  <img src="assets/imgs/outline-share.svg">
+                </i>
+              </li>
+            </ul>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 no-padding>
+          <p class="price">${{ propertyRmls.PriceCurrentForStatus | number: '2.'}}</p>
+        </ion-col>
+        <ion-col col-12 no-padding>
+    <ul class="property-details">
+      <li>
+        <i> <img src="assets/imgs/bed.svg" width="36" height="19"> </i> <p> {{ propertyRmls.Beds ? propertyRmls.Beds : '0' }} bd</p>
+      </li>
+      <li>
+        <i> <img src="assets/imgs/bathtube-with-shower.svg" width="20" height="20"> </i> <p> {{ propertyRmls.BathsCustom ? propertyRmls.BathsCustom : '0' }} ba</p>
+      </li>
+      <li>
+        <i> <img src="assets/imgs/triangular-ruler-for-school.svg" width="19" height="19"> </i> <p> {{ propertyRmls.SqFtApproximateTotal ? propertyRmls.SqFtApproximateTotal : '0' }} st</p>
+      </li>
+      <li>
+        <i> <img src="assets/imgs/clock.svg" width="20" height="20"> </i> <p> {{ propertyRmls.DaysOnMarketCustom ? propertyRmls.DaysOnMarketCustom : '0' }}</p>
+      </li>
+    </ul>
+        </ion-col>	
+      </ion-row>  
+      <ion-row class="built-status">
+        <ion-col col-4 no-padding>
+          <p><strong>Built:</strong> {{ propertyRmls.YearBuilt ? propertyRmls.YearBuilt : '0' }}</p>
+        </ion-col>
+        <ion-col no-padding>
+          <p><strong>Status:</strong> {{ propertyRmls.ListingStatus ? propertyRmls.ListingStatus : '0' }}</p>
+        </ion-col>
+       </ion-row>
+      </ion-grid>
+</div>
+<div class="property-map">
+	<div #propertymap id="propertymap"></div>
+</div>
+<div class="ceo-panel">
+<ion-card >
+  <ion-card-content>
+    <ion-card-title>
+       <figure>
+       	  <img src="assets/imgs/krish-avatar.svg">
+       </figure>
+       <div class="profile-detail">
+       	   <h3>Krishna Regupathy</h3>
+       	   <h5>Principal Broker</h5>
+       	   <h4>(503) 985-6864</h4>
+       </div>
+    </ion-card-title>
+    <p>{{ propertyRmls.RemarksPublic }}</p>
+  </ion-card-content>
+</ion-card>
+</div>
+
+<div class="information">
+<ion-card >
+  <ion-card-header (click)="generalButtons()" [ngClass]="this.generalClicked === true?'':'closed'" >
+    <h3>General Information</h3>
+    <!--  [style.backgroundImage]="'url(' + generalcollapseIcon + ')'" -->
+    <i><span  class="collapse-icon"></span></i>
+  </ion-card-header>
+  <ion-card-content *ngIf="this.generalClicked === true">
+   <ion-grid>
+      <ion-row>
+        <ion-col col-6 no-padding>
+          <span>ML#</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.ListingID ? propertyRmls.ListingID : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Type</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.PropertyType ? propertyRmls.PropertyType : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Days on Market</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.DaysOnMarketCustom ? propertyRmls.DaysOnMarketCustom : '0' }}</p>
+        </ion-col>
+       </ion-row>
+
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Beds</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.Beds ? propertyRmls.Beds : '0' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Lot Size</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <!-- <p>{{ propertyRmls.Acres < 0.25 ? propertyRmls.convertToSqft(propertyRmls.Acres).' SqFt' : propertyRmls.twoDecimalConvert(propertyRmls.Acres).' acres' }}</p> -->
+          <p>{{ propertyRmls.LostSizeConverted ? propertyRmls.LostSizeConverted : '0' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Baths</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.BathsCustom ? propertyRmls.BathsCustom : '0' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>SqFt</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.SqFtApproximateTotal ? propertyRmls.SqFtApproximateTotal : '0' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Year built</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.YearBuilt ? propertyRmls.YearBuilt : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Zoning</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.Zoning ? propertyRmls.Zoning : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>County</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.County ? propertyRmls.County : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Tax ID</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.TaxID ? propertyRmls.TaxID : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Elem</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.SchoolElementary ? propertyRmls.SchoolElementary : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Middle</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.SchoolMiddle ? propertyRmls.SchoolMiddle : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>High</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.SchoolHigh ? propertyRmls.SchoolHigh : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>PropCategory</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.PropertyCategory ? propertyRmls.PropertyCategory : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>PropType</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.PropertyType ? propertyRmls.PropertyType : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Neighborhood (Legal)</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.LegalDescription ? propertyRmls.LegalDescription : '-' }}</p>
+        </ion-col>
+       </ion-row>
+
+
+       <ion-row class="description listingdesc">
+        <ion-col no-padding>
+        	<p>Listing Provided Courtesy of {{ propertyRmls.ListAgentFullName }}, {{ propertyRmls.ListOfficeName }}</p>
+<p>TopTech Realty data last checked</p>
+<p>{{ propertyRmls.DataLastChecked }} | Listing last modified {{ propertyRmls.DateTimeModifiedCustom }}, <span>Source: <img src="assets/imgs/rmls-logo.svg" width="58" height="21"></span></p>
+<!-- <p>Source: <img src="assets/imgs/rmls-logo.svg" width="58" height="21"></p> -->
+        </ion-col>
+       </ion-row>
+
+   </ion-grid>
+  </ion-card-content>
+</ion-card>
+
+<ion-card >
+  <ion-card-header (click)="residenceButtons()" [ngClass]="this.residenceClicked === true?'':'closed'" >
+    <h3>Residence Information</h3>
+    <i><span  class="collapse-icon"></span></i>
+  </ion-card-header>
+  <ion-card-content *ngIf="this.residenceClicked === true">
+   <ion-grid>
+      <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Upper SqFt</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.SqFtUpperLevelTotal ? propertyRmls.SqFtUpperLevelTotal : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Main SqFt</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.SqFtMainLevelTotal ? propertyRmls.SqFtMainLevelTotal : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Lower SqFt</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.SqFtLowerLevelTotal ? propertyRmls.SqFtLowerLevelTotal : '-' }}</p>
+        </ion-col>
+       </ion-row>
+
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Total SqFt</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.SqFtApproximateTotal ? propertyRmls.SqFtApproximateTotal : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>SFSrc</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.SqFtSource ? propertyRmls.SqFtSource : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>TotUp/Mn</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.SqFtApproximateTotal ? propertyRmls.SqFtApproximateTotal : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Fireplaces</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.FireplacesTotal ? propertyRmls.FireplacesTotal : '0' }}/Gas</p>
+        </ion-col>
+       </ion-row>
+<!--        <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Addl. SqFt</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>-</p>
+        </ion-col>
+       </ion-row> -->
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Bdrms</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.Beds ? propertyRmls.Beds : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Full Bath</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.BathsFull ? propertyRmls.BathsFull : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Partial Bath</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.BathsPartial ? propertyRmls.BathsPartial : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Total Bath</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.BathsCustom ? propertyRmls.BathsCustom : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Roof</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.RoofType ? propertyRmls.RoofType : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Garage</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.GarageOrParkingSpaces ? propertyRmls.GarageOrParkingSpaces : '-' }}, {{ propertyRmls.GarageType }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Style</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.Style ? propertyRmls.Style : '-' }}</p>
+        </ion-col>
+       </ion-row>
+
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Parking</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.ParkingFeatures ? propertyRmls.ParkingFeatures : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Levels</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.Stories ? propertyRmls.Stories : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Year Built</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.YearBuilt ? propertyRmls.YearBuilt : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Green Cert</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.GreenEnergySupplementYN ? propertyRmls.GreenEnergySupplementYN : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Energy Eff</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.EnergyEfficiencyFeatures ? propertyRmls.EnergyEfficiencyFeatures : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Exterior</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.ExteriorDescription ? propertyRmls.ExteriorDescription : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Bsmt/Fnd</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.BasementFoundation ? propertyRmls.BasementFoundation : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>RV</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.RVDescription ? propertyRmls.RVDescription : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>URM</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.UnreinforcedMasonryBldgYN ? propertyRmls.UnreinforcedMasonryBldgYN : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Basement</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.Basement ? propertyRmls.Basement : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Foundation</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.FoundationDetails ? propertyRmls.FoundationDetails : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Windows</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.WindowFeatures ? propertyRmls.WindowFeatures : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Amenities</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.AssociationAmenities ? propertyRmls.AssociationAmenities : '-' }}</p>
+        </ion-col>
+       </ion-row>
+
+   </ion-grid>
+  </ion-card-content>
+</ion-card>
+
+<ion-card >
+  <ion-card-header (click)="featuresButtons()" [ngClass]="this.featuresClicked === true?'':'closed'" >
+    <h3>Features And Utilities</h3>
+    <i><span class="collapse-icon"></span></i>
+  </ion-card-header>
+  <ion-card-content *ngIf="this.featuresClicked === true">
+   <ion-grid>
+      <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Living</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.LivingRoomFeatures ? propertyRmls.LivingRoomFeatures : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Kitchen</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.KitchenAppliances ? propertyRmls.KitchenAppliances : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Interior</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.InteriorFeatures ? propertyRmls.InteriorFeatures : '-' }}</p>
+        </ion-col>
+       </ion-row>
+
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Exterior</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.ExteriorFeatures ? propertyRmls.ExteriorFeatures : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Accessibility</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.AccessibilityFeatures ? propertyRmls.AccessibilityFeatures : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Cool</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.CoolingDescription ? propertyRmls.CoolingDescription : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Water</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.WaterDescription ? propertyRmls.WaterDescription : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Heat</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.HeatingDescription ? propertyRmls.HeatingDescription : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Sewer</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.SewerDescription ? propertyRmls.SewerDescription : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Hot Water</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.HotWaterDescription ? propertyRmls.HotWaterDescription : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Fuel</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.FuelDescription ? propertyRmls.FuelDescription : '-' }}</p>
+        </ion-col>
+       </ion-row>
+
+   </ion-grid>
+  </ion-card-content>
+</ion-card>
+
+<ion-card >
+  <ion-card-header (click)="financialButtons()" [ngClass]="this.financialClicked === true?'':'closed'" >
+    <h3>Financial</h3>
+    <i><span class="collapse-icon"></span></i>
+  </ion-card-header>
+  <ion-card-content *ngIf="this.financialClicked === true">
+   <ion-grid>
+      <ion-row>
+        <ion-col col-6 no-padding>
+          <span>PTax/Yr</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.TaxAmount ? propertyRmls.TaxAmount : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>HOA</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.HOAYN ? propertyRmls.HOAYN : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>HOA Incl</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.HOARentIncludes ? propertyRmls.HOARentIncludes : '-' }}</p>
+        </ion-col>
+       </ion-row>
+
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>HOA Fee</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.HOAFee ? propertyRmls.HOAFee : '-' }} / {{ propertyRmls.HOAPaymentFreq ? propertyRmls.HOAPaymentFreq : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Other Dues</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>-</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Terms Considered</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.Terms ? propertyRmls.Terms : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>List Date</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{propertyRmls.DateList | date: 'MM-dd-yyyy' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Rent (If Rented)</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.RentAmount ? propertyRmls.RentAmount : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Bank Owned/REO</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.BankOwnedYN ? propertyRmls.BankOwnedYN : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Short Sale</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.ShortSaleYN ? propertyRmls.ShortSaleYN : '-' }}</p>
+        </ion-col>
+       </ion-row>
+
+   </ion-grid>
+  </ion-card-content>
+</ion-card>
+
+<ion-card >
+  <ion-card-header (click)="comparableButtons()" [ngClass]="this.comparableClicked === true?'':'closed'" >
+    <h3>Comparable</h3>
+    <i><span class="collapse-icon"></span></i>
+  </ion-card-header>
+  <ion-card-content *ngIf="this.comparableClicked === true">
+   <ion-grid>
+      <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Pend</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.DatePending ? propertyRmls.DatePending : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>DOM</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.DaysOnMarketCustom ? propertyRmls.DaysOnMarketCustom : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>CDOM</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.CumulativeDaysOnMarketCustom ? propertyRmls.CumulativeDaysOnMarketCustom : '-' }}</p>
+        </ion-col>
+       </ion-row>
+
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Sold</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>-</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Terms</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.Terms ? propertyRmls.Terms : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Offering Price</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{ propertyRmls.PriceListOriginal ? propertyRmls.PriceListOriginal : '-' }}</p>
+        </ion-col>
+       </ion-row>
+       <ion-row>
+        <ion-col col-6 no-padding>
+          <span>Last Modified</span>
+        </ion-col>
+        <ion-col col-6 no-padding>
+          <p>{{propertyRmls.DateLastTransaction | date:'MMM d, y H:mm'}}</p>
+        </ion-col>
+       </ion-row>
+
+   </ion-grid>
+  </ion-card-content>
+</ion-card>
+
+<ion-card class="table-panel"  *ngIf="propertyRmls.historyDatas != 0">
+  <ion-card-header (click)="historyButtons()" [ngClass]="this.historyClicked === true?'':'closed'" >
+    <h3>History</h3>
+    <i><span  class="collapse-icon"></span></i>
+  </ion-card-header>
+  <ion-card-content *ngIf="this.historyClicked === true">
+   <ion-grid no-padding>
+   <div class="table">
+        <div class="row header">
+          <div class="col">Date</div>
+          <div class="col">Event & Source</div>
+          <div class="col">Price</div>
+        </div>
+        <div class="row table-list" *ngFor="let history of propertyRmls.historyDatas">
+          <div class="col">{{history.date }}</div>
+          <div class="col" [innerHTML]="history.event">
+        </div>
+          <div class="col">{{ history.price}}</div>
+        </div>
+   </div>
+
+   </ion-grid>
+  </ion-card-content>
+</ion-card>
+       <div class="description lastdescription">
+<p>
+        Listing courtesy of {{ propertyRmls.ListOfficeName }}
+    </p>
+<p class="p-img"><img src="assets/imgs/rmls-logo.svg" width="40" height="15">
+        The content relating to real estate for sale on this site comes in part from the IDX program of the RMLS of Portland, Oregon.
+        Real Estate listings held by brokerage firms other than this firm are marked with the RMLS logo, and
+        detailed information about these properties include the name of the listing's broker.
+        Listing content is copyright © 2019 RMLS of Portland, Oregon.
+        All information provided is deemed reliable but is not guaranteed and should be independently verified.
+        TopTech Realty data last checked: {{ propertyRmls.DataLastChecked }} | Listing last modified {{ propertyRmls.DateTimeModifiedCustom }}.
+        Some properties which appear for sale on this web site may subsequently have sold or may no longer be available.
+    </p>
+       </div>
+</div>
+<div class="similar-properties homesearch">
+	<h3>Similar Properties</h3>
+  <div class="card-panel">
+      <ion-card *ngFor="let property of propertySimilar">
+        <figure class="main-card-img">
+          <span *ngIf=" property.ListingStatus != 'Active'" class="badge">{{property.ListingStatus}}</span>
+          <img (click)="viewProperty(property.ListingID)" src="{{ property.rmls_image }}"/>
+          <span *ngIf="property.shared_by_name" class="badge underbadge">Recommended by {{property.shared_by_name}} {{property.shared_by_date}}</span>
+        </figure>
+        <ion-card-content>
+          <ion-card-title>
+            <span class="price" (click)="viewProperty(property.ListingID)">${{ property.PriceCurrentForStatus | number: '2.'}}</span>
+            <ul>
+              
+               <li *ngIf="!IsStaff"  (click)="foropenEdit(property.ListingID)">
+               <i class="share-icon"><img src="assets/imgs/outline-chat.svg"></i>
+               </li>
+              <li class="favoritelist" *ngIf="property.facCount == '1'">
+        <ion-item id="{{property.ListingID}}card" style="padding-left: 10px;" no-lines>
+          <ion-label><i class="favorite-icon"></i></ion-label>
+          <ion-checkbox checked (click)="favorite(property.ListingID) "></ion-checkbox>
+        </ion-item>
+              </li>
+              <li class="favoritelist" *ngIf="property.facCount == '0'">
+        <ion-item id="{{property.ListingID}}card" style="padding-left: 10px;" no-lines>
+          <ion-label><i class="favorite-icon"></i></ion-label>
+          <ion-checkbox (click)="favorite(property.ListingID) "></ion-checkbox>
+        </ion-item>
+              </li>
+              <li *ngIf="IsStaff" (click)="openEdit(property.ListingID)"><i class="share-icon"><img src="assets/imgs/outline-share.svg"></i></li>
+              <li *ngIf="!IsStaff">
+                <i class="share-icon"  (click)="sharesocial(property.County, property.State, property.ZipCode, property.slug, property.ListingID)">
+                  <img src="assets/imgs/outline-share.svg">
+                </i>
+              </li>
+            </ul>
+          </ion-card-title>
+          <ul class="property-details"  (click)="viewProperty(property.ListingID)">
+            <li>
+              <img src="assets/imgs/bed.svg"> <strong>{{ property.Beds }}</strong> bed
+            </li>
+            <li>
+              <img src="assets/imgs/bathtube-with-shower.svg"> <strong>{{ property.BathsTotalInteger }}</strong> baths
+            </li>
+            <li>
+              <img src="assets/imgs/triangular-ruler-for-school.svg"> <strong>{{ property.SqFtApproximateTotal }}</strong> sqft
+            </li>
+            <li>
+              <img src="assets/imgs/clock.svg"> <strong class="lowercase" style="    white-space: nowrap;">{{ property.DaysOnMarketCustom ? property.DaysOnMarketCustom : '0' }}</strong>
+            </li>
+          </ul>
+          <div class="address-panel" >
+            <ul>
+              <li  (click)="viewProperty(property.ListingID)"> 
+                {{ property.FullStreetAddress }}
+
+              </li>
+              <li  (click)="viewProperty(property.ListingID)">
+                {{ property.City }}, {{ property.State }} {{ property.ZipCode }}
+              </li>
+            </ul>
+            <img src="assets/imgs/rmls-logo.svg">    </div>
+          </ion-card-content>
+        </ion-card>
+
+  </div>
+</div>
+
+</ion-content>
+<div class="sticky-btn" *ngIf="IsStaffCheck == '0'">
+    <button class="btn btn-hasicon btn-curve" (click)="request('question', propertyRmls.ListingID)"> 
+      Ask a Question
+    </button>
+    <button class="btn btn-hasicon btn-curve" (click)="request('tour', propertyRmls.ListingID)"> 
+      Request Tour
+    </button>
+    <button class="btn btn-hasicon btn-curve" (click)="request('offer', propertyRmls.ListingID)"> 
+      Start an Offer
+    </button>
+    
+</div>

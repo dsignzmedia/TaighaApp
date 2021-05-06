@@ -1,0 +1,62 @@
+page-profile {
+.toolbar-title{
+	overflow: inherit !important;
+}
+}
+.profile-content-wrapper{
+	
+
+	.form-field-label{
+		    color: #8e8e8e;
+		    margin-bottom: 0;
+	}
+	.form-field-input{
+		border-width: 0 0 1px 0;
+		color: #000000;
+	}
+	.text-input{
+		margin-left: 0 !important;
+		width: 100% !important;
+	}
+}
+.profile-figure-panel{
+	.avatar{
+		background-color: white;
+		width: 150px;
+		height: 150px;
+		overflow: hidden;
+		@include border-radius(50%);
+	    margin: 25px auto 20px;
+		img{
+			border-radius: 50%;
+			width: 150px;
+		    height: 150px;
+		    object-fit: cover;
+
+		}
+	}
+
+}
+.changephoto{
+		color: color($colors, secondary) !important;
+		font-size: 17px !important;
+}
+.form-card .card-header.profile-header{
+	background-color: color($colors, light);
+	position: relative;
+	*{
+		position: relative;
+		z-index: 1;
+		text-align: center;
+	}
+	&::before{
+		content: "";
+		height:115px;
+		background-color: color($colors, secondary);
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		z-index: 0;
+	}
+}

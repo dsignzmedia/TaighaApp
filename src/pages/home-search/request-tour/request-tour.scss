@@ -1,0 +1,198 @@
+page-request-tour {
+    .request-tour, .ask-question, .start-offer{
+        p{
+            color: #838383;
+        }
+    }
+ion-datetime {
+    background-color: rgba(241, 241, 241, 0.3)  !important;
+    border: 1px solid rgba(199, 199, 199, 0.3)  !important;
+    border-radius: 8px  !important;
+    padding: 0 15px !important;
+    margin: 5px 0  !important;
+    width: 100%  !important;
+    font-size: 14px  !important;
+    height: 44px  !important;
+    display: flex;
+    align-items: center;
+}
+	ion-header{
+		font-size: 16px;
+	}
+.custom-slider{
+            @include flexbox;
+            @include align-items($value: center);
+	.arrow-panel{
+
+	}
+	ul{
+		padding: 0;
+		text-decoration: none;
+            @include flexbox;
+            @include align-items($value: center);
+            @include flex-wrap($wrap: wrap);	
+            @include justify-content($value: center);	
+        li{
+			    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex: 0 0 29.3333%;
+    max-width: 29.3333%;
+    @include flexbox;
+    flex-direction: column;
+    margin-right: 6px;
+    text-align: center;
+    // width: 28%;
+    // min-width: 93px;
+    cursor: pointer;
+    text-transform: uppercase;
+    // opacity: 0.6;
+    margin-bottom: 10px;
+    display: inline-block;
+    &:nth-child(3){
+    margin-right: 0;
+    }
+    &:nth-child(6){
+    margin-right: 0;
+    }
+    ion-item{
+    	padding: 0 !important;
+    	.item-input:last-child {
+    border-bottom: 0!important;
+}
+    	&.item-checkbox-checked{
+    		background-color: $blue;
+    		color: #fff;
+			ion-label {
+			color: #fff !important;
+			}
+    	}
+    ion-checkbox{
+    	margin: 0 !important;
+    	.checkbox-icon{
+    		display: none;
+    	}
+
+    }
+    .item-inner{
+    	padding: 0 !important;
+    	ion-label{
+    		margin: 0 !important;
+    .date-panel{
+    	text-align: center;
+    	span{
+    		    display: block;
+    	}
+    	.date-top{
+    font-size: 12px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    	}
+    	.date-middle{
+    	    font-size: 24px;	
+    	}
+    	.date-bottom{
+    		font-size: 14px;
+    margin-bottom: 10px;
+    	}
+    }
+    	}
+    }
+    }
+
+
+		}
+	}
+}
+	ion-select{
+    background-color: transparent;
+    border: 1px solid rgba(199, 199, 199, 0.3);
+    border-radius: 8px;
+    padding: 0 15px;
+    margin: 5px 0 10px;
+    width: 100%;
+    font-size: 15px;
+    color: #3F4768;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    height: 48px;
+    .select-text{
+    padding: 0;
+    width: calc(100% - 8px);
+    }
+    .item-cover{
+    	display: none;
+    }
+	}
+
+.select-icon .select-icon-inner {
+    top: 50%;
+    margin-top: -5px !important;
+    position: absolute;
+    width: 0;
+    height: 0;
+    color: rgba(191, 191, 191, 0.65) !important;
+    pointer-events: none;
+    border-top: 13px solid !important;
+    border-right: 13px solid transparent !important;
+    border-left: 13px solid transparent !important;
+    left: -20px !important;
+}
+button {
+  &.item-button {
+    height: 45px;
+    font-size: $large-fontsize;
+    font-weight: $medium-font-weight;
+    line-height: 45px;
+  }
+  &.btn{
+    background-color: #3366CC;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    height: 35px;
+    line-height: 35px;
+    text-transform: initial;
+    padding: 0 40px;
+    margin: 0 auto;
+    display: block;
+  }
+  &.btn-curve{
+    border-radius: 40px;
+  }
+  &.full-btn{
+    width: 100%;
+    max-width: 100%;
+    &.btn-curve{
+      border-radius: 10px;
+    }
+  }
+}
+ion-content{
+	background-color: #fff !important;
+textarea {
+    background-color: rgba(241, 241, 241, 0.3);
+    border: 1px solid rgba(199, 199, 199, 0.3);
+    border-radius: 8px;
+    padding: 8px 15px;
+    margin: 5px 0 10px !important;
+    width: 100%;
+    display: inline-block;
+    font-size: 15px;
+    min-width: 100%;
+    resize: vertical;
+}
+ion-list{
+    margin: 0 !important;
+}
+    ion-item{
+    	&.item-input:last-child {
+    border-bottom: 0!important;
+}
+.item-inner{
+padding: 0 !important;
+	}
+}
+
+}
+}

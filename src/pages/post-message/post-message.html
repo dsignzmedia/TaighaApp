@@ -1,0 +1,42 @@
+<ion-header>
+ <ion-navbar class="header-panel">
+    <ion-col no-padding class="hdr-left">
+        <img src="assets/imgs/menu.svg" (click)="openHomeSearchmenu()"  width="30" height="30" />
+      </ion-col>
+        <ion-col class="center">
+            <ion-title>Post a Message</ion-title>
+        </ion-col>
+<!--         <ion-col class="right">
+          
+            <ion-icon class="home_icon" menuToggle></ion-icon>
+        </ion-col> -->
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-card class="form-card ">
+    <ion-card-header>
+      <ion-card-title>Message</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            <div class="form-field-panel">
+              <ion-label class="form-field-label">Subject</ion-label>
+              <ion-input type="text" class="form-field-input" placeholdr="Subject" value=""></ion-input>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel">
+              <ion-label class="form-field-label">Message</ion-label>
+              <ion-textarea class="form-field-input textarea-field" #msgInput rows="1" placeholdr="Message" maxLength="500"></ion-textarea>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="btn-row">      
+      <ion-col col-6><button ion-button block text-uppercase class="btn btn-blue">Submit</button></ion-col>               
+    </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

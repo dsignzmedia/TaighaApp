@@ -1,0 +1,283 @@
+page-tickets {
+.nav-custom .nav-right .plusicon{
+	    margin-right: 0;
+}
+.create-icon{
+    padding-right: 20px;
+}
+.nav-custom .nav-right .advfiltericon{
+      //  margin-right: 15px;
+}
+.spinnerTop{
+    margin-top: 40px;
+}
+	// searchbar
+	.all-search{
+		    position: relative;
+		    &::before{
+    content: ' ';
+    height: 0;
+    position: absolute;
+    width: 0;
+    left: 20px;
+    border: 10px solid transparent;
+    border-bottom-color: #cccccc;
+    top: -19px;
+    z-index: 1;
+		    }
+ion-searchbar{
+	padding: 0 8px !important;
+    min-height: 44px;
+    border-top: 0.55px solid transparent;
+    border-bottom: 0.55px solid rgba(0, 0, 0, 0.05);
+    background: #cccccc;
+    .searchbar-search-icon{
+    left: 9px;
+    top: 8px;
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-repeat: no-repeat;
+    background-size: 15px;  
+      }
+    .searchbar-input{
+    padding: 0 28px;
+    border-radius: 5px;
+    height: 3rem;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #000;
+    background-color: #fff;
+    box-shadow: unset;
+    }
+    }
+}
+	// searchbar
+	ion-content{
+		background-color: #fff !important;
+        .mail-count-panel{
+            display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 0;
+        position: relative;
+        &:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: #3366cc;
+    z-index: -1;
+}
+            span{
+                font-size: 16px;
+                    display: flex;
+    align-items: center;
+    justify-content: center;
+                    background-color: #3366cc;
+    color: #fff;
+    padding: 0 10px;
+    border-radius: 40px;
+    img{
+        margin-right: 5px;
+    }
+            }
+        }
+                .mail-count-panel2{
+            display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 5px 0;
+//         position: relative;
+//         &:before {
+//     content: '';
+//     position: absolute;
+//     width: 100%;
+//     height: 1px;
+//     background-color: #3366cc;
+//     z-index: -1;
+// }
+            span{
+                font-size: 16px;
+                    display: flex;
+    align-items: center;
+    justify-content: center;
+                    background-color: #3366cc;
+    color: #fff;
+    padding: 0 10px;
+    border-radius: 40px;
+    img{
+        margin-right: 5px;
+    }
+            }
+        }
+.mail-section {
+    display: flex;
+    .thumbnail-panel{
+        width: 15%;
+    float: left;
+            margin-right: 10px;
+        ion-thumbnail{
+                background-color: #ced8eb;
+    border-radius: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    height: 40px;
+        width: 40px;
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    img{
+        width: 23px;
+    height: 14px;
+    }
+
+        }
+    }
+    .mail-detail{
+            // width: 85%;
+            width: 100%;
+            .desc{
+                    font-size: 13px;
+                    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    display: block;
+    color: #494949;
+            }
+            .mail-sub-detail{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3px;
+                span{
+                            font-size: 15px;
+                            color: #000;
+                }
+                .max-text{
+                        max-width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+                }
+            }
+    }
+
+
+}
+	}
+ion-list{
+
+	ion-item{
+	background-color: rgba(51,102,204,0.15) !important;
+    border-radius: 5px !important;
+    overflow: hidden !important;
+   // border-left: 5px solid #3366CC !important;
+		    margin-bottom: 15px !important;
+	}
+	ion-label{
+		display: flex;
+	    align-items: center;
+	    justify-content: space-between;
+	}
+.lead-detail{ 
+	span {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3px;
+    img{
+    margin-right: 10px;
+    border-radius: 40px;
+    }
+    p{
+    	font-size: 14px;
+    font-weight: bold;
+    color: #000;
+        padding-left: 0px;
+
+    }
+}
+p{
+	font-size: 14px;
+    font-weight: bold;
+    color: #000;
+        padding-left: 5px;
+}
+}
+ul{
+	display: flex;
+    align-items: center;
+    margin: 0;
+    list-style-type: none;
+}
+.active-badge {
+background-color: rgba(51,102,204,0.43) !important;
+color: rgba(0,26,198,0.80) !important;
+}
+
+}
+}
+.list-details{
+    .list-title{
+             margin-bottom: 10px;
+    }
+
+    .desc{
+        p{
+            color: #000;
+        }
+    }
+}
+// .list-panel{
+// 	.bottom--info{
+		
+// 		@include flexbox;
+// 		@include align-items($value: center);
+// 		border-top:1px solid #e2dddd; 
+	
+// 		background-color: color($colors, light);
+// 		small{
+// 			flex: 0 0 50%;
+// 			max-width: 50%;
+// 			text-align: center;
+// 			position: relative;
+// 			padding: 10px 0;
+// 			font-size: 13px;
+// 			color: color($colors, secondary);
+// 			&.viewTickets{
+// 			}
+// 			&.moreInfo{
+// 				color: color($colors, secondary);
+// 			}
+// 			&.moreInfo
+// 			{
+// 				&:after{
+// 					content:"";
+// 				position: absolute;
+// 				right: 0;
+// 				top: 0;
+// 				bottom: 0;
+// 				width: 1px;
+// 				height: 90%;
+// 				margin: auto;
+// 				background: #e2dddd;
+// 			}
+// 				}
+
+// 		}
+// 	}
+// }
+
+// .tickets-listpanel{
+// 	&.list-panel{
+//           border-width: 3px 0px 0px 0px;
+//     border-color: #3366CC;
+//     border-style: solid;
+//     @include border-radius(0);
+//     &:before{
+//     	display: none;
+//     }
+// 	}
+// }
+// .ticket-completed { text-decoration: line-through; font-style: italic; }
+// .reset-filter { float: right; padding-right: 10px; color: #e00707; padding-top: 4px; } 

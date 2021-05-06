@@ -1,0 +1,30 @@
+page-contactus {
+
+}
+.contactus-address{
+	background-color: color($colors, light);
+	color: color($colors, secondary);
+	position: relative;
+    border-radius: 0;
+    overflow: hidden;
+	&::before{
+		display: none;
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 10px;
+		height: 100%;
+		background-color: color($colors, secondary);
+	}
+	h3{
+     color: color($colors, secondary);
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+	}
+	p{
+		margin-bottom: 10px;
+		font-size: 15px;
+	}
+}

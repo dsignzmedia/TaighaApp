@@ -1,0 +1,99 @@
+<!--
+  Generated template for the TasksPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar class="no-right list-navbar">
+      <!--   <ion-col class="center">
+            <ion-title>Activities</ion-title>
+            <ion-icon class="home_icon" menuToggle></ion-icon>
+        </ion-col> -->
+  <ion-col no-padding class="hdr-left">
+        <img src="assets/imgs/menu.svg" (click)="openHomeSearchmenu()"  width="30" height="30" />
+      </ion-col>
+        <div class="center">
+<!--             <i class="home_icon" menuToggle></i> -->
+            <p class="title">Tasks</p>
+          
+            <!--  <ion-title *ngIf="!ticket">TICKET</ion-title> -->
+        </div>
+        <!-- <ion-col class="right">
+            
+        </ion-col> -->
+    </ion-navbar>
+    <ion-navbar class="filter-panel">
+        <ion-grid>
+            <ion-row>
+                <ion-col class="no-border ionradiogroup" text-center col-12 >
+                    <ion-item class="task-filter">
+                        <ion-label class="text-right">Filter By :</ion-label>
+                        <ion-select [(ngModel)]="filterstatus" (ionChange)="clearAndGetTasks()">
+                            <ion-option value="not_completed">Not Completed</ion-option>
+                            <ion-option value="completed">Completed</ion-option>
+                            <ion-option value="all">All</ion-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="activitylog-text-panel">
+<ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+</ion-refresher>
+<p class="records-found" *ngIf="!showSpinner">{{ totalRecords }} records found.</p>
+    <div *ngIf="tasks.length > 0">
+    	<ion-card class="list-panel tickets-listpanel" [ngClass]="{ 'task-completed' : (task.is_completed == 1) }" *ngFor="let task of tasks">
+            <ion-card-content>
+                <ion-grid>
+                    <ion-row (click)="goToCorrespondTask(task)">
+                        <ion-col col-12>
+                            <p class="headertext">
+                              <span>{{ task.checklist }} </span>
+                              <span *ngIf="task.taskstaffname">, Assigned: {{ task.taskstaffname }}</span>
+                              <span *ngIf="task.due_date_formatted">, Due Date: {{ task.due_date_formatted }} </span>
+                            </p>
+
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="task.sub_activity_checked" [@enterAnimation] class="showBottomInfo" (click)="goToCorrespondTask(task)">
+                        <ion-col col-6>
+                            <p>
+                                <label class="d-block">Task for :</label>{{ task.checklist_type }}</p>
+                        </ion-col>
+                        <ion-col col-6 >
+                            <p>
+                                <label class="d-block">Status :</label>{{ task.is_completed == 0 ? 'Not Complete' : 'Complete' }}</p>
+                        </ion-col>
+                        <ion-col col-12>
+                            <p>
+                                <label class="d-block">Updated :</label> {{ task.updated_at_formatted }} -<i>{{ task.taskupdatorname }}</i> </p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="no-padding">
+                        <ion-col col-12 no-padding>
+                            <div class="bottom--info">
+                                <small class="moreInfo" (click)="toggleGroup(task)">{{ task.sub_activity_checked ? "Less Info" : 'More Info' }}</small>
+                                <small class="viewTickets" (click)="goToCorrespondActivity(task)" *ngIf="task.checklist_type != 'customer' ">View</small>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+
+                    <!-- <ion-row class="last">
+
+                </ion-row> -->
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+    </div> 
+    <p class="no-records-found" *ngIf="!showSpinner && tasks.length == 0">No Records Found!.</p>
+    <div class="spinner center" *ngIf="showSpinner" ><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+    <ion-infinite-scroll  threshold="200px"  (ionInfinite)="doInfinite($event)" *ngIf="currentPage <= totalPages" >
+       <ion-infinite-scroll-content></ion-infinite-scroll-content>
+     </ion-infinite-scroll>
+</ion-content>

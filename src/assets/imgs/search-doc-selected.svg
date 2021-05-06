@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <g id="Group_1118" data-name="Group 1118" transform="translate(0.358 0.1)">
+    <rect id="Rectangle_787" data-name="Rectangle 787" width="20" height="20" rx="10" transform="translate(-0.358 -0.1)" fill="#e73f74"/>
+    <g id="Page-1" transform="translate(5.096 3.98)">
+      <g id="icon-80-document-checked">
+        <path id="document-checked" d="M10.757,13.983H6.89a.857.857,0,0,1-.856-.86V3.274a.86.86,0,0,1,.861-.86h4.281V4.986a.856.856,0,0,0,.86.856h2.14v4.07a2.786,2.786,0,0,0-3.419,4.072Zm.848-11.57v2.57a.429.429,0,0,0,.425.43h2.146l-2.571-3ZM13.1,14.84a2.357,2.357,0,1,0-2.357-2.357A2.357,2.357,0,0,0,13.1,14.84Zm-.214-1.182L11.882,12.65l.314-.314.695.695,1.337-1.337.314.314-1.651,1.651Z" transform="translate(-6.034 -2.414)" fill="#fff" fill-rule="evenodd"/>
+      </g>
+    </g>
+  </g>
+</svg>

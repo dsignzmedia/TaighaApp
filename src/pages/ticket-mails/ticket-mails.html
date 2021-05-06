@@ -1,0 +1,365 @@
+<!--
+  Generated template for the TicketMailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="header-min taigha-dashboard-header">
+<!--       <ion-navbar class="no-right">
+    <div class="center">
+      <i class="back_icon" (click)="goBack()"></i>
+      <p class="title">
+      	<span class="title-head" >
+        {{ticketsub}}
+    </span>
+      </p>
+    </div>
+  </ion-navbar> -->
+      <ion-navbar class="no-right">
+        <div class="nav-custom">
+            <div class="nav-left">
+              <i class="back_icon" (click)="goBack()"></i>
+            </div>
+               <p class="title">
+        <span class="title-head" *ngIf=" ticket" >
+      <!--   {{ ticket.ticket_type == 'internal' ? 'I' : 'C' }}{{ ticket.id }} --> 
+    {{ticketsub}}</span>
+      </p>
+            <div class="nav-right">
+                <img class="advfiltericon"  *ngIf="slicedFirstLastCount > 0" (click)="toggleMail()" src="assets/imgs/expand-mail.svg" width="30" height="30">
+            </div>
+        </div>
+    </ion-navbar>
+</ion-header>
+<!-- <ion-header padding-left padding-right class="homesearch blue-header">
+    <ion-grid class="blue-header-inner">
+      <ion-row>
+        <ion-col no-padding class="hdr-left">
+        </ion-col>
+        <ion-col no-padding col-6 class="hdr-center">
+          Mails
+        </ion-col>
+        
+        <ion-col no-padding class="hdr-right">
+          <i class="arrow-bg"  (click)="goBack()">
+                    <img src="assets/imgs/close-white.svg" width="25" height="25">
+                </i>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-header> -->
+<ion-content padding #content>
+<div class="mail-panel">
+	<h2><img src="assets/imgs/mail-blue.svg" width="22" height="22"> Email ({{ticketHistory.length}})</h2>
+  <ion-input type="hidden" placeholder="" [(ngModel)]="GotTicketGroup"></ion-input>
+                <ion-grid no-padding>
+                    <ion-row>
+                        <ion-col col-12 no-padding>
+<!--                             <ion-list class="list-content">
+                                <ion-item [ngClass]="{active: emailMessage.activity_checked }" *ngFor="let emailMessage of ticket.ticket_histories">
+
+                                    <div class="contentarea">
+                                        <div class="desc accordian-head emsg-accordian-head-flex" (click)="toggleEmail(emailMessage)">
+                                            <div class="emsg-head">
+                                                <div class="description-panel">{{ emailMessage.stripped_body }}</div>
+                                                <p class="emailby"><span class="sentby-name">{{ emailMessage.updated_by_name }}</span>  <span class="sentby-date">{{ emailMessage.updated_at_formatted }}</span></p>
+                                            </div>
+                                            <div class="acc-icon"><i></i></div>
+                                        </div>
+                                        <div *ngIf="emailMessage.activity_checked" class="contentarea-acc-panel">
+                                            <div class="desc" [innerHTML]=" emailMessage.body "></div>
+                                            <div class="attachment-panel-group" *ngIf="emailMessage.email_attachments.length > 0">
+                                                <div *ngFor=" let attachment of emailMessage.email_attachments ">
+                                                    <a href="{{ attachment.attachment_full_url }}">{{ attachment.attachname }}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ion-item>
+                            </ion-list> -->
+<div class="min-list" *ngIf="showMin">
+  <ion-list no-padding class="list-card">
+  <ion-item no-lines no-padding [ngClass]="{active: firstmail.activity_checked }" >
+        <div class="list-details">
+          <div class="thumbnail-panel">
+          <ion-thumbnail slot="start">
+          <span><span>{{ticket.creator_name.substring(0,1)}}</span></span>
+          </ion-thumbnail>
+          </div>
+          <div class="list-sub-detail-panel" (click)="toggleEmail(firstmail)">
+          <div class="list-sub-detail">
+          <span class="sub-detail-one">{{ ticket.creator_name }}</span>
+          <span class="sub-detail-two">{{ ticket.created_at_formatted2}}</span>
+          </div>
+          <p  *ngIf="!firstmail.activity_checked" class="list-title"><span class="body-message">{{ ticket.stripped_body }}</span></p>
+          <p  *ngIf="firstmail.activity_checked" class="list-title"><span class="body-message"><{{ firstmail.sent_by_email }}></span></p>
+          </div>
+        </div>
+        <div  class="full-details">
+          <div *ngIf="firstmail.activity_checked" class="contentarea-acc-panel">
+              <div class="desc" [innerHTML]=" ticket.body "></div>
+              <div class="attachment-panel-group" *ngIf="ticket.email_attachments.length > 0">
+                  <div *ngFor=" let attachment of ticket.email_attachments ">
+                      <a href="{{ attachment.attachment_full_url }}">{{ attachment.attachname }}</a>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </ion-item>
+      <ion-item no-lines no-padding [ngClass]="{active: emailMessage.activity_checked }"  *ngFor="let emailMessage of slicedFirstLastTicket">
+        <div class="list-details">
+          <div class="thumbnail-panel">
+     <ion-thumbnail slot="start">
+      <span><span>{{emailMessage.updated_by_name.substring(0,1)}}</span></span>
+      </ion-thumbnail>
+      </div>
+      <div class="list-sub-detail-panel" (click)="toggleEmail(emailMessage)">
+          <div class="list-sub-detail">
+            <span class="sub-detail-one">{{ emailMessage.updated_by_name }}</span>
+            <span class="sub-detail-two">{{ emailMessage.created_at_formatted}}</span>
+          </div>
+          <p  *ngIf="!emailMessage.activity_checked" class="list-title"><span class="body-message">{{ emailMessage.stripped_body }}</span></p>
+          <p  *ngIf="emailMessage.activity_checked" class="list-title"><span class="body-message"><{{ emailMessage.sent_by_email }}></span></p>
+          </div>
+        </div>
+        <div  class="full-details">
+          <div *ngIf="emailMessage.activity_checked" class="contentarea-acc-panel">
+              <div class="desc" [innerHTML]=" emailMessage.body "></div>
+              <div class="attachment-panel-group" *ngIf="emailMessage.email_attachments.length > 0">
+                  <div *ngFor=" let attachment of emailMessage.email_attachments ">
+                      <a href="{{ attachment.attachment_full_url }}">{{ attachment.attachname }}</a>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </ion-item>
+  </ion-list>
+</div>
+
+<div class="max-list" *ngIf="showMax">
+  <ion-list no-padding class="list-card">
+  <ion-item no-lines no-padding [ngClass]="{active: firstmail.activity_checked }" >
+        <div class="list-details">
+          <div class="thumbnail-panel">
+          <ion-thumbnail slot="start">
+          <span><span>{{ticket.creator_name.substring(0,1)}}</span></span>
+          </ion-thumbnail>
+          </div>
+          <div class="list-sub-detail-panel" (click)="toggleEmail(firstmail)">
+          <div class="list-sub-detail">
+          <span class="sub-detail-one">{{ ticket.creator_name }}</span>
+          <span class="sub-detail-two">{{ ticket.created_at_formatted2}}</span>
+          </div>
+          <p  *ngIf="!firstmail.activity_checked" class="list-title"><span class="body-message">{{ ticket.stripped_body }}</span></p>
+          <p  *ngIf="firstmail.activity_checked" class="list-title"><span class="body-message"><{{ firstmail.sent_by_email }}></span></p>
+          </div>
+        </div>
+        <div  class="full-details">
+          <div *ngIf="firstmail.activity_checked" class="contentarea-acc-panel">
+              <div class="desc" [innerHTML]=" ticket.body "></div>
+              <div class="attachment-panel-group" *ngIf="ticket.email_attachments.length > 0">
+                  <div *ngFor=" let attachment of ticket.email_attachments ">
+                      <a href="{{ attachment.attachment_full_url }}">{{ attachment.attachname }}</a>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </ion-item>
+    <ion-item no-lines no-padding class="openMax" >
+    	<div class="count-panel"  (click)="toggleMaxList(max)">
+        <span class="upper-line"></span>
+             <span class="mail-bubble"> {{slicedFirstLastCount}} </span>
+        <span class="lower-line"></span>
+        </div>
+    </ion-item>
+      <ion-item no-lines no-padding [ngClass]="{active: togglelast }" >
+        <div class="list-details">
+          <div class="thumbnail-panel">
+          <ion-thumbnail slot="start">
+          <span><span>{{lastmail.updated_by_name.substring(0,1)}}</span></span>
+          </ion-thumbnail>
+          </div>
+          <div class="list-sub-detail-panel" (click)="togglelastEmail()">
+          <div class="list-sub-detail">
+          <span class="sub-detail-one">{{ lastmail.updated_by_name }}</span>
+          <span class="sub-detail-two">{{ lastmail.created_at_formatted}}</span>
+          </div>
+          <p  *ngIf="!togglelast" class="list-title"><span class="body-message">{{ lastmail.stripped_body }}</span></p>
+          <p  *ngIf="togglelast" class="list-title"><span class="body-message"><{{ lastmail.sent_by_email }}></span></p>
+          </div>
+        </div>
+        <div  class="full-details">
+          <div *ngIf="togglelast" class="contentarea-acc-panel">
+              <div class="desc" [innerHTML]=" lastmail.body "></div>
+              <div class="attachment-panel-group" *ngIf="lastmail.email_attachments.length > 0">
+                  <div *ngFor=" let attachment of lastmail.email_attachments ">
+                      <a href="{{ attachment.attachment_full_url }}">{{ attachment.attachname }}</a>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </ion-item>
+  </ion-list>
+</div>
+
+
+                        </ion-col>
+                    </ion-row>
+
+
+<!--                     <ion-row id="quilleditorid" *ngIf=" ticket.status != 'closed' ">
+                        <button ion-button block text-uppercase class="btn btn-blue replybtn" (click)="replyToggle()" >{{ showReply ? 'Collapse' : 'Reply' }}</button>
+                    </ion-row> -->
+
+                    <div class="reply-panel" [ngClass]="{'display-none': showReply == ''}" >
+<!--         <ion-row  no-line>
+            <span class="collapse-text" (click)="fieldsToggle()">{{ showFields ? 'Ticket Summary Fields ( - )' : 'Ticket Summary Fields ( + )' }}</span>
+        </ion-row>
+        <div [ngClass]="{'display-none': showFields == ''}" >
+        <ion-row no-line>
+            <ion-col col-12 no-padding class="inline-list inline-select">
+               <ion-item no-padding no-lines>
+                <ion-label>Template</ion-label>
+                <ion-select class="filter-select" placeholder="Select">
+                  <ion-option  value="1" >test 1</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row no-line *ngIf=" properties.length > 0 ">
+            <ion-col col-12 no-padding class="inline-list inline-select">
+               <ion-item no-padding no-lines>
+                <ion-label>Property</ion-label>
+                <ion-select class="filter-select"  [(ngModel)]="property_id" placeholder="Select">
+                  <ion-option value="{{ property.id }}" *ngFor=" let  property of properties  ">{{ property.address }}</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row no-line>
+            <ion-col col-12 no-padding class="inline-list inline-select">
+               <ion-item no-padding no-lines>
+                <ion-label>Group</ion-label>
+                <ion-select class="filter-select" placeholder="Select">
+                  <ion-option  value="1" >test 1</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row no-line>
+            <ion-col col-12 no-padding class="inline-list inline-select">
+               <ion-item no-padding no-lines>
+                <ion-label>Staff</ion-label>
+                <ion-select class="filter-select" placeholder="Select">
+                  <ion-option  value="1" >test 1</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row no-line>
+            <ion-col col-12 no-padding class="inline-list inline-select"  *ngIf=" priorities.length > 0 ">
+               <ion-item no-padding no-lines>
+                <ion-label>Priority</ion-label>
+                <ion-select class="filter-select" [(ngModel)]="priority"  placeholder="Select">
+                  <ion-option value="{{ priority.id }}" *ngFor=" let  priority of priorities  ">{{ priority.priority }}</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row no-line>
+            <ion-col col-12 no-padding class="inline-list inline-select">
+               <ion-item no-padding no-lines>
+                <ion-label>Status</ion-label>
+                <ion-select class="filter-select" placeholder="Select">
+                  <ion-option  value="1" >test 1</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row no-line>
+            <ion-col col-12 no-padding class="inline-list inline-select">
+               <ion-item no-padding no-lines>
+                <ion-label>Class</ion-label>
+                <ion-select class="filter-select" placeholder="Select">
+                  <ion-option  value="1" >test 1</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row no-line>
+            <ion-col col-12 no-padding  class="inline-list">
+               <ion-label>Version</ion-label>
+               <ion-input placeholder=""></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row no-line>
+            <ion-col col-12 no-padding  class="inline-list">
+               <ion-label>Access</ion-label>
+               <ion-input placeholder=""></ion-input>
+            </ion-col>
+        </ion-row>
+        </div> -->
+<!--         <ion-row no-line>
+            <ion-col col-12 no-padding class="inline-list">
+               <ion-label>CC</ion-label>
+               <ion-input placeholder=""></ion-input>
+            </ion-col>
+        </ion-row> -->
+<!--                     <ion-row>
+                        <ion-col col-12  >
+                            <quill-editor [style]="{ height: '200px' }" [ngModel]="body" [modules]="{
+    toolbar: toolbarOptions
+  }" [placeholder] = "'Type here'"  (onContentChanged)="getEditorContent($event)" (onEditorCreated)="getEditorInstance($event)" ></quill-editor>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="reply-panel-row">
+                        <ion-col col-12>
+                            <ion-label class="form-field-label">Attachments</ion-label>
+                            <div class="upload-btn-wrapper">
+                 <button class="u-btn">Choose Files</button>
+                            <input type="file" class="form-field-input" multiple="multiple" #fileInput (change)="changeListener($event)">
+                        </div>
+                            <div class="attachment-panel-preview-group">
+                                <img *ngFor="let url of urls" [src]="url" class="rounded mb-3" width="180">
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    
+                    <ion-row class="reply-btn-row">
+                        <ion-col col-6>
+                            <button ion-button block text-uppercase class="btn btn-blue" (click) = "reply()" >Send Email</button>
+                        </ion-col>
+                    </ion-row> -->
+                    </div>
+                </ion-grid>
+</div>
+</ion-content>
+<div class="conversation-panel">
+<div class="conversation-panel-demo"  *ngIf="urls.length != 0"  #myFile id="myFile" >
+  
+  <figure>
+<!--     <span class="delete-icon" (click)="deleteMedia()"><img src="assets/imgs/delete.svg" height="15"></span> -->
+    <img *ngFor="let url of urls" [src]="url" class="rounded mb-3" height="150">
+  </figure>
+</div>
+<div class="message-area-panel" #msgAreaPanel id="msgAreaPanel">
+  <quill-editor #myInput id="myInput"  [style]="{ height: '200px' }" [ngModel]="body" [modules]="{
+    toolbar: toolbarOptions
+  }" [placeholder] = "'Type here'"  (onContentChanged)="getEditorContent($event)" (onEditorCreated)="getEditorInstance($event)" ></quill-editor>
+<!--   <textarea class="message-area-text" placeholder="Type your message" #myInput id="myInput"  (click)="textareaClicked()" (keyup)="resize()" (input)='onChangeTime($event.target.value)' [(ngModel)]="replymsg"></textarea> -->
+  <div class="message-area-bottom">
+   <div class="message-area">
+    <img src="assets/imgs/choosetemplate.svg"  (click)="openSelecttemplate()" width="20" height="20">
+
+    <div class="upload-btn-wrapper"> 
+      <img src="assets/imgs/chat-attachment.svg"  (click)="openSelecttemplate()" width="20" height="20">
+      <input type="file"  multiple="multiple" #fileInput (change)="changeListener($event)">
+    </div>
+  </div>
+  <div class="message-btn">
+   <button block text-uppercase  class="btn btn-blue"  (click)="reply()"> <img src="assets/icon/send.svg"></button>
+ </div>
+</div>
+</div>
+</div>

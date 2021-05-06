@@ -1,0 +1,123 @@
+<ion-header class="header-min taigha-dashboard-header">
+    <ion-navbar class="no-right">
+        <div class="center">
+            <p class="title">
+                <span class="title-head">Search {{fieldInput}}</span>
+            </p>
+            <i class="back_icon right" (click)="goBack()"></i>
+        </div>
+    </ion-navbar>
+</ion-header>
+           
+<!-- #content -->
+<ion-content padding class="taigha-dashboard bg-white" >
+	<div class="panel">
+   <ion-grid *ngIf="fieldInput == 'group'">
+      <ion-row>
+        <ion-col col-12 no-padding class="inline-list inline-select">
+           <ion-searchbar type="text" [(ngModel)]="searchTerm" (ionInput)="searchtag()" (ionClear)="resetChanges()" ></ion-searchbar>
+           <ion-input type="hidden" [(ngModel)]="fieldInput" ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="templates.length != 0">
+		<ion-list radio-group [(ngModel)]="selectedTemplate">
+		  <ion-item  *ngFor="let temp of templates">
+		    <ion-label>{{temp.name}}</ion-label>
+		    <ion-radio [value]="temp.id"></ion-radio>
+		  </ion-item>
+		</ion-list>
+      </ion-row>
+   </ion-grid>
+
+   <ion-grid *ngIf="fieldInput == 'staff'">
+      <ion-row>
+        <ion-col col-12 no-padding class="inline-list inline-select">
+           <ion-searchbar type="text" [(ngModel)]="searchTerm" (ionInput)="searchtag()" (ionClear)="resetChanges()" ></ion-searchbar>
+           <ion-input type="hidden" [(ngModel)]="fieldInput" ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="templates.length != 0">
+		<ion-list radio-group [(ngModel)]="selectedTemplate">
+		  <ion-item  *ngFor="let temp of templates">
+		    <ion-label>{{ temp.first_name }} {{ temp.last_name }}</ion-label>
+		    <ion-radio [value]="temp.id"></ion-radio>
+		  </ion-item>
+		</ion-list>
+      </ion-row>
+   </ion-grid>
+
+   <ion-grid *ngIf="fieldInput == 'customer'">
+      <ion-row>
+        <ion-col col-12 no-padding class="inline-list inline-select">
+           <ion-searchbar type="text" [(ngModel)]="searchTerm" (ionInput)="searchtag()" (ionClear)="resetChanges()" ></ion-searchbar>
+           <ion-input type="hidden" [(ngModel)]="fieldInput" ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="templates.length != 0">
+		<ion-list radio-group [(ngModel)]="selectedTemplate">
+		  <ion-item  *ngFor="let temp of templates">
+		    <ion-label>{{ temp.first_name }} {{ temp.last_name }}</ion-label>
+		    <ion-radio [value]="temp.id"></ion-radio>
+		  </ion-item>
+		</ion-list>
+      </ion-row>
+   </ion-grid>
+
+   <ion-grid *ngIf="fieldInput == 'property'">
+      <ion-row>
+        <ion-col col-12 no-padding class="inline-list inline-select">
+           <ion-searchbar type="text" [(ngModel)]="searchTerm" (ionInput)="searchtag()" (ionClear)="resetChanges()" ></ion-searchbar>
+           <ion-input type="hidden" [(ngModel)]="fieldInput" ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="templates.length != 0">
+		<ion-list radio-group [(ngModel)]="selectedTemplate">
+		  <ion-item  *ngFor="let temp of templates">
+		    <ion-label>{{ temp.address }}</ion-label>
+		    <ion-radio [value]="temp.id"></ion-radio>
+		  </ion-item>
+		</ion-list>
+      </ion-row>
+   </ion-grid>
+
+   <ion-grid *ngIf="fieldInput == 'template'">
+      <ion-row>
+        <ion-col col-12 no-padding class="inline-list inline-select">
+           <ion-searchbar type="text" [(ngModel)]="searchTerm" (ionInput)="searchtag()" (ionClear)="resetChanges()" ></ion-searchbar>
+           <ion-input type="hidden" [(ngModel)]="fieldInput" ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="templates.length != 0">
+		<ion-list radio-group [(ngModel)]="selectedTemplate">
+		  <ion-item  *ngFor="let temp of templates">
+		    <ion-label>{{ temp.title }}</ion-label>
+		    <ion-radio [value]="temp.id"></ion-radio>
+		  </ion-item>
+		</ion-list>
+      </ion-row>
+   </ion-grid>
+
+   <ion-grid *ngIf="fieldInput == 'partner'">
+      <ion-row>
+        <ion-col col-12 no-padding class="inline-list inline-select">
+           <ion-searchbar type="text" [(ngModel)]="searchTerm" (ionInput)="searchtag()" (ionClear)="resetChanges()" ></ion-searchbar>
+           <ion-input type="hidden" [(ngModel)]="fieldInput" ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="templates.length != 0">
+		<ion-list radio-group [(ngModel)]="selectedTemplate">
+		  <ion-item  *ngFor="let temp of templates">
+		    <ion-label>{{ temp.first_name }} {{ temp.last_name }}</ion-label>
+		    <ion-radio [value]="temp.id"></ion-radio>
+		  </ion-item>
+		</ion-list>
+      </ion-row>
+   </ion-grid>
+
+
+   </div>
+</ion-content>
+   <div class="float-btn">
+   	  <button color="primary" (click)="chooseTemplate()">Apply</button>
+   </div>
+

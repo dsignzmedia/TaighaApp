@@ -1,0 +1,69 @@
+<ion-header>
+<ion-navbar>
+	<ion-icon (click)="goBack()" class="close_icon position-right"></ion-icon>
+  <ion-title>Filter</ion-title>
+</ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-grid class="filter-grid" *ngIf="!showSpinner">
+    <ion-row>
+      <ion-col col-6>
+        <ion-label class="filter-label">Address</ion-label>
+        <ion-input class="filter-input" type="text" [(ngModel)] = "selectedFilters.address" placeholder="Address"></ion-input>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label class="filter-label">Type</ion-label>
+        <ion-select  class="filter-select" [(ngModel)]="selectedFilters.property_type" multiple="true" placeholder="Type">
+          <ion-option value="">All</ion-option>
+          <ion-option value="{{ propertyType.property_type }}" *ngFor=" let propertyType of filterOptions.propertyTypes " >{{ propertyType.property_type }}</ion-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-3>
+        <ion-label class="filter-label">Year</ion-label>
+        <ion-input class="filter-input" type="text" [(ngModel)] = "selectedFilters.year" placeholder="Year Built"></ion-input>
+      </ion-col>
+      <ion-col col-3> 
+        <ion-label class="filter-label">Sqft</ion-label>
+        <ion-input class="filter-input" type="text" [(ngModel)] = "selectedFilters.sqft" placeholder="Sqft"></ion-input>
+      </ion-col>
+      <ion-col col-3>
+        <ion-label class="filter-label">Beds</ion-label>
+        <ion-input  class="filter-input" type="text" [(ngModel)] = "selectedFilters.beds" placeholder="Beds"></ion-input>
+      </ion-col>
+      <ion-col col-3>
+        <ion-label class="filter-label">Baths</ion-label>
+        <ion-input class="filter-input" type="text" [(ngModel)] = "selectedFilters.baths" placeholder="Baths" ></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6>
+        <ion-label class="filter-label">Garage</ion-label>
+        <ion-input class="filter-input" type="text" [(ngModel)] = "selectedFilters.garage" placeholder="Garage" ></ion-input>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label class="filter-label">Created</ion-label>
+        <ion-input class="filter-input" type="text" [(ngModel)] = "selectedFilters.created_at" (ionFocus)="openCalendar()" placeholder="Created"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6>
+        <ion-label class="filter-label">Updated by</ion-label>
+        <ion-select class="filter-select" [(ngModel)]="selectedFilters.updated_by" multiple="true" placeholder="Updated by">
+          <ion-option value="all">All</ion-option>
+          <ion-option value="{{ updatedByUser.id }}" *ngFor=" let updatedByUser of filterOptions.updatedByUsers " >{{ updatedByUser.first_name }} {{ updatedByUser.last_name }}</ion-option>
+      </ion-select>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label class="filter-label">Updated at</ion-label>
+        <ion-input class="filter-input" type="text" [(ngModel)] = "selectedFilters.updated_at" placeholder="Updated at" (ionFocus)="openCalendarUpdated()"  ></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row class="filter-btn-row">
+    	<ion-col col-6><button ion-button block text-uppercase class="btn btn-outline-blue" (click)="goBack()">Cancel</button></ion-col>
+      <ion-col col-6><button ion-button block text-uppercase class="btn btn-blue" (click) = "applyFilter()" >Apply</button></ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="spinner center" *ngIf="showSpinner" ><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+</ion-content>

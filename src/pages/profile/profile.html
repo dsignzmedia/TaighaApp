@@ -1,0 +1,282 @@
+<ion-header>
+  <ion-navbar class="no-right">
+    <div class="center">
+      <i class="back_icon" (click)="back()"></i>
+      <p class="title">Profile</p>
+    </div>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="profile-content-wrapper">
+<div *ngIf="user">
+  <form [formGroup] = "profile" (ngSubmit) = "updateProfile()" >
+  <ion-card class="form-card">
+    <ion-card-header class="profile-header">
+      <div class="profile-figure-panel">
+        <div class="avatar"><img src="{{ user.avatar }}" /></div>
+      </div>
+      <p class="text-center changephoto" (click) = " chooseImage() " >Change photo</p>
+    </ion-card-header>
+    <ion-card-content class="">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.first_name != '')}">
+              <ion-label class="form-field-label">First Name</ion-label>
+              <ion-input type="text" class="form-field-input"  placeholder="First Name" formControlName="first_name" ></ion-input>
+              <div class="error-block" *ngIf="errors.first_name">
+                <p *ngFor=" let error of errors.first_name ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.last_name != '')}">
+              <ion-label class="form-field-label">Last Name</ion-label>
+              <ion-input type="text" class="form-field-input" placeholder="Last Name" formControlName="last_name"  ></ion-input>
+              <div class="error-block" *ngIf="errors.last_name">
+                <p *ngFor=" let error of errors.last_name ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.email != '')}">
+              <ion-label class="form-field-label">Email</ion-label>
+              <ion-input type="email" class="form-field-input" placeholder="Email" formControlName="email"></ion-input>
+              <div class="error-block" *ngIf="errors.email">
+                <p *ngFor=" let error of errors.email ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.alternate_email_1 != '')}">
+              <ion-label class="form-field-label">Alternate Email</ion-label>
+              <ion-input type="email" class="form-field-input" placeholder="Email" formControlName="alternate_email_1"></ion-input>
+              <div class="error-block" *ngIf="errors.alternate_email_1">
+                <p *ngFor=" let error of errors.alternate_email_1 ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.password != '')}">
+              <ion-label class="form-field-label">Password</ion-label>
+              <ion-input type="password" class="form-field-input" placeholder="Password" formControlName="password"></ion-input>
+              <div class="error-block" *ngIf="errors.password">
+                <p *ngFor=" let error of errors.password ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.phone_number != '')}">
+              <ion-label class="form-field-label">Mobile Number</ion-label>
+              <ion-input type="text" class="form-field-input" placeholder="(XXX)XXX-XXXX" [brmasker]="{mask:'(000)000-0000', len:13}" formControlName="phone_number"></ion-input>
+              <div class="error-block" *ngIf="errors.phone_number">
+                <p *ngFor=" let error of errors.phone_number ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.alternate_phone_number_1 != '')}">
+              <ion-label class="form-field-label">Alternate Number 1</ion-label>
+              <ion-input type="text" class="form-field-input" placeholder="(XXX)XXX-XXXX" [brmasker]="{mask:'(000)000-0000', len:13}" formControlName="alternate_phone_number_1"></ion-input>
+              <div class="error-block" *ngIf="errors.alternate_phone_number_1">
+                <p *ngFor=" let error of errors.alternate_phone_number_1 ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.current_address != '')}">
+              <ion-label class="form-field-label">USA Mailing/Residence Address</ion-label>
+              <ion-input type="text" class="form-field-input" placeholder="Address" formControlName="current_address"></ion-input>
+              <div class="error-block" *ngIf="errors.current_address">
+                <p *ngFor=" let error of errors.current_address ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-card class="form-card">
+    <ion-card-header>
+      <ion-card-title>Owner 2</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.owner_two_first_name != '')}">
+              <ion-label class="form-field-label">First Name</ion-label>
+              <ion-input type="text" class="form-field-input" placeholder="First Name" formControlName="owner_two_first_name"></ion-input>
+              <div class="error-block" *ngIf="errors.owner_two_first_name">
+                <p *ngFor=" let error of errors.owner_two_first_name ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.owner_two_last_name != '')}">
+              <ion-label class="form-field-label">Last Name</ion-label>
+              <ion-input type="text" class="form-field-input" placeholder="Last Name" formControlName="owner_two_last_name"></ion-input>
+              <div class="error-block" *ngIf="errors.owner_two_last_name">
+                <p *ngFor=" let error of errors.owner_two_last_name ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.owner_two_nick_name != '')}">
+              <ion-label class="form-field-label">Nick Name</ion-label>
+              <ion-input type="text" class="form-field-input" placeholder="Nick Name" formControlName="owner_two_nick_name"></ion-input>
+              <div class="error-block" *ngIf="errors.owner_two_nick_name">
+                <p *ngFor=" let error of errors.owner_two_nick_name ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.owner_two_email != '')}">
+              <ion-label class="form-field-label">Email</ion-label>
+              <ion-input type="email" class="form-field-input" placeholder="Email" formControlName="owner_two_email"></ion-input>
+              <div class="error-block" *ngIf="errors.owner_two_email">
+                <p *ngFor=" let error of errors.owner_two_email ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.owner_two_alternate_email != '')}">
+              <ion-label class="form-field-label">Alternate Email</ion-label>
+              <ion-input type="email" class="form-field-input" placeholder="Email" formControlName="owner_two_alternate_email"></ion-input>
+              <div class="error-block" *ngIf="errors.owner_two_alternate_email">
+                <p *ngFor=" let error of errors.owner_two_alternate_email ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.owner_two_password != '')}">
+              <ion-label class="form-field-label">Password</ion-label>
+              <ion-input type="password" class="form-field-input" placeholder="Password" formControlName="owner_two_password"></ion-input>
+              <div class="error-block" *ngIf="errors.owner_two_password">
+                <p *ngFor=" let error of errors.owner_two_password ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.owner_two_phone_number != '')}">
+              <ion-label class="form-field-label">Mobile Number</ion-label>
+              <ion-input type="text" class="form-field-input" placeholder="(XXX)XXX-XXXX" [brmasker]="{mask:'(000)000-0000', len:13}"  formControlName="owner_two_phone_number"></ion-input>
+              <div class="error-block" *ngIf="errors.owner_two_phone_number">
+                <p *ngFor=" let error of errors.owner_two_phone_number ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.owner_two_alternate_phone_number != '')}">
+              <ion-label class="form-field-label">Alternate Number</ion-label>
+              <ion-input type="text" class="form-field-input" placeholder="(XXX)XXX-XXXX" [brmasker]="{mask:'(000)000-0000', len:13}" formControlName="owner_two_alternate_phone_number"></ion-input>
+              <div class="error-block" *ngIf="errors.owner_two_alternate_phone_number">
+                <p *ngFor=" let error of errors.owner_two_alternate_phone_number ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-card class="form-card">
+    <ion-card-header>
+      <ion-card-title>Owner 3</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.owner_three_first_name != '')}">
+              <ion-label class="form-field-label">First Name</ion-label>
+              <ion-input type="text" class="form-field-input" placeholder="First Name" formControlName="owner_three_first_name"></ion-input>
+              <div class="error-block" *ngIf="errors.owner_three_first_name">
+                <p *ngFor=" let error of errors.owner_three_first_name ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.owner_three_last_name != '')}">
+              <ion-label class="form-field-label">Last Name</ion-label>
+              <ion-input type="text" class="form-field-input" placeholder="Last Name" formControlName="owner_three_last_name"></ion-input>
+              <div class="error-block" *ngIf="errors.owner_three_last_name">
+                <p *ngFor=" let error of errors.owner_three_last_name ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.owner_three_nick_name != '')}">
+              <ion-label class="form-field-label">Nick Name</ion-label>
+              <ion-input type="text" class="form-field-input" placeholder="Nick Name" formControlName="owner_three_nick_name"></ion-input>
+              <div class="error-block" *ngIf="errors.owner_three_nick_name">
+                <p *ngFor=" let error of errors.owner_three_nick_name ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.owner_three_email != '')}">
+              <ion-label class="form-field-label">Email</ion-label>
+              <ion-input type="email" class="form-field-input" placeholder="Email" formControlName="owner_three_email"></ion-input>
+              <div class="error-block" *ngIf="errors.owner_three_email">
+                <p *ngFor=" let error of errors.owner_three_email ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.owner_three_alternate_email != '')}">
+              <ion-label class="form-field-label">Alternate Email</ion-label>
+              <ion-input type="email" class="form-field-input" placeholder="Email" formControlName="owner_three_alternate_email"></ion-input>
+              <div class="error-block" *ngIf="errors.owner_three_alternate_email">
+                <p *ngFor=" let error of errors.owner_three_alternate_email ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.owner_three_password != '')}">
+              <ion-label class="form-field-label">Password</ion-label>
+              <ion-input type="password" class="form-field-input" placeholder="Password" formControlName="owner_three_password"></ion-input>
+              <div class="error-block" *ngIf="errors.owner_three_password">
+                <p *ngFor=" let error of errors.owner_three_password ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.owner_three_phone_number != '')}">
+              <ion-label class="form-field-label">Mobile Number</ion-label>
+              <ion-input type="text" class="form-field-input" placeholder="(XXX)XXX-XXXX" [brmasker]="{mask:'(000)000-0000', len:13}" formControlName="owner_three_phone_number"></ion-input>
+              <div class="error-block" *ngIf="errors.owner_three_phone_number">
+                <p *ngFor=" let error of errors.owner_three_phone_number ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col col-12>
+            <div class="form-field-panel" [ngClass]="{'has-error': (errors.owner_three_alternate_phone_number != '')}">
+              <ion-label class="form-field-label">Alternate Number</ion-label>
+              <ion-input type="text" class="form-field-input" placeholder="(XXX)XXX-XXXX" [brmasker]="{mask:'(000)000-0000', len:13}" formControlName="owner_three_alternate_phone_number"></ion-input>
+              <div class="error-block" *ngIf="errors.owner_three_alternate_phone_number">
+                <p *ngFor=" let error of errors.owner_three_alternate_phone_number ">{{ error }}</p>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-12 *ngIf = " hasError == 1 " >
+                <p>Please complete the mandatory fields</p>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+        </ion-row>
+        <ion-row class="btn-row">
+        <ion-col col-6><button ion-button block text-uppercase class="btn btn-outline-blue">Cancel</button></ion-col>        
+        <ion-col col-6><button ion-button block text-uppercase class="btn btn-blue" [disabled]="!profile.valid">Update</button></ion-col>               
+      </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  </form>
+</div>
+  <div class="spinner center" *ngIf="showSpinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div> 
+    </div>
+</ion-content>

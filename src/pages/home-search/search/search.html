@@ -1,0 +1,741 @@
+<ion-header padding-left padding-right class="homesearch blue-header"  (click)="searchHeader()"  >
+  <ion-grid class="blue-header-inner">
+    <ion-row>
+      <ion-col no-padding class="hdr-left">
+        <img src="assets/imgs/menu.svg" (click)="openHomeSearchmenu()"  width="30" height="30" />
+      </ion-col>
+      <ion-col col-9 no-padding class="hdr-center">
+        <div class="search-panel">
+          <div class="search-field">
+              <div  [ngClass]="clickMorescroll" class="more-panel"  *ngIf="searchArray != 0">
+                <div  [ngStyle]="{'display': showSearchAll}">
+                  <span class="search-item" *ngFor="let item of searchArray" >
+                    <strong> {{ item }}</strong>
+                    <span (click)="clearTerm1(item)" class="clear"><img width="15" height="15" src="assets/imgs/close-blue.svg"></span>
+                  </span>
+                </div>
+                <div class="search-more-panel" [ngStyle]="{'display': showSearchMore}">
+                  <span  (click)="GetAllSearch()" class="search-item more-search-item">
+                    <strong>{{searchArray.length - 1}} More</strong>
+                  </span>
+                  <span class="search-item" *ngFor="let lastItem of searchArrayLast" >
+                    <strong> {{ lastItem }}</strong>
+                    <span (click)="clearTerm1(lastItem)" class="clear"><img width="15" height="15" src="assets/imgs/close-blue.svg"></span>
+                  </span>
+                </div>
+              </div>
+              <div class="searchbar-panel" (click)="openSearch()" >
+                <ion-searchbar  #mySearchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredLocations()" placeholder="Enter City, Zip or School">
+
+                </ion-searchbar>
+              </div>
+            </div>
+    </div>
+  </ion-col>
+  <ion-col no-padding class="hdr-right">
+
+    <img src="assets/imgs/filter.svg" (click)="openFilter()" width="27" height="20" />
+    <span [ngStyle]="{'display': showFiltercount}" class="filtercount">{{countfilterlength}}</span>
+  </ion-col>
+</ion-row>
+</ion-grid>
+</ion-header>
+<ion-content scrollY="false" forceOverscroll="false" has-bouncing="false" no-bounce  (click)="bodyAction()"  (ionScroll)="onScrolll($event)" no-padding class="homesearch bg-white" >
+
+
+    <ion-grid  [ngStyle]="{'display': showCard}"  no-padding class="stickyinfo property-info" >
+      <ion-row>
+        <ion-col no-padding class="d-flex">
+          <ion-label class="home-count"><img height="15" width="15" src="assets/imgs/home-icon-count.svg" /> <span>{{ totalRecords }}</span><!-- <span>Homes</span>  --></ion-label>
+        </ion-col>
+        <ion-col col-7>
+          <div class="choose-view-top">
+            <button [ngStyle]="{'display': showCardbtn}" class="btn btn-hasicon btn-curve" (click)="goToCard()"> 
+              <p><i><img width="14" height="14" src="assets/imgs/cardview.svg" /></i>Card</p>
+            </button>
+            <button [ngStyle]="{'display': showListbtn}" class="btn btn-hasicon btn-curve" (click)="goToList()"> 
+              <p><i><img width="14" height="11" src="assets/imgs/listview.svg" /></i>List</p>
+            </button>
+            <button [ngStyle]="{'display': showMapbtn}" class="btn btn-hasicon btn-curve" (click)="goToMap()"> 
+              <p><i><img width="11" height="16" src="assets/imgs/placeholder.svg" /></i>Map</p>
+            </button>
+
+          </div>
+        </ion-col>
+<!--                     <ion-item>
+    <ion-label>Alert</ion-label>
+    <ion-select placeholder="Select One">
+      <ion-option value="bacon">Bacon</ion-option>
+      <ion-option value="olives">Black Olives</ion-option>
+      <ion-option value="xcheese">Extra Cheese</ion-option>
+      <ion-option value="peppers">Green Peppers</ion-option>
+      <ion-option value="mushrooms">Mushrooms</ion-option>
+      <ion-option value="onions">Onions</ion-option>
+      <ion-option value="pepperoni">Pepperoni</ion-option>
+      <ion-option value="pineapple">Pineapple</ion-option>
+      <ion-option value="sausage">Sausage</ion-option>
+      <ion-option value="Spinach">Spinach</ion-option>
+    </ion-select>
+  </ion-item> -->
+      <ion-col no-padding style="    justify-content: flex-end;">
+        <span class="sortby" style="justify-content: center;"><!-- sort by --><i  (click)="openEdit('save')"><img width="22" height="22" src="assets/imgs/search-home-icon-plus-blue.svg"></i> </span>
+        <div class="filter-sort-panel">
+          <!-- ngModelChange -->
+           <ion-item class="ionselectlabel" no-line>
+            <ion-label>Sort By</ion-label>
+            <ion-select class="filter-sort"  [(ngModel)]="sortvaluecard" (ionChange)="sortby()" >
+              <ion-option  value="asc" >Price: low to high</ion-option>
+              <ion-option  value="desc" >Price: high to low</ion-option>
+              <ion-option  value="d_asc" >Newest to oldest</ion-option>
+              <ion-option  value="d_desc" >Oldest to newest</ion-option>
+              
+              <ion-option  value="bd_sort" >Bedroom</ion-option>
+              <ion-option  value="br_sort" >Bathroom</ion-option>
+              <ion-option  value="yb_sort" >Year built</ion-option>
+              <ion-option  value="sq_sort" >Sq ft</ion-option>
+              <ion-option  value="sn_sort" >Street name</ion-option>
+              <ion-option  value="c_sort" >City</ion-option>
+              <ion-option  value="z_sort" >Zip</ion-option>
+            </ion-select>
+          </ion-item>
+            </div>
+          </ion-col>
+       <!--    </ion-item> -->
+     
+      </ion-row>
+    </ion-grid>
+  <div padding [ngStyle]="{'display': showCard}"   class="card-main-panel">
+<div class="timeline-list"  *ngIf="showSpinnerProperty">
+<div class="timeline-wrapper">
+  <div class="timeline-item">
+    <div class="animated-background facebook"></div>
+    <div class="animated-background2 facebook">
+    <div class="background-masker top-center"></div>
+    <div class="background-masker listline"></div>
+      <div class="background-masker line1"></div>
+      <div class="background-masker list1"></div>
+      <div class="background-masker list2"></div>
+      <div class="background-masker list3"></div>
+      <div class="background-masker line2"></div>
+      <div class="background-masker contentline1"></div>
+      <div class="background-masker line3"></div>
+      <div class="background-masker contentline2"></div>
+      <div class="background-masker line4"></div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-wrapper">
+  <div class="timeline-item">
+    <div class="animated-background facebook"></div>
+    <div class="animated-background2 facebook">
+    <div class="background-masker top-center"></div>
+    <div class="background-masker listline"></div>
+      <div class="background-masker line1"></div>
+      <div class="background-masker list1"></div>
+      <div class="background-masker list2"></div>
+      <div class="background-masker list3"></div>
+      <div class="background-masker line2"></div>
+      <div class="background-masker contentline1"></div>
+      <div class="background-masker line3"></div>
+      <div class="background-masker contentline2"></div>
+      <div class="background-masker line4"></div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-wrapper">
+  <div class="timeline-item">
+    <div class="animated-background facebook"></div>
+    <div class="animated-background2 facebook">
+    <div class="background-masker top-center"></div>
+    <div class="background-masker listline"></div>
+      <div class="background-masker line1"></div>
+      <div class="background-masker list1"></div>
+      <div class="background-masker list2"></div>
+      <div class="background-masker list3"></div>
+      <div class="background-masker line2"></div>
+      <div class="background-masker contentline1"></div>
+      <div class="background-masker line3"></div>
+      <div class="background-masker contentline2"></div>
+      <div class="background-masker line4"></div>
+    </div>
+  </div>
+</div>
+</div>
+    <div class="card-panel">
+      <ion-card *ngFor="let property of properties">
+        <figure class="main-card-img">
+          <span *ngIf=" property.ListingStatus != 'Active'" class="badge">{{property.ListingStatus}}</span>
+          <span *ngIf="property.is_open_house == '1'" class="badge">Open {{property.open_house_date}}</span>
+          <img (click)="viewProperty(property.ListingID)" src="{{ property.rmls_image }}"/>
+          <span *ngIf="property.shared_by_name" class="badge underbadge">Recommended by {{property.shared_by_name}} {{property.shared_by_date}}</span>
+        </figure>
+        <ion-card-content>
+          <ion-card-title>
+            <span class="price" (click)="viewProperty(property.ListingID)">${{ property.PriceCurrentForStatus | number: '2.'}}</span>
+            <ul>
+               <li *ngIf="!IsStaff"  (click)="foropenEdit(property.ListingID)">
+               <i class="share-icon"><img src="assets/imgs/outline-chat.svg"></i>
+               </li>
+              <li class="favoritelist" *ngIf="property.facCount == '1'">
+        <ion-item id="{{property.ListingID}}card" style="padding-left: 10px;">
+          <ion-label><i class="favorite-icon"></i></ion-label>
+          <ion-checkbox checked (click)="favorite(property.ListingID) "></ion-checkbox>
+        </ion-item>
+              </li>
+              <li class="favoritelist" *ngIf="property.facCount == '0'">
+        <ion-item id="{{property.ListingID}}card"  style="padding-left: 10px;">
+          <ion-label><i class="favorite-icon"></i></ion-label>
+          <ion-checkbox (click)="favorite(property.ListingID) "></ion-checkbox>
+        </ion-item>
+              </li>
+              <li *ngIf="IsStaff" (click)="openEdit(property.ListingID)"><i class="share-icon"><img src="assets/imgs/outline-share.svg"></i></li>
+              <li *ngIf="!IsStaff">
+                <i class="share-icon" (click)="sharesocial(property.County, property.State, property.ZipCode, property.slug, property.ListingID)">
+                  <img src="assets/imgs/outline-share.svg">
+                  <!-- <a href="mailto:?Subject=&body=https://toptechrealty.com/{{property.County}}/{{property.State}}/{{property.ZipCode}}/{{property.slug}}/{{property.ListingID}}">
+                  <img src="assets/imgs/outline-share.svg">
+                  </a> -->
+                  
+                </i>
+              </li>
+            </ul>
+          </ion-card-title>
+          <ul class="property-details"  (click)="viewProperty(property.ListingID)">
+            <li>
+              <img src="assets/imgs/bed.svg"> <strong>{{ property.Beds }}</strong> bed
+            </li>
+            <li>
+              <img src="assets/imgs/bathtube-with-shower.svg"> <strong>{{ property.BathsCustom }}</strong> baths
+            </li>
+            <li>
+              <img src="assets/imgs/triangular-ruler-for-school.svg"> <strong>{{ property.SqFtApproximateTotal }}</strong> sqft
+            </li>
+            <li>
+              <img src="assets/imgs/clock.svg"> <strong class="lowercase">{{ property.DaysOnMarketCustom ? property.DaysOnMarketCustom : '0' }}</strong>
+            </li>
+          </ul>
+          <div class="address-panel" >
+            <ul>
+              <li  (click)="viewProperty(property.ListingID)"> 
+                {{ property.FullStreetAddress }}
+
+              </li>
+              <li  (click)="viewProperty(property.ListingID)">
+                {{ property.City }}, {{ property.State }} {{ property.ZipCode }}
+              </li>
+            </ul>
+            <img class="notallowed" src="assets/imgs/rmls-logo.svg">    </div>
+          </ion-card-content>
+        </ion-card>
+<div class="timeline-list"  *ngIf="showSpinner">
+<div class="timeline-wrapper">
+  <div class="timeline-item">
+    <div class="animated-background facebook"></div>
+    <div class="animated-background2 facebook">
+    <div class="background-masker top-center"></div>
+    <div class="background-masker listline"></div>
+      <div class="background-masker line1"></div>
+      <div class="background-masker list1"></div>
+      <div class="background-masker list2"></div>
+      <div class="background-masker list3"></div>
+      <div class="background-masker line2"></div>
+      <div class="background-masker contentline1"></div>
+      <div class="background-masker line3"></div>
+      <div class="background-masker contentline2"></div>
+      <div class="background-masker line4"></div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-wrapper">
+  <div class="timeline-item">
+    <div class="animated-background facebook"></div>
+    <div class="animated-background2 facebook">
+    <div class="background-masker top-center"></div>
+    <div class="background-masker listline"></div>
+      <div class="background-masker line1"></div>
+      <div class="background-masker list1"></div>
+      <div class="background-masker list2"></div>
+      <div class="background-masker list3"></div>
+      <div class="background-masker line2"></div>
+      <div class="background-masker contentline1"></div>
+      <div class="background-masker line3"></div>
+      <div class="background-masker contentline2"></div>
+      <div class="background-masker line4"></div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-wrapper">
+  <div class="timeline-item">
+    <div class="animated-background facebook"></div>
+    <div class="animated-background2 facebook">
+    <div class="background-masker top-center"></div>
+    <div class="background-masker listline"></div>
+      <div class="background-masker line1"></div>
+      <div class="background-masker list1"></div>
+      <div class="background-masker list2"></div>
+      <div class="background-masker list3"></div>
+      <div class="background-masker line2"></div>
+      <div class="background-masker contentline1"></div>
+      <div class="background-masker line3"></div>
+      <div class="background-masker contentline2"></div>
+      <div class="background-masker line4"></div>
+    </div>
+  </div>
+</div>
+</div>
+        <ion-infinite-scroll threshold="200px" (ionInfinite)="doInfinite($event)" *ngIf="currentPage <= totalPages">
+          <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </div>
+
+    </div>
+
+    <div padding [ngStyle]="{'display': showList}" class="map-main-panelp list-view">
+<div class="timeline-list listcard"  *ngIf="showSpinnerProperty">
+<div class="timeline-wrapper">
+  <div class="timeline-item">
+    <div class="animated-background2 facebook">
+      <div class="background-masker top-1"></div>
+      <div class="background-masker top-2"></div>
+      <div class="background-masker top-center"></div>
+      <div class="background-masker top-center2"></div>
+      <div class="background-masker priceleft"></div>
+      <div class="background-masker pricebottom"></div>
+      <div class="background-masker small1"></div>
+      <div class="background-masker small2"></div>
+      <div class="background-masker listline"></div>
+      <div class="background-masker r1"></div>
+      <div class="background-masker r2"></div>
+      <div class="background-masker r3"></div>
+      <div class="background-masker line1"></div>
+      <div class="background-masker list1"></div>
+      <div class="background-masker list2"></div>
+      <div class="background-masker list3"></div>
+      <div class="background-masker line2"></div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-wrapper">
+  <div class="timeline-item">
+    <div class="animated-background2 facebook">
+      <div class="background-masker top-1"></div>
+      <div class="background-masker top-2"></div>
+      <div class="background-masker top-center"></div>
+      <div class="background-masker top-center2"></div>
+      <div class="background-masker priceleft"></div>
+      <div class="background-masker pricebottom"></div>
+      <div class="background-masker small1"></div>
+      <div class="background-masker small2"></div>
+      <div class="background-masker listline"></div>
+      <div class="background-masker r1"></div>
+      <div class="background-masker r2"></div>
+      <div class="background-masker r3"></div>
+      <div class="background-masker line1"></div>
+      <div class="background-masker list1"></div>
+      <div class="background-masker list2"></div>
+      <div class="background-masker list3"></div>
+      <div class="background-masker line2"></div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-wrapper">
+  <div class="timeline-item">
+    <div class="animated-background2 facebook">
+      <div class="background-masker top-1"></div>
+      <div class="background-masker top-2"></div>
+      <div class="background-masker top-center"></div>
+      <div class="background-masker top-center2"></div>
+      <div class="background-masker priceleft"></div>
+      <div class="background-masker pricebottom"></div>
+      <div class="background-masker small1"></div>
+      <div class="background-masker small2"></div>
+      <div class="background-masker listline"></div>
+      <div class="background-masker r1"></div>
+      <div class="background-masker r2"></div>
+      <div class="background-masker r3"></div>
+      <div class="background-masker line1"></div>
+      <div class="background-masker list1"></div>
+      <div class="background-masker list2"></div>
+      <div class="background-masker list3"></div>
+      <div class="background-masker line2"></div>
+    </div>
+  </div>
+</div>
+</div>
+    <ion-grid no-padding style="    padding: 6px 0px;" class="stickyinfo property-info right-batch">
+      <ion-row>
+        <ion-col no-padding class="d-flex">
+          <ion-label class="home-count"><img height="15" width="15" src="assets/imgs/home-icon-count.svg" /> <span>{{ totalRecords }}</span><!-- <span>Homes</span>  --></ion-label>
+        </ion-col>
+        <ion-col col-7>
+          <div class="choose-view-top">
+            <button [ngStyle]="{'display': showCardbtn}" class="btn btn-hasicon btn-curve" (click)="goToCard()"> 
+              <p><i><img width="14" height="14" src="assets/imgs/cardview.svg" /></i>Card</p>
+            </button>
+            <button [ngStyle]="{'display': showListbtn}" class="btn btn-hasicon btn-curve" (click)="goToList()"> 
+              <p><i><img width="14" height="11" src="assets/imgs/listview.svg" /></i>List</p>
+            </button>
+            <button [ngStyle]="{'display': showMapbtn}" class="btn btn-hasicon btn-curve" (click)="goToMap()"> 
+              <p><i><img width="11" height="16" src="assets/imgs/placeholder.svg" /></i>Map</p>
+            </button>
+
+          </div>
+        </ion-col>
+      <ion-col no-padding style="    justify-content:  flex-end;">
+        <span class="sortby" style="justify-content: center;"><!-- sort by --><i  (click)="openEdit('save')"><img height="22" src="assets/imgs/search-home-icon-plus-blue.svg" width="22"></i> </span>
+        <div class="filter-sort-panel">
+          <ion-item class="ionselectlabel" no-line>
+            <ion-label>Sort By</ion-label>
+            <ion-select class="filter-sort"  [(ngModel)]="sortvaluelist" (ionChange)="sortby()" >
+              <ion-option  value="asc" >Price: low to high</ion-option>
+              <ion-option  value="desc" >Price: high to low</ion-option>
+              <ion-option  value="d_asc" >Newest to oldest</ion-option>
+              <ion-option  value="d_desc" >Oldest to newest</ion-option>
+              
+              <ion-option  value="bd_sort" >Bedroom</ion-option>
+              <ion-option  value="br_sort" >Bathroom</ion-option>
+              <ion-option  value="yb_sort" >Year built</ion-option>
+              <ion-option  value="sq_sort" >Sq ft</ion-option>
+              <ion-option  value="sn_sort" >Street name</ion-option>
+              <ion-option  value="c_sort" >City</ion-option>
+              <ion-option  value="z_sort" >Zip</ion-option>
+            </ion-select>
+          </ion-item>
+          </div>
+          </ion-col>
+       <!--    </ion-item> -->
+     
+      </ion-row>
+    </ion-grid>
+<ion-grid no-padding class="property-info right-batch">
+        <ion-row class="selectall-row">
+
+          <ion-col class="d-flex" no-padding>
+            <ion-item no-lines class="select-all">
+              <ion-label>{{selectlabel}}</ion-label>
+              <ion-checkbox id="selectallid" (click)="selectall($event)"  [(ngModel)]="selectallchecked"></ion-checkbox>
+            </ion-item>
+          </ion-col>
+          <ion-col no-padding >
+            <ion-item  class="ionselectlabel" style="width: 100%;" *ngIf="!disableButton"  no-padding no-lines>
+              <ion-label>Batch Actions</ion-label>
+              <ion-select *ngIf="IsStaffCheck == undefined" class="cstm-select" placeholder="Batch Actions" [(ngModel)]="batchAction" (ionChange)="changebatchAction()">
+                <!-- <ion-option value="1" >Favorite</ion-option> -->
+                <!-- <ion-option *ngIf="IsStaffCheck == '1'"  value="2" >Share Listing</ion-option> -->
+                
+                <ion-option value="3" >Request Tour</ion-option>
+                <ion-option value="4" >Ask a Question</ion-option>
+                <ion-option value="5" [disabled]="disableOffer">Start Offer</ion-option>
+              </ion-select>
+
+              <ion-select *ngIf="IsStaffCheck != undefined"   class="cstm-select" placeholder="Batch Actions" [(ngModel)]="batchAction" (ionChange)="changebatchAction()">
+                <ion-option value="1" >Favorite</ion-option>
+                <ion-option *ngIf="IsStaffCheck == '1'"  value="2" >Share Listing</ion-option>
+                
+                <ion-option *ngIf="IsStaffCheck == '0'" value="3" >Request Tour</ion-option>
+                <ion-option *ngIf="IsStaffCheck == '0'" value="4" >Ask a Question</ion-option>
+                <ion-option *ngIf="IsStaffCheck == '0'" value="5" [disabled]="disableOffer">Start Offer</ion-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item  class="ionselectlabel" style="width: 100%;" no-padding no-lines  *ngIf="disableButton" >
+              <ion-label>Batch Actions</ion-label>
+              <ion-select *ngIf="IsStaffCheck == undefined" class="cstm-select" placeholder="Batch Actions" [(ngModel)]="batchAction" (ionChange)="changebatchAction()">
+                <!-- <ion-option value="1" >Favorite</ion-option> -->
+                <!-- <ion-option *ngIf="IsStaffCheck == '1'"  value="2" >Share Listing</ion-option> -->
+                
+                <ion-option disabled value="3" >Request Tour</ion-option>
+                <ion-option disabled value="4" >Ask a Question</ion-option>
+                <ion-option disabled value="5" >Start Offer</ion-option>
+              </ion-select>
+
+              <ion-select *ngIf="IsStaffCheck != undefined"  class="cstm-select" placeholder="Batch Actions" [(ngModel)]="batchAction" (ionChange)="changebatchAction()">
+                <ion-label>Batch Actions</ion-label>
+                <ion-option value="1" disabled>Favorite</ion-option>
+                <ion-option *ngIf="IsStaffCheck == '1'"  value="2" disabled>Share Listing</ion-option>
+                
+                <ion-option *ngIf="IsStaffCheck == '0'" value="3" disabled>Request Tour</ion-option>
+                <ion-option *ngIf="IsStaffCheck == '0'" value="4" disabled>Ask a Question</ion-option>
+                <ion-option *ngIf="IsStaffCheck == '0'" value="5" disabled>Start Offer</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-card  *ngFor="let property of properties">
+        <div class="listpanel">
+          <ion-grid no-padding class="property-info">
+            <ion-row>
+              <ion-col col-12 no-padding class="d-flex">
+                <ion-checkbox [(ngModel)]="property.propertyCheck" (click)="multifavorite(property.FullStreetAddress, property.id, property.ListingID, $event)"></ion-checkbox>
+                <div class="imgpanel">
+                <figure  class="card-img">
+                  <img  (click)="viewProperty(property.ListingID)" src="{{ property.rmls_image }}"/>
+                  <span *ngIf="property.is_open_house == '1'" class="openhouse"><img  src="assets/imgs/openhouse.svg"/></span>
+                </figure>
+                </div>
+                <div class="address-panel">
+                  <div class="price-col">
+                  <span class="price"  (click)="viewProperty(property.ListingID)">${{ property.PriceCurrentForStatus | number: '2.'}}</span>
+                </div>
+                  <ul>
+                    <li> 
+                     <span   (click)="viewProperty(property.ListingID)"> {{ property.FullStreetAddress }}</span>
+                   </li>
+                   <li style="white-space: nowrap;">
+                  <span   (click)="viewProperty(property.ListingID)"> {{ property.State }} {{ property.ZipCode }}  <img src="assets/imgs/rmls-logo.svg" width="35" height="13" style="width: auto; margin-left: 10px; margin-top: 2px;"></span> 
+                  </li>
+                </ul>
+              </div>
+                <div class="favpanel favoritelist listviewfav">
+                  <ion-item  *ngIf="property.facCount == '1'" id="{{property.ListingID}}">
+                    <ion-label><i class="favorite-icon"></i></ion-label>
+                    <ion-checkbox checked  (click)="favorite(property.ListingID)"></ion-checkbox>
+                  </ion-item>
+                  <ion-item  *ngIf="property.facCount == '0'" id="{{property.ListingID}}" >
+                    <ion-label><i class="favorite-icon"></i></ion-label>
+                    <ion-checkbox (click)="favorite(property.ListingID) "></ion-checkbox>
+                  </ion-item> 
+                  <i class="share-icon" *ngIf="!IsStaff"  (click)="foropenEdit(property.ListingID)"><img width="20" height="20" src="assets/imgs/outline-chat.svg"></i>
+                </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <ul class="property-details" >
+        <li>
+          <img src="assets/imgs/bed.svg"> <strong>{{ property.Beds }}</strong> bed
+        </li>
+        <li>
+          <img src="assets/imgs/bathtube-with-shower.svg"> <strong>{{ property.BathsCustom }}</strong> baths
+        </li>
+        <li>
+          <img src="assets/imgs/triangular-ruler-for-school.svg"> <strong>{{ property.SqFtApproximateTotal }}</strong> sqft
+        </li>
+        <li>
+          <img src="assets/imgs/clock.svg"> <strong class="lowercase">{{ property.DaysOnMarketCustom ? property.DaysOnMarketCustom : '0' }}</strong>
+        </li>
+      </ul>
+    </ion-card>
+<div class="timeline-list listcard"  *ngIf="showSpinner">
+<div class="timeline-wrapper">
+  <div class="timeline-item">
+    <div class="animated-background2 facebook">
+      <div class="background-masker top-1"></div>
+      <div class="background-masker top-2"></div>
+      <div class="background-masker top-center"></div>
+      <div class="background-masker top-center2"></div>
+      <div class="background-masker priceleft"></div>
+      <div class="background-masker pricebottom"></div>
+      <div class="background-masker small1"></div>
+      <div class="background-masker small2"></div>
+      <div class="background-masker listline"></div>
+      <div class="background-masker r1"></div>
+      <div class="background-masker r2"></div>
+      <div class="background-masker r3"></div>
+      <div class="background-masker line1"></div>
+      <div class="background-masker list1"></div>
+      <div class="background-masker list2"></div>
+      <div class="background-masker list3"></div>
+      <div class="background-masker line2"></div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-wrapper">
+  <div class="timeline-item">
+    <div class="animated-background2 facebook">
+      <div class="background-masker top-1"></div>
+      <div class="background-masker top-2"></div>
+      <div class="background-masker top-center"></div>
+      <div class="background-masker top-center2"></div>
+      <div class="background-masker priceleft"></div>
+      <div class="background-masker pricebottom"></div>
+      <div class="background-masker small1"></div>
+      <div class="background-masker small2"></div>
+      <div class="background-masker listline"></div>
+      <div class="background-masker r1"></div>
+      <div class="background-masker r2"></div>
+      <div class="background-masker r3"></div>
+      <div class="background-masker line1"></div>
+      <div class="background-masker list1"></div>
+      <div class="background-masker list2"></div>
+      <div class="background-masker list3"></div>
+      <div class="background-masker line2"></div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-wrapper">
+  <div class="timeline-item">
+    <div class="animated-background2 facebook">
+      <div class="background-masker top-1"></div>
+      <div class="background-masker top-2"></div>
+      <div class="background-masker top-center"></div>
+      <div class="background-masker top-center2"></div>
+      <div class="background-masker priceleft"></div>
+      <div class="background-masker pricebottom"></div>
+      <div class="background-masker small1"></div>
+      <div class="background-masker small2"></div>
+      <div class="background-masker listline"></div>
+      <div class="background-masker r1"></div>
+      <div class="background-masker r2"></div>
+      <div class="background-masker r3"></div>
+      <div class="background-masker line1"></div>
+      <div class="background-masker list1"></div>
+      <div class="background-masker list2"></div>
+      <div class="background-masker list3"></div>
+      <div class="background-masker line2"></div>
+    </div>
+  </div>
+</div>
+</div>
+    <ion-infinite-scroll threshold="200px" (ionInfinite)="doInfinite($event)" *ngIf="currentPage <= totalPages">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</div>
+<div [ngStyle]="{'display': showMap}" class="map-info">
+
+    <ion-grid  (click)="closeinfo()"   no-padding class="stickyinfo property-info" >
+      <ion-row>
+        <ion-col no-padding class="d-flex">
+          <ion-label class="home-count"><img height="15" width="15" src="assets/imgs/home-icon-count.svg" /> <span>{{ totalRecordsmap }}</span><!-- <span>Homes</span>  --></ion-label>
+        </ion-col>
+        <ion-col col-7>
+          <div class="choose-view-top">
+            <button [ngStyle]="{'display': showCardbtn}" class="btn btn-hasicon btn-curve" (click)="goToCard()"> 
+              <p><i><img width="14" height="14" src="assets/imgs/cardview.svg" /></i>Card</p>
+            </button>
+            <button [ngStyle]="{'display': showListbtn}" class="btn btn-hasicon btn-curve" (click)="goToList()"> 
+              <p><i><img width="14" height="11" src="assets/imgs/listview.svg" /></i>List</p>
+            </button>
+            <button [ngStyle]="{'display': showMapbtn}" class="btn btn-hasicon btn-curve" (click)="goToMap()"> 
+              <p><i><img width="11" height="16" src="assets/imgs/placeholder.svg" /></i>Map</p>
+            </button>
+
+          </div>
+        </ion-col>
+      <ion-col no-padding style="    justify-content:  flex-end;">
+        <span class="sortby" style="justify-content: center;"><i  (click)="openEdit('save')"><img height="22" src="assets/imgs/search-home-icon-plus-blue.svg" width="22"></i> </span>
+<!--         <div class="filter-sort-panel">
+            <ion-select class="filter-sort"  [(ngModel)]="sortvaluemap" (ionChange)="sortby()" >
+              
+            </ion-select>
+          </div> -->
+          </ion-col>
+     
+      </ion-row>
+    </ion-grid>
+      </div>
+          <div class="spinner center" [ngStyle]="{'display': showMapLoader}" >
+                      <div class="bounce1"></div>
+                      <div class="bounce2"></div>
+                      <div class="bounce3"></div>
+        </div>
+      <div [ngStyle]="{'display': showMap}" class="map-main-panelp"  #map id="map"></div>
+      <div [ngStyle]="{'display': showMap}" >
+    <div class="overlay-loader" [ngStyle]="{'display': showOverlayLoader}" >
+      <div class="spinner center">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+      </div>
+    </div>
+    </div>
+      <div id="addInfo">
+<div class='addInfoContent animated-background' style="display: none;">
+<!--           <div  id="toclone" class="ForGuest">
+            <form class="form-inline mb-2 hdr-btn signin-createacc-panel">
+                <p>Please Sign In or Create Account to view more listings.</p>
+                <div class="guestbtnGrp">
+                <a href="javascript:;" class="btn sign__in" data-toggle="modal" data-target="#loginmodal">Sign In</a>
+              <a href="javascript:;" class="btn create__acc" data-toggle="modal" data-target="#siginmodal">Create Account</a>
+              </div>
+            </form>
+          </div> -->
+      <ion-card  class="map-property"  [ngClass]="{'hide-content' : userid == '0'}" >
+        <ion-card-content>
+          <ion-card-title>
+           <!--  <i class="mapclose" (click)= "mapClosePopover()"><img src="assets/imgs/close-blue.svg"></i> -->
+            <ul>
+               <li *ngIf="!IsStaff"  (click)="foropenEdit(mapListingID)">
+               <i class="commenticon share-icon"><img src="assets/imgs/outline-chat.svg"></i>
+               </li>
+              <li class="favoritelist " id="{{mapListingID}}favid" [ngClass]="{'active' : mapfavcount == '1'}">
+        <ion-item id="{{mapListingID}}card" style="padding-left: 10px;" no-lines>
+          <ion-label><i class="favorite-icon"></i></ion-label>
+          <ion-checkbox (click)="mapfavorite(mapListingID) "></ion-checkbox>
+        </ion-item>
+              </li>
+<!--               <li class="favoritelist {{mapListingID}}unfav" *ngIf="mapfavcount == '0'">
+        <ion-item id="{{mapListingID}}card" style="padding-left: 10px;" no-lines>
+          <ion-label><i class="favorite-icon"></i>0</ion-label>
+          <ion-checkbox (click)="favorite(mapListingID) "></ion-checkbox>
+        </ion-item>
+              </li> -->
+              <li *ngIf="IsStaff" (click)="openEdit(mapListingID)"><i class="outlineshare share-icon"><img src="assets/imgs/outline-share.svg"></i></li>
+              <li *ngIf="!IsStaff">
+                <i class="outlineshare share-icon"  (click)="sharesocial(mapcountry, mapState, mapZipCode, mapslug, mapListingID)">
+                  <img src="assets/imgs/outline-share.svg">
+                  
+                </i>
+              </li>
+            </ul>
+          </ion-card-title>
+          <div class="bottom-content" (click)="openProperty(mapListingID)">
+             <div class="bottom-panel">
+               
+  
+            <span class="price">${{ mapPriceCurrentForStatus | number: '2.'}}</span>
+          <ul class="property-details">
+            <li>
+              <img src="assets/imgs/bed-white.svg"> <strong>{{ mapBeds }}</strong> bed
+            </li>
+            <li>
+              <img src="assets/imgs/bathtube-with-shower-white.svg"> <strong>{{ mapBathsTotalInteger }}</strong> baths
+            </li>
+            <li>
+              <img src="assets/imgs/triangular-ruler-for-school-white.svg"> <strong>{{ mapSqFtApproximateTotal }}</strong> sqft
+            </li>
+            <li>
+              <img src="assets/imgs/clock-white.svg"> <strong>{{ mappropertyRmlsDaysRe ? mappropertyRmlsDaysRe : '0' }}</strong>
+            </li>
+          </ul>
+          
+
+          <div class="address-panel">
+            <ul>
+              <li> 
+                {{ mapFullStreetAddress }}
+
+              </li>
+              <li>
+                {{ mapCity }}, {{ mapState }} {{ mapZipCode }}
+              </li>
+            </ul>
+            <img src="assets/imgs/rmls-logo.svg"> 
+               </div>
+            </div>
+
+            </div>
+          </ion-card-content>
+        </ion-card>
+</div>    
+  </div>
+  <div  [ngStyle]="{'display': noproperty}" >
+<ion-grid class="noproperty" *ngIf="properties.length === 0">
+<img src="assets/imgs/realnoproperty.png">
+</ion-grid>
+</div>
+    </ion-content>
+    <ion-footer>
+<ion-fab *ngIf="isShown" (click)="scrollToTop()" right bottom>
+  <button ion-fab color="primary"><img src="assets/imgs/up.svg" width="20" height="20" /></button>
+</ion-fab>
+    </ion-footer>

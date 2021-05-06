@@ -1,0 +1,59 @@
+<ion-header class="header-min taigha-dashboard-header">
+    <ion-navbar class="no-right">
+        <div class="nav-custom">
+            <div class="nav-left">
+                <img (click)="toggleCard()" class="searchicon" src="assets/imgs/search-dash-w.svg" width="20" height="20">
+                <img class="advfiltericon" src="assets/imgs/filter-filled.svg" width="20" height="20">
+            </div>
+                <p class="title"> <img height="25" src="assets/imgs/icon-tickets-white.svg" width="25"> Tickets ( {{totalRecords}} )</p>
+            <div class="nav-right">
+              <span class="create-icon" (click)="createnewTickets()"><i><img src="assets/imgs/plus-dash-w.svg" width="20" height="20"></i></span>
+                <img class="advfiltericon"   (click)="openfilterModal({charNum: 0})" src="assets/imgs/filter-filled-white.svg" width="20" height="20">
+            </div>
+        </div>
+    </ion-navbar>
+ <div class="name-search-panel"   *ngIf="showSearch" >
+             <div class="all-search">
+                <ion-searchbar type="text" debounce="500"  [(ngModel)]="selectedFilters.subject" (ionInput)="searchtag()" (ionClear)="resetChanges()"></ion-searchbar>
+                <span class="adminSearchbar-icon" ><img *ngIf="showSearchIcon" src="assets/imgs/search-dash.svg" width="18" height="18"><img *ngIf="showClearIcon" src="assets/imgs/x-clear-b.svg" width="15" height="15"></span>
+             </div>
+ </div>
+</ion-header>
+<ion-content  padding class="taigha-dashboard">
+<ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+</ion-refresher>
+    <div class="spinner center spinnerTop" *ngIf="showSpinnertop">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+<div *ngIf="tickets.length > 0">
+<ion-list no-padding class="list-card">
+  <ion-item no-lines no-padding  *ngFor="let ticket of tickets">
+      <div class="list-details"  (click)="ticketview(ticket.id, ticket.default_subject)">
+        <p class="list-title">{{ ticket.default_subject }} ( {{ ticket.mailcount }} )</p>
+        <div class="mail-section">
+          <div class="mail-detail">
+              <div class="mail-sub-detail">
+                  <span class="max-text">{{ticket.ticket_histories.updated_by_name}}</span>
+                  <span>{{ ticket.ticket_histories.created_at_formatted}}</span>
+              </div>
+              <p  class="desc">{{ticket.ticket_histories.stripped_body}}</p>
+          </div>
+          </div>
+      </div>
+      <span class="rightarrow"><img src="assets/imgs/down-arrow.svg" width="10" height="20"></span>
+  </ion-item>
+</ion-list>
+</div>
+    <p class="no-records-found" *ngIf="showNoRecords">No Records Found!.</p>
+    <div class="spinner center" *ngIf="showSpinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+    <ion-infinite-scroll threshold="200px" (ionInfinite)="doInfinite($event)" *ngIf="currentPage <= totalPages">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

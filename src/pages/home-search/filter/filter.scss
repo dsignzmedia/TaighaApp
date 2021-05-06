@@ -1,0 +1,519 @@
+page-filter {
+    .default-radio{
+        width: 100% !important;
+        ion-item.item-radio-checked {
+                                ion-radio{
+         background-color: #2B74CE;
+         border-color: #2B74CE;
+     } 
+            }
+        ion-list{
+            width: 100% ;
+            margin: 0 !important;
+            ion-checkbox{
+                    margin-right: 15px !important;
+.checkbox-icon{
+border-radius: 3px;
+width: 20px;
+height:20px;
+border: 1px solid #666666;
+ &.checkbox-checked {
+    background-color: #2B74CE !important;
+    border-color: #2B74CE !important;
+    width: 20px;
+    height: 20px;
+.checkbox-inner {
+    left: 5px;
+    top: 2px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 18%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+}
+}
+            }
+        }
+        .item-inner{
+            padding: 0 !important;
+            .input-wrapper{
+                order: 2;
+                ion-label{
+                        font-size: 14px;
+                }
+            }
+            ion-radio{
+                order: 1;
+                    position: static;
+    display: block;
+    margin: 8px 11px 8px 8px;
+    width: 20px;
+    height: 20px;
+        border-radius: 3px;
+    border: 1px solid #666666;
+    
+
+    .radio-icon{
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: initial;
+    }
+    .radio-inner{
+    top: 15%;
+left: 7px;
+    position: absolute;
+width: 5px;
+    height: 10px;
+    border-width: 2px;
+    border-top-width: 0;
+    border-left-width: 0;
+    border-style: solid;
+    border-color: #fff;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    border-radius: initial;
+    background-color: transparent;
+    }
+            }
+
+                 ion-radio[ng-reflect-checked="true"]{
+         background-color: #2B74CE;
+         border-color: #2B74CE;
+     }
+            .radio-icon{
+               
+            }
+        }
+    }
+
+    .seehomebtn{
+        span{
+            margin: 0 4px;
+        }
+    }
+    .loadtotal{
+        width: 20px;
+        height: 20px;
+    -webkit-animation:spin 1s linear infinite;
+    -moz-animation:spin 1s linear infinite;
+    animation:spin 1s linear infinite;
+    }
+@-webkit-keyframes spin {
+        from {
+                -webkit-transform: rotate(0deg);
+        }
+        to {
+                -webkit-transform: rotate(359deg);
+        }
+}
+ion-header{
+	&.homesearch{
+		height: 45px;
+	}
+    .back-panel{
+display: flex;
+    }
+	button{
+            font-size: 15px;
+	background-color: transparent;
+	}
+	box-shadow: 0 1px 6px rgba(171, 171, 171, 0.3);
+	.hdr-left, .hdr-right{
+		 font-size: 14px;
+      font-weight: $medium-font-weight;
+	}
+	.hdr-center{
+color: #3366CC;
+      font-size: 19px;
+      font-weight: $medium-font-weight;
+	}
+}
+ion-content{
+	background-color: #fff !important;
+    .spinner-panel {
+    display: inline-block;
+    width: 100%;
+    position: fixed;
+    background-color: #fff;
+    height: 100%;
+    z-index: 10;
+    left: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    .spinner.center {
+    margin-bottom: 100px;
+}
+}
+	ion-grid{
+		margin-bottom: 50px;
+		ion-row{
+			margin-bottom: 25px;
+			ion-col{
+				&.inline-list{
+            @include flexbox;
+            @include align-items($value: center);
+            @include justify-content($value: space-around);
+				}
+				ion-input{
+            @include flexbox;
+            @include align-items($value: center);
+					height: 48px;
+					max-width: 150px;
+					border:1px solid #ccc;
+					padding-left: 15px;
+					border-radius: 5px;
+                    &.full-width-input{
+                        width: 100%;
+                        max-width: 100%;
+                    }
+				}
+                .inline-select{
+                ion-select{
+                max-width: 150px;
+                }
+                }
+				label{
+              font-size: $smallx-fontsize;
+              font-weight: $medium-font-weight;
+				margin-bottom: 10px;
+				display: block;
+				}
+			}
+		}
+	}
+	.beds-baths-radio{
+		margin: 0;
+		@include flexbox;
+		ion-item{
+			border: 1px solid rgba(235, 235, 235, 0.9); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center;
+	      justify-content: center; padding: 0; font-size: 14px; margin: 0 6px; 
+	      &.item-radio-checked{
+    background-color: #3366cc;
+    color: #fff;
+        ion-label{
+    	 color: #fff;
+    }
+	      }
+	      .radio-icon{
+	      	display: none;
+	      }
+	      .ion-label{
+	      	margin: 0;
+	      	    font-size: 13px;
+	      }
+	      .item-inner{
+	      	padding: 0 !important;
+.input-wrapper {
+    width: 100%;
+    min-width: 100%;
+    text-align: center;
+    ion-label{
+    	margin: 0 !important;
+    }
+}
+}
+		}
+	}
+.property-checkbox{
+            @include flexbox;
+            @include align-items($value: center);
+            @include flex-wrap($wrap: wrap);
+            margin-bottom: 0;
+                width: 100%;
+    ion-item{
+    	height: 60px;
+    	padding: 0;
+    flex: 0 0 33.3333%;
+    max-width: 33.3333%;
+    @include flexbox;
+    flex-direction: column;
+        border: 1px solid #e8e8e8;
+    &:nth-child(1){
+    	border-bottom: 0;
+    border-right: 0;
+    }
+    &:nth-child(2){
+    	border-bottom: 0;
+    }
+    &:nth-child(3){
+border-bottom: 0;
+    border-left: 0;
+    }
+    &:nth-child(4){
+    border-right: 0;
+    }
+    &:nth-child(5){
+    // 	border-bottom: 0;
+    // border-right: 0;
+    }
+    &:nth-child(6){
+    border-left: 0;
+    }
+    .item-inner{
+    	border: 0 !important;
+        padding: 0 !important;
+        .input-wrapper{
+        	ion-label{
+    margin: 0 !important;
+    padding: 11px 0;
+    font-size: 13px;
+				i {
+				    width: 100%;
+				    text-align: center;
+				    display: block;
+				}
+        	}
+        }
+    }
+    &.item-checkbox-checked{
+    	background-color: $blue;
+    	ion-label{
+        color: #fff;
+    	}
+    }
+    ion-checkbox{
+    	margin: 0 !important;
+    	.checkbox-icon{
+    		display: none;
+    	}
+
+    }
+	span {
+		width: 100%;
+		display: block;
+	}
+    }
+}
+.status-checkbox{
+            @include flexbox;
+            @include align-items($value: center);
+            @include flex-wrap($wrap: wrap);
+            margin-bottom: 0px;
+   ion-item{
+    width: auto;
+    border:0 !important;
+    padding: 0;
+    margin-right: 5px;
+    .item-inner{
+    border:0 !important;
+    }
+        ion-label{
+        font-size: 14px;
+        }
+        ion-radio{
+            margin-right: 15px !important;
+        }
+.radio-icon{
+border-radius: 0;
+width: 20px;
+height:20px;
+border: 1px solid #666666;
+}
+.item-radio-checked .radio-inner {
+    left: 5px;
+    top: 2px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 18%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    }
+.radio-ios .radio-checked .radio-inner {
+    left: 7px;
+    top: 4px;
+    position: absolute;
+    width: 4px;
+    height: 9px;
+    border-width: 1px;
+    border-top-width: 0;
+    border-left-width: 0;
+    border-style: solid;
+    border-color: #fff;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+ .radio-checked{
+    background-color: $bluex;
+        border-color: $bluex !important;
+        width: 20px;
+height:20px;
+}
+
+        
+   }
+   &.inline-status-checkbox{
+    display: block;
+    width: 100%;
+    ion-item{
+        min-height: auto;
+    }
+   }
+}
+.status-checkbox{
+            @include flexbox;
+            @include align-items($value: center);
+            @include flex-wrap($wrap: wrap);
+            margin-bottom: 0px;
+   ion-item{
+   	width: auto;
+   	border:0 !important;
+    padding: 0;
+    margin-right: 5px;
+   	.item-inner{
+    border:0 !important;
+   	}
+        ion-label{
+        font-size: 14px;
+        }
+        ion-checkbox{
+        	margin-right: 15px !important;
+        }
+.checkbox-icon{
+border-radius: 3px;
+width: 20px;
+height:20px;
+border: 1px solid #666666;
+}
+.checkbox-md .checkbox-checked .checkbox-inner {
+    left: 5px;
+    top: 2px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 18%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    }
+.checkbox-checked{
+    background-color: $bluex;
+        border-color: $bluex !important;
+        width: 20px;
+height:20px;
+}
+        
+   }
+   &.inline-status-checkbox{
+    display: block;
+    width: 100%;
+    ion-item{
+        min-height: auto;
+    }
+   }
+}
+
+.selectbox{
+	.item-inner{
+		border: 0 !important;
+	}
+}
+	ion-select{
+    background-color: transparent;
+    border: 1px solid rgba(199, 199, 199, 0.3);
+    border-radius: 8px;
+    padding: 0 15px;
+    margin: 5px 0;
+    width: 100%;
+    font-size: 15px;
+    color: #3F4768;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    height: 48px;
+    .select-text{
+    padding: 0;
+    width: calc(100% - 8px);
+    }
+	}
+
+.select-icon .select-icon-inner {
+    top: 50%;
+    margin-top: -5px !important;
+    position: absolute;
+    width: 0;
+    height: 0;
+    color: rgba(191, 191, 191, 0.65) !important;
+    pointer-events: none;
+    border-top: 13px solid !important;
+    border-right: 13px solid transparent !important;
+    border-left: 13px solid transparent !important;
+    left: -20px !important;
+}
+
+
+
+}
+.sticky-btn {
+    padding-bottom: 5px;
+    position: sticky;
+    bottom: 0;
+    position: fixed;
+    bottom: 0;
+    background-color: #EFEFEF;
+    z-index: 9999;
+    height: 75px;
+    left: 0;
+    right: 0;
+            @include flexbox;
+            @include align-items($value: center);
+            @include justify-content($value: space-around);
+  button {
+    &.btn{
+      background-color: #3366CC;
+      color: #fff;
+      font-size: 14px;
+      font-weight: $medium-font-weight;
+      height: 45px;
+      // line-height: 30px;
+      width: 250px;
+      margin: 0 8px;
+      text-transform: initial;
+              @include flexbox;
+        @include justify-content($value: center);
+        @include align-items($value: center);
+            vertical-align: middle;
+      p{
+        margin: 0;
+        line-height: initial;
+        @include flexbox;
+        @include justify-content($value: center);
+        @include align-items($value: center);
+        i{
+            @include flexbox;
+            @include align-items($value: center);
+          margin-right: 8px;
+        }
+
+      }
+    }
+    &.btn-curve{
+      border-radius: 40px;
+    }
+    &.clr-btn{
+    	color: #3366CC;
+    	width: 83px;
+    	background-color: #fff;
+    }
+  }
+}
+}

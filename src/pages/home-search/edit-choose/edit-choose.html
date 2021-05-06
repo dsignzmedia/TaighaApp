@@ -1,0 +1,170 @@
+<ion-header padding-left padding-right class="homesearch blue-header">
+    <ion-grid class="blue-header-inner">
+      <ion-row>
+        <ion-col no-padding class="hdr-left">
+        </ion-col>
+        <ion-col no-padding col-6  [ngStyle]="{'display': showEdit}" class="hdr-center">
+          Edit Saved Search
+        </ion-col>
+        <ion-col no-padding col-6  [ngStyle]="{'display': showSave}" class="hdr-center">
+          Save Search
+        </ion-col>
+        <ion-col no-padding col-6  [ngStyle]="{'display': showShare}" class="hdr-center">
+          Choose Recipients
+        </ion-col>
+        
+        <ion-col no-padding class="hdr-right">
+        	<i class="arrow-bg"  (click)="dismissModal()">
+                    <img src="assets/imgs/close-white.svg" width="25" height="25">
+                </i>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-header>
+<ion-content scrollY="false" forceOverscroll="false" has-bouncing="false" no-bounce  class="homesearch" padding>
+	<div class="edit-search" [ngStyle]="{'display': showEdit}">
+		<ion-grid>
+				<ion-list no-lines>
+					<ion-item no-padding>
+						<ion-label>Search Name</ion-label>
+					<ion-input type="text" placeholder="Name" [(ngModel)]="updatesearchname"></ion-input>
+					</ion-item>
+					<ion-item no-padding>
+						<ion-label>Email Settings</ion-label>
+			            <ion-select placeholder="Select" [(ngModel)]="updatesearchmail">
+			              <ion-option value="no email" selected>No Email</ion-option>
+			              <ion-option value="email instantly" >Email Instantly</ion-option>
+			              <ion-option value="daily" >Email Daily</ion-option>
+			            </ion-select>
+					</ion-item>
+                    <ion-item no-padding>
+						<button class="btn btn-hasicon btn-curve" (click)="updateSearch()"> 
+						Update
+						</button>
+						<a href="javascript:;"  (click)="delete()">Delete this search</a>
+				    </ion-item>
+				</ion-list>
+		</ion-grid>
+	</div>
+
+	<div class="edit-search" [ngStyle]="{'display': showSave}">
+		<ion-grid>
+				<ion-list no-lines>
+					<ion-item no-padding>
+						<ion-label>Name Your Search</ion-label>
+					<ion-input type="text" placeholder="Name"  [disabled]="isDisabled" [(ngModel)]="searchname"></ion-input>
+					</ion-item>
+					<ion-item no-padding>
+						<ion-label>Email Me</ion-label>
+			            <ion-select  [disabled]="isDisabled" placeholder="Select" [(ngModel)]="searchmail">
+			              <ion-option value="no email" selected>No Email</ion-option>
+			              <ion-option value="email instantly" >Email Instantly</ion-option>
+			              <ion-option value="daily" >Email Daily</ion-option>
+			            </ion-select>
+					</ion-item>
+                    <ion-item no-padding>
+						<button class="btn btn-hasicon btn-curve" (click)="saveSearch()"> 
+						  Save
+						</button>
+				    </ion-item>
+				</ion-list>
+		</ion-grid>
+	</div>
+
+	<div class="share-popup" [ngStyle]="{'display': showShare}">
+		<ion-grid>
+				<ion-list no-lines>
+					<ion-item no-padding>
+						<ion-label>Type</ion-label>
+            <ion-select placeholder="Select" [(ngModel)]="typevalue" (ionChange)="changeType()">
+              <ion-option  value="" disabled>Select</ion-option>
+              <ion-option  *ngFor="let item of typelist" value="{{item.id}}" >{{item.value}}</ion-option>
+            </ion-select>
+					</ion-item>
+					<div *ngIf="!showGroups">
+                    <ion-item no-padding >
+						<ion-label>Role</ion-label>
+            <ion-select placeholder="Select" [(ngModel)]="rolevalue" (ionChange)="changeRole()">
+              <ion-option  value="all" >All</ion-option>
+              <ion-option  *ngFor="let item of rolelist" value="{{item.id}}" >{{item.value}}</ion-option>
+            </ion-select>
+					</ion-item  >
+					  </div>
+					    <div *ngIf="showGroups">
+					 <ion-item no-padding>
+						<ion-label>Groups</ion-label>
+            <ion-select placeholder="Select" [(ngModel)]="rolevalue" (ionChange)="changeRole()">
+              <ion-option  value="all" >All</ion-option>
+              <ion-option  *ngFor="let item of grouplist" value="{{item.id}}" >{{item.name}}</ion-option>
+            </ion-select>
+					</ion-item>
+					</div>
+						<ion-label>Tags</ion-label>
+				        	<ion-searchbar placeholder="Tags" class="filterlistsearchtag" [(ngModel)]="searchTermtag" [showCancelButton]="false" (ionInput)="searchtag()" (ionClear)="resetChanges()"></ion-searchbar>
+				      <ion-row class="inline-item">
+				        <ion-col col-12 no-padding >
+				        	<ion-searchbar class="filterlistsearch" [(ngModel)]="searchTermuser" [showCancelButton]="false" (ionInput)="search()" (ionClear)="resetChanges()"></ion-searchbar>
+				        </ion-col>
+				        <ion-col class="d-flex" no-padding>
+				         <button class="btn btn-hasicon btn-curve half-border" (click)="userselectall()"> 
+							Select All
+							</button>
+							<button class="btn btn-hasicon btn-curve half-border"  (click)="userdeselectall()"> 
+							Deselect All
+							</button>
+				        </ion-col>
+				        <ion-col col-12 >
+							<ion-list class="select-role">
+							<div class="spinner threespin center" *ngIf="showSpinner">
+						      <div class="bounce1"></div>
+						      <div class="bounce2"></div>
+						      <div class="bounce3"></div>
+						    </div> 
+						    <div *ngIf="!showSpinner">
+							  <ion-item *ngFor="let user of userslist">
+							    <ion-label><span>{{user.first_name}} {{user.last_name}}</span></ion-label>
+							    <ion-checkbox [(ngModel)]="user.usercheck"  (click)="userCheckbox(user.id, $event)"></ion-checkbox>
+							  </ion-item>
+							</div>
+							</ion-list>
+				        </ion-col>
+				      </ion-row>
+                    <ion-list>
+						<ion-label>Comments</ion-label>
+					<textarea placeholder="Comment"  [(ngModel)]="cardComment" ></textarea>
+				    </ion-list>
+					<ion-list class="inline-checkbox">
+						<ion-label>Notification</ion-label>
+							<div class="inline-checkbox-item">
+							  <ion-item>
+							    <ion-label><span>Email</span></ion-label>
+							    <ion-checkbox  (click)="notifyCheckbox('email', $event)"></ion-checkbox>
+							  </ion-item>
+							  <ion-item>
+							    <ion-label><span>Text Message</span></ion-label>
+							    <ion-checkbox  (click)="notifyCheckbox('text_message', $event)"></ion-checkbox>
+							  </ion-item>
+							</div>
+					</ion-list>
+					
+					<ion-list class="inline-checkbox" *ngIf="showmultiaddress">
+						<ion-label>Listings to share</ion-label>
+							<textarea style="resize: none;" readonly value="{{multiaddressstring}}" ></textarea>
+					</ion-list>
+                    <ion-list *ngIf="showbtn">
+						<button class="btn btn-hasicon btn-curve" *ngIf="showcardshare"  (click)="cardShare()"> 
+						Share
+						</button>
+						<button class="btn btn-hasicon btn-curve" *ngIf="!showcardshare"  (click)="savedShare()"> 
+						Share
+						</button>
+				    </ion-list>
+				    <div class="spinner threespin center" *ngIf="!showbtn">
+						      <div class="bounce1"></div>
+						      <div class="bounce2"></div>
+						      <div class="bounce3"></div>
+						    </div> 
+				</ion-list>
+		</ion-grid>
+	</div>
+</ion-content>

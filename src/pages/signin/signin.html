@@ -1,0 +1,71 @@
+
+<ion-header padding-left padding-right class="has-three-col homesearch">
+    <ion-grid class="white-header">
+      <ion-row>
+        <ion-col no-padding class="hdr-left fixed-arrow" *ngIf="asmodal == 'no'">
+          <img src="assets/imgs/arrow-left.svg" width="15" height="15" (click)="goToStartnow()" />
+        </ion-col>
+        <ion-col no-padding class="hdr-left" *ngIf="asmodal == 'yes'">
+        </ion-col>
+        <ion-col no-padding class="hdr-center">
+          <div class="title-panel" text-center>
+            <a href="javascript:;" style="white-space: nowrap;">Sign in to continue</a>
+          </div>
+        </ion-col>
+        <ion-col no-padding class="hdr-right fixed-arrow"  *ngIf="asmodal == 'yes'">
+          <img src="assets/imgs/close-white-bluebg.svg" width="20" height="20" (click)="dismissModalx()" />
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-header>
+<ion-content padding class="homesearch">
+    <figure class="wall-figure">
+        <img src="assets/imgs/login.svg">
+    </figure>
+    <div class="signin-panel"> 
+    <ion-grid>
+        <form  [formGroup] = "login" (ngSubmit) = "doLogin()" >
+        <ion-list class="signin-details" no-lines>
+           <ion-item  [class.invalid]="!login.controls.email.valid && (login.controls.email.dirty)">
+            <ion-input type="email" formControlName="email" placeholder="E-mail"></ion-input>
+          </ion-item>
+          <ion-item  [class.invalid]="!login.controls.email.valid && (login.controls.email.dirty)" >
+            <ion-input [type]="passwordType" formControlName="password" type="password" placeholder="Password"></ion-input>
+          </ion-item>
+        </ion-list>
+        <ion-list  class="inline-items" no-lines>
+           <ion-item>
+            <ion-label>Remember me</ion-label>
+            <ion-checkbox slot="end" ></ion-checkbox>
+          </ion-item>
+          <ion-item class="passwordtext">
+            <span (click)='hideShowPassword()'>{{passwordText}}</span>
+          </ion-item>
+        </ion-list>
+        <ion-list no-lines>
+          <ion-item class="signin-button">
+            <button class="btn btn-medium btn-curve full-btn" [disabled]="!login.valid" ion-button block>Sign in</button>
+          </ion-item>
+          <ion-item>
+              <ion-label text-right class="f-pwd" (click) = "forgetpassword()">Forgot password</ion-label>
+          </ion-item>
+        </ion-list>
+        </form>
+    </ion-grid>
+        <ion-list  no-lines>
+          <ion-item text-center class="or has-connect-width"><span>or</span></ion-item>
+          
+          <ion-item class="facebookbtn">
+            <button  (click)="googlePlusLogin()" class="btn btn-medium btn-gplus secondary-btn btn-facebook btn-hasicon btn-curve full-btn" ion-button block><img class="btn-icon" src="assets/imgs/google-plus-white.svg"> Sign in with Google</button>
+            
+          </ion-item>
+          <ion-item class="facebookbtn"  *ngIf="platformname == 'ios'">
+            <button class="btn btn-medium secondary-btn btn-ios btn-facebook btn-hasicon btn-curve full-btn" ion-button (click)="applelogin()"  block><img class="btn-icon" style="left: 50px; width: 22px;" src="assets/imgs/apple.svg"> Sign in with Apple</button>
+          </ion-item>
+          <ion-item class="facebookbtn">
+            <button class="btn btn-medium secondary-btn btn-facebook btn-fb btn-hasicon btn-curve full-btn" ion-button (click)="fbLogin()"  block><img class="btn-icon" src="assets/imgs/facebook-white.svg"> Sign in with Facebook</button>
+            <p>Don’t have an account? <a href="javascript:;"  (click)="signUpmodal()">Sign up</a></p>
+          </ion-item>
+        </ion-list>
+    </div>
+</ion-content>

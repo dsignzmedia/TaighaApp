@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(20.000000, 20.000000) scale(-1, 1) translate(-20.000000, -20.000000) " fill="#3366CC">
+            <g id="iconfinder_search_322497" transform="translate(20.000000, 20.000000) scale(-1, 1) translate(-20.000000, -20.000000) ">
+                <path d="M38.8706449,33.42566 L29.4455521,24 C28.0398756,26.1837439 26.1836125,28.0414026 24,29.4458798 L33.4263765,38.8715398 C34.9308996,40.3761534 37.3686892,40.3761534 38.8706449,38.8715398 C40.3764517,37.3707775 40.3764517,34.9328412 38.8706449,33.42566 Z" id="Path"></path>
+                <path d="M30,15 C30,6.71625 23.28375,0 15,0 C6.71625,0 0,6.71625 0,15 C0,23.28375 6.71625,30 15,30 C23.28375,30 30,23.28375 30,15 Z M15,26.25 C8.795,26.25 3.75,21.205 3.75,15 C3.75,8.79625 8.795,3.75 15,3.75 C21.20375,3.75 26.25,8.79625 26.25,15 C26.25,21.205 21.20375,26.25 15,26.25 Z" id="Shape" fill-rule="nonzero"></path>
+            </g>
+            <g id="iconfinder_document_309087" transform="translate(19.000000, 8.000000)" fill-rule="nonzero">
+                <path d="M7.5,0 L1.5,0 C0.675,0 0,0.63 0,1.4 L0,12.6 C0,13.37 0.675,14 1.5,14 L10.5,14 C11.325,14 12,13.37 12,12.6 L12,4.2 L7.5,0 Z M9,8 L3,8 L3,7 L9,7 L9,8 Z M8,11 L3,11 L3,10 L8,10 L8,11 Z M7,5 L7,1 L11,5 L7,5 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

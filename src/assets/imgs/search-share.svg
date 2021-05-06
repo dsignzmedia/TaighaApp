@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <g id="Group_1120" data-name="Group 1120" transform="translate(-0.5 -0.032)">
+    <rect id="Rectangle_788" data-name="Rectangle 788" width="20" height="20" rx="10" transform="translate(0.5 0.032)" fill="#36c"/>
+    <g id="Page-1" transform="translate(3.985 4.006)">
+      <g id="share-arrows-svgrepo-com">
+        <g id="Group">
+          <path id="Shape" d="M11.892,5.879,6.356.343V3.97A6.716,6.716,0,0,0,0,10.676v1.4l.675-1.231A6,6,0,0,1,5.938,7.736c.139,0,.279,0,.418.015v3.665ZM5.938,7.016a6.722,6.722,0,0,0-5.062,2.3A6.006,6.006,0,0,1,6.716,4.68h.36V2.08l3.8,3.8-3.8,3.8V7.106L6.76,7.067a6.717,6.717,0,0,0-.822-.051Z" transform="translate(0 -0.343)" fill="#fff"/>
+          <path id="Path" d="M21.847,41.458l-4.558-4.685v2.986c-3.692.355-6.249,2.8-6.473,6.932a5.913,5.913,0,0,1,6.473-3.57v2.92Z" transform="translate(-10.567 -35.927)" fill="#fff" fill-rule="evenodd"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

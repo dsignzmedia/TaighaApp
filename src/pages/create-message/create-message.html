@@ -1,0 +1,84 @@
+<ion-header class="header-min taigha-dashboard-header">
+  <ion-navbar class="no-right">
+    <div class="center">
+      <i class="back_icon" (click)="goBack()"></i>
+      <p class="title">
+        <span class="title-head">Create Text Message</span>
+      </p>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="taigha-dashboard bg-white" >
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 no-padding>
+       <label>SMS to</label>
+     </ion-col>
+     <ion-col col-12 no-padding class="inline-list inline-select">
+       <ion-searchbar type="text" debounce="500" [(ngModel)]="searchTerm"  (ionChange)="getItems($event)"  (ionClear)="resetChanges()"></ion-searchbar>
+     </ion-col>
+     <ion-col col-12 no-padding>
+      <p class="no-records-found" *ngIf="showInfo">No Records Found!</p>
+      <div class="spinner center" *ngIf="showSpinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+    </ion-col>
+    <ion-col col-12 no-padding class="inline-list inline-select">
+      <div class="allsearchpanel" *ngIf="ishidden">
+        <div *ngIf="userlist.length != 0">
+          <ion-list no-padding class="list-card"  *ngFor="let user of userlist">
+            <ion-item no-lines no-padding  (click)="checkMsg(user.id, user.first_name, user.last_name, user.phone_number, user.phone_number_stripped)">
+              <div class="list-details">
+                <div class="thumbnail-panel">
+                 <ion-thumbnail slot="start">
+                  <span>{{user.first_name.substring(0,1)}}</span>
+                </ion-thumbnail>
+              </div>
+              <div class="list-sub-detail-panel">
+                <div class="list-sub-detail">
+                  <span class="sub-detail-one">{{user.first_name}} {{user.last_name}}</span>
+                </div>
+                <p class="list-title"><span class="body-message">{{user.phone_number}}</span></p>
+              </div>
+            </div>
+          </ion-item>
+          <ion-item no-lines no-padding *ngIf="user.owner_two_first_name" (click)="checkMsg(user.id, user.owner_two_first_name, user.owner_two_last_name, user.owner_two_phone_number, user.owner_two_phone_number_stripped)" >
+            <div class="list-details">
+              <div class="thumbnail-panel">
+               <ion-thumbnail slot="start">
+                <span>{{user.owner_two_first_name.substring(0,1)}}</span>
+              </ion-thumbnail>
+            </div>
+            <div class="list-sub-detail-panel">
+              <div class="list-sub-detail">
+                <span class="sub-detail-one">{{user.owner_two_first_name}} {{user.owner_two_last_name}}</span>
+              </div>
+              <p class="list-title"><span class="body-message">{{user.owner_two_phone_number}}</span></p>
+            </div>
+          </div>
+        </ion-item>
+        <ion-item no-lines no-padding *ngIf="user.owner_three_first_name"  (click)="checkMsg(user.id, user.owner_three_first_name, user.owner_three_last_name, user.owner_three_phone_number, user.phone_number_stripped)">
+          <div class="list-details">
+            <div class="thumbnail-panel">
+             <ion-thumbnail slot="start">
+              <span>{{user.owner_three_first_name.substring(0,1)}}</span>
+            </ion-thumbnail>
+          </div>
+          <div class="list-sub-detail-panel">
+            <div class="list-sub-detail">
+              <span class="sub-detail-one">{{user.owner_three_first_name}} {{user.owner_three_last_name}}</span>
+            </div>
+            <p class="list-title"><span class="body-message">{{user.owner_three_phone_number}}</span></p>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+</div>
+</ion-col>
+</ion-row>
+</ion-grid>
+</ion-content>

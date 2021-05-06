@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="47px" height="47px" viewBox="0 0 47 47" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(2.000000, 2.000000)">
+            <g id="iconfinder_search_3325029" stroke="#3366CC" stroke-linecap="round" stroke-linejoin="round">
+                <circle id="Oval" stroke-width="4" cx="18" cy="18" r="18"></circle>
+                <path d="M42,42 L32,32" id="Path" stroke-width="5"></path>
+            </g>
+            <g id="iconfinder_icon-ios7-heart_211755" transform="translate(8.000000, 9.000000)" fill="#3366CC">
+                <path d="M14.4166667,0 C12.65625,0 11.0416667,0.913294798 10,2.41618497 C8.95833333,0.913294798 7.34375,0 5.58333333,0 C2.50520833,0 0,2.79190751 0,6.22543353 C0,7.83815029 0.552083333,9.3699422 1.55729167,10.5375723 L9.43229167,19.3641618 L10,20 L10.5677083,19.3641618 L18.2916667,10.7052023 C19.3854167,9.53179191 20,7.93641618 20,6.22543353 C20,2.79190751 17.4947917,0 14.4166667,0 Z" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>

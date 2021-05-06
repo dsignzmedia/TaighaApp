@@ -1,0 +1,96 @@
+
+<ion-header padding-left padding-right class="has-three-col homesearch">
+    <ion-grid class="white-header">
+      <ion-row>
+        <ion-col no-padding class="hdr-left fixed-arrow">
+          <img src="assets/imgs/arrow-left.svg" width="15" height="15" (click)="goBack()" />
+        </ion-col>
+        <ion-col no-padding class="hdr-center">
+          <div class="title-panel" text-center>
+            <a href="javascript:;">Sign up with Email</a>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-header>
+<ion-content padding class="homesearch">
+    <figure class="wall-figure">
+        <img src="assets/imgs/signup.svg">
+    </figure>
+    <div class="signin-panel"> 
+    <ion-grid *ngIf="!showSpinner">
+        <form [formGroup] = "login" (ngSubmit) = "doSignUp()" >
+        <ion-list class="signin-details" no-lines>
+           <ion-item  [class.invalid]="!login.controls.first_name.valid && (login.controls.first_name.dirty)">
+            <ion-input type="text" placeholder="First name" formControlName="first_name"></ion-input>
+          </ion-item>
+          <ion-item  [class.invalid]="!login.controls.last_name.valid && (login.controls.last_name.dirty)">
+            <ion-input type="text" placeholder="Last name" formControlName="last_name"></ion-input>
+          </ion-item>
+          <ion-item [class.invalid]="!login.controls.email.valid && (login.controls.email.dirty)">
+            <ion-input type="text" placeholder="E-mail" formControlName="email"></ion-input>
+          </ion-item>
+          <ion-item [class.invalid]="!login.controls.phone_number.valid && (login.controls.phone_number.dirty)">
+            <ion-input type="text" [brmasker]="{mask:'(000)000-0000', len:13}" formControlName="phone_number" placeholder="(__)__-__"></ion-input>
+          </ion-item>
+          <ion-item [class.invalid]="!login.controls.password.valid && (login.controls.password.dirty)">
+            <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+          </ion-item>
+              <ion-item [class.invalid]="!login.controls.interested_in.valid && (login.controls.interested_in.dirty)">
+            <ion-select class="filter-select" formControlName="interested_in" placeholder="Interested In">
+              <ion-option value="{{ intin }}" *ngFor="let intin of interested_in">{{ intin }}</ion-option>
+            </ion-select>
+              </ion-item>
+          <ion-item [class.invalid]="!login.controls.timeframe.valid && (login.controls.timeframe.dirty)" >
+            <ion-select class="filter-select" formControlName="timeframe" placeholder="Timeframe">
+              <ion-option value="{{ tframe }}" *ngFor="let tframe of timeframe">{{ tframe }}</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item [class.invalid]="!login.controls.source.valid && (login.controls.source.dirty)" >
+            <ion-select  (ionChange)="toggleRefer()" class="filter-select" formControlName="source" placeholder="How did you Hear about us?">
+              <ion-option value="{{ s }}" *ngFor="let s of source">{{ s }}</ion-option>
+            </ion-select>
+          </ion-item>
+              <ion-item *ngIf="referred_person" class="margin-top-ten">
+                <ion-input type="text" placeholder="Name of the person who referred"  formControlName="signup_referred_person" ></ion-input>   
+              </ion-item>
+<!--               <ion-item>
+                <ion-label (click) = "toggleComment()" class="field-label d-block">Click here to add any additional comments</ion-label>
+              </ion-item> -->
+              <ion-item>
+                <ion-input class="comment" type="text" placeholder="Comments"  formControlName="comments" ></ion-input>  
+              </ion-item>
+
+              <ion-item class="error" *ngIf="errors.length > 0">
+              <ion-label *ngFor=" let error of errors ">* {{ error }}</ion-label>
+          </ion-item>
+        </ion-list>
+        <ion-list no-lines>
+        <ion-item class="custom-checkbox">
+            <ion-label>By clicking Accept to continue, I confirm that i have read the <a href="javascript:;">Terms of Service</a> and <a href="javascript:;">Privacy Policy</a> </ion-label>
+            <ion-checkbox slot="end" ></ion-checkbox>
+          </ion-item>
+          <ion-item class="signin-button">
+            <button class="btn btn-medium btn-curve full-btn" [disabled]="!login.valid" ion-button block>Create Account</button>
+          </ion-item>
+        </ion-list>
+        </form>
+      </ion-grid>
+        <ion-list  no-lines>
+          
+ 
+          <ion-item class="facebookbtn">
+            
+            <button (click)="googlePlusLogin()" class="btn btn-medium btn-gplus  secondary-btn btn-facebook btn-hasicon btn-curve full-btn" ion-button block><img class="btn-icon" src="assets/imgs/google-plus-white.svg"> Sign in with Google</button>
+          </ion-item>
+          <ion-item class="facebookbtn" *ngIf="platformname == 'ios'">
+            <button class="btn btn-medium secondary-btn btn-facebook btn-ios btn-hasicon btn-curve full-btn" ion-button (click)="applelogin()"  block><img class="btn-icon" style="left: 35px; width: 22px;"  src="assets/imgs/apple.svg">Sign in with Apple</button>
+          </ion-item>
+          <ion-item class="facebookbtn">
+            <button class="btn btn-medium secondary-btn btn-fb btn-facebook btn-hasicon btn-curve full-btn" ion-button block (click)="fbLogin()"><img class="btn-icon" src="assets/imgs/facebook-white.svg"> Sign in with Facebook</button>
+            <p>Don’t have an account? <a href="javascript:;" (click)="signIn()">Sign in</a></p>
+          </ion-item>
+        </ion-list>
+    </div>
+    <div class="spinner center" *ngIf="showSpinner" ><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+</ion-content>

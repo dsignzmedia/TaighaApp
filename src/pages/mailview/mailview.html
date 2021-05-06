@@ -1,0 +1,188 @@
+<!--
+  Generated template for the TicketviewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar class="no-right">
+        <!--  <ion-col class="left" (click)="back()">
+            <ion-icon class="back_icon"></ion-icon>
+        </ion-col> -->
+        <div class="center">
+            <i class="back_icon" (click)="back()"></i>
+            <p class="title" *ngIf="email">{{ email.subject }}</p>
+            <p class="title" *ngIf="!email">...</p>
+            <!--  <ion-title *ngIf="!ticket">TICKET</ion-title> -->
+        </div>
+    </ion-navbar>
+    <ion-navbar class="filter-panel">
+        <ion-grid>
+            <ion-row>
+                <ion-col class="no-border dashboardicons-panel flex-end" col-12 >
+                    <p class="name"></p>
+                      <p class="pull-right" (click)="ecAll()">{{ expandAll ? 'Collapse All' : 'Expand All' }}</p>
+                </ion-col> 
+            </ion-row>
+        </ion-grid>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <div *ngIf="email">
+        <ion-card class="view-card withpadding">
+            <ion-card-header (click) = "toggleShowHide('subject')">
+                <ion-card-title>Subject: {{ email.default_subject }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="view-content-panel view-subject-content-panel" *ngIf="showSubject">
+                <ion-grid>
+                    <ion-row class="top">
+                        <ion-col col-12>
+                            <p>
+                                <label>Sent To : </label>{{ email.customer_name }}</p>
+                        </ion-col>
+                        <ion-col col-6>
+                            <p>
+                                <label class="d-block">Created : </label>{{ email.creator_name }} - {{ email.created_at_formatted }}</p>
+                        </ion-col>
+                        <ion-col col-6>
+                            <p>
+                                <label class="d-block">Updated : </label>{{ email.updator_name }} - {{ email.updated_at_formatted }}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="center">
+
+                        <div class="description" [innerHTML]=" email.body "> </div>
+                        <div class="attachment-panel-group" *ngIf="email.email_attachments.length > 0">
+                            <div *ngFor=" let attachment of email.email_attachments ">
+                                <a href="{{ attachment.attachment_full_url }}">{{ attachment.attachname }}</a>
+                            </div>
+                        </div>
+                    </ion-row>
+                    <ion-row class="bottom">
+                        <ion-col col-12>
+                            <p>
+                                <label class="d-block d-flex-label">Property <span class="pencil_edit" (click)=" toggleTopHeaderUpdate('property') ">
+                                Edit</span> : </label>
+                                <span *ngIf=" !editpropertyfield ">{{ email.property_address ? email.property_address : '-' }}</span></p>
+
+                            <ion-select [(ngModel)]="email.property_id" class="form-field-select" (ionChange)="enableDisableStatus()" *ngIf="editpropertyfield">
+                                <ion-option value="{{ property.id }}" *ngFor=" let  property of properties  ">{{ property.address }}</ion-option>
+                            </ion-select>
+                        </ion-col>
+                        <ion-col col-6>
+                            <p>
+                                <label class="d-block d-flex-label">Priority <span class="pencil_edit" (click)=" toggleTopHeaderUpdate('priority') ">Edit</span> : </label>
+                                <span *ngIf=" !editpriorityfield ">{{ email.email_priority }}</span></p>
+                            <ion-select [(ngModel)]="email.email_priority" class="form-field-select" (ionChange)="enableDisableStatus()" *ngIf="editpriorityfield">
+                                <ion-option value="{{ priority.id }}" *ngFor=" let  priority of priorities  ">{{ priority.priority }}</ion-option>
+                            </ion-select>
+                        </ion-col>
+                        <ion-col col-6>
+                            <p>
+                                <label class="d-block">Group : </label>{{ email.group_name ? email.group_name : '-' }}</p>
+                        </ion-col>
+                        <ion-col col-6>
+                            <p>
+                                <label class="d-block">Staff : </label>{{ email.staff_name ? email.staff_name : '-' }}</p>
+                        </ion-col>
+                        <ion-col col-12>
+                            <button ion-button block text-uppercase class="btn btn-blue" [disabled]="disableUpdate" (click)="updateEmail()">Update</button>
+                        </ion-col>
+
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card class="view-card withpadding">
+            <ion-card-header (click) = "toggleShowHide('emails')">
+                <ion-card-title><i class="dash-icon da-icon-mail vertical-align-bottom"></i>EMAIL MESSAGES ({{ email.email_histories.length }})</ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="view-content-panel view-emailmessages-content-panel" *ngIf="showEmails">
+
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-12>
+                            <ion-list class="list-content">
+                                <ion-item [ngClass]="{active: emailMessage.activity_checked }" *ngFor="let emailMessage of email.email_histories">
+
+                                    <div class="contentarea">
+                                        <div class="desc accordian-head emsg-accordian-head-flex" (click)="toggleEmail(emailMessage)">
+                                            <div class="emsg-head">
+                                                <div class="description-panel">{{ emailMessage.stripped_body }}</div>
+                                                <p>{{ emailMessage.updated_by_name }} - {{ emailMessage.updated_at_formatted }}</p>
+                                            </div>
+                                            <div class="acc-icon"><i></i></div>
+                                        </div>
+                                        <div *ngIf="emailMessage.activity_checked" class="contentarea-acc-panel">
+                                            <div class="desc" [innerHTML]=" emailMessage.body "></div>
+                                            <div class="attachment-panel-group" *ngIf="emailMessage.email_attachments.length > 0">
+                                                <div *ngFor=" let attachment of emailMessage.email_attachments ">
+                                                    <a href="{{ attachment.attachment_full_url }}">{{ attachment.attachname }}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ion-item>
+                            </ion-list>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <button ion-button block text-uppercase class="btn btn-blue replybtn" (click)="replyToggle()">{{ showReply ? 'Collapse' : 'Reply' }}</button>
+                    </ion-row>
+                    <div *ngIf="showReply">
+                    <ion-row>
+                        <ion-col col-12 >
+                            <quill-editor [style]="{ height: '200px' }" [ngModel]="body" [modules]="{
+    toolbar: toolbarOptions
+  }" [placeholder] = "'Type here'" (onContentChanged)="getEditorContent($event)"  (onEditorCreated)="getEditorInstance($event)" ></quill-editor>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="reply-panel-row">
+                        <ion-col col-6 *ngIf=" properties.length > 0 ">
+                            <ion-label class="form-field-label">Property</ion-label>
+                            <ion-select [(ngModel)]="property_id" class="form-field-select">
+                                <ion-option value="{{ property.id }}" *ngFor=" let  property of properties  ">{{ property.address }}</ion-option>
+                            </ion-select>
+                        </ion-col>
+                        <ion-col col-6 *ngIf=" priorities.length > 0 ">
+                            <ion-label class="form-field-label">Priority</ion-label>
+                            <ion-select [(ngModel)]="priority" class="form-field-select">
+                                <ion-option value="{{ priority.id }}" *ngFor=" let  priority of priorities  ">{{ priority.priority }}</ion-option>
+                            </ion-select>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="reply-panel-row">
+                        <ion-col col-6>
+                            <ion-label class="form-field-label">Attachments</ion-label>
+                            <div class="upload-btn-wrapper">
+                             <button class="u-btn">Choose Files</button>
+                             <input type="file" class="form-field-input" multiple="multiple" #fileInput (change)="changeListener($event)">
+                            </div>
+                            <div class="attachment-panel-preview-group">
+                                <img *ngFor="let url of urls" [src]="url" class="rounded mb-3" width="180">
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="reply-btn-row">
+                        <ion-col col-6>
+                            <button ion-button block text-uppercase class="btn btn-blue" (click) = "reply()" [disabled]="">Send</button>
+                        </ion-col>
+                    </ion-row>
+                    </div>
+                </ion-grid>
+
+            </ion-card-content>
+        </ion-card>
+    </div>
+    <p class="no-records-found" *ngIf="!showSpinner && !email">No Records Found!.</p>
+    <div class="spinner center" *ngIf="showSpinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</ion-content>

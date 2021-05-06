@@ -1,0 +1,97 @@
+<!--
+  Generated template for the DocumentsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+<!--   <ion-navbar class="header-panel">
+  	<ion-col class="center">
+    <ion-title>Documents</ion-title>
+    </ion-col>
+    <ion-col class="right">
+      <ion-icon class="home_icon" menuToggle></ion-icon>
+    </ion-col>
+  </ion-navbar> -->
+  <ion-navbar class="no-right list-navbar">
+  <ion-col no-padding class="hdr-left">
+        <img src="assets/imgs/menu.svg" (click)="openHomeSearchmenu()"  width="30" height="30" />
+      </ion-col>
+        <div class="center">
+            <!-- <i class="home_icon" menuToggle></i> -->
+            <p class="title">Documents</p>
+        </div>
+    </ion-navbar>
+  <ion-navbar class="filter-panel">
+<ion-grid>
+  <ion-row>
+  <ion-col text-center col-6 (click)="openfilterModal({charNum: 0})">Filter
+    <i>
+      <img src="assets/icon/filter-filled.svg" width="15" height="15">
+      <span *ngIf="isFilterApplied" class="filter-applied"></span>
+    </i>
+  </ion-col>
+  <ion-col text-center col-6 >
+    <span (click)="createnewDocuments()">Add new<i><img src="assets/icon/add.svg" width="15" height="15"></i></span>
+     <span *ngIf="isFilterApplied" class="reset-filter" (click) = "resetFilter()" >Reset</span>
+  </ion-col>
+</ion-row>
+</ion-grid>
+
+</ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="documents.length > 0">
+    <p class="records-found">{{ totalRecords }} records found.</p>
+    <ion-card class="list-panel tickets-listpanel" *ngFor="let document of documents">
+            <ion-card-content>
+                <ion-grid>
+                    <ion-row (click)="viewDocument(document)">
+                        <ion-col col-12>
+                            <p><label class="d-block">Property :</label>{{ document.propertiesaddress ? document.propertiesaddress : '-' }}</p>
+                        </ion-col>
+                        <ion-col col-12>
+                            <p><label class="d-block">Document :</label>{{ document.doc_dynamic_name }}</p>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row *ngIf="document.showmore" [@enterAnimation] class="showBottomInfo last" (click)="viewDocument(document)">
+                        <ion-col col-12>
+                            
+                               <p> <label>Created: </label>{{ document.created_at_formatted }} -<i>{{ document.creatorname }}</i></p>
+                        </ion-col>
+                        <ion-col col-12>
+                            
+                               <p> <label>Updated: </label>{{ document.updated_at_formatted }} -<i>{{ document.updatedbyname }}</i></p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="no-padding">
+                        <ion-col col-12 no-padding>
+                            <div class="bottom--info three-columns" *ngIf="document.doc_id != 0">
+                                <small class="moreInfo" (click)="toggleTileTexts(document)">{{ document.showmore ? "Less Info" : 'More Info' }}</small>
+                                <small class="viewTickets moreInfo" (click)="editDcoument(document)" *ngIf="document.doc_id != 0">Edit</small>
+                                <small *ngIf="document.document_attachment"><a (click)="viewdoc(document.document_attachment)" class="color-blue" >View</a></small>
+                                <small class="viewTickets" (click)="viewDocument(document)" *ngIf="!document.document_attachment">View</small>
+                            </div>
+                            <div class="bottom--info " [ngClass]="{'three-columns': (document.pma_status != 'completed' && document.pma_status != 'voided') }"   *ngIf="document.pma_id != 0">
+                               <small class="moreInfo" (click)="toggleTileTexts(document)">{{ document.showmore ? "Less Info" : 'More Info' }}</small>
+                               <small class="viewTickets moreInfo" (click)="viewDocument(document)" *ngIf=" document.pma_status != 'completed' && document.pma_status != 'voided' " >Status</small>
+                               <small class="viewTickets" *ngIf=" document.envelope_pdf_path != '' " >
+                               <a (click)="viewdoc(document.envelope_pdf_path)" class="color-blue" > View</a>
+                              </small>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+    </ion-card>
+  </div>
+    <p class="no-records-found" *ngIf="!showSpinner && documents.length == 0">No Records Found!.</p>
+    <div class="spinner center" *ngIf="showSpinner" ><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+    <ion-infinite-scroll  threshold="200px"  (ionInfinite)="doInfinite($event)" *ngIf="currentPage <= totalPages" >
+       <ion-infinite-scroll-content></ion-infinite-scroll-content>
+     </ion-infinite-scroll>
+</ion-content>

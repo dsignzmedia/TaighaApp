@@ -1,0 +1,136 @@
+<ion-header class="header-min taigha-dashboard-header">
+    <ion-navbar class="no-right">
+      <div class="nav-custom">
+        <div class="nav-left">
+         <!--  <i class="back_icon" (click)="goBack()"></i> -->
+          <!-- <img class="searchicon"  (click)="toggleCard()" src="assets/imgs/search-dash-w.svg" width="20" height="20"> -->
+        </div>
+                <p class="title"> <img height="25" src="assets/imgs/sms.svg" width="25"> Text Messages ( {{totalRecords}} )</p>
+            <div class="nav-right">
+          <img class="plusicon" (click)="gotoCreateMessage()" src="assets/imgs/plus-dash-w.svg" width="20" height="20">
+<!--          <img class="doticon" src="assets/imgs/menu-dash-w.svg" width="6" height="20"> -->
+            </div>
+      </div>
+    </ion-navbar>
+ <div class="name-search-panel"  *ngIf="showSearch" >
+             <div class="all-search">
+              <!-- (ionChange)="getItems($event)" -->
+                <ion-searchbar type="text" [(ngModel)]="searchTerm" (ionInput)="searchtag()" (ionClear)="resetChanges()" ></ion-searchbar>
+                <span class="adminSearchbar-icon" ><img *ngIf="showSearchIcon" src="assets/imgs/search-dash.svg" width="18" height="18"><img (click)="clearsearchGlobal()" *ngIf="showClearIcon" src="assets/imgs/x-clear-b.svg" width="15" height="15"></span>
+             </div>
+ </div>
+</ion-header>
+<ion-content  padding class="taigha-dashboard"   (ionScroll)="onScrolll($event)">
+  <ion-refresher (ionRefresh)="doRefresh($event)" >
+        <ion-refresher-content></ion-refresher-content>
+ </ion-refresher>
+             <div class="listall-search all-search">
+              <!-- (ionChange)="getItems($event)" -->
+              <span class="adminSearchbar-icon" ><img src="assets/imgs/search-dash.svg" width="15" height="15"></span>
+                <ion-searchbar type="text"  debounce="500" [(ngModel)]="searchTerm" (ionInput)="searchtag('yes')" (ionClear)="resetChanges()" ></ion-searchbar>
+                <span class="adminSearchbar-icon" ><img (click)="searchtag('no')" *ngIf="showClearIcon" src="assets/imgs/x-clear-b.svg" width="13" height="13"></span>
+             </div>
+    <p class="no-records-found" *ngIf="!showSpinner && textmessage.length == 0">No Records Found!.</p>
+    <div class="spinner center" *ngIf="showSpinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+      <div class="allsearchpanel" *ngIf="ishidden">
+        <div  class="allsearchpanel-in" *ngIf="userlist.length != 0">
+          <ion-list no-padding class="list-card"  *ngFor="let user of userlist">
+            <ion-item no-lines no-padding  (click)="checkMsg(user.id, user.first_name, user.last_name, user.phone_number, user.phone_number_stripped)">
+              <div class="list-details">
+                <div class="thumbnail-panel">
+                 <ion-thumbnail slot="start">
+                  <span>{{user.first_name.substring(0,1)}}</span>
+                </ion-thumbnail>
+              </div>
+              <div class="list-sub-detail-panel">
+                <div class="list-sub-detail">
+                  <span class="sub-detail-one">{{user.first_name}} {{user.last_name}}</span>
+                </div>
+                <p class="list-title"><span class="body-message">{{user.phone_number}}</span></p>
+              </div>
+            </div>
+          </ion-item>
+          <ion-item no-lines no-padding *ngIf="user.owner_two_first_name" (click)="checkMsg(user.id, user.owner_two_first_name, user.owner_two_last_name, user.owner_two_phone_number, user.owner_two_phone_number_stripped)" >
+            <div class="list-details">
+              <div class="thumbnail-panel">
+               <ion-thumbnail slot="start">
+                <span>{{user.owner_two_first_name.substring(0,1)}}</span>
+              </ion-thumbnail>
+            </div>
+            <div class="list-sub-detail-panel">
+              <div class="list-sub-detail">
+                <span class="sub-detail-one">{{user.owner_two_first_name}} {{user.owner_two_last_name}}</span>
+              </div>
+              <p class="list-title"><span class="body-message">{{user.owner_two_phone_number}}</span></p>
+            </div>
+          </div>
+        </ion-item>
+        <ion-item no-lines no-padding *ngIf="user.owner_three_first_name"  (click)="checkMsg(user.id, user.owner_three_first_name, user.owner_three_last_name, user.owner_three_phone_number, user.phone_number_stripped)">
+          <div class="list-details">
+            <div class="thumbnail-panel">
+             <ion-thumbnail slot="start">
+              <span>{{user.owner_three_first_name.substring(0,1)}}</span>
+            </ion-thumbnail>
+          </div>
+          <div class="list-sub-detail-panel">
+            <div class="list-sub-detail">
+              <span class="sub-detail-one">{{user.owner_three_first_name}} {{user.owner_three_last_name}}</span>
+            </div>
+            <p class="list-title"><span class="body-message">{{user.owner_three_phone_number}}</span></p>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+</div>
+<ion-list no-padding class="list-card">
+    <ion-item no-lines no-padding *ngFor="let msg of textmessage" class="{{msg.admin_status}}">
+
+      <div class="list-details"  *ngIf="msg.sms_type == 'outgoing'" (click)="gotoTextMessage(msg.id, msg.customer_name, msg.sms_to_stripped, msg.customer_avatar)">
+        <div class="thumbnail-panel">
+   <ion-thumbnail slot="start">
+    <span *ngIf="msg.customer_avatar == '' || msg.customer_avatar == 'null' " ><span *ngIf="msg.customer_name != null " > {{msg.customer_name.substring(0,1)}}</span></span>
+      <img *ngIf="msg.customer_avatar != '' && msg.customer_avatar != 'null' " src="{{msg.customer_avatar}}">
+    </ion-thumbnail>
+    </div>
+    <div class="list-sub-detail-panel">
+        <div class="list-sub-detail">
+          <span class="sub-detail-one">{{msg.customer_name}}</span>
+          <span class="sub-detail-two">{{msg.date_human_readble}}</span>
+        </div>
+        <p class="list-title"><span *ngIf="msg.customer_name != null " >{{msg.creator_name.substring(0,msg.creator_name.indexOf(" ", maxLength))}}:</span> <span class="body-message">{{msg.body}}</span></p>
+        <!--  <span class="unread-count">5</span> -->
+        </div>
+      </div>
+
+      <div class="list-details"  *ngIf="msg.sms_type == 'incoming'" (click)="gotoTextMessage(msg.id, msg.customer_name, msg.sms_from_stripped, msg.customer_avatar)">
+        <div class="thumbnail-panel">
+   <ion-thumbnail slot="start">
+    <span *ngIf="msg.customer_avatar == '' || msg.customer_avatar == 'null' " ><span *ngIf="msg.customer_name != null " > {{msg.customer_name.substring(0,1)}}</span></span>
+      <img *ngIf="msg.customer_avatar != '' && msg.customer_avatar != 'null' " src="{{msg.customer_avatar}}">
+    </ion-thumbnail>
+    </div>
+    <div class="list-sub-detail-panel">
+        <div class="list-sub-detail">
+          <span class="sub-detail-one">{{msg.customer_name}}</span>
+          <span class="sub-detail-two">{{msg.date_human_readble}}</span>
+        </div>
+        <p class="list-title"><span class="body-message">{{msg.body}}</span></p>
+        </div>
+      </div>
+  </ion-item>
+</ion-list>
+
+    <ion-infinite-scroll threshold="200px" (ionInfinite)="doInfinite($event)" *ngIf="currentPage <= totalPages">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
+    <ion-footer>
+<ion-fab *ngIf="isShown" (click)="scrollToTop()" right bottom>
+  <button ion-fab color="primary"><img src="assets/imgs/up.svg" width="25" height="25" /></button>
+</ion-fab>
+    </ion-footer>

@@ -1,0 +1,13 @@
+page-myproperties {}
+
+.list-panel {
+  &.has-border {
+    border-width: 2px 0px 0px 2px;
+    border-style: double;
+    border-color: #3366CC;
+
+    &::before {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,73 @@
+<ion-header padding-left padding-right class="homesearch blue-header">
+  <ion-grid class="blue-header-inner">
+    <ion-row>
+      <ion-col no-padding class="hdr-left">
+        <img src="assets/imgs/menu.svg" (click)="openHomeSearchmenu()"  width="30" height="30" />
+      </ion-col>
+      <ion-col col-9 no-padding class="hdr-center">
+        <div class="tabtitle">
+          <h3>Saved Searches</h3>
+        </div>
+  </ion-col>
+  <ion-col no-padding class="hdr-right">
+  </ion-col>
+</ion-row>
+</ion-grid>
+</ion-header>
+
+
+<ion-content scrollY="false" forceOverscroll="false" has-bouncing="false" no-bounce  padding class="homesearch bg-white">
+          <div class="spinner center" *ngIf="showSpinner">
+                      <div class="bounce1"></div>
+                      <div class="bounce2"></div>
+                      <div class="bounce3"></div>
+        </div>
+        <div class="gridpanel" *ngIf="!showSpinner">
+          
+        
+<ion-grid  *ngIf="searchlist.length > 0" no-padding>
+    <ion-row>
+    <ion-col col-12 no-padding>
+      <h3 class="savedtitle">My saved Searches ({{searchlist.length}})</h3>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngFor="let search of searchlist">
+    <ion-col col-8 no-padding>
+       <label (click)="gotoHomesearch(search.url, search.params)">{{search.name}}</label>
+       <p>{{search.last_updated_at_human_readable}} by {{userfirstname}} {{userlastname}}</p>
+    </ion-col>
+    <ion-col col-4 no-padding class="inline-list">
+       <span class="notifymail" *ngIf="search.when_to_notify">{{search.when_to_notify}}</span>
+      <i class="white-blue-bg" (click)="openEdit('edit', search.id, search.name, search.when_to_notify)">
+        <img src="assets/imgs/draw.svg"  width="20">
+      </i>
+      <i *ngIf="IsStaffCheck == '1'" class="white-blue-bg" (click)="openEdit('forshare', search.id, search.name, search.when_to_notify)">
+        <img src="assets/imgs/share.svg"  width="20">
+      </i>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-grid *ngIf="searchagentlist.length > 0"  no-padding>
+    <ion-row>
+    <ion-col col-12 no-padding>
+      <h3 class="savedtitle">Agent recommended searches  ({{searchagentlist.length}})</h3>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngFor="let search of searchagentlist">
+    <ion-col col-8 no-padding>
+       <label (click)="gotoHomesearch(search.url, search.params)">{{search.name}}</label>
+       <p>{{search.last_updated_at_human_readable}} by {{userfirstname}} {{userlastname}}</p>
+    </ion-col>
+    <ion-col col-4 no-padding class="inline-list">
+      <span class="notifymail" *ngIf="search.when_to_notify">{{search.when_to_notify}}</span>
+      <i class="white-blue-bg" (click)="openEdit('edit', search.id, search.name, search.when_to_notify)">
+        <img src="assets/imgs/draw.svg"  width="20">
+      </i>
+      <i *ngIf="IsStaffCheck == '1'" class="white-blue-bg" (click)="openEdit('forshare', search.id, search.name, search.when_to_notify)">
+        <img src="assets/imgs/share.svg"  width="20">
+      </i>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</div>
+</ion-content>

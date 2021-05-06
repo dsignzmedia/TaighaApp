@@ -1,0 +1,67 @@
+page-filterproperties {
+
+}
+.close_icon{
+	background-image: url(../assets/icon/close-white.svg);
+	background-repeat: no-repeat;
+	background-size: 100%;
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+  &.position-right{
+  	position: absolute;
+  	right: 20px;
+  	top: 18px;
+  }
+}
+.filterModal{
+		.toolbar-background{
+		/*border-color: transparent !important;*/
+	}
+ion-content.content{
+	background-color: color($colors, light);
+}
+.close_icon{
+		position: absolute;
+	right: 20px;
+	z-index: 1;
+	&.icon-md{
+		top: 14px; 
+	}
+	&.icon-ios{
+		top: 10px; 
+	}
+}	
+}
+.filter-grid{
+	.filter-label{
+		color: color($colors, primary);
+		font-weight: $bold-font-weight;
+		font-size: 13px;
+		margin: 0 0 8px;
+	}
+	.filter-input{
+		border: 1px solid #bbbdc0;
+		color: #bbbdc0;
+		font-weight: $bold-font-weight;
+		font-size: 13px;
+	}
+	.filter-select{
+       border: 1px solid #bbbdc0;
+		color: #bbbdc0;
+		font-weight: $bold-font-weight;
+		font-size: 13px;
+		max-width: 100%;
+		.select-icon .select-icon-inner{
+			color: #bbbdc0;
+		}
+	}
+	.filter-btn-row{
+		margin-top: 20px;
+	}
+}
+.tagsinputAlert{
+	.alert-title{
+		color: #3366CC;
+	}
+}

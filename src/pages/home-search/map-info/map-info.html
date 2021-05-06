@@ -1,0 +1,73 @@
+<ion-content scrollY="false" forceOverscroll="false" has-bouncing="false" no-bounce  no-padding >
+  <!-- <ion-card *ngIf="!propertyimg" class="map-property" > -->
+  <ion-card *ngIf="!propertyimg" class="map-property" >
+    <div class="animated-background facebook" style="height: 110px;"></div>
+    <div class="animated-background2 facebook">
+    <div class="background-masker listline"></div>
+      <div class="background-masker line1"></div>
+    </div>
+  </ion-card>
+      <ion-card *ngIf="propertyimg" class="map-property" >
+        <ion-card-content>
+          <ion-card-title>
+           <!--  <i class="mapclose" (click)= "mapClosePopover()"><img src="assets/imgs/close-blue.svg"></i> -->
+            <ul>
+               <li *ngIf="!IsStaff"  (click)="foropenEdit(propertyRmls.ListingID)">
+               <i class="share-icon"><img src="assets/imgs/outline-chat.svg"></i>
+               </li>
+              <li class="favoritelist" *ngIf="propertyRmls.facCount == '1'">
+        <ion-item id="{{propertyRmls.ListingID}}card" style="padding-left: 10px;" no-lines>
+          <ion-label><i class="favorite-icon"></i></ion-label>
+          <ion-checkbox checked (click)="favorite(propertyRmls.ListingID) "></ion-checkbox>
+        </ion-item>
+              </li>
+              <li class="favoritelist" *ngIf="propertyRmls.facCount == '0'">
+        <ion-item id="{{propertyRmls.ListingID}}card" style="padding-left: 10px;" no-lines>
+          <ion-label><i class="favorite-icon"></i></ion-label>
+          <ion-checkbox (click)="favorite(propertyRmls.ListingID) "></ion-checkbox>
+        </ion-item>
+              </li>
+              <li *ngIf="IsStaff" (click)="openEdit(propertyRmls.ListingID)"><i class="share-icon"><img src="assets/imgs/outline-share.svg"></i></li>
+              <li *ngIf="!IsStaff">
+                <i class="share-icon">
+                  <a href="mailto:?Subject=&body=https://toptechrealty.com/{{propertyRmls.County}}/{{propertyRmls.State}}/{{propertyRmls.ZipCode}}/{{propertyRmls.slug}}/{{propertyRmls.ListingID}}">
+                  <img src="assets/imgs/outline-share.svg">
+                  </a>
+                  
+                </i>
+              </li>
+            </ul>
+          </ion-card-title>
+          <div class="bottom-content" (click)="openProperty()">
+            <span class="price">${{ propertyRmls.PriceCurrentForStatus | number: '2.'}}</span>
+          <ul class="property-details">
+            <li>
+              <img src="assets/imgs/bed-white.svg"> <strong>{{ propertyRmls.Beds }}</strong> bed
+            </li>
+            <li>
+              <img src="assets/imgs/bathtube-with-shower-white.svg"> <strong>{{ propertyRmls.BathsTotalInteger }}</strong> baths
+            </li>
+            <li>
+              <img src="assets/imgs/triangular-ruler-for-school-white.svg"> <strong>{{ propertyRmls.SqFtApproximateTotal }}</strong> sqft
+            </li>
+            <li>
+              <img src="assets/imgs/clock-white.svg"> <strong>{{ propertyRmlsDaysRe ? propertyRmlsDaysRe : '0' }}</strong>
+            </li>
+          </ul>
+          
+
+          <div class="address-panel">
+            <ul>
+              <li> 
+                {{ propertyRmls.FullStreetAddress }}
+
+              </li>
+              <li>
+                {{ propertyRmls.City }}, {{ propertyRmls.State }} {{ propertyRmls.ZipCode }}
+              </li>
+            </ul>
+            <img src="assets/imgs/rmls-logo.svg">    </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+</ion-content>

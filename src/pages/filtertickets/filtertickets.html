@@ -1,0 +1,106 @@
+<!-- <ion-header>
+<ion-navbar>
+	<ion-icon (click)="goBack()" class="close_icon position-right"></ion-icon>
+  <ion-title>Filter</ion-title>
+</ion-navbar>
+</ion-header> -->
+<ion-header padding-left padding-right class="homesearch">
+    <ion-grid class="white-header">
+<!--       <ion-row>
+        <ion-col no-padding class="hdr-left">
+        </ion-col>
+        <ion-col no-padding col-6 class="hdr-center">
+          Filter
+        </ion-col>
+        
+        <ion-col no-padding class="hdr-right">
+          <i class="arrow-bg"  (click)="goBack()">
+                    <img src="assets/imgs/close-white.svg" width="25" height="25">
+                </i>
+        </ion-col>
+      </ion-row> -->
+      <ion-row>
+        <ion-col no-padding class="hdr-left">
+        <i class="back-panel"><img src="assets/imgs/backarrow-blue.svg" width="20" height="20" (click)="goBack()" /></i>
+        </ion-col>
+        <ion-col no-padding class="hdr-center">
+          <h2> Filter</h2>
+        </ion-col>
+        <ion-col no-padding class="hdr-right">
+        <button (click)="resetAll()">
+          Reset
+        </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-header>
+<ion-content padding>
+
+  <ion-grid class="filter-grid" *ngIf="!showSpinner">
+    <ion-row>
+      <ion-col col-12>
+        <ion-label class="filter-label">Subject</ion-label>
+        <ion-input class="filter-input" [(ngModel)] = "selectedFilters.subject" type="text" placeholder="Subject" ></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6 *ngIf=" filterOptions.groups ">
+        <ion-label class="filter-label">Group</ion-label>
+        <ion-select [(ngModel)]="selectedFilters.group" class="filter-select" multiple="true" placeholder="Group">
+          <ion-option value="">All</ion-option>
+          <ion-option value="{{ group.id }}" *ngFor=" let group of filterOptions.groups " >{{ group.name }}</ion-option>
+        </ion-select>
+      </ion-col>
+      <ion-col col-6 *ngIf=" filterOptions.staffs "> 
+        <ion-label class="filter-label">Staff</ion-label>
+              <ion-select [(ngModel)]="selectedFilters.staffs" class="filter-select" multiple="true" placeholder="Staff">
+                <ion-option value="">All</ion-option>
+                <ion-option value="{{ staff.id }}" *ngFor=" let staff of filterOptions.staffs " >{{ staff.first_name }} {{ staff.last_name }}</ion-option>
+              </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6 *ngIf=" filterOptions.status "> 
+        <ion-label class="filter-label">Status</ion-label>
+        <ion-select class="filter-select" [(ngModel)]="selectedFilters.status" multiple="true" placeholder="Status">
+          <!-- <ion-option value="">All</ion-option> -->
+          <ion-option value="{{ status.id }}" *ngFor=" let status of filterOptions.status " >{{ status.status }}</ion-option>
+        </ion-select>
+      </ion-col>
+      <ion-col col-6 *ngIf=" filterOptions.priorities " >
+        <ion-label class="filter-label">Priority</ion-label>
+       <ion-select class="filter-select" [(ngModel)]="selectedFilters.priorities" multiple="true" placeholder="Priority">
+        <!--   <ion-option value="">All</ion-option> -->
+          <ion-option value="{{ priority.id }}" *ngFor=" let priority of filterOptions.priorities " >{{ priority.priority }}</ion-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6 *ngIf=" filterOptions.updatedBys "  >
+        <ion-label class="filter-label">Updated by</ion-label>
+        <ion-select class="filter-select" [(ngModel)]="selectedFilters.updated_by" multiple="true" placeholder="Updated by">
+          <ion-option value="">All</ion-option>
+          <ion-option value="{{ updatedBy.id }}" *ngFor=" let updatedBy of filterOptions.updatedBys " >{{ updatedBy.first_name }} {{ updatedBy.last_name }}</ion-option>
+        </ion-select>
+      </ion-col>
+      <ion-col col-6>
+        <ion-label class="filter-label">Updated</ion-label>
+        <ion-input class="filter-input" type="text" [(ngModel)] = "selectedFilters.updated_at" (ionFocus)="openCalendar()" placeholder="Updated"></ion-input>
+      </ion-col>
+    </ion-row>
+<!--     <ion-row class="filter-btn-row">
+    	<ion-col col-6><button ion-button block text-uppercase class="btn btn-outline-blue" (click)="goBack()">Cancel</button></ion-col>
+      <ion-col col-6><button ion-button block text-uppercase class="btn btn-blue" (click) = "applyFilter()" >Apply</button></ion-col>
+    </ion-row> -->
+  </ion-grid>
+  <div class="spinner center" *ngIf="showSpinner" ><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+</ion-content>
+<div class="sticky-btn">
+    <button class="btn btn-hasicon btn-curve clr-btn"  (click)="goBack()"> 
+      Cancel
+    </button>
+    <button (click)="applyFilter()" class="btn btn-hasicon btn-curve seehomebtn" > 
+      Apply
+    </button>
+    
+</div>

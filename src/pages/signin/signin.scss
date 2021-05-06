@@ -1,0 +1,233 @@
+page-signin {
+ion-content{
+	background-color: #fff !important;
+	p{
+		color: $bluegrey !important;
+		a{
+			color: $blue;
+		}
+	}
+    .wall-figure {
+	    margin: 0;
+	    height: 230px;
+	    margin-bottom: 50px;
+	    img{
+		    width: 100%;
+		    height: 100%;
+		    object-fit: cover;
+	    }
+    }
+    .signin-button{
+    	ion-label{
+    		margin-bottom: 0;
+    	}
+    }
+    .btn{
+    	max-width: 225px;
+    	margin: 0 auto;
+      &.btn-hasicon{
+        position: relative;
+        .btn-icon {
+          position: absolute;
+          left: 55px;
+      }
+      }
+    }
+    .or{
+    	font-size: 13px;
+    	color: #8D8D8D;
+    }
+    .secondary-btn{
+    	background-color: #E8F0FF !important;
+    	color: #3F4768 !important;
+    }
+    ion-item {
+    	p{
+	    	margin: 15px 0 0 0 !important;
+	    	text-align: center;
+        }
+        .f-pwd{
+         color: $blue;
+         font-size: $small-fontsize;
+        }
+    }
+        .inline-items{
+			display: inline-flex;
+			width: 100%;
+			.passwordtext{
+			   padding: 0;
+			   text-align: right;
+			}
+        }
+    form{
+    	ion-list{
+    		margin-bottom: 0 !important;
+    	}
+    }
+    .btn-ios {
+        background: #000 !important;
+    color: #fff !important;
+    border-radius: 5px !important;
+	}
+	.btn-facebook {
+		img {
+			width: 22px !important;
+			left: 50px !important; 
+		}
+		border-radius: 5px !important;
+	}
+	.btn-fb {
+		background-color: #3a5896 !important;
+    	color: #fff !important;
+	}
+	.btn-gplus {
+		background-color: #de4e3c !important;
+    	color: #fff !important;
+	}
+
+}
+}
+
+.login-panel {
+	.label {
+		&.field-label {
+			font-size: $small-fontsize;
+			margin: 0;
+
+			/*transform: translate3d(15px, 33px, 0);*/
+			@include flexbox;
+
+			.icon {
+				width: 20px;
+				height: 20px;
+				background-repeat: no-repeat;
+				background-size: 100%;
+				background-position: center;
+				margin-right: 10px;
+				margin-left: 0px;
+				position: relative;
+				top: 5px;
+
+				&.pwd {
+					background-image: url(../assets/icon/key.svg);
+				}
+
+				&.mail {
+					background-image: url(../assets/icon/email.svg);
+				}
+
+				&.uname {
+					background-image: url(../assets/icon/user.svg);
+				}
+
+				&.pno {
+					background-image: url(../assets/icon/smartphone.svg);
+				}
+
+			}
+
+		}
+
+		&.f-pwd {
+			color: color($colors, secondary);
+			font-size: $small-fontsize;
+		}
+
+	}
+
+	.item {
+		margin-bottom: 0px;
+		padding: 0;
+
+		.item-inner {
+			border: 0;
+			padding: 0 15px;
+			border-bottom-color: transparent !important;
+			box-shadow: 0 !important;
+
+			.text-input {
+				font-size: $small-fontsize;
+				border: 1px solid #c8c7cc;
+				padding: 0 15px;
+				width: 100%;
+				height: 45px;
+				margin: 0;
+			}
+
+		}
+
+	}
+
+	.item-input-has-focus, .input-has-focus {
+		.label {
+			background-color: color($colors, light);			/*-webkit-transform: translate3d(15px, 12px, 0) scale(0.8);
+			transform: translate3d(15px, 12px, 0) scale(0.8);*/
+			margin: 0;
+			color: color($colors, secondary);
+			&.field-label {
+				.icon {
+					&.pwd {
+					background-image: url(../assets/icon/key-blue.svg);
+				}
+
+				&.mail {
+					background-image: url(../assets/icon/email-blue.svg);
+				}
+				}
+			}
+		}
+
+		.item-inner {
+			.text-input {
+				border-color: color($colors, secondary)
+			}
+
+		}
+
+	}
+
+	.button {
+		font-size: 16px;
+	}
+
+	.input-wrapper {
+		flex-wrap: wrap;
+
+		.field-label {
+			flex: 0 0 100%;
+			max-width: 100%;
+			align-items: center;
+			padding: 10px 0;
+		}
+
+	}
+
+}
+.btn-signin{
+	i{
+		margin-right: 15px;
+		img{
+			display: block;
+		}
+	}
+	&.btn-facebook{
+     background-color: #3b5998;
+	}
+	&.btn-gplus{
+ background-color: #d34836;
+	}
+}
+.it-crea-acc{
+	min-height: 20px;
+}
+.it-fb .label, .it-crea-acc .label, .it-or .label{ margin: 0; }
+
+.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+	box-shadow: inherit;
+	border-color: transparent;
+}
+
+.item-md.item-input.input-has-focus .item-inner {
+	box-shadow: inherit;
+	border-color: transparent;
+}

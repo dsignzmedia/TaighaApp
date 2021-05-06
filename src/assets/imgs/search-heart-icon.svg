@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="323px" height="323px" viewBox="0 0 323 323" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>search-heart-icon</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="search-heart-icon" transform="translate(11.000000, 11.000000)">
+            <ellipse id="Oval" stroke="#77829A" stroke-width="22" cx="133.5" cy="132.621711" rx="133.5" ry="132.621711"></ellipse>
+            <path d="M203.314,110.919434 C203.314,90.26025 186.402,73.5131579 165.537,73.5131579 C151.793,73.5131579 139.767,80.7820197 133.158,91.6480592 C126.549,80.7820197 114.521,73.5131579 100.777,73.5131579 C79.912,73.5131579 63,90.26025 63,110.919434 C63,121.669243 67.588,131.354105 74.922,138.176921 L74.912,138.176921 L128.996,189.421553 C129.988,190.601737 131.476,191.353757 133.144,191.353757 C134.689,191.353757 136.08,190.705053 137.064,189.668914 L191.41,138.176921 L191.394,138.176921 C198.729,131.355099 203.314,121.670237 203.314,110.919434" id="Path" fill="#77829A"></path>
+            <path d="M302,302 L231,231.467105" id="Path" stroke="#77829A" stroke-width="20" stroke-linecap="round"></path>
+        </g>
+    </g>
+</svg>

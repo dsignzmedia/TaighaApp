@@ -1,0 +1,114 @@
+<ion-content scrollY="false" forceOverscroll="false" has-bouncing="false" no-bounce  (click)="bodyAction()" no-padding class="homesearch bg-white">
+<div class="custom-header">
+     <ion-grid class="white-header">
+      <ion-row> 
+      	<ion-col col-1 no-padding class="hdr-left">
+          <img  class="bright-icon" src="assets/imgs/backarrow-blue.svg" width="22" height="22" (click)="dismissModal()" />
+      	</ion-col>
+         <ion-col no-padding col-9>
+        
+<div class="search-panel">
+          <div class="search-field">
+              <div  [ngClass]="clickMorescroll" class="more-panel"  *ngIf="openArray != 0">
+                  <span class="search-item" *ngFor="let item of searchArray" >
+                    <strong> {{ item }} </strong>
+                    <span (click)="clearTerm1(item)" class="clear"><img width="15" height="15" src="assets/imgs/close-blue.svg"></span>
+                  </span>
+              </div>
+            </div>
+<ion-searchbar id="searchbarfocus" (ionFocus)="checkBlur()" [ngStyle]="{'display': hideAfterFive}"  #searchbar [(ngModel)]="searchTerm"  (keyup.enter)="search($event)" (ionInput)="setFilteredLocations()" placeholder="Enter City, Zip or School">
+</ion-searchbar>
+
+<!-- <ion-input id="searchbarfocus"  [ngStyle]="{'display': hideAfterFive}"  #searchbar [(ngModel)]="searchTerm"  (keyup.enter)="search($event)" (ionChange)="setFilteredLocations()" placeholder="Enter City, Zip or School">
+</ion-input> -->
+
+<!-- <ion-searchbar id="searchbarfocus"  [ngStyle]="{'display': hideAfterFive}"  #searchbar [(ngModel)]="searchTerm"  (keyup.enter)="search($event)" (ionInput)="setFilteredLocations()" placeholder="Enter City, Zip or School">
+</ion-searchbar> -->
+<p  [ngStyle]="{'display': showAfterFive}" > Sorry, you can only search for up to 5 regions.</p>
+</div>
+<button style="display: none;" (click)="searchbarfocus()">Focus</button>
+ </ion-col> 
+<ion-col col-2 class="hdr-right" no-padding style="    text-align: end;">
+<div class="inline-btn">
+  <button class="resetbtn" (click)="clearAllreset()">
+          <!-- <img src="assets/imgs/x-white.svg" width="15" height="15" /> -->
+        </button>
+          <i class="back-panel"><img src="assets/imgs/search-icon.svg" width="20" height="20" (click)="searchdismissModal()" /></i>
+          </div>
+        </ion-col> 
+       </ion-row>
+    </ion-grid> 
+</div>
+	<div class="search-panel">
+            <div class="search-list-panel"  [ngStyle]="{'display': showSearchPanel}">
+              <ion-list no-lines  [ngStyle]="{'display': showSearchLoading}">
+                <ion-item class="search-list-label">
+                 Please wait Loading
+               </ion-item>
+             </ion-list>
+             <div class="searchContent"  *ngIf="searchResult != 0">
+              <ion-list no-lines  *ngIf="searchResult.listingIds != 0">
+            <ion-item class="search-list-label" >
+              <i><img src="assets/imgs/search-home.svg"></i> #RMLS
+            </ion-item>
+            <div class="max-view">
+              <ion-item  *ngFor="let item of searchResult.listingIds" (click)="getByAddress(item.ListingID)">
+                {{ item.ListingID }}
+                <span>{{ item.FullStreetAddress }}</span>
+              </ion-item>
+            </div>
+          </ion-list>
+              <ion-list no-lines   *ngIf="searchResult.zips != 0">
+            <ion-item class="search-list-label">
+              <i><img src="assets/imgs/search-marker.svg"></i> ZIP CODE
+            </ion-item>
+            <div class="max-view">
+              <ion-item  *ngFor="let item of searchResult.zips" (click)="getByZipcode(item.ZipCode)">
+                {{ item.ZipCode }}
+                <span>{{ item.City }}</span>
+              </ion-item>
+            </div>
+          </ion-list>
+          <ion-list no-lines  *ngIf="searchResult.places != 0">
+            <ion-item class="search-list-label" >
+              <i><img src="assets/imgs/search-marker.svg"></i> PLACES
+            </ion-item>
+            <div class="max-view">
+              <ion-item   *ngFor="let item of searchResult.places"  (click)="getByPlaces(item.City, item.Country)">
+                {{ item.City }}, {{ item.Country }}
+              </ion-item>
+            </div>
+          </ion-list>
+          <ion-list no-lines  *ngIf="searchResult.addresses != 0">
+            <ion-item class="search-list-label">
+              <i><img src="assets/imgs/search-marker.svg"></i> ADDRESS
+            </ion-item>
+            <div class="max-view">
+              <ion-item   *ngFor="let item of searchResult.addresses" (click)="getByAddress(item.ListingID)">
+                {{ item.FullStreetAddress }}( {{ item.PropertyCategory }} - {{ item.ListingID }} )
+              </ion-item>
+            </div>
+          </ion-list>
+          <ion-list no-lines *ngIf="searchResult.eschools != 0 || searchResult.hschools != 0 || searchResult.mschools != 0">
+            <ion-item class="search-list-label">
+              <i><img src="assets/imgs/search-school.svg"></i> SCHOOL
+            </ion-item>
+            <div class="max-view">
+              <ion-item  *ngFor="let item of searchResult.eschools"  (click)="getByElementary(item.SchoolElementary)">
+                {{ item.SchoolElementary }} Elementary School
+                <span>{{ item.City }}</span>
+              </ion-item>
+              <ion-item  *ngFor="let item of searchResult.hschools"  (click)="getByHigh(item.SchoolHigh)">
+                {{ item.SchoolHigh }} High School
+                <span>{{ item.City }}</span>
+              </ion-item>
+              <ion-item  *ngFor="let item of searchResult.mschools"  (click)="getByMiddle(item.SchoolMiddle)">
+                {{ item.SchoolMiddle }} Middle School
+                <span>{{ item.City }}</span>
+              </ion-item>
+            </div>
+          </ion-list>
+        </div>
+      </div>
+    </div>
+</ion-content>

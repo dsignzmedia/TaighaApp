@@ -1,0 +1,109 @@
+<!--
+  Generated template for the ViewImagePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="homesearch">
+    <ion-grid class="white-header">
+      <ion-row>
+        <ion-col no-padding class="hdr-left">
+        <img src="assets/imgs/backarrow-white.svg" width="20" height="20" (click)="goBack()" />
+        </ion-col>
+        <ion-col no-padding class="hdr-center">
+         <span class="title-head">{{rmlsproperty}}</span>
+        </ion-col>
+        <ion-col no-padding class="hdr-right">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-header>	
+
+
+<ion-content scrollY="false" forceOverscroll="false" has-bouncing="false" no-bounce  class="viewimage-content" padding>
+<!-- <ion-slides autoplay="false"  slidesPerView="2">
+  <ion-slide >
+     <img src="assets/imgs/prty1.png" imageViewer  />
+  </ion-slide>
+  <ion-slide>
+    <img src="assets/imgs/figure3.svg"imageViewer  />
+  </ion-slide>
+  <ion-slide>
+    <img src="assets/imgs/figure2.svg" imageViewer />
+  </ion-slide>
+</ion-slides> propertyImage -->
+<div class="propety-gallery">
+        <ion-item *ngIf="propertyshowSpinner">
+          <div class="spinner center">
+              <div class="bounce1"></div>
+              <div class="bounce2"></div>
+              <div class="bounce3"></div>
+          </div>
+        </ion-item>
+    <ion-grid class="white-header">
+      <ion-row>
+        <ion-col col-6 no-padding *ngFor="let property of propertyImage">
+			<figure>
+				<img src="{{property.image}}" imageViewer  />
+			</figure>
+        </ion-col>
+<!--         <ion-col col-6 no-padding>
+			<figure>
+				<img src="assets/imgs/figure2.svg" imageViewer  />
+			</figure>
+        </ion-col>
+        <ion-col col-6 no-padding>
+			<figure>
+				<img src="assets/imgs/figure3.svg" imageViewer  />
+			</figure>
+        </ion-col>
+        <ion-col col-6 no-padding>
+			<figure>
+				<img src="assets/imgs/prty1.png" imageViewer  />
+			</figure>
+        </ion-col>
+        <ion-col col-6 no-padding>
+			<figure>
+				<img src="assets/imgs/figure2.svg" imageViewer  />
+			</figure>
+        </ion-col>
+        <ion-col col-6 no-padding>
+			<figure>
+				<img src="assets/imgs/figure3.svg" imageViewer  />
+			</figure>
+        </ion-col>
+        <ion-col col-6 no-padding>
+			<figure>
+				<img src="assets/imgs/prty1.png" imageViewer  />
+			</figure>
+        </ion-col>
+        <ion-col col-6 no-padding>
+			<figure>
+				<img src="assets/imgs/figure2.svg" imageViewer  />
+			</figure>
+        </ion-col>
+        <ion-col col-6 no-padding>
+			<figure>
+				<img src="assets/imgs/figure3.svg" imageViewer  />
+			</figure>
+        </ion-col>
+        <ion-col col-6 no-padding>
+			<figure>
+				<img src="assets/imgs/prty1.png" imageViewer  />
+			</figure>
+        </ion-col>
+        <ion-col col-6 no-padding>
+			<figure>
+				<img src="assets/imgs/figure2.svg" imageViewer  />
+			</figure>
+        </ion-col>
+        <ion-col col-6 no-padding>
+			<figure>
+				<img src="assets/imgs/figure3.svg" imageViewer  />
+			</figure>
+        </ion-col> -->
+       </ion-row>
+    </ion-grid>
+
+</div>
+</ion-content>

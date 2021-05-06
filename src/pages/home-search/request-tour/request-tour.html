@@ -1,0 +1,423 @@
+<ion-header class="homesearch blue-head-popup">
+    <ion-grid class="white-header">
+      <ion-row>
+        <ion-col no-padding class="hdr-left">
+          <img  class="bright-icon" src="assets/imgs/backarrow-white.svg" width="20" height="20" (click)="goBack()" />
+<!--         <img class="bright-icon" src="assets/imgs/arrow-left.svg" width="15" height="15" (click)="goBack()" /> -->
+        </ion-col>
+        <ion-col [ngStyle]="{'display': showTour}" no-padding class="hdr-center">
+          Request Tour
+        </ion-col>
+        <ion-col [ngStyle]="{'display': showQuestion}" no-padding class="hdr-center">
+          Ask a Question
+        </ion-col>
+        <ion-col [ngStyle]="{'display': showOffer}" no-padding class="hdr-center">
+          Start an Offer
+        </ion-col>
+        <ion-col no-padding class="hdr-right">
+        </ion-col>
+      </ion-row>
+    </ion-grid> 
+</ion-header>	
+
+
+<ion-content scrollY="false" forceOverscroll="false" has-bouncing="false" no-bounce  class="homesearch" padding>
+<div class="request-tour" [ngStyle]="{'display': showTour}">
+      <ion-grid>
+          <ion-list no-lines>
+            <ion-item no-padding>
+              <ion-input type="text" placeholder="First name"  [(ngModel)]="reqfirstName"></ion-input>
+            </ion-item>
+            <ion-item no-padding>
+              <ion-input type="text" placeholder="Last name"  [(ngModel)]="reqlastName"></ion-input>
+            </ion-item>
+            <ion-item no-padding>
+              <ion-input type="text" placeholder="Email" [(ngModel)]="reqinputemail"></ion-input>
+            </ion-item>
+            <ion-item no-padding>
+            <ion-input type="text" [brmasker]="{mask:'(000)000-0000', len:13}" [(ngModel)]="reqphoneNumber" placeholder="(__)__-__"></ion-input>
+          </ion-item>
+          </ion-list>
+          <ion-list class="custom-slider">
+            <div class="arrow-panel goto3arrow" [ngStyle]="{'display': showOne}" style="visibility: hidden;">
+              <!--   [ngStyle]="{'display': showArrowThree}" -->
+            <i><img src="assets/imgs/r-arrow.svg" width="15" height="15" /></i>
+            </div>
+            <ul [ngStyle]="{'display': showOne}">
+              <li>
+                <ion-item no-lines>               
+                <ion-label>
+                  <div class="date-panel" >
+                      <span class="date-top">{{day1}}</span>
+                      <span class="date-middle">{{date1}}</span>
+                      <span class="date-bottom">{{month1}}</span>
+                  </div>
+                </ion-label>
+                <ion-checkbox  [(ngModel)]="fdate1TF" (click)="addDate1(fdate1,$event)"></ion-checkbox>
+                </ion-item>
+              </li>
+              <li>
+                <ion-item no-lines>
+                <ion-label>
+                <div class="date-panel " >
+                      <span class="date-top">{{day2}}</span>
+                      <span class="date-middle">{{date2}}</span>
+                      <span class="date-bottom">{{month2}}</span>
+                </div>
+              </ion-label>
+                <ion-checkbox  [(ngModel)]="fdate2TF" (click)="addDate2(fdate2,$event)"></ion-checkbox>
+              </ion-item>
+              </li>
+              <li>
+                <ion-item no-lines>
+                <ion-label>
+                <div class="date-panel " >
+                    <span class="date-top">{{day3}}</span>
+                      <span class="date-middle">{{date3}}</span>
+                      <span class="date-bottom">{{month3}}</span>
+                </div>
+              </ion-label>
+                <ion-checkbox  [(ngModel)]="fdate3TF" (click)="addDate3(fdate3,$event)"></ion-checkbox>
+              </ion-item>
+              </li>
+              <li>
+                <ion-item no-lines>
+                <ion-label>
+                <div class="date-panel " >
+                    <span class="date-top">{{day4}}</span>
+                      <span class="date-middle">{{date4}}</span>
+                      <span class="date-bottom">{{month4}}</span>
+                </div>
+              </ion-label>
+                <ion-checkbox  [(ngModel)]="fdate4TF" (click)="addDate4(fdate4,$event)"></ion-checkbox>
+              </ion-item>
+              </li>
+              <li>
+                <ion-item no-lines>
+                <ion-label>
+                <div class="date-panel " >
+                    <span class="date-top">{{day5}}</span>
+                      <span class="date-middle">{{date5}}</span>
+                      <span class="date-bottom">{{month5}}</span>
+                </div>
+              </ion-label>
+                <ion-checkbox   [(ngModel)]="fdate5TF" (click)="addDate5(fdate5,$event)"></ion-checkbox>
+              </ion-item>
+              </li>
+              <li>
+                <ion-item no-lines>
+                <ion-label>
+                <div class="date-panel " >
+                    <span class="date-top">{{day6}}</span>
+                      <span class="date-middle">{{date6}}</span>
+                      <span class="date-bottom">{{month6}}</span>
+                </div>
+              </ion-label>
+                <ion-checkbox  [(ngModel)]="fdate6TF" (click)="addDate6(fdate6,$event)"></ion-checkbox>
+              </ion-item>
+              </li>
+            </ul>
+            <div class="arrow-panel goto2arrow" [ngStyle]="{'display': showOne}">
+              <!--  [ngStyle]="{'display': showArrowOne}" -->
+            <i (click)="goto2()"><img src="assets/imgs/r-arrow.svg" width="15" height="15" /></i>
+            </div>
+            <div class="arrow-panel goto1arrow" [ngStyle]="{'display': showTwo}">
+              <!--  [ngStyle]="{'display': showArrowTwo}" -->
+            <i (click)="goto1()" ><img src="assets/imgs/l-arrow.svg" width="15" height="15" /></i>
+            </div>
+            <ul [ngStyle]="{'display': showTwo}">
+              <li>
+                <ion-item no-lines>
+                <ion-label>
+                <div class="date-panel " >
+                    <span class="date-top">{{day7}}</span>
+                      <span class="date-middle">{{date7}}</span>
+                      <span class="date-bottom">{{month7}}</span>
+                </div>
+              </ion-label>
+                <ion-checkbox  [(ngModel)]="fdate7TF" (click)="addDate7(fdate7,$event)"></ion-checkbox>
+              </ion-item>
+              </li>
+              <li>
+                <ion-item no-lines>
+                <ion-label>
+                <div class="date-panel " >
+                    <span class="date-top">{{day8}}</span>
+                      <span class="date-middle">{{date8}}</span>
+                      <span class="date-bottom">{{month8}}</span>
+                </div>
+              </ion-label>
+                <ion-checkbox  [(ngModel)]="fdate8TF" (click)="addDate8(fdate8,$event)"></ion-checkbox>
+              </ion-item>
+              </li>
+              <li>
+                <ion-item no-lines>
+                <ion-label>
+                <div class="date-panel " >
+                    <span class="date-top">{{day9}}</span>
+                      <span class="date-middle">{{date9}}</span>
+                      <span class="date-bottom">{{month9}}</span>
+                </div>
+              </ion-label>
+                <ion-checkbox  [(ngModel)]="fdate9TF" (click)="addDate9(fdate9,$event)"></ion-checkbox>
+              </ion-item>
+              </li>
+              <li>
+                <ion-item no-lines>
+                <ion-label>
+                <div class="date-panel " >
+                    <span class="date-top">{{day10}}</span>
+                      <span class="date-middle">{{date10}}</span>
+                      <span class="date-bottom">{{month10}}</span>
+                </div>
+              </ion-label>
+                <ion-checkbox  [(ngModel)]="fdate10TF" (click)="addDate10(fdate10,$event)"></ion-checkbox>
+              </ion-item>
+              </li>
+              <li>
+                <ion-item no-lines>
+                <ion-label>
+                <div class="date-panel " >
+                    <span class="date-top">{{day11}}</span>
+                      <span class="date-middle">{{date11}}</span>
+                      <span class="date-bottom">{{month11}}</span>
+                </div>
+              </ion-label>
+                <ion-checkbox  [(ngModel)]="fdate11TF" (click)="addDate11(fdate11,$event)"></ion-checkbox>
+              </ion-item>
+              </li>
+              <li>
+                <ion-item no-lines>
+                <ion-label>
+                <div class="date-panel " >
+                    <span class="date-top">{{day12}}</span>
+                      <span class="date-middle">{{date12}}</span>
+                      <span class="date-bottom">{{month12}}</span>
+                </div>
+              </ion-label>
+                <ion-checkbox  [(ngModel)]="fdate12TF" (click)="addDate12(fdate12,$event)"></ion-checkbox>
+              </ion-item>
+              </li>
+            </ul>
+            <div class="arrow-panel goto3arrow" [ngStyle]="{'display': showTwo}">
+              <!--   [ngStyle]="{'display': showArrowThree}" -->
+            <i (click)="goto3()"><img src="assets/imgs/r-arrow.svg" width="15" height="15" /></i>
+            </div>
+            <div class="arrow-panel goto22arrow" [ngStyle]="{'display': showThree}">
+              <!--   [ngStyle]="{'display': showArrowThree}" -->
+            <i (click)="goto2()"><img src="assets/imgs/l-arrow.svg" width="15" height="15" /></i>
+            </div>
+            <ul [ngStyle]="{'display': showThree}">
+              <li>
+                <ion-item no-lines>
+                <ion-label>
+                <div class="date-panel " >
+                    <span class="date-top">{{day13}}</span>
+                      <span class="date-middle">{{date13}}</span>
+                      <span class="date-bottom">{{month13}}</span>
+                </div>
+              </ion-label>
+                <ion-checkbox  [(ngModel)]="fdate13TF" (click)="addDate13(fdate13,$event)"></ion-checkbox>
+              </ion-item>
+              </li>
+              <li>
+                <ion-item no-lines>
+                <ion-label>
+                <div class="date-panel " >
+                    <span class="date-top">{{day14}}</span>
+                      <span class="date-middle">{{date14}}</span>
+                      <span class="date-bottom">{{month14}}</span>
+                </div>
+              </ion-label>
+                <ion-checkbox  [(ngModel)]="fdate14TF" (click)="addDate14(fdate14,$event)"></ion-checkbox>
+              </ion-item>
+              </li>
+              <li>
+                <ion-item no-lines>
+                <ion-label>
+                <div class="date-panel " >
+                    <span class="date-top">{{day15}}</span>
+                      <span class="date-middle">{{date15}}</span>
+                      <span class="date-bottom">{{month15}}</span>
+                </div>
+              </ion-label>
+                <ion-checkbox  [(ngModel)]="fdate15TF" (click)="addDate15(fdate15,$event)"></ion-checkbox>
+              </ion-item>
+              </li>
+              <li>
+                <ion-item no-lines>
+                <ion-label>
+                <div class="date-panel " >
+                    <span class="date-top">{{day16}}</span>
+                      <span class="date-middle">{{date16}}</span>
+                      <span class="date-bottom">{{month16}}</span>
+                </div>
+              </ion-label>
+                <ion-checkbox  [(ngModel)]="fdate16TF" (click)="addDate16(fdate16,$event)"></ion-checkbox>
+              </ion-item>
+              </li>
+              <li>
+                <ion-item no-lines>
+                <ion-label>
+                <div class="date-panel " >
+                    <span class="date-top">{{day17}}</span>
+                      <span class="date-middle">{{date17}}</span>
+                      <span class="date-bottom">{{month17}}</span>
+                </div>
+              </ion-label>
+                <ion-checkbox  [(ngModel)]="fdate17TF" (click)="addDate17(fdate17,$event)"></ion-checkbox>
+              </ion-item>
+              </li>
+              <li>
+                <ion-item no-lines>
+                <ion-label>
+                <div class="date-panel " >
+                    <span class="date-top">{{day18}}</span>
+                      <span class="date-middle">{{date18}}</span>
+                      <span class="date-bottom">{{month18}}</span>
+                </div>
+              </ion-label>
+                <ion-checkbox  [(ngModel)]="fdate18TF" (click)="addDate18(fdate18,$event)"></ion-checkbox>
+              </ion-item>
+              </li>
+            </ul>
+            <div class="arrow-panel goto3arrow" [ngStyle]="{'display': showLast}" style="visibility: hidden;">
+              <!--   [ngStyle]="{'display': showArrowThree}" -->
+            <i><img src="assets/imgs/r-arrow.svg" width="15" height="15" /></i>
+            </div>
+          </ion-list>
+          <ion-list no-padding>
+            <ion-select placeholder="Timeframe"  [(ngModel)]="reqTimeframe">
+              <ion-option value="" selected>Timeframe</ion-option>
+              <ion-option value="Any time" >Any time</ion-option>
+              <ion-option value="Morning" >Morning</ion-option>
+              <ion-option value="Evening" >Evening</ion-option>
+              <ion-option value="Afternoon" >Afternoon</ion-option>
+            </ion-select>
+          </ion-list>
+          <ion-list no-padding>
+           <textarea placeholder="comments"  [(ngModel)]="reqcomments"></textarea>
+          </ion-list>
+          <ion-list no-padding>
+<button class="btn btn-hasicon btn-curve" *ngIf="!showSpinner"  (click)="submitTour()"> 
+Submit
+</button>
+  <div class="spinner onespin center" *ngIf="showSpinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+          </ion-list>
+          <ion-list no-padding>
+            <p> <strong>Disclaimer: </strong> You agree to TopTech Realty Terms of Use & Privacy Policy. By choosing to contact us, you also agree that TopTech Realty or other partner agents or staff may call or text you about any inquiries you submit through our services, which may involve use of automated means. You don't need to consent as a condition of buying or renting any property, or buying any other goods or services. Message/data rates may apply.</p>
+          </ion-list>
+
+    </ion-grid>
+</div>
+
+<div class="ask-question" [ngStyle]="{'display': showQuestion}">
+      <ion-grid>
+     
+          <ion-list no-lines>
+            <ion-item no-padding>
+              <ion-input type="text" placeholder="First name"  [(ngModel)]="firstName"></ion-input>
+            </ion-item>
+            <ion-item no-padding>
+              <ion-input type="text" placeholder="Last name" [(ngModel)]="lastName"></ion-input>
+            </ion-item>
+            <ion-item no-padding>
+              <ion-input type="text" placeholder="Email" [(ngModel)]="inputemail"></ion-input>
+            </ion-item>
+            <ion-item no-padding>
+            <ion-input type="text" [brmasker]="{mask:'(000)000-0000', len:13}" [(ngModel)]="phoneNumber" placeholder="(__)__-__"></ion-input>
+          </ion-item>
+
+
+
+           <textarea placeholder="Type here to ask your question" [(ngModel)]="question"></textarea>
+
+<button class="btn btn-hasicon btn-curve" *ngIf="!showSpinner" (click)="submitQuestion()"> 
+Submit
+</button>
+  <div class="spinner onespin center" *ngIf="showSpinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+          </ion-list>
+          <ion-list no-padding>
+            <p> <strong>Disclaimer: </strong> You agree to TopTech Realty Terms of Use & Privacy Policy. By choosing to contact us, you also agree that TopTech Realty or other partner agents or staff may call or text you about any inquiries you submit through our services, which may involve use of automated means. You don't need to consent as a condition of buying or renting any property, or buying any other goods or services. Message/data rates may apply.</p>
+          </ion-list>
+
+    
+    </ion-grid>
+</div>
+
+<div class="start-offer" [ngStyle]="{'display': showOffer}">
+      <ion-grid>
+
+          <ion-list no-lines>
+            <ion-item no-padding>
+              <ion-input type="text" placeholder="First name"  [(ngModel)]="OfferfirstName"></ion-input>
+            </ion-item>
+            <ion-item no-padding>
+              <ion-input type="text" placeholder="Last name"  [(ngModel)]="OfferlastName"></ion-input>
+            </ion-item>
+            <ion-item no-padding>
+              <ion-input type="text" placeholder="Email" [(ngModel)]="Offerinputemail"></ion-input>
+            </ion-item>
+            <ion-item no-padding>
+            <ion-input type="text" [brmasker]="{mask:'(000)000-0000', len:13}" [(ngModel)]="OfferphoneNumber" placeholder="(__)__-__"></ion-input>
+          </ion-item>
+          <ion-item no-padding>
+            <ion-input type="text" placeholder="Legal name(s) to be used in the offer" [(ngModel)]="Offerlegalname"></ion-input>
+          </ion-item>
+          <ion-item no-padding>
+            <ion-input type="text" placeholder="Offer Price" [(ngModel)]="offerprice"></ion-input>
+          </ion-item>
+          <ion-item no-padding>
+            <ion-input type="text" placeholder="Down payment amount" [(ngModel)]="offerdown"></ion-input>
+          </ion-item>
+          <ion-list no-padding>
+            <ion-select [(ngModel)]="offerletter">
+              <ion-option selected value="" >Do you have a Loan Pre-Approval letter?</ion-option>
+              <ion-option value="Yes" >Yes</ion-option>
+              <ion-option value="No" >No</ion-option>
+            </ion-select>
+          </ion-list>
+          <ion-item no-padding>
+            <ion-input type="text" placeholder="Loan PreApproval Amount?" [(ngModel)]="offeramount"></ion-input>
+          </ion-item>
+          <ion-item no-padding>
+            <ion-datetime value="YYYY-DD-MM"  placeholder="Preferred closing date" [min]="startdate" [max]="2100-12-12" [(ngModel)]="offerclosing"></ion-datetime>
+<!--             <ion-input type="text" placeholder="Preferred closing date" [(ngModel)]="offerclosing"></ion-input> -->
+          </ion-item>
+          <ion-list no-padding>
+            <ion-select [(ngModel)]="offerproperty">
+              <ion-option selected value="" >Have you toured the property?</ion-option>
+              <ion-option value="Yes" >Yes</ion-option>
+              <ion-option value="No" >No</ion-option>
+            </ion-select>
+          </ion-list>
+          <textarea placeholder="Comments" [(ngModel)]="Offercomments"></textarea>
+
+<button class="btn btn-hasicon btn-curve" *ngIf="!showSpinner" (click)="submitOffer()"> 
+Submit
+</button>
+  <div class="spinner onespin center" *ngIf="showSpinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+          </ion-list>
+          <ion-list no-padding>
+            <p> <strong>Disclaimer: </strong> You agree to TopTech Realty Terms of Use & Privacy Policy. By choosing to contact us, you also agree that TopTech Realty or other partner agents or staff may call or text you about any inquiries you submit through our services, which may involve use of automated means. You don't need to consent as a condition of buying or renting any property, or buying any other goods or services. Message/data rates may apply.</p>
+          </ion-list>
+
+
+    </ion-grid>
+</div>
+
+
+
+</ion-content>

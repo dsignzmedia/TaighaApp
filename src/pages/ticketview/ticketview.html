@@ -1,0 +1,395 @@
+<!-- <ion-header>
+
+    <ion-navbar class="no-right">
+        <div class="center">
+            <i class="back_icon" (click)="back()"></i>
+            <p class="title" *ngIf="ticket">{{ ticket.subject }}</p>
+            <p class="title" *ngIf="!ticket">...</p>
+        </div>
+    </ion-navbar>
+    <ion-navbar class="filter-panel">
+        <ion-grid>
+            <ion-row>
+                <ion-col class="no-border dashboardicons-panel flex-end" col-12 >
+                    <p class="name"></p>
+                      <p class="pull-right" (click)="ecAll()">{{ expandAll ? 'Collapse All' : 'Expand All' }}</p>
+                </ion-col> 
+            </ion-row>
+        </ion-grid>
+    </ion-navbar>
+    
+</ion-header> -->
+<ion-header class="header-min taigha-dashboard-header">
+      <ion-navbar class="no-right">
+    <div  *ngIf="shownavbar" class="center">
+      <i class="back_icon" (click)="back()"></i>
+      <p class="title">
+        <span class="title-head" *ngIf=" ticket" >
+      <!--   {{ ticket.ticket_type == 'internal' ? 'I' : 'C' }}{{ ticket.id }} --> 
+    {{ticketsub}}</span>
+      </p>
+    </div>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <div class="ticket-view-panel" *ngIf="ticket">
+        
+        <div *ngIf="ticket.customer_id != 0" class="tickect-for-panel">
+            <div class="cust-panel">
+            <figure>
+                <img src="assets/imgs/toptech-avatar.png">
+            </figure>
+            <h2 class="tickect-for">{{ ticket.customer_name }}</h2>
+            </div>
+            <ul>
+                <li>
+                     <a  href="tel:{{ticket.customer.phone_number_stripped}}" class="phonecall">
+                    <img src="assets/imgs/phone-call-b.svg" width="22" height="22">
+                    </a>
+                </li>
+                <li *ngIf="IsStaff"  (click)="checkMsg(ticket.customer.id, ticket.customer.first_name, ticket.customer.last_name, ticket.customer.phone_number_stripped, ticket.customer.phone_number)">
+                    <img src="assets/imgs/sms-green.svg" width="24" height="24">
+                </li>
+            </ul>
+        </div>
+        <ion-card class="view-card withpadding">
+            <ion-card-header (click) = "toggleShowHide('subject')">
+                <div class="inline-div">
+                <ion-card-title><img src="assets/imgs/ticket-white.svg" width="22" height="22"> <span>Subject: {{ticket.subject}}</span> </ion-card-title>
+                <span> <img *ngIf="showSubject" src="assets/imgs/up-arrow-white.svg">
+                 <img *ngIf="!showSubject" src="assets/imgs/downarrowwhite.svg">
+                 </span>
+                </div>
+            </ion-card-header>
+            <ion-card-content class="view-content-panel view-subject-content-panel" *ngIf="showSubject">
+                <ion-grid>
+                    <ion-row class="top">
+                        <ion-col col-12>
+                            <p>
+                                <label>Type : </label> <span>{{ ticket.ticket_type }}</span></p>
+                        </ion-col>
+                        <ion-col col-6>
+                            <p>
+                                <label class="d-block">Created  </label><span>{{ ticket.creator_name }} - {{ ticket.created_at_formatted }}</span></p>
+                        </ion-col>
+                        <ion-col col-6>
+                            <p>
+                                <label class="d-block">Updated  </label><span>{{ ticket.updator_name }} - {{ ticket.updated_at_formatted }}</span></p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="center">
+                        <div class="label-panel"  (click) = "toggleShowHide('description')" [ngClass]="showDescription == true ? 'show-description' : ''" >
+                        <label class="common-label">Description : </label>
+                        <div class="sample-des-panel"  *ngIf="!showDescription" >
+                         <span class="sample-des" [innerHTML]=" ticket.body "></span>
+                         </div>
+                         <i class="des-plus"> 
+                            <img  [ngClass]="showDescription == true ? 'display-none' : ''" src='assets/imgs/plus.svg'>
+                            <img  [ngClass]="showDescription == true ? '' : 'display-none'"style="margin-top: 6px;" src='assets/imgs/minus.svg'>
+                        </i>
+                         </div>
+                        <div class="description" [innerHTML]=" ticket.body "  *ngIf="showDescription" (click)="handleClick($event)"> </div>
+                        <div *ngIf=" ticket.email_attachments.length > 0 " class="attachment-panel-group">
+                            
+                            <div *ngFor=" let attachment of ticket.email_attachments ">
+                                <!-- href="{{ attachment.attachment_full_url }}" -->
+                                <a class="viewdoc" (click)="viewdoc(attachment.attachment_full_url)" >{{ attachment.attachname }}</a>
+                            </div>
+                        </div>
+                    </ion-row>
+                    <ion-row class="bottom">
+                        <ion-col col-12>
+                            <p>
+                                <label class="d-block d-flex-label">Property : </label>
+                                {{ ticket.property_address ? ticket.property_address : '-' }}
+                                <!-- <span class="sub-content" *ngIf=" !editpropertyfield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('property') ">
+                                <img src="assets/imgs/edit.svg"></span> 
+                            {{ ticket.property_address ? ticket.property_address : '-' }}
+
+                        </span> --></p>
+
+                            <ion-select [(ngModel)]="ticket.property_id" class="form-field-select" (ionChange)="enableDisableStatus()" *ngIf="editpropertyfield">
+                                <ion-option value="{{ property.id }}" *ngFor=" let  property of properties  ">{{ property.address }}</ion-option>
+                            </ion-select>
+                        </ion-col>
+                        <ion-col col-6>
+                            <p>
+                                <label class="d-block d-flex-label">Priority :</label>
+                                <span  class="sub-content" *ngIf=" !editpriorityfield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('priority') "><img src="assets/imgs/edit.svg"></span> {{ ticket.priority }}</span></p>
+                            <ion-select [(ngModel)]="ticket.priority" class="form-field-select" (ionChange)="enableDisableStatus()" *ngIf="editpriorityfield">
+                                <ion-option value="{{ priority.id }}" *ngFor=" let  priority of priorities  ">{{ priority.priority }}</ion-option>
+                            </ion-select>
+                        </ion-col>
+                        <ion-col col-6>
+                            <!-- ticketDataOption -->
+                            <p>
+                                <label class="d-block">Group : </label>{{ ticket.groupname ? ticket.groupname : '-' }}</p>
+                        </ion-col>
+                        <ion-col col-6>
+                            <p>
+                                <label class="d-block d-flex-label">Staff :</label>
+                                <span  class="sub-content" *ngIf=" !editstafffield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('staff') "><img src="assets/imgs/edit.svg"></span> {{ ticket.staff_name ? ticket.staff_name : '-' }}</span></p>
+                            <ion-select [(ngModel)]="TicketStaff" class="form-field-select" (ionChange)="enableDisableStatus()" *ngIf="editstafffield">
+                                <ion-option value="{{ staff.id }}" *ngFor=" let  staff of ticketDataOption.users  ">{{ staff.first_name }} {{ staff.last_name }}</ion-option>
+                            </ion-select>
+<!--                             <p>
+                                <label class="d-block">Staff : </label>{{ ticket.staff_name ? ticket.staff_name : '-' }}</p> -->
+                        </ion-col>
+                        <ion-col col-6>
+                            <p>
+                                <label class="d-block">Status : </label>{{ ticket.status }}</p>
+                        </ion-col>
+                        <ion-col col-12>
+                            <div class="inline-btn">
+                            <button ion-button block class="btn btn-blue" [disabled]="disableUpdate" (click)="updateTicket()">Update</button>
+<!--                             <button ion-button block class="btn btn-blue">Update & Notify</button> -->
+                            </div>
+                        </ion-col>
+
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card> 
+
+<!--         <ion-card class="view-card withpadding">
+            <ion-card-header (click) = "toggleShowHide('transaction')">
+                <div class="inline-div">
+                <ion-card-title>Transaction Summary</ion-card-title>
+                <span> <img src="assets/imgs/up-arrow-white.svg"> </span>
+                </div>
+            </ion-card-header>
+            <ion-card-content class="view-content-panel view-subject-content-panel" *ngIf="showTransaction">
+<ion-grid>
+        <ion-row no-line>
+            <ion-col col-12 no-padding>
+               <ion-label>MLS Number</ion-label>
+            </ion-col>
+            <ion-col col-12 no-padding class="inline-list">
+               <ion-input placeholder=""></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row no-line>
+            <ion-col col-12 no-padding>
+               <ion-label>Transaction Status</ion-label>
+            </ion-col>
+            <ion-col col-12 no-padding class="inline-list">
+               <ion-input placeholder=""></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row no-line>
+            <ion-col col-12 no-padding>
+               <ion-label>Closing Date</ion-label>
+            </ion-col>
+            <ion-col col-12 no-padding class="inline-list">
+               <ion-input placeholder=""></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row no-line>
+            <ion-col col-12 no-padding>
+               <ion-label>Status Update</ion-label>
+            </ion-col>
+            <ion-col col-12 no-padding class="inline-list">
+               <ion-input placeholder=""></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row no-line>
+            <ion-col col-12 no-padding>
+               <ion-label>Mutual Acceptance Date</ion-label>
+            </ion-col>
+            <ion-col col-12 no-padding class="inline-list">
+               <ion-input placeholder=""></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row no-line>
+            <ion-col col-12 no-padding>
+               <ion-label>Additional Info</ion-label>
+            </ion-col>
+            <ion-col col-12 no-padding class="inline-list">
+               <ion-input placeholder=""></ion-input>
+            </ion-col>
+        </ion-row>
+</ion-grid>
+            </ion-card-content>
+        </ion-card> -->
+
+
+        <ion-card class="view-card withpadding tasklist" *ngIf="tasks.length > 0">
+            <ion-card-header (click) = "toggleShowHide('tasklist')" id="ticket_top_of_task">
+                <ion-card-title><i class="dash-icon da-icon-task vertical-align-bottom"></i>TASK LIST ({{ tasktotalRecords }})</ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="view-content-panel view-checklist-content-panel icc-relative" *ngIf="showTasklist">
+                <img src="assets/icon/arrow-up-scroll.svg" width="" height=""  class="arrowimage down" *ngIf="tasks.length > 0" (click) = "scrollTo('ticket_bottom_of_task')" >
+                <div class="progresspanel">
+                    <p>Number of items completed : <span id="number_items_to_completed">({{ checklists_completed_count }}/{{ checklists_count }})</span></p>
+                    <div class="progress-bar">
+                        <span [style.width]="workoutProgress">{{workoutProgress}}</span>
+                    </div>
+                </div>
+                <div class="checklist-panel  " [ngClass]="checklist.is_completed == 1 ? 'strike-through' : ''" *ngFor=" let checklist of tasks ">
+                    <div class="checklist-panel-inner">
+                        <div class="checkbox_panel">
+                            <ion-checkbox color="secondary" [checked]="checklist.is_completed == 1" checked="false" [disabled]="customer.id != checklist.assigned_staff_id " (click)="updateChecklistStatus(checklist)"></ion-checkbox>
+                            <ion-label>{{ checklist.checklist }}</ion-label>
+                        </div>
+                        <p class="user">{{ checklist.staff_name ? checklist.staff_name : '-' }}</p>
+                    </div>
+                </div>
+
+            </ion-card-content> 
+            <p class="load-more-p gototop margin-top-zero" *ngIf="!taskshowSpinner && showTasklist && taskcurrentPage <= tasktotalPages" (click) = "loadMoreTasks()" >Load More</p>
+            <img src="assets/icon/arrow-up-scroll.svg" id="ticket_bottom_of_task" *ngIf="tasks.length > 0 && showTasklist" width="" height=""   class="bottomarrowimage margin-right-zero margin-top-zero" (click) = "scrollTo('ticket_top_of_task')" >
+        </ion-card>
+        <div class="spinner center" *ngIf="taskshowSpinner" ><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+
+        <ion-card class="view-card withpadding activity-history" id="tickettop_of_activity_focus">
+            <!--   -->
+            <!-- (click) = "gotoActivity()" -->
+            <ion-card-header  (click) = "gotoActivity()"  >
+
+                <!--     <i class="dash-icon da-icon-act vertical-align-bottom"></i>ACTIVITIES ({{ activities.length }}) -->
+                                    <div class="inline-div">
+                <ion-card-title><img src="assets/imgs/icon-activities-white.svg" width="22" height="22"> <span> Activity History ({{ activities.length }})</span></ion-card-title>
+                <span> <img src="assets/imgs/right-arrow-white.svg"> </span>
+                </div>
+            </ion-card-header>
+<!--             <ion-card-content class="view-content-panel activitylog-text-panel icc-relative" >
+                <ion-list class="list-content" *ngIf="activities.length > 0">
+                    <ion-item [ngClass]="{active: activity.sub_activity_checked }" *ngFor="let activity of activities">
+                        <ion-avatar item-start>
+                            <img src="assets/icon/white-icon-checklist.svg" alt="icon" 
+                                 *ngIf=" activity.eloquent_tree == 'checklist' ||  activity.eloquent_tree == 'checklist_create_update' || activity.eloquent_tree == 'checklist_assigned_to' || activity.eloquent_tree == 'checklist_update' ||  activity.eloquent_tree == 'checklist_complete' || activity.eloquent_tree == 'checklist_delete' " />
+                            <img src="assets/icon/white-icon-{{ activity.eloquent_tree == 'reply' ? 'mail' : activity.eloquent }}.svg" alt="icon"
+                                *ngIf=" activity.eloquent_tree != 'checklist' &&  activity.eloquent_tree != 'checklist_create_update' && activity.eloquent_tree != 'checklist_assigned_to' && activity.eloquent_tree != 'checklist_update' &&  activity.eloquent_tree != 'checklist_complete' && activity.eloquent_tree != 'checklist_delete' " />
+                        </ion-avatar>
+                        <div class="contentarea">
+                            <div class="activity-on">
+                                <p>4/27/2020 22:30</p>
+                                <ul>
+                                    <li  (click)="toggleGroup(activity)">
+                    <img src="assets/imgs/add-b.svg" width="15" height="15">
+                </li>
+                <li>
+                    <img src="assets/imgs/Rectangle.svg" width="15" height="15">
+                </li>
+                <li>
+                    <img src="assets/imgs/star-b.svg" width="15" height="15">
+                </li>
+                                </ul>
+                            </div>
+
+                            <div class="desc accordian-head" (click)="toggleGroup(activity)">
+                                <div class="description-panel" [innerHTML]=" activity.activity ">
+                                </div>
+                                <div class="acc-icon" *ngIf="activity.sub_activity" ><i></i></div>
+                            </div>
+                            <div *ngIf="activity.sub_activity_checked" class="contentarea-acc-panel">
+                                <div class="desc" [innerHTML]=" activity.sub_activity ">
+                                </div>
+                                <div *ngIf=" ticket.status != 'closed' ">
+                                    <div class="reply-panel" *ngIf="activity.eloquent_tree == 'reply' || activity.eloquent_tree == 'create' ">
+                                        <p class="load-more-p gototop margin-top-zero" (click) = "showEmailReply()" >Reply</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="notified-mail" *ngIf="activity.notified_users "><span class="notified-msg" (click)="toggleNotify(activity)">({{ activity.notified_message }}</span>
+                                <span *ngIf="activity.notified_users_checked" class="notified-users"> - {{ activity.notified_users }}</span>)</p>
+                        </div>
+                    </ion-item>
+                </ion-list>
+            </ion-card-content> -->
+        </ion-card>
+        <div class="spinner center" *ngIf="activityshowSpinner" ><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+        
+        <ion-card class="view-card withpadding emailcard">
+            <!-- (click) = "toggleShowHide('emails')"  -->
+            <!-- (click) = "gotoMail()" -->
+            <ion-card-header  (click)="gotoMail()"  >
+                <!--     <i class="dash-icon da-icon-act vertical-align-bottom"></i>ACTIVITIES ({{ activities.length }}) -->
+                                    <div class="inline-div">
+                <ion-card-title><img src="assets/icon/white-icon-mail.svg" width="22" height="22"> <span> Email Messages ({{ ticket.ticket_histories.length }})</span></ion-card-title>
+                <span> <img src="assets/imgs/right-arrow-white.svg"> </span>
+                <!-- <span> <span> <img *ngIf="showEmails" src="assets/imgs/up-arrow-white.svg">
+                 <img *ngIf="!showEmails" src="assets/imgs/downarrowwhite.svg">
+                 </span> </span> -->
+                </div>
+
+            </ion-card-header>
+            <ion-card-content class="view-content-panel view-emailmessages-content-panel"   *ngIf="showEmails" >
+                <ion-grid>
+                    <ion-row class="no-padding">
+                        <ion-col col-12  no-padding>
+                              <ion-list no-padding class="list-card">
+      <ion-item no-lines no-padding (click)="gotoMail()" [ngClass]="{active: lastmail.activity_checked }" >
+        <div class="list-details">
+          <div class="thumbnail-panel">
+          <ion-thumbnail slot="start">
+          <span><span> {{lastmail.updated_by_name.substring(0,1)}}</span></span>
+          </ion-thumbnail>
+          </div>
+          <div class="list-sub-detail-panel">
+          <div class="list-sub-detail">
+          <span class="sub-detail-one">{{ lastmail.updated_by_name }}</span>
+          <span class="sub-detail-two">{{ lastmail.created_at_formatted }}</span>
+          </div>
+          <p  class="list-title"><span class="body-message"><{{ lastmail.sent_by_email }}></span></p>
+          </div>
+        </div>
+        <div  class="full-details">
+          <div class="contentarea-acc-panel">
+            <!-- lastmail.body  -->
+            <!-- ticketData.full_stripped_body -->
+              <div class="desc" id="dynamicdesc" [innerHTML]=" lastmail.body "></div>
+             <!--  <button class="viewmorebtn" >View More</button> -->
+          </div>
+        </div>
+    </ion-item>
+                          </ion-list>
+<!--                             <ion-list class="list-content" (click)="gotoMail()">
+                                <ion-item [ngClass]="{active: lastmail.activity_checked }">
+
+                                    <div class="contentarea">
+                                        <div class="desc accordian-head emsg-accordian-head-flex" (click)="toggleEmail(lastmail)">
+                                            <div class="emsg-head">
+                                                <p class="emailby"><span class="sentby-name">{{ lastmail.updated_by_name }}</span>  <span class="sentby-date">{{ lastmail.updated_at_formatted }}</span></p>
+                                            </div>
+                                        </div>
+                                        <div class="contentarea-acc-panel">
+                                            <div class="desc min-desc" [innerHTML]=" lastmail.body "></div>
+
+                                            <button class="viewmorebtn" >View More</button>
+                                        </div>
+                                    </div>
+                                </ion-item>
+                            </ion-list> -->
+                        </ion-col>
+                    </ion-row>
+                    <ion-row id="quilleditorid" *ngIf=" ticket.status != 'closed' " class="text-center">
+                        <button ion-button block text-uppercase class="btn btn-blue replybtn" (click)="gotoreply()" >View More / Reply</button>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+<!--             <ion-card class="view-card withpadding test-message">
+            <ion-card-header >
+                <ion-card-title >
+                                    <div class="inline-div">
+                <ion-card-title>Text Messages</ion-card-title>
+                <span> <img src="assets/imgs/up-arrow-white.svg"> </span>
+                </div>
+                </ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="view-content-panel text-message-panel icc-relative" *ngIf="showMessage">
+            </ion-card-content>
+        </ion-card> -->
+    </div>
+
+    <p class="no-records-found" *ngIf="!showSpinner && !ticket">No Records Found!.</p>
+    <div class="spinner center" *ngIf="showSpinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+</ion-content>

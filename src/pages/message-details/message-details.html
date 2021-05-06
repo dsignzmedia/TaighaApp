@@ -1,0 +1,92 @@
+<ion-header class="header-min taigha-dashboard-header">
+  <ion-navbar class="no-right">
+    <div class="center">
+      <i class="back_icon" (click)="back()"></i>
+      <p class="title">
+        <span class="title-head userselectable">{{topHeaderName}}</span>
+        <span  class="title-sub-head userselectable">
+          {{topHeaderNumber}}
+        </span>
+      </p>
+      <a  href="tel:{{topHeaderNumber}}" class="phonecall"><img src="assets/imgs/phone-call-b.svg" ></a>
+      <figure class="right_content"  (click)="openSelect()">
+        <img *ngIf="customer_avatar" src="{{customer_avatar}}">
+        <span class="single-letter" *ngIf="!customer_avatar" >{{topHeaderName.substring(0,1)}}</span>
+      </figure>
+    </div>
+  </ion-navbar>
+</ion-header>
+<ion-item no-padding>
+  <ion-label>Select Conversation</ion-label>
+  <ion-select #selectUser [(ngModel)]="tonumbersval" (ionChange)="changeConversation()" >
+    <ion-option  *ngFor="let item of tonumberscusArray" value="{{item[1]}}" >{{item[0]}} - {{item[1]}}</ion-option>
+  </ion-select>
+</ion-item>
+<ion-item no-padding>
+  <ion-label>Select Template</ion-label>
+  <ion-select #selectTemplate [(ngModel)]="templates"  (ionChange)="changetemplates()">
+    <ion-option  value="deflt" >Select</ion-option>
+    <ion-option  *ngFor="let item of textTemplates" value="{{item.body}}" >{{item.title}}</ion-option>
+  </ion-select>
+</ion-item>          
+<ion-content padding #content class="taigha-dashboard bg-white" (ionScroll)="onScrolll($event)">
+ <ion-infinite-scroll threshold="200px" (ionInfinite)="doInfinite($event)" *ngIf="currentPage <= totalPages" position="top">
+  <ion-infinite-scroll-content></ion-infinite-scroll-content>
+</ion-infinite-scroll>
+<div class="spinner center" *ngIf="showSpinner">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+</div>
+<div class="chat"  *ngIf="!showSpinner">
+  <div class="sent-message-panel" *ngFor="let msg of textmessage.slice().reverse()">
+    <div [ngClass]="msg.sms_type === 'outgoing'?'sent-message':'received-message'">
+      <p >{{msg.body}}<span class="msg-media"   *ngIf="msg.medias.length != 0" [ngClass]="msg.medias.length > 1?'multipleimg':''">
+        <span class="media-text" *ngFor="let media of msg.medias">
+          <figure class="preview-image" >
+            <img imageViewer alt="{{media.media_name}}" src="{{media.media_full}}">
+          </figure>
+        </span>
+      </span>
+    </p>
+    <span *ngIf="msg.sms_type === 'outgoing'">Sent By {{msg.creator_name}} at {{msg.created_date_formatted}}</span>
+    <span *ngIf="msg.sms_type === 'incoming'">{{msg.created_date_formatted}}</span>
+  </div>
+</div>
+</div>
+</ion-content>
+<div class="conversation-panel">
+  <div class="floatbtn">
+    <div class="floatbtn-height updown"  [ngClass]="hidebtn">
+      <!-- *ngIf="isShowndown"  -->
+     <button  color="primary"  class="hide-event" (click)="scrollToBottomm()"><img  src="assets/imgs/downarrowwhite.svg" width="15" height="15" /></button>
+   </div>
+   <div class="floatbtn-height refresh">
+    <button color="primary" (click)="pagerefresh()" ><img  src="assets/imgs/refreshing.svg" width="15" height="15"  /></button>
+  </div>
+</div>
+<div class="conversation-panel-demo"  *ngIf="urls.length != 0"  #myFile id="myFile" >
+  
+  <figure>
+    <span class="delete-icon" (click)="deleteMedia()"><img src="assets/imgs/delete.svg" height="15"></span>
+    <img *ngFor="let url of urls" [src]="url" class="rounded mb-3" height="150">
+  </figure>
+</div>
+<div class="message-area-panel" #msgAreaPanel id="msgAreaPanel">
+  <textarea class="message-area-text" placeholder="Type your message" #myInput id="myInput"  (click)="textareaClicked()" (keyup)="resize()" (input)='onChangeTime($event.target.value)' [(ngModel)]="replymsg"></textarea>
+  <div class="message-area-bottom">
+   <div class="message-area">
+    <img src="assets/imgs/choosetemplate.svg"  (click)="openSelecttemplate()" width="20" height="20">
+
+    <div class="upload-btn-wrapper"> 
+      <img src="assets/imgs/chat-attachment.svg"  (click)="openSelecttemplate()" width="20" height="20">
+      <input type="file"  #fileInput (change)="changeListener($event)">
+    </div>
+  </div>
+  <div class="message-btn">
+   <button *ngIf="fromcreate == 'no'" block text-uppercase  class="btn btn-blue"  (click)="sendmsg()"> <img src="assets/icon/send.svg"></button>
+   <button *ngIf="fromcreate == 'yes'" block text-uppercase  class="btn btn-blue"  (click)="createmsg()"> <img src="assets/icon/send.svg"></button>
+ </div>
+</div>
+</div>
+</div>

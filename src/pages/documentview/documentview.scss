@@ -1,0 +1,27 @@
+page-documentview {
+	.back-button {
+		display: none !important;
+
+		.back-button-text {
+			display: none;
+		}
+
+		.back-button-icon {
+			width: 20px;
+			height: 20px;
+			background-image: url(../assets/icon/right-arrow-white.svg);
+			margin-right: 10px;
+			margin: 0;
+			background-size: 100%;
+			background-position: center;
+			background-repeat: no-repeat;
+			display: inline-block;
+
+			&::before {
+				display: none;
+			}
+
+		}
+
+	}
+}

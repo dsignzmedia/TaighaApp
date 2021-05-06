@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar class="no-right">
+    <div class="center">
+      <i class="back_icon" (click)="back()"></i>
+      <p class="title">Contact Us</p>
+    </div>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <ion-card class="form-card ">
+    <ion-card-header>
+      <ion-card-title>Message</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup] = "contactus" (ngSubmit) = "convertToTicket()" >
+        <ion-grid>
+          <ion-row>
+            <ion-col col-12>
+              <div class="form-field-panel">
+                <ion-label class="form-field-label">Subject</ion-label>
+                <ion-input type="text" class="form-field-input" formControlName="subject" placeholder="Subject" ></ion-input>
+              </div>
+            </ion-col>
+            <ion-col col-12>
+              <div class="form-field-panel">
+                <ion-label class="form-field-label">Message</ion-label>
+                <textarea style="resize: none; width: 100%; color: #000" class="form-field-input textarea-field" formControlName="body" #msgInput rows="1" placeholde r="Message" maxLength="500"></textarea>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row class="btn-row">      
+            <ion-col col-6>
+              <button ion-button block text-uppercase class="btn btn-blue" [disabled]="!contactus.valid" >Submit</button>
+            </ion-col>               
+          </ion-row>
+        </ion-grid>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

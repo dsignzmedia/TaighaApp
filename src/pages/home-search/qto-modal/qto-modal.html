@@ -1,0 +1,28 @@
+<ion-content scrollY="false" forceOverscroll="false" has-bouncing="false" no-bounce  class="homesearch" padding  (click)="dismissModal()">
+	<div class="popuppanel">
+        <div no-padding class="custom header">
+        	<i class="arrow-bg">
+                    <img src="assets/imgs/close-white-bluebg.svg" width="25" height="25">
+                </i>
+        </div>
+		<ion-grid>
+				<ion-list no-lines>
+					<ion-item no-padding>
+						<button class="btn btn-hasicon btn-curve" (click)="request('tour', propertyID)"> 
+						Request Tour
+						</button>
+				    </ion-item>
+					<ion-item no-padding>
+						<button class="btn btn-hasicon btn-curve"  (click)="request('question', propertyID)"> 
+						Ask a Question
+						</button>
+				    </ion-item>
+                    <ion-item no-padding>
+						<button class="btn btn-hasicon btn-curve" (click)="request('offer', propertyID)"> 
+						Start Offer
+						</button>
+				    </ion-item>
+				</ion-list>
+		</ion-grid>
+	</div>
+</ion-content>

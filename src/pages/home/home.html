@@ -1,0 +1,627 @@
+<ion-header  [ngClass]="IsStaffCheck === 1?'forstaff':'forcustomer'" class="taigha-dashboard-header" >
+  <ion-navbar class="no-right">
+    <div class="center">
+      <img class="menuback_icon" src="assets/imgs/menu-dash.svg" (click)="openHomeSearchmenu()"  width="27" height="20" />
+<!--       <p class="title">Dashboard</p> -->
+<p *ngIf="IsStaffCheck === 0" class="title">Dashboard</p>
+      <div class="dashboard-search-panel" *ngIf="IsStaffCheck === 1">
+          <div class="all-search">
+<!--               <div class="search-dropdown"  (click)="openselect()">
+                  <span>All</span>
+              </div> -->
+            <ion-select class="search-dropdown" [(ngModel)]="searchTypee" >
+              <ion-option value="1" >All</ion-option>
+              <ion-option value="2" >People/Properties</ion-option>
+              <ion-option value="tickets" >People/Property/Ticket</ion-option>
+              <ion-option value="notes" >People/Property/Note</ion-option>
+            </ion-select>
+              <ion-searchbar type="text" debounce="500" [(ngModel)]="searchTerm"  (ionChange)="getItems($event)"></ion-searchbar>
+              <!--     <ion-input class="dashboard-search" id="myInput" #myInput [(ngModel)]="searchTerm"  (change)="search(quantity)"  (ionBlur)="checkBlur()" placeholder="Search..."></ion-input> -->
+<!--                   <ion-searchbar class="dashboard-search" (keyup.enter)="search($event)" placeholder="Search...">
+</ion-searchbar> -->
+                   <span class="adminSearchbar-icon" ><img (click)="searchGlobal()" *ngIf="showSearchIcon" src="assets/imgs/search-dash.svg" width="18" height="18"><img (click)="clearsearchGlobal()" *ngIf="showClearIcon" src="assets/imgs/x-clear-b.svg" width="15" height="15"></span>
+          </div>
+<!--           <div class="homesearch-icon"  (click)="togglecreate()">
+              <img  src="assets/imgs/create.svg"  width="20" height="20" />
+
+          </div> -->
+      </div>
+<!--       <i class="home_icon" menuToggle></i> -->
+    </div>
+  </ion-navbar>
+<ion-list *ngIf="hiddenDropdown" class="custom-dropdown" no-padding>
+  <ion-item  no-lines no-padding>
+    <ion-label><img  src="assets/imgs/create.svg"  width="20" height="20" /> Create new lead</ion-label>
+  </ion-item>
+  <ion-item  no-lines no-padding>
+    <ion-label><img  src="assets/imgs/create.svg"  width="20" height="20" /> Create new customer</ion-label>
+  </ion-item>
+  <ion-item  no-lines no-padding>
+    <ion-label><img  src="assets/imgs/create.svg"  width="20" height="20" /> Create new Partner</ion-label>
+  </ion-item>
+  <ion-item  no-lines no-padding>
+    <ion-label><img  src="assets/imgs/create.svg"  width="20" height="20" /> Create new property</ion-label>
+  </ion-item>
+  <ion-item  no-lines no-padding>
+    <ion-label><img  src="assets/imgs/create.svg"  width="20" height="20" /> Create new task</ion-label>
+  </ion-item>
+</ion-list>
+</ion-header>
+
+<!-- *ngIf="ishidden" -->
+<ion-content padding [ngClass]="IsStaffCheck === 1?'forstaff':'forcustomer'" class="activitylog-text-panel taigha-dashboard" (click)="bodyClick()">
+<!-- *ngIf="ishidden" -->
+ 
+<div *ngIf="IsStaffCheck === 1">
+<div class="allsearchpanel-loading"  *ngIf="ishiddenLoading">
+Searching...
+</div>
+  <div class="allsearchpanel"  *ngIf="ishidden">
+<ion-list no-padding>
+  <ion-item no-lines no-padding  *ngIf="searchResult.result != 0" >
+    <span class="listhead">PEOPLE</span>
+    <div class="searchdetail"  *ngFor="let item of searchResult.result">
+        <!-- searchResult -->
+        <div class="searchdetail-head">
+            <p>{{item?.full_name}}</p>
+            <ul>
+                <li>
+                    <img src="assets/imgs/search-share.svg" width="20" height="20">
+                </li>
+                <li>
+                    <img src="assets/imgs/search-sms.svg" width="20" height="20">
+                </li>
+                <li>
+                    <img src="assets/imgs/search-phone.svg" width="20" height="20">
+                </li>
+                <li>
+                    <img src="assets/imgs/search-mail.svg" width="20" height="20">
+                </li>
+                <li>
+                    <img src="assets/imgs/search-person.svg" width="20" height="20">
+                </li>
+                <li>
+                    <img src="assets/imgs/search-doc.svg" width="20" height="20">
+                </li>
+            </ul>
+        </div>
+        <div class="searchdetail-body">
+            <p class="name"> (<span class="email-phoneno"> {{item.email}},<a href="tel:{{item.phone_number}}">{{item.phone_number}}</a> </span>)</p>
+            <p>({{item.user_role_type}})</p>
+        </div>
+    </div>
+  </ion-item>
+  <ion-item no-lines no-padding *ngIf="searchResult.result != 0" >
+    <span class="listhead">PROPERTIES</span>
+    <div class="searchdetail"  *ngFor="let item of searchResult.result">
+        <div class="searchdetail-head"  *ngIf="item.property_address" >
+            <p>{{item.property_address}} {{ item.property_address === '' ? '' : item.first_name }}</p>
+            <ul>
+                <li>
+                    <img src="assets/imgs/search-pin.svg" width="20" height="20">
+                </li>
+                <li>
+                    <img src="assets/imgs/search-homes.svg" width="20" height="20">
+                </li>
+                <li>
+                    <img src="assets/imgs/search-doc-selected.svg" width="20" height="20">
+                </li>
+                <li>
+                    <img src="assets/imgs/search-doc.svg" width="20" height="20">
+                </li>
+            </ul>
+        </div>
+        <div class="searchdetail-body"  *ngIf="item.property_address" >
+            <p class="name">{{item.full_name}}</p>
+        </div>
+    </div>
+  </ion-item>
+  <ion-item class="searchdetail-ticket" no-lines no-padding *ngIf="searchResult.tickets != 0" >
+    <span class="listhead">TICKETS</span>
+    <div class="searchdetail"  *ngFor="let item of searchResult.tickets">
+        <div class="searchdetail-body">
+            <p>{{item.default_subject}}</p>
+        </div>
+    </div>
+  </ion-item>
+  <ion-item class="searchdetail-ticket" no-lines no-padding *ngIf="searchResult.notes != 0" >
+    <span class="listhead">NOTES (RECENT 5)</span>
+    <div class="searchdetail notes-panel" *ngFor="let item of searchResult.notes">
+        <div class="searchdetail-body">
+            <p>{{item.first_name}} <strong *ngIf="item.first_name">:</strong> {{item.address}} <strong *ngIf="item.address">:</strong> {{item.ticket_id}} <strong>:</strong> {{item.note_description}}</p>
+        </div>
+    </div>
+  </ion-item>
+</ion-list>
+  </div>
+  <div class="admin-panel">
+      <div class="dashboard-list" (click)="gototicket()">
+        <div class="list-content">
+          <span class="list-head-icon"><img src="assets/imgs/icon-customers-w.svg" width="25" height="15"></span>
+          <p>Tickets <span> (<img class="loading" *ngIf="!dashboardTicketscount" src="assets/imgs/loading.svg" width="10" height="10">{{dashboardTicketscount}})</span></p>
+        </div>
+          <span class="rightarrow"><img src="assets/imgs/down-arrow.svg" width="10" height="20"></span>
+      </div>
+      <div class="dashboard-list" (click)="gotomails()">
+        <div class="list-content">
+          <span class="list-head-icon"><img src="assets/imgs/mail.svg" width="23" height="14"></span>
+          <p>Mails <span>(<img class="loading" *ngIf="!dashboardEmailscount" src="assets/imgs/loading.svg" width="10" height="10">{{dashboardEmailscount}})</span></p>
+        </div>
+          <span class="rightarrow"><img src="assets/imgs/down-arrow.svg" width="10" height="20"></span>
+      </div>
+      <div class="dashboard-list" (click)="gotoTextMessage()">
+        <div class="list-content">
+          <span class="list-head-icon"><img src="assets/imgs/sms.svg" width="23" height="14"></span>
+          <p>Text Message <span>(<img class="loading" *ngIf="!dashboardMessagescount" src="assets/imgs/loading.svg" width="10" height="10">{{dashboardMessagescount}})</span></p>
+        </div>
+          <span class="rightarrow"><img src="assets/imgs/down-arrow.svg" width="10" height="20"></span>
+      </div>
+      <div class="dashboard-list" (click)="gotoActivities()">
+        <div class="list-content">
+          <span class="list-head-icon"><img src="assets/imgs/icon-activities-white.svg" width="23" height="21"></span>
+          <p> Activities <span>( <img class="loading" *ngIf="!dashboardEmailscount" src="assets/imgs/loading.svg" width="10" height="10"><span style="padding: 0;" *ngIf="dashboardEmailscount" >{{activitytotalRecords}}</span> )</span></p>
+        </div>
+          <span class="rightarrow"><img src="assets/imgs/down-arrow.svg" width="10" height="20"></span>
+      </div>
+<!--       <div class="dashboard-list" (click)="gotoleads()">
+        <div class="list-content">
+          <span class="list-head-icon"><img src="assets/imgs/icon-customers-w.svg" width="25" height="15"></span>
+          <p>Leads <span>(<img class="loading" *ngIf="!dashboardLeadscount" src="assets/imgs/loading.svg" width="10" height="10">{{dashboardLeadscount}})</span></p>
+        </div>
+          <span class="rightarrow"><img src="assets/imgs/down-arrow.svg" width="10" height="20"></span>
+      </div> -->
+<!--       <div class="dashboard-list">
+        <div class="list-content">
+          <span class="list-head-icon"><img src="assets/imgs/boyowner.svg" width="17" height="21"></span>
+          <p>Owners <span>(<img class="loading" *ngIf="!dashboardOwnerscount" src="assets/imgs/loading.svg" width="10" height="10">{{dashboardOwnerscount}})</span></p>
+        </div>
+          <span class="rightarrow"><img src="assets/imgs/down-arrow.svg" width="10" height="20"></span>
+      </div> -->
+      <div class="dashboard-list" (click)="gotoproperties()">
+        <div class="list-content">
+          <span class="list-head-icon"><img src="assets/imgs/property.svg" width="20" height="20"></span>
+          <p>Properties <span>(<img class="loading" *ngIf="!dashboardPropertiescount" src="assets/imgs/loading.svg" width="10" height="10">{{dashboardPropertiescount}})</span></p>
+        </div>
+          <span class="rightarrow"><img src="assets/imgs/down-arrow.svg" width="10" height="20"></span>
+      </div>
+<!--       <div class="dashboard-list" (click)="gotonotes()">
+        <div class="list-content">
+          <span class="list-head-icon"><img src="assets/imgs/icon_notes.svg" width="21" height="21"></span>
+          <p>Notes <span>(<img class="loading" *ngIf="!dashboardNotescount" src="assets/imgs/loading.svg" width="10" height="10">{{dashboardNotescount}})</span></p>
+        </div>
+          <span class="rightarrow"><img src="assets/imgs/down-arrow.svg" width="10" height="20"></span>
+      </div> -->
+  </div>
+</div>
+
+
+<!--  style="padding: 16px;" -->
+<div *ngIf="IsStaffCheck === 0">
+ <!-- TaskList Start -->
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+ </ion-refresher>
+
+<div *ngIf="!hasEmailVerified">
+    <ion-card>
+    <ion-card-content>
+        <p class="emailnotverified">
+            Your Email address not verified. Please verify email address to access!
+        </p>
+        <p class="resetntemail" (click) = "resendVerifyEmail()" *ngIf="!linksent" >{{ verifyName }}</p> 
+        <p class="linksent" *ngIf="linksent">Verification link has send to your mail id.</p>
+        <p class="resetntemail" (click) = "resendVerifyEmail()" *ngIf="linksent" >Resend Again?</p> 
+
+    </ion-card-content>
+    </ion-card> 
+</div>
+
+<div *ngIf="hasEmailVerified">
+  <h2 class="dashboard-h2" id="tasks_focus" (click) = "toggleCardLayout('tasklist')"><i class="dash-icon da-icon-task"></i>TASK LIST ({{ tasktotalRecords }})</h2>
+    <div *ngIf="showTaskList" class="padding-panel">
+    <img src="assets/icon/arrow-up-scroll.svg" width="" height="" class="arrowimage down" *ngIf="tasks.length > 0" (click) = "scrollTo('bottom_task_focus')" >
+    <div *ngIf="tasks.length > 0">
+      <ion-card class="list-panel tickets-listpanel" [ngClass]="{ 'task-completed' : (task.is_completed == 1) }" *ngFor="let task of tasks">
+            <ion-card-content>
+                <ion-grid>
+                    <ion-row (click)="goToCorrespondTask(task)">
+                        <ion-col col-12>
+                            <p class="headertext">
+                              <span>{{ task.checklist }} </span>
+                              <span *ngIf="task.taskstaffname">, Assigned: {{ task.taskstaffname }}</span>
+                              <span *ngIf="task.due_date_formatted">, Due Date: {{ task.due_date_formatted }} </span>
+                            </p>
+
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="task.sub_activity_checked" [@enterAnimation] class="showBottomInfo" (click)="goToCorrespondTask(task)">
+                        <ion-col col-6>
+                            <p>
+                                <label class="d-block">Task for :</label>{{ task.checklist_type }}</p>
+                        </ion-col>
+                        <ion-col col-6 >
+                            <p>
+                                <label class="d-block">Status :</label>{{ task.is_completed == 0 ? 'Not Complete' : 'Complete' }}</p>
+                        </ion-col>
+                        <ion-col col-12>
+                            <p>
+                                <label class="d-block">Updated :</label> {{ task.updated_at_formatted }} -<i>{{ task.taskupdatorname }}</i> </p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="no-padding">
+                        <ion-col col-12 no-padding>
+                            <div class="bottom--info">
+                                <small class="moreInfo" (click)="toggleGroupTask(task)">{{ task.sub_activity_checked ? "Less Info" : 'More Info' }}</small>
+                                <small class="viewTickets" (click)="goToCorrespondTask(task)" *ngIf="task.checklist_type != 'customer' ">View</small>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+
+                    <!-- <ion-row class="last">
+
+                </ion-row> -->
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+        <div class="load-more-panel">
+          <p class="load-more-p gototop" *ngIf="!taskshowSpinner && taskcurrentPage <= tasktotalPages" (click) = "loadMoreTasks()" >Load More</p>
+          <img src="assets/icon/arrow-up-scroll.svg" id="bottom_task_focus" width="" height="" *ngIf="!taskshowSpinner && tasks.length > 0" class="bottomarrowimage" (click) = "scrollTo('tasks_focus')" >
+        </div>
+    </div> 
+    <p class="no-records-found" *ngIf="!taskshowSpinner && tasks.length == 0">No Records Found!.</p>
+    </div>
+    <div class="spinner center" *ngIf="taskshowSpinner" ><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+    
+    <!-- TaskList End -->
+
+
+  <!-- Activites Start -->
+  <h2 class="dashboard-h2" id="activities_focus" (click) = "toggleCardLayout('activity')"><i class="dash-icon da-icon-act"></i>ACTIVITIES ({{ activitytotalRecords }})
+  </h2>
+    <div *ngIf="showAcitivity" class="padding-panel">
+    <img src="assets/icon/arrow-up-scroll.svg" width="" height="" class="arrowimage down" *ngIf="activities.length > 0" (click) = "scrollTo('bottom_of_activity')" >
+    <ion-list class="list-content" *ngIf="activities.length > 0">
+        <ion-item [ngClass]="{active: activity.sub_activity_checked }" *ngFor="let activity of activities">
+            <ion-avatar item-start (click) ="goToCorrespondActivity(activity)" >
+                <img src="assets/icon/white-icon-checklist.svg" alt="icon" 
+                *ngIf=" activity.eloquent_tree == 'checklist' ||  activity.eloquent_tree == 'checklist_create_update' || activity.eloquent_tree == 'checklist_assigned_to' || activity.eloquent_tree == 'checklist_update' ||  activity.eloquent_tree == 'checklist_complete' || activity.eloquent_tree == 'checklist_delete' " />
+                <img src="assets/icon/white-icon-{{ activity.eloquent_tree == 'reply' ? 'mail' : activity.eloquent }}.svg" alt="icon"
+                *ngIf=" activity.eloquent_tree != 'checklist' &&  activity.eloquent_tree != 'checklist_create_update' && activity.eloquent_tree != 'checklist_assigned_to' && activity.eloquent_tree != 'checklist_update' &&  activity.eloquent_tree != 'checklist_complete' && activity.eloquent_tree != 'checklist_delete' " />
+            </ion-avatar>
+            <div class="contentarea">
+              
+                <div class="desc accordian-head" (click)="toggleGroup(activity)">
+                    <div class="description-panel" [innerHTML] = " activity.activityFormatted ">
+                    </div>
+                    <div class="acc-icon" *ngIf="activity.sub_activity"  ><i></i></div>
+                </div>
+                <div *ngIf="activity.sub_activity_checked" class="contentarea-acc-panel">
+                    <div class="desc" [innerHTML] = " activity.sub_activity ">
+                    </div>
+                </div>
+                <p class="notified-mail" *ngIf="activity.notified_users "><span class="notified-msg" (click)="toggleNotify(activity)">({{ activity.notified_message }}</span>
+                  <span *ngIf="activity.notified_users_checked" class="notified-users"> - {{ activity.notified_users }}</span>)</p>
+            </div>
+        </ion-item>
+    </ion-list> 
+     <p class="load-more-p gototop" *ngIf="!activityshowSpinner && activitycurrentPage <= activitytotalPages" (click) = "loadMoreActivites()" >Load More</p>
+     <img src="assets/icon/arrow-up-scroll.svg" id="bottom_of_activity" width="" height=""   class="bottomarrowimage" (click) = "scrollTo('activities_focus')" >
+     <p class="no-records-found" *ngIf="!activityshowSpinner && activities.length == 0">No Records Found!.</p>
+    </div>
+     <div class="spinner center" *ngIf="activityshowSpinner" ><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+    
+    <!-- Activites End -->
+
+    <!-- Contact List Start -->
+    <h2 class="dashboard-h2" id="contactlist_focus" (click) = "toggleCardLayout('contactlist')"><i class="dash-icon da-icon-group"></i>CONTACT LIST ({{ contacttotalRecords }}) </h2>
+    <div *ngIf="showContactList" class="padding-panel">
+        <ion-card class="list-panel tickets-listpanel" *ngIf="contacts.length > 0">
+            <ion-card-content>
+              <ion-grid>
+                <ion-row class="ionrow-header">
+                  <ion-col>
+                    Name
+                  </ion-col>
+                  <ion-col>
+                    Role
+                  </ion-col>
+                </ion-row>
+                <ion-row class="ionrow-inner" *ngFor="let contact of contacts">
+                  <ion-col>
+                    {{ contact.name }} 
+                  </ion-col>
+                  <ion-col>
+                    {{ contact.roles }}
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-content>
+          </ion-card>
+          <div class="load-more-panel">
+              <img src="assets/icon/arrow-up-scroll.svg" id="bottom_task_focus" width="" height="" *ngIf="!contactshowSpinner && contacts.length > 0" class="bottomarrowimage" (click) = "scrollTo('contactlist_focus')" >
+          </div>
+      </div>
+      <div class="spinner center" *ngIf="contactshowSpinner" ><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+    <!-- Contact List End -->
+
+    
+    <!-- Tickets Start -->
+  <h2 class="dashboard-h2" id="tickets_focus" (click) = "toggleCardLayout('ticket')"><i class="dash-icon da-icon-tic"></i>TICKETS ({{ tickettotalRecords }}) </h2>
+    <div *ngIf="showTicket" class="padding-panel">
+    <img src="assets/icon/arrow-up-scroll.svg" width="" height="" class="arrowimage down" *ngIf="tickets.length > 0" (click) = "scrollTo('bottom_of_tickets')" >
+    <div *ngIf="tickets.length > 0">
+      <ion-card class="list-panel tickets-listpanel" *ngFor="let ticket of tickets">
+            <ion-card-content>
+                <ion-grid>
+                    <ion-row (click)="ticketview(ticket.id)">
+                        <ion-col col-12>
+                            <p>
+                                {{ ticket.default_subject }}
+                            </p>
+
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="ticket.showmore" [@enterAnimation] class="showBottomInfo" (click)="ticketview(ticket.id)">
+                        <ion-col col-6>
+                            <p>
+                                <label class="d-block">Group :</label>{{ ticket.groupname }}</p>
+                        </ion-col>
+                        <ion-col col-6>
+                            <p>
+                                <label class="d-block">Staff :</label>{{ ticket.ticket_staff_name }}</p>
+                        </ion-col>
+                        <ion-col col-6>
+                            <p>
+                                <label class="d-block">Status :</label>{{ ticket.status_formatted }}</p>
+                        </ion-col>
+                        <ion-col col-6>
+                            <p>
+                                <label class="d-block">Priority :</label>{{ ticket.priority }}</p>
+                        </ion-col>
+                        <ion-col col-12>
+                            <p>
+                                <label class="d-block">Updated :</label> {{ ticket.updated_at_formatted }} -<i>{{ ticket.ticket_updator_name }}</i> </p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="no-padding">
+                        <ion-col col-12 no-padding>
+                            <div class="bottom--info">
+                                <small class="moreInfo" (click)="toggleTileTexts(ticket)">{{ ticket.showmoretext ? ticket.showmoretext : 'More Info' }}</small>
+                                <small class="viewTickets" (click)="ticketview(ticket.id)">View Ticket</small>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+
+                    <!-- <ion-row class="last">
+
+                </ion-row> -->
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+        <div class="load-more-panel">
+          <img src="assets/icon/arrow-up-scroll.svg" id="bottom_of_tickets" width="" height=""   class="bottomarrowimage" (click) = "scrollTo('tickets_focus')" >
+          <p class="load-more-p gototop" *ngIf="!ticketshowSpinner && ticketcurrentPage <= tickettotalPages" (click) = "loadMoreTickets()" >Load More</p>
+        </div>
+    </div> 
+    <p class="no-records-found" *ngIf="!ticketshowSpinner && tickets.length == 0">No Records Found!.</p>
+    </div>
+    <div class="spinner center" *ngIf="ticketshowSpinner" ><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+    
+    <!-- Tickets End -->
+
+    <!-- Mails Start -->
+  <h2 class="dashboard-h2" id="mails_focus" (click) = "toggleCardLayout('mail')"><i class="dash-icon da-icon-mail"></i>MAILS ({{ mailtotalRecords }}) </h2>
+    <div *ngIf="showEmail" class="padding-panel">
+    <img src="assets/icon/arrow-up-scroll.svg" width="" height="" class="arrowimage down" *ngIf="emails.length > 0" (click) = "scrollTo('bottom_of_mail')" >
+    <div *ngIf="emails.length > 0">
+        <ion-card class="list-panel tickets-listpanel" *ngFor="let email of emails">
+            <ion-card-content>
+                <ion-grid>
+                    <ion-row (click)="mailsview(email)">
+                        <ion-col col-12>
+                            <p class="has-icon">
+                                <i class="address-icon" *ngIf="email.email_from == 'tickets' "><img src="assets/icon/ticket.svg" width="20" height="20"></i> {{ email.common_subject }}
+                            </p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row (click)="mailsview(email)">
+                        <ion-col col-12>
+                            <p>
+                                <label class="d-block">Updated :</label> {{ email.last_updated_at_formatted }} -<i>{{ email.updator_name }}</i> </p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="email.showmore" [@enterAnimation] class="showBottomInfo last" (click)="mailsview(email)">
+                        <ion-col col-4>
+                            <p>
+                                <label class="d-block">Group :</label>{{ email.groupname }}</p>
+                        </ion-col>
+                        <ion-col col-4>
+                            <p>
+                                <label class="d-block">Staff :</label>{{ email.staff_name }}</p>
+                        </ion-col>
+                        <ion-col col-4>
+                            <p>
+                                <label class="d-block">Priority :</label>{{ email.common_priority }}</p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row class="no-padding">
+                        <ion-col col-12 no-padding>
+                            <div class="bottom--info">
+                                <small class="moreInfo" (click)="toggleTileTexts(email)">{{ email.showmoretext ? email.showmoretext : 'More Info' }}</small>
+                                <small class="viewTickets" (click)="mailsview(email)">View 
+                                   <span *ngIf="email.email_from == 'tickets' " > Ticket</span>
+                                   <span *ngIf="email.email_from != 'tickets' " > Mail</span>
+                                </small>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+        <div class="load-more-panel">
+          <img src="assets/icon/arrow-up-scroll.svg" id="bottom_of_mail" width="" height=""   class="bottomarrowimage" (click) = "scrollTo('mails_focus')" >
+          <p class="load-more-p gototop" *ngIf="!mailshowSpinner && mailcurrentPage <= mailtotalPages" (click) = "loadMoreEmails()" >Load More</p>
+        </div>
+    </div> 
+    <p class="no-records-found" *ngIf="!mailshowSpinner && emails.length == 0">No Records Found!.</p>
+    </div>
+    <div class="spinner center" *ngIf="mailshowSpinner" ><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+    
+    <!-- Mails End -->
+
+    <!-- Properties Start -->
+  <h2 class="dashboard-h2" id="properties_focus" (click) = "toggleCardLayout('property')"><i class="dash-icon da-icon-prop"></i>PROPERTIES ({{ propertytotalRecords }})</h2>
+    <div *ngIf="showProperty" class="padding-panel">
+    <img src="assets/icon/arrow-up-scroll.svg" width="" height="" class="arrowimage down" *ngIf="properties.length > 0" (click) = "scrollTo('bottom_of_property')" >
+    <div *ngIf="properties.length > 0">
+        <ion-card class="list-panel tickets-listpanel" *ngFor="let property of properties">
+            <ion-card-content>
+                <ion-grid>
+                    <ion-row (click)="viewProperties(property)">
+                        <ion-col col-12>
+                            <p>
+                                {{ property.address }}
+                            </p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+
+                    </ion-row>
+                    
+                    <ion-row (click)="viewProperties(property)">
+                        <ion-col col-12>
+                            <p>
+                                <label>Type: </label>{{ property.property_type ? property.property_type : '-' }}</p>
+                        </ion-col>
+                        <ion-col col>
+                            <p><span>{{ property.unit ? property.unit : '-' }}</span>
+                                <label class="d-block">Unit</label>
+                            </p>
+                        </ion-col>
+                        <ion-col col>
+                            <p><span>{{ property.year_built ? property.year_built : '-' }}</span>
+                                <label class="d-block">Year</label>
+                            </p>
+                        </ion-col>
+                        <ion-col col>
+                            <p><span>{{ property.square_feet ? property.square_feet : '-' }}</span>
+                                <label class="d-block">Sqft</label>
+                            </p>
+                        </ion-col>
+                        <ion-col col>
+                            <p><span>{{ property.bedrooms ? property.bedrooms : '-' }}</span>
+                                <label class="d-block">Beds</label>
+                            </p>
+                        </ion-col>
+                        <ion-col col>
+                            <p><span>{{ property.full_half_bath ? property.full_half_bath : '-' }}</span>
+                                <label class="d-block">Baths</label>
+                            </p>
+                        </ion-col>
+                        <ion-col col>
+                            <p><span>{{ property.garages ? property.garages : '-' }}</span>
+                                <label class="d-block">Garage</label>
+                            </p>
+                        </ion-col>
+                        
+                    </ion-row>
+
+                    <ion-row *ngIf="property.showmore" [@enterAnimation] class="showBottomInfo last" (click)="viewProperties(property)">
+                       <ion-col col-4>
+                            <p>
+                                <label class="d-block">Created :</label> {{ property.created_at_formatted }}</p>
+                        </ion-col>
+                        <ion-col col-8>
+                            <p>
+                                <label class="d-block">Activity :</label> {{ property.updated_at_formatted }} <i *ngIf="property.updator_name">- {{ property.updator_name }}</i> </p>
+                        </ion-col>
+                        
+                    </ion-row>
+
+                    <ion-row class="no-padding">
+                        <ion-col col-12 no-padding>
+                            <div class="bottom--info three-columns">
+                                <small class="moreInfo" (click)="toggleTileTexts(property)">{{ property.showmoretext ? property.showmoretext : 'More Info' }}</small>
+                                <small class="viewTickets moreInfo" (click)="editProperty(property)">Edit</small>
+                                <small class="viewTickets" (click)="viewProperties(property)">View</small>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+        <div class="load-more-panel">
+          <img src="assets/icon/arrow-up-scroll.svg" id="bottom_of_property" width="" height=""   class="bottomarrowimage" (click) = "scrollTo('properties_focus')" >
+          <p class="load-more-p gototop" *ngIf="!propertyshowSpinner && propertycurrentPage <= propertytotalPages" (click) = "loadMoreProperties()" >Load More</p>
+        </div>
+    </div> 
+    <p class="no-records-found" *ngIf="!propertyshowSpinner && properties.length == 0">No Records Found!.</p>
+    </div>
+    <div class="spinner center" *ngIf="propertyshowSpinner" ><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+    
+    <!-- Properties End -->
+
+    <!-- Properties Start -->
+  <h2 class="dashboard-h2" id="documents_focus" (click) = "toggleCardLayout('document')"><i class="dash-icon da-icon-doc"></i>DOCUMENTS ({{ documenttotalRecords }})</h2>
+    <div *ngIf="showDocument" class="padding-panel">
+    <img src="assets/icon/arrow-up-scroll.svg" width="" height="" class="arrowimage down" *ngIf="documents.length > 0" (click) = "scrollTo('bottom_of_document')" >
+    <div *ngIf="documents.length > 0">
+        <ion-card class="list-panel tickets-listpanel" *ngFor="let document of documents">
+            <ion-card-content>
+                <ion-grid>
+                    <ion-row (click)="viewDocument(document)">
+                        <ion-col col-12>
+                            <p><label class="d-block">Property :</label>{{ document.propertiesaddress ? document.propertiesaddress : '-' }}</p>
+                        </ion-col>
+                        <ion-col col-12>
+                            <p><label class="d-block">Document :</label>{{ document.doc_dynamic_name }}</p>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row *ngIf="document.showmore" [@enterAnimation] class="showBottomInfo last" (click)="viewDocument(document)">
+                        <ion-col col-12>
+                            
+                               <p> <label>Created: </label>{{ document.created_at_formatted }} -<i>{{ document.creatorname }}</i></p>
+                        </ion-col>
+                        <ion-col col-12>
+                            
+                               <p> <label>Updated: </label>{{ document.updated_at_formatted }} -<i>{{ document.updatedbyname }}</i></p>
+                        </ion-col>
+                    </ion-row>
+                    
+                    <ion-row class="no-padding">
+                        <ion-col col-12 no-padding>
+                            <div class="bottom--info three-columns" *ngIf="document.doc_id != 0">
+                                <small class="moreInfo" (click)="toggleTileTexts(document)">{{ document.showmore ? "Less Info" : 'More Info' }}</small>
+                                <small class="viewTickets moreInfo" (click)="editDcoument(document)" *ngIf="document.doc_id != 0">Edit</small>
+                                <!--  href="{{ document.document_attachment }}"  -->
+                                <small *ngIf="document.document_attachment"><a  (click)="viewdoc(document.document_attachment)"  class="color-blue" >View</a></small>
+                                <small class="viewTickets" (click)="viewDocument(document)" *ngIf="!document.document_attachment">View</small>
+                            </div>
+                            <div class="bottom--info " [ngClass]="{'three-columns': (document.pma_status != 'completed' && document.pma_status != 'voided') }"   *ngIf="document.pma_id != 0">
+                               <small class="moreInfo" (click)="toggleTileTexts(document)">{{ document.showmore ? "Less Info" : 'More Info' }}</small>
+                               <small class="viewTickets moreInfo" (click)="viewDocument(document)" *ngIf=" document.pma_status != 'completed' && document.pma_status != 'voided' " >Status</small>
+                               <small class="viewTickets" *ngIf=" document.envelope_pdf_path != '' " >
+                                <!-- (click)="videwdoc(document.envelope_pdf_path)" href="{{ document.envelope_pdf_path }}" -->
+                               <a (click)="viewdoc(document.envelope_pdf_path)" class="color-blue" > View</a>
+                              </small>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+        <div class="load-more-panel">
+          <img src="assets/icon/arrow-up-scroll.svg" id="bottom_of_document" width="" height=""   class="bottomarrowimage" (click) = "scrollTo('documents_focus')" >
+          <p class="load-more-p gototop" *ngIf="!documentshowSpinner && documentcurrentPage <= documenttotalPages" (click) = "loadMoreDocuments()" >Load More</p>
+        </div>
+    </div> 
+    <p class="no-records-found" *ngIf="!documentshowSpinner && documents.length == 0">No Records Found!.</p>
+    </div>
+    <div class="spinner center" *ngIf="documentshowSpinner" ><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+    
+    <!-- Properties End -->
+</div>
+</div>
+</ion-content>

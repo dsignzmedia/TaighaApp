@@ -1,0 +1,108 @@
+page-leads {
+
+    ion-content{
+        background-color: #fff !important;
+    }
+ion-list{
+
+    ion-item{
+    background-color: rgba(51,102,204,0.15) !important;
+    border-radius: 5px !important;
+    overflow: hidden !important;
+    border-left: 5px solid #3366CC !important;
+            margin-bottom: 15px !important;
+    }
+    ion-label{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+.lead-detail{ 
+        width: 45%;
+    span {
+    display: flex;
+    align-items: center;
+    margin-bottom: 3px;
+    img{
+    margin-right: 10px;
+    border-radius: 40px;
+    }
+    p{
+        font-size: 14px;
+    font-weight: bold;
+    color: #000;
+        padding-left: 0px;
+
+    }
+}
+p{
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+        padding-left: 5px;
+}
+}
+ul{
+    padding: 0;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    list-style-type: none;
+    li{
+        margin: 0 3px;
+    }
+}
+.active-badge {
+    background-color: rgba(51, 102, 204, 0.43) !important;
+    color: rgba(0, 26, 198, 0.8) !important;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 3px 9px;
+    border-radius: 5px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 21px;
+}
+.hot-badge {
+    background-color: rgba(243, 94, 94, 0.50) !important;
+    color: #F20024 !important;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 3px 9px;
+    border-radius: 5px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 21px;
+}
+.warm-badge {
+    background-color: rgba(247, 200, 68, 0.50) !important;
+    color: #9A7200 !important;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 3px 9px;
+    border-radius: 5px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 21px;
+}
+.cold-badge {
+    background-color: rgba(90, 170, 221, 0.50) !important;
+    color: #0073B9 !important;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 3px 9px;
+    border-radius: 5px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 21px;
+}
+}
+}

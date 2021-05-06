@@ -1,0 +1,137 @@
+<!--
+Generated template for the MypropertiesPage page.
+See http://ionicframework.com/docs/components/#navigation for more info on
+Ionic pages and navigation.
+-->
+<ion-header>
+<!--     <ion-navbar class="header-panel">
+        <ion-col class="center">
+            <ion-title>My Properties</ion-title>
+        </ion-col>
+        <ion-col class="right">
+          
+            
+            <ion-icon class="home_icon" menuToggle></ion-icon>
+        </ion-col>
+    </ion-navbar> -->
+<ion-navbar class="no-right list-navbar">
+  <ion-col no-padding class="hdr-left">
+        <img src="assets/imgs/menu.svg" (click)="openHomeSearchmenu()"  width="30" height="30" />
+      </ion-col>
+        <div class="center">
+           <!--  <i class="home_icon" menuToggle></i> -->
+            <p class="title">My Properties</p>
+        </div>
+    </ion-navbar>
+    <ion-navbar class="filter-panel">
+        <ion-grid>
+            <ion-row>
+                <ion-col text-center col-6 (click)="openfilterModal({charNum: 0})">Filter
+                    <i>
+                        <img src="assets/icon/filter-filled.svg" width="15" height="15">
+                        <span *ngIf="isFilterApplied" class="filter-applied"></span>
+                    </i>
+                </ion-col>
+                <ion-col text-center col-6 >
+                    <span (click)="createnewProperties()">Add new
+                        <i>
+                            <img src="assets/icon/add.svg" width="15" height="15">
+                        </i>
+                    </span>
+                    <span *ngIf="isFilterApplied" class="reset-filter" (click) = "resetFilter()" >Reset</span>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-navbar>
+</ion-header>
+<ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <div *ngIf="properties.length > 0">
+        <p class="records-found">{{ totalRecords }} records found.</p>
+        <ion-card class="list-panel tickets-listpanel" *ngFor="let property of properties">
+            <ion-card-content>
+                <ion-grid>
+                    <ion-row (click)="viewProperties(property)">
+                        <ion-col col-12>
+                            <p>
+                                {{ property.address }}
+                            </p>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+
+                    </ion-row>
+                    <ion-row (click)="viewProperties(property)">
+                        <ion-col col-12>
+                            <p>
+                                <label>Type: </label>{{ property.property_type ? property.property_type : '-' }}</p>
+                        </ion-col>
+                        <ion-col col>
+                            <p><span>{{ property.unit ? property.unit : '-' }}</span>
+                                <label class="d-block">Unit</label>
+                            </p>
+                        </ion-col>
+                        <ion-col col>
+                            <p><span>{{ property.year_built ? property.year_built : '-' }}</span>
+                                <label class="d-block">Year</label>
+                            </p>
+                        </ion-col>
+                        <ion-col col>
+                            <p><span>{{ property.square_feet ? property.square_feet : '-' }}</span>
+                                <label class="d-block">Sqft</label>
+                            </p>
+                        </ion-col>
+                        <ion-col col>
+                            <p><span>{{ property.bedrooms ? property.bedrooms : '-' }}</span>
+                                <label class="d-block">Beds</label>
+                            </p>
+                        </ion-col>
+                        <ion-col col>
+                            <p><span>{{ property.full_half_bath ? property.full_half_bath : '-' }}</span>
+                                <label class="d-block">Baths</label>
+                            </p>
+                        </ion-col>
+                        <ion-col col>
+                            <p><span>{{ property.garages ? property.garages : '-' }}</span>
+                                <label class="d-block">Garage</label>
+                            </p>
+                        </ion-col>
+                        
+                    </ion-row>
+
+                    <ion-row *ngIf="property.showmore" [@enterAnimation] class="showBottomInfo last" (click)="viewProperties(property)">
+                       <ion-col col-4>
+                            <p>
+                                <label class="d-block">Created :</label> {{ property.created_at_formatted }}</p>
+                        </ion-col>
+                        <ion-col col-8>
+                            <p>
+                                <label class="d-block">Activity :</label> {{ property.updated_at_formatted }} <i *ngIf="property.updator_name">- {{ property.updator_name }}</i> </p>
+                        </ion-col>
+                        
+                    </ion-row>
+                    <ion-row class="no-padding">
+                        <ion-col col-12 no-padding>
+                            <div class="bottom--info three-columns">
+                                <small class="moreInfo" (click)="toggleTileTexts(property)">{{ property.showmoretext ? property.showmoretext : 'More Info' }}</small>
+                                <small class="viewTickets moreInfo" (click)="editProperty(property)">Edit</small> 
+                                <small class="viewTickets" (click)="viewProperties(property)">View</small>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-card-content>
+        </ion-card>
+    </div>
+    <p class="no-records-found" *ngIf="!showSpinner && properties.length == 0">No Records Found!.</p>
+    <div class="spinner center" *ngIf="showSpinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+    <ion-infinite-scroll threshold="200px" (ionInfinite)="doInfinite($event)" *ngIf="currentPage <= totalPages">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

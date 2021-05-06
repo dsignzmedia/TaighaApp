@@ -1,0 +1,201 @@
+page-map-info {
+  .favoritelist{
+      margin: 0;
+.favorite-icon{
+  background-image: url(../assets/imgs/favorite-notr.svg);
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    background-position: center;
+    display: block;
+    background-repeat: no-repeat;
+}
+&.active{
+  .favorite-icon{
+  background-image: url(../assets/imgs/like-blue.svg);
+}
+}
+      ion-item{
+        padding: 0 !important;
+        background-color: transparent;
+      }
+      .item-checkbox-checked{
+          .favorite-icon{
+  background-image: url(../assets/imgs/like-blue.svg);
+}
+      }
+      &.active{
+          .favorite-icon{
+  background-image: url(../assets/imgs/like-blue.svg);
+}
+      }
+     &.favchecked  {
+          .favorite-icon{
+  background-image: url(../assets/imgs/like-blue.svg);
+}
+}
+     &.unchecked{
+          .favorite-icon{
+  background-image: url(../assets/imgs/favorite-notr.svg);
+}
+}
+      ion-item[checked="true"] {
+          .favorite-icon{
+  background-image: url(../assets/imgs/like-blue.svg);
+}
+}
+      .item-inner{
+        padding: 0 !important;
+        ion-label{
+          margin: 0 !important;
+        }
+      }
+  ion-checkbox{
+        margin: 0 !important;
+  }
+  .checkbox-icon{
+    display: none;
+  }
+
+}
+.map-property{
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+}
+    ion-card{
+      border-radius: 0px !important;
+      box-shadow: unset !important;
+          margin: 0 !important;
+    width: 100%;
+      ion-card-content{
+      	    height: 100%;
+    color: #fff;
+        padding: 0 !important;
+        ul.property-details {
+        	    margin-top: 5px;
+    @include flexbox;
+    @include align-items($value: center);
+    width: 100%;
+    justify-content: end;
+    margin-bottom: 10px;
+    li{
+    	img{
+    		width: 20px
+    	}
+    }
+}
+        ul{
+    display: inline-flex;
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+          li{
+margin: 0 10px;
+    @include flexbox;
+    @include align-items($value: center);
+    font-weight: $regular-font-weight;
+    font-size: $smallx-fontsize;
+    strong {
+    margin-right: 3px;
+}
+&:first-child{
+  margin-left: 0;
+}
+&:last-child{
+  margin-right: 0;
+}
+.favorite-icon{
+  background-image: url(../assets/imgs/favoritemapp.svg);
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    background-position: center;
+    display: block;
+    background-repeat: no-repeat;
+}
+&.active{
+  .favorite-icon{
+  background-image: url(../assets/imgs/favorite-active.svg);
+}
+}
+          }
+        }
+        ion-card-title{
+        	    text-align: end;
+          @include flexbox;
+
+              @include align-items($value: center);
+    justify-content: space-between;
+        margin-top: 0;
+    padding-top: 0;
+        padding: 10px 12px !important;
+    ul{
+    	li{
+    		    margin: 0 5px;
+    	}
+    }
+    .price{
+      font-size: $xlarge-fontsize;
+      font-weight: $bold-font-weight;
+    }
+        }
+        img{
+              margin-right: 5px;
+        }
+        .address-panel{
+                @include flexbox;
+    align-items: flex-end;
+    vertical-align: middle;
+    justify-content: space-between;
+          ul{
+display: block;
+    li{
+   font-size: $small-fontsize;
+   font-weight: $regular-font-weight;
+&:last-child{
+  margin-left: 0;
+}
+    }
+          }
+
+          img{
+            width: 35px;
+            height: 13px;
+          }
+        }
+      }
+      .bottom-content {
+    bottom: 0;
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 40px 15px 15px 15px;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.4)26%, rgba(0, 0, 0, 0.67));
+    span.price {
+    font-size: 20px;
+    font-weight: 700;
+}
+}
+    }
+}
+// .ion-modal{
+// 	height: 50%;
+// 	    top: auto;
+//     bottom: 0;
+
+// }
+.mapclose{
+  width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #FFF; position: absolute; border: 1.5px solid #3366cc; img{     width: 16px;
+    height: 16px;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto; }
+}

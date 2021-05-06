@@ -1,0 +1,510 @@
+<ion-header class="homesearch">
+    <ion-grid class="white-header">
+      <ion-row>
+        <ion-col no-padding class="hdr-left">
+        <i class="back-panel"><img src="assets/imgs/backarrow-blue.svg" width="20" height="20" (click)="dismissModal()" /></i>
+        </ion-col>
+        <ion-col no-padding class="hdr-center">
+          Filters
+        </ion-col>
+        <ion-col no-padding class="hdr-right">
+        <button (click)="resetAll()">
+          Reset
+        </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-header>
+<ion-content scrollY="false" forceOverscroll="false" has-bouncing="false" no-bounce  padding>
+  <div class="spinner-panel"  *ngIf="showSpinner">
+    <div class="spinner center">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+  </div>
+   <ion-grid>
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>Price</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list">
+           <ion-input id="min_price_d" placeholder="Min - Price" [(ngModel)]="minPriceInput" (ionBlur)="setminPriceInput()"></ion-input>
+           <span>to</span>
+           <ion-input id="max_price_d" placeholder="Max - Price" [(ngModel)]="maxPriceInput" (ionBlur)="setmaxPriceInput()"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>All Beds</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list beds-baths-dropdown">
+			<ion-list radio-group class="beds-baths-radio">
+        <div *ngIf="Bedsany == true">
+        <ion-item  *ngIf="optionResultBeds.length > 0">
+          <ion-label>{{optionResultBeds[0].value}}</ion-label>
+          <ion-radio checked="true" (click)="parameter('beds',optionResultBeds[0].key);BedsCheckbox('beds',optionResultBeds[0].key, $event); "></ion-radio>
+        </ion-item>
+        </div>
+        <div *ngIf="Bedsany == false">
+        <ion-item  *ngIf="optionResultBeds.length > 0">
+          <ion-label>{{optionResultBeds[0].value}}</ion-label>
+          <ion-radio checked="false" (click)="parameter('beds',optionResultBeds[0].key);BedsCheckbox('beds',optionResultBeds[0].key, $event); "></ion-radio>
+        </ion-item>
+        </div>
+
+        <div *ngIf="Beds1 == true">
+        <ion-item  *ngIf="optionResultBeds.length > 1">
+          <ion-label>{{optionResultBeds[1].value}}</ion-label>
+          <ion-radio checked="true" (click)="parameter('beds',optionResultBeds[1].key);BedsCheckbox('beds',optionResultBeds[1].key, $event); "></ion-radio>
+        </ion-item>
+        </div>
+        <div *ngIf="Beds1 == false">
+        <ion-item  *ngIf="optionResultBeds.length > 1">
+          <ion-label>{{optionResultBeds[1].value}}</ion-label>
+          <ion-radio checked="false" (click)="parameter('beds',optionResultBeds[1].key);BedsCheckbox('beds',optionResultBeds[1].key, $event); "></ion-radio>
+        </ion-item>
+        </div>
+
+        <div *ngIf="Beds2 == true">
+        <ion-item  *ngIf="optionResultBeds.length > 2">
+          <ion-label>{{optionResultBeds[2].value}}</ion-label>
+          <ion-radio checked="true" (click)="parameter('beds',optionResultBeds[2].key);BedsCheckbox('beds',optionResultBeds[2].key, $event); "></ion-radio>
+        </ion-item>
+      </div>
+      <div *ngIf="Beds2 == false">
+        <ion-item  *ngIf="optionResultBeds.length > 2">
+          <ion-label>{{optionResultBeds[2].value}}</ion-label>
+          <ion-radio checked="false" (click)="parameter('beds',optionResultBeds[2].key);BedsCheckbox('beds',optionResultBeds[2].key, $event); "></ion-radio>
+        </ion-item>
+      </div>
+
+      <div *ngIf="Beds3 == true">
+        <ion-item  *ngIf="optionResultBeds.length > 3">
+          <ion-label>{{optionResultBeds[3].value}}</ion-label>
+          <ion-radio checked="true" (click)="parameter('beds',optionResultBeds[3].key);BedsCheckbox('beds',optionResultBeds[3].key, $event); "></ion-radio>
+        </ion-item>
+      </div>
+      <div *ngIf="Beds3 == false">
+        <ion-item  *ngIf="optionResultBeds.length > 3">
+          <ion-label>{{optionResultBeds[3].value}}</ion-label>
+          <ion-radio checked="false" (click)="parameter('beds',optionResultBeds[3].key);BedsCheckbox('beds',optionResultBeds[3].key, $event); "></ion-radio>
+        </ion-item>
+      </div>
+
+      <div *ngIf="Beds4 == true">
+        <ion-item  *ngIf="optionResultBeds.length > 4">
+          <ion-label>{{optionResultBeds[4].value}}</ion-label>
+          <ion-radio checked="true" (click)="parameter('beds',optionResultBeds[4].key);BedsCheckbox('beds',optionResultBeds[4].key, $event); "></ion-radio>
+        </ion-item>
+      </div>
+      <div *ngIf="Beds4 == false">
+        <ion-item  *ngIf="optionResultBeds.length > 4">
+          <ion-label>{{optionResultBeds[4].value}}</ion-label>
+          <ion-radio checked="false" (click)="parameter('beds',optionResultBeds[4].key);BedsCheckbox('beds',optionResultBeds[4].key, $event); "></ion-radio>
+        </ion-item>
+      </div>
+
+      <div *ngIf="Beds5 == true">
+        <ion-item  *ngIf="optionResultBeds.length > 5">
+          <ion-label>{{optionResultBeds[5].value}}</ion-label>
+          <ion-radio checked="true" (click)="parameter('beds',optionResultBeds[5].key);BedsCheckbox('beds',optionResultBeds[5].key, $event); "></ion-radio>
+        </ion-item>
+      </div>
+      <div *ngIf="Beds5 == false">
+        <ion-item  *ngIf="optionResultBeds.length > 5">
+          <ion-label>{{optionResultBeds[5].value}}</ion-label>
+          <ion-radio checked="false" (click)="parameter('beds',optionResultBeds[5].key);BedsCheckbox('beds',optionResultBeds[5].key, $event); "></ion-radio>
+        </ion-item>
+      </div>
+
+			</ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>All Baths</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list beds-baths-dropdown">
+			<ion-list radio-group class="beds-baths-radio">
+        <div *ngIf="Bathsany == true">
+        <ion-item  *ngIf="optionResultBaths.length > 0">
+          <ion-label>{{optionResultBaths[0].value}}</ion-label>
+          <ion-radio checked="true" (click)="parameter('baths',optionResultBaths[0].key);BedsCheckbox('baths',optionResultBaths[0].key, $event); "></ion-radio>
+        </ion-item>
+        </div>
+        <div *ngIf="Bathsany == false">
+        <ion-item  *ngIf="optionResultBaths.length > 0">
+          <ion-label>{{optionResultBaths[0].value}}</ion-label>
+          <ion-radio checked="false" (click)="parameter('baths',optionResultBaths[0].key);BedsCheckbox('baths',optionResultBaths[0].key, $event); "></ion-radio>
+        </ion-item>
+        </div>
+
+        <div *ngIf="Baths1 == true">
+        <ion-item  *ngIf="optionResultBaths.length > 1">
+          <ion-label>{{optionResultBaths[1].value}}</ion-label>
+          <ion-radio checked="true" (click)="parameter('baths',optionResultBaths[1].key);BedsCheckbox('baths',optionResultBaths[1].key, $event); "></ion-radio>
+        </ion-item>
+      </div>
+        <div *ngIf="Baths1 == false">
+        <ion-item  *ngIf="optionResultBaths.length > 1">
+          <ion-label>{{optionResultBaths[1].value}}</ion-label>
+          <ion-radio checked="false" (click)="parameter('baths',optionResultBaths[1].key);BedsCheckbox('baths',optionResultBaths[1].key, $event); "></ion-radio>
+        </ion-item>
+      </div>
+
+        <div *ngIf="Baths2 == true">
+        <ion-item  *ngIf="optionResultBaths.length > 2">
+          <ion-label>{{optionResultBaths[2].value}}</ion-label>
+          <ion-radio checked="true" (click)="parameter('baths',optionResultBaths[2].key);BedsCheckbox('baths',optionResultBaths[2].key, $event); "></ion-radio>
+        </ion-item>
+      </div>
+        <div *ngIf="Baths2 == false">
+        <ion-item  *ngIf="optionResultBaths.length > 2">
+          <ion-label>{{optionResultBaths[2].value}}</ion-label>
+          <ion-radio checked="false" (click)="parameter('baths',optionResultBaths[2].key);BedsCheckbox('baths',optionResultBaths[2].key, $event); "></ion-radio>
+        </ion-item>
+      </div>
+
+        <div *ngIf="Baths3 == true">
+        <ion-item  *ngIf="optionResultBaths.length > 3">
+          <ion-label>{{optionResultBaths[3].value}}</ion-label>
+          <ion-radio checked="true" (click)="parameter('baths',optionResultBaths[3].key);BedsCheckbox('baths',optionResultBaths[3].key, $event); "></ion-radio>
+        </ion-item>
+      </div>
+        <div *ngIf="Baths3 == false">
+        <ion-item  *ngIf="optionResultBaths.length > 3">
+          <ion-label>{{optionResultBaths[3].value}}</ion-label>
+          <ion-radio checked="false" (click)="parameter('baths',optionResultBaths[3].key);BedsCheckbox('baths',optionResultBaths[3].key, $event); "></ion-radio>
+        </ion-item>
+      </div>
+
+        <div *ngIf="Baths4 == true">
+        <ion-item  *ngIf="optionResultBaths.length > 4">
+          <ion-label>{{optionResultBaths[4].value}}</ion-label>
+          <ion-radio checked="true" (click)="parameter('baths',optionResultBaths[4].key);BedsCheckbox('baths',optionResultBaths[4].key, $event); "></ion-radio>
+        </ion-item>
+      </div>
+        <div *ngIf="Baths4 == false">
+        <ion-item  *ngIf="optionResultBaths.length > 4">
+          <ion-label>{{optionResultBaths[4].value}}</ion-label>
+          <ion-radio checked="false" (click)="parameter('baths',optionResultBaths[4].key);BedsCheckbox('baths',optionResultBaths[4].key, $event); "></ion-radio>
+        </ion-item>
+      </div>
+
+        <div *ngIf="Baths5 == true">
+        <ion-item  *ngIf="optionResultBaths.length > 5">
+          <ion-label>{{optionResultBaths[5].value}}</ion-label>
+          <ion-radio checked="true" (click)="parameter('baths',optionResultBaths[5].key);BedsCheckbox('baths',optionResultBaths[5].key, $event); "></ion-radio>
+        </ion-item>
+      </div>
+        <div *ngIf="Baths5 == false">
+        <ion-item  *ngIf="optionResultBaths.length > 5">
+          <ion-label>{{optionResultBaths[5].value}}</ion-label>
+          <ion-radio checked="false" (click)="parameter('baths',optionResultBaths[5].key);BedsCheckbox('baths',optionResultBaths[5].key, $event); "></ion-radio>
+        </ion-item>
+      </div>
+			</ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>Property Class</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list beds-baths-dropdown">
+			<ion-list class="property-checkbox">
+			  <ion-item *ngIf="optionResultProperty.length > 0">
+			    <ion-label><i><img src="assets/imgs/house-check.svg" width="21" height="20"></i><span>{{optionResultProperty[0].key}}</span></ion-label>
+			    <ion-checkbox [(ngModel)]="checkedHouse" (click)="unqCheckbox('Residential1');propertyCheckboxClicked('Residential', optionResultProperty[0].key, $event); "></ion-checkbox>
+			  </ion-item>
+			  <ion-item  *ngIf="optionResultProperty.length > 1">
+			    <ion-label><i><img src="assets/imgs/city.svg" width="34" height="19"></i><span>{{optionResultProperty[1].key}}</span></ion-label>
+			    <ion-checkbox [(ngModel)]="checkedThouse" (click)="unqCheckbox('Residential2');propertyCheckboxClicked('Residential', optionResultProperty[1].key, $event); "></ion-checkbox>
+			  </ion-item>
+			  <ion-item  *ngIf="optionResultProperty.length > 2">
+			    <ion-label><i><img src="assets/imgs/hotel.svg" width="19" height="19"></i><span>{{optionResultProperty[2].key}}</span></ion-label>
+			    <ion-checkbox [(ngModel)]="checkedCondo" (click)="unqCheckbox('Residential3');propertyCheckboxClicked('Residential', optionResultProperty[2].key, $event); "></ion-checkbox>
+			  </ion-item>
+			  <ion-item  *ngIf="optionResultProperty.length > 3">
+			    <ion-label><i><img src="assets/imgs/multi-family.svg" width="23" height="23"></i><span>{{optionResultProperty[3].key}}</span></ion-label>
+			    <ion-checkbox [(ngModel)]="checkedMultifamily" (click)="unqCheckbox('MultiFamily');propertyCheckboxClicked('Multi-family', optionResultProperty[3].key, $event); "></ion-checkbox>
+			  </ion-item>
+			  <ion-item  *ngIf="optionResultProperty.length > 4">
+			    <ion-label><i><img src="assets/imgs/region.svg" width="20" height="20"></i><span>{{optionResultProperty[4].key}}</span></ion-label>
+			    <ion-checkbox [(ngModel)]="checkedLand" (click)="unqCheckbox('Land');propertyCheckboxClicked('Land', optionResultProperty[4].key, $event); "></ion-checkbox>
+			  </ion-item>
+			  <ion-item  *ngIf="optionResultProperty.length > 5">
+			    <ion-label><i><img src="assets/imgs/commercial-buldings.svg" width="21" height="20"></i><span>{{optionResultProperty[5].key}}</span></ion-label>
+			    <ion-checkbox [(ngModel)]="checkedCommercial" (click)="unqCheckbox('Sale');propertyCheckboxClicked('Commercial Sale', optionResultProperty[5].key, $event); "></ion-checkbox>
+			  </ion-item>
+			</ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>Listing Changes</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list default-radio beds-baths-dropdown">
+      <ion-list radio-group class="normal-radio">
+        <ion-item no-lines no-padding>
+          <ion-label>New Listings Last 24 Hours</ion-label>
+          <ion-checkbox [(ngModel)]="checkednewlisting" (click)="listings('&updated_at=n_desc', $event); "></ion-checkbox>
+<!--           <ion-radio [checked]="this.updatelistings === '&updated_at=n_desc'" (click)="listings('&updated_at=n_desc', $event); "></ion-radio> -->
+        </ion-item>
+        <ion-item no-lines no-padding>
+          <ion-label>Listings Modified Last 24 Hours</ion-label>
+          <ion-checkbox [(ngModel)]="checkedmodifiedlisting" (click)="listings('&updated_at=m_desc', $event); "></ion-checkbox>
+<!--           <ion-radio [checked]="this.updatelistings === '&updated_at=m_desc'" (click)="listings('&updated_at=m_desc', $event); "></ion-radio> -->
+        </ion-item>
+      </ion-list>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>Square Feet</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list">
+           <ion-input class='setminSqftInput' placeholder="Min Sqft" [(ngModel)]="minSqftInput" (ionBlur)="setminSqftInput()"></ion-input>
+           <span>to</span>
+           <ion-input placeholder="Max Sqft" [(ngModel)]="maxSqftInput" (ionBlur)="setmaxSqftInput()"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>Lot Size</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list inline-select">
+           <ion-item no-padding no-lines>
+            <ion-label>Lot Size - Minimum</ion-label>
+            <ion-select class="filter-select" placeholder="Min Lot Size" [(ngModel)]="minlostSizes" (ionChange)="changeminLotsize()">
+              <ion-option  *ngFor="let item of optionResult.minlostSizes" value="{{item.key}}" >{{item.value}}</ion-option>
+            </ion-select>
+          </ion-item>
+           <span>to</span>
+           <ion-item no-padding no-lines>
+            <ion-label>Lot Size - Maximum</ion-label>
+            <ion-select class="filter-select" placeholder="Max Lot Size" [(ngModel)]="maxlostSizes" (ionChange)="changemaxLotsize($event)">
+              <ion-option  *ngFor="let item of optionResult.maxlostSizes" value="{{item.key}}" >{{item.value}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>Status</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list">
+			<ion-list class="status-checkbox">
+        <ion-item  *ngIf="optionResultstatus.length > 0">
+          <ion-label>{{optionResultstatus[0].value}}</ion-label>
+          <ion-checkbox [(ngModel)]="checkedStatus0" (click)="statusCheckbox(optionResultstatus[0].value, $event); "></ion-checkbox>
+        </ion-item>
+        <ion-item  *ngIf="optionResultstatus.length > 1">
+          <ion-label>{{optionResultstatus[1].value}}</ion-label>
+          <ion-checkbox [(ngModel)]="checkedStatus1" (click)="statusCheckbox(optionResultstatus[1].value, $event); "></ion-checkbox>
+        </ion-item>
+        <ion-item  *ngIf="optionResultstatus.length > 2">
+          <ion-label>{{optionResultstatus[2].value}}</ion-label>
+          <ion-checkbox [(ngModel)]="checkedStatus2" (click)="statusCheckbox(optionResultstatus[2].value, $event); "></ion-checkbox>
+        </ion-item>
+        <ion-item  *ngIf="optionResultstatus.length > 3">
+          <ion-label>{{optionResultstatus[3].value}}</ion-label>
+          <ion-checkbox [(ngModel)]="checkedStatus3" (click)="statusCheckbox(optionResultstatus[3].value, $event); "></ion-checkbox>
+        </ion-item>
+        <ion-item  *ngIf="optionResultstatus.length > 4">
+          <ion-label>{{optionResultstatus[4].value}}</ion-label>
+          <ion-checkbox [(ngModel)]="checkedStatus4" (click)="statusCheckbox(optionResultstatus[4].value, $event); "></ion-checkbox>
+        </ion-item>
+			</ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row class="selectbox">
+        <ion-col col-12 no-padding>
+           <label>Open House</label>
+        </ion-col>
+        <ion-col col-12 no-padding>
+          <ion-item no-padding>
+            <ion-label>Open House</ion-label>
+            <ion-select class="filter-select" placeholder="Select" [(ngModel)]="openHouse" (ionChange)="changeopenHouse()">
+              <ion-option  value="" >Select</ion-option>
+              <ion-option  *ngFor="let item of optionResult.open_house" value="{{item.key}}" >{{item.value}}</ion-option>
+            </ion-select>
+          </ion-item>
+         </ion-col>
+      </ion-row>	
+      <ion-row class="selectbox">
+        <ion-col col-12 no-padding>
+           <label>Price Change</label>
+        </ion-col>
+        <ion-col col-12 no-padding>
+          <ion-item no-padding>
+            <ion-label>Price Change</ion-label>
+            <ion-select class="filter-select" placeholder="Select" [(ngModel)]="priceChange" (ionChange)="changepriceChange()">
+              <ion-option  value="" >Select</ion-option>
+              <ion-option  *ngFor="let item of optionResult.price_change" value="{{item.key}}" >{{item.value}}</ion-option>
+            </ion-select>
+          </ion-item>
+         </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>Year</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list">
+           <ion-input placeholder="Min Year" [(ngModel)]="minYearInput" (ionBlur)="setminYearInput()"></ion-input>
+           <span>to</span>
+           <ion-input placeholder="Max Year" [(ngModel)]="maxYearInput" (ionBlur)="setmaxYearInput()"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>Street Name</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list">
+           <ion-input class="full-width-input" placeholder="Street name" [(ngModel)]="streetNameInput" (ionBlur)="setstreetNameInput()"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>Levels</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list">
+           <ion-input class="full-width-input" placeholder="Levels" [(ngModel)]="levelsInput" (ionBlur)="setlevelsInput()"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>Neighborhood (Legal)</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list">
+           <ion-input class="full-width-input" placeholder="Neighborhood" [(ngModel)]="neighborhoodInput" (ionBlur)="setneighborhoodInput()"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>Elementary School</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list">
+           <ion-input class="full-width-input" placeholder="Elementary School" [(ngModel)]="elementaryInput" (ionBlur)="setelementaryInput()"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>Middle School</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list">
+           <ion-input class="full-width-input" placeholder="Middle School" [(ngModel)]="middleInput" (ionBlur)="setmiddleInput()"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>High School</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list">
+           <ion-input class="full-width-input" placeholder="High School" [(ngModel)]="highInput" (ionBlur)="sethighInput()"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>Key words</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list">
+           <ion-input class="full-width-input" placeholder="Key words" [(ngModel)]="keyWordsInput" (ionBlur)="setkeyWordsInput()"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>Listing Agent</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list">
+           <ion-input class="full-width-input" placeholder="Listing Agent" [(ngModel)]="listinhAgentInput" (ionBlur)="setlistinhAgentInput()"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>Listing Office</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list">
+           <ion-input class="full-width-input" placeholder="Listing Office" [(ngModel)]="listingOfficeInput" (ionBlur)="setlistingOfficeInput()"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>Favorite & Featured</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="">
+      <ion-list class="status-checkbox">
+        <ion-item  *ngIf="optionResultFavFeat.length > 0">
+          <ion-label>{{optionResultFavFeat[0].value}}</ion-label>
+          <ion-checkbox [(ngModel)]="checkedFav0" (click)="favCheckbox(optionResultFavFeat[0].value, $event); "></ion-checkbox>
+        </ion-item>
+        <ion-item  *ngIf="optionResultFavFeat.length > 1">
+          <ion-label>{{optionResultFavFeat[1].value}}</ion-label>
+          <ion-checkbox [(ngModel)]="checkedFav1" (click)="favCheckbox(optionResultFavFeat[1].value, $event); "></ion-checkbox>
+        </ion-item>
+      </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 no-padding>
+           <label>Property Category</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list">
+      <ion-list class="status-checkbox">
+        <ion-item  *ngIf="optionResultprptycate.length > 0">
+          <ion-label>{{optionResultprptycate[0].key}}</ion-label>
+          <ion-checkbox [(ngModel)]="checkedResidential0" (click)="unqPropertyCat('Res');propertyCatCheckboxClicked(optionResultprptycate[0].key, $event); "></ion-checkbox>
+        </ion-item>
+        <ion-item  *ngIf="optionResultprptycate.length > 1">
+          <ion-label>{{optionResultprptycate[1].key}}</ion-label>
+          <ion-checkbox [(ngModel)]="checkedResidential1" (click)="unqPropertyCat('mltFmly');propertyCatCheckboxClicked(optionResultprptycate[1].key, $event); "></ion-checkbox>
+        </ion-item>
+        <ion-item  *ngIf="optionResultprptycate.length > 2">
+          <ion-label>{{optionResultprptycate[2].key}}</ion-label>
+          <ion-checkbox [(ngModel)]="checkedResidential2" (click)="unqPropertyCat('lnd');propertyCatCheckboxClicked(optionResultprptycate[2].key, $event); "></ion-checkbox>
+        </ion-item>
+        <ion-item  *ngIf="optionResultprptycate.length > 3">
+          <ion-label>{{optionResultprptycate[3].key}}</ion-label>
+          <ion-checkbox [(ngModel)]="checkedResidential3" (click)="unqPropertyCat('sal');propertyCatCheckboxClicked(optionResultprptycate[3].key, $event); "></ion-checkbox>
+        </ion-item>
+      </ion-list>
+        </ion-col>
+      </ion-row>
+        <ion-item *ngIf="propertyshowSpinner">
+          <div class="spinner center">
+              <div class="bounce1"></div>
+              <div class="bounce2"></div>
+              <div class="bounce3"></div>
+          </div>
+        </ion-item>
+      <ion-row *ngIf="propertyTypeResultshow">
+        <ion-col col-12 no-padding *ngIf="propertyTypeSelect.length != 0">
+           <label>Property Type</label>
+        </ion-col>
+        <ion-col col-12 no-padding class="inline-list" >
+
+      <ion-list class="status-checkbox inline-status-checkbox">
+
+        <ion-item *ngFor="let prpty of propertyTypeSelect">
+          <ion-label>{{prpty.PropertyType}}</ion-label>
+          <ion-checkbox  [(ngModel)]="prpty.matched" (click)="unqPropertyType(prpty.matched, prpty.PropertyType);prptyTypeCheckbox(prpty.matched, prpty.PropertyType, $event)"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+        </ion-col>
+      </ion-row>
+   </ion-grid>
+</ion-content>
+<div class="sticky-btn">
+    <button class="btn btn-hasicon btn-curve clr-btn"  (click)="resetAll()"> 
+      Clear
+    </button>
+    <button (click)="filterHomes()" class="btn btn-hasicon btn-curve seehomebtn" > 
+      See <span  *ngIf="showtotalspin" class="loadtotal"> <img src="assets/imgs/loading.svg" width="15" height="15"></span> <span *ngIf="showtotal"> {{totalRecords}} </span> Homes
+    </button>
+    
+</div>

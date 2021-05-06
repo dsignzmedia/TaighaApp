@@ -1,0 +1,89 @@
+<!--
+  Generated template for the TicketMailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="header-min taigha-dashboard-header">
+      <ion-navbar class="no-right">
+    <div class="center">
+      <i class="back_icon" (click)="goBack()"></i>
+      <p class="title">
+      	<span class="title-head" >
+        {{ticketsub}}
+    </span>
+      </p>
+    </div>
+  </ion-navbar>
+</ion-header>
+<!-- <ion-header padding-left padding-right class="homesearch blue-header">
+    <ion-grid class="blue-header-inner">
+      <ion-row>
+        <ion-col no-padding class="hdr-left">
+        </ion-col>
+        <ion-col no-padding col-6 class="hdr-center">
+          Mails
+        </ion-col>
+        
+        <ion-col no-padding class="hdr-right">
+          <i class="arrow-bg"  (click)="goBack()">
+                    <img src="assets/imgs/close-white.svg" width="25" height="25">
+                </i>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-header> -->
+<ion-content padding>
+<div class="mail-panel">
+    <h2><img src="assets/imgs/icon-activities-blue.svg" width="22" height="22"> Activity ({{activities.length}})</h2>
+        <ion-card class="view-card withpadding activity-history" id="tickettop_of_activity_focus">
+            <!--   -->
+            <!-- (click) = "gotoActivity()" -->
+            <ion-card-content class="view-content-panel activitylog-text-panel icc-relative" >
+                <ion-list class="list-content" *ngIf="activities.length > 0">
+                    <ion-item [ngClass]="{active: activity.sub_activity_checked }" *ngFor="let activity of activities">
+                        <ion-avatar item-start>
+                            <img src="assets/icon/white-icon-checklist.svg" alt="icon" 
+                                 *ngIf=" activity.eloquent_tree == 'checklist' ||  activity.eloquent_tree == 'checklist_create_update' || activity.eloquent_tree == 'checklist_assigned_to' || activity.eloquent_tree == 'checklist_update' ||  activity.eloquent_tree == 'checklist_complete' || activity.eloquent_tree == 'checklist_delete' " />
+                            <img src="assets/icon/white-icon-{{ activity.eloquent_tree == 'reply' ? 'mail' : activity.eloquent }}.svg" alt="icon"
+                                *ngIf=" activity.eloquent_tree != 'checklist' &&  activity.eloquent_tree != 'checklist_create_update' && activity.eloquent_tree != 'checklist_assigned_to' && activity.eloquent_tree != 'checklist_update' &&  activity.eloquent_tree != 'checklist_complete' && activity.eloquent_tree != 'checklist_delete' " />
+                        </ion-avatar>
+                        <div class="contentarea">
+                            <div class="activity-on">
+                                <p>{{activity.created_at_formatted}}</p>
+                                <ul>
+                                    <li  (click)="toggleGroup(activity)">
+                    <img src="assets/imgs/add-b.svg" width="15" height="15">
+                </li>
+<!--                 <li>
+                    <img src="assets/imgs/Rectangle.svg" width="15" height="15">
+                </li>
+                <li>
+                    <img src="assets/imgs/star-b.svg" width="15" height="15">
+                </li> -->
+                                </ul>
+                            </div>
+
+                            <div class="desc accordian-head" (click)="toggleGroup(activity)">
+                                <div class="description-panel" [innerHTML]=" activity.activity ">
+                                </div>
+                                <div class="acc-icon" *ngIf="activity.sub_activity" ><i></i></div>
+                            </div>
+                            <div *ngIf="activity.sub_activity_checked" class="contentarea-acc-panel">
+                                <div class="desc" [innerHTML]=" activity.sub_activity ">
+                                </div>
+                               <!--  <div *ngIf=" ticket.status != 'closed' ">
+                                    <div class="reply-panel" *ngIf="activity.eloquent_tree == 'reply' || activity.eloquent_tree == 'create' ">
+                                        <p class="load-more-p gototop margin-top-zero" >Reply</p>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <p class="notified-mail" *ngIf="activity.notified_users "><span class="notified-msg" (click)="toggleNotify(activity)">({{ activity.notified_message }}</span>
+                                <span *ngIf="activity.notified_users_checked" class="notified-users"> - {{ activity.notified_users }}</span>)</p>
+                        </div>
+                    </ion-item>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+</div>
+</ion-content>
