@@ -20,5 +20,6 @@ package
 package-lock
 tsconfig
 tslint
+.editorconfig
 
 
