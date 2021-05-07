@@ -17,6 +17,17 @@ page-property-detail {
 // button.gm-control-active.gm-fullscreen-control{
 //       z-index: 1;
 // }
+      .tour{
+        top: 80px!important;
+        width: 135px;
+        img{
+          width: 22%!important;
+          height: auto!important;
+          position: absolute;
+          top: 1px;
+          right: 17px;
+        }
+      }
         .upbadge{
     position: absolute;
         background: linear-gradient(to bottom right, #3366cc 0%, #083aa0 100%);
@@ -444,6 +455,25 @@ justify-content: flex-end;
             font-size: $smallx-fontsize;
             margin: 0;
     		}
+        .threesixty{
+          width: 142px;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          background: #3366cc;
+          padding: 4px 15px;
+          border-radius: 3px;
+          color: #fff;
+          font-size: 14px;
+          img{
+            width: 22%;
+            height: auto;
+            position: absolute;
+            top: 2px;
+            right: 17px;
+          }
+        }
+
     		p{
             color: #333333;
             font-size: $smallx-fontsize;
