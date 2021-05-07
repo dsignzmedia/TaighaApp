@@ -11,15 +11,16 @@
 /src_old
 /www
 .DS_Store
-config
+config.xml
 GoogleService-Info.plist
-google-services
+google-services.json
 google-services_old
-ionic.config
-package
-package-lock
-tsconfig
-tslint
+ionic.config.json
+package.json
+package-lock.json
+toptech-release-key.jks
+tsconfig.json
+tslint.json
 .editorconfig
 
 
