@@ -10,6 +10,7 @@ import { StorageProvider } from '../../../providers/storage/storage';
 import { QtoModalPage } from '../qto-modal/qto-modal';
 import { PushTabsPage } from '../../home-search/push-tabs/push-tabs';
 import { SigninPage } from '../../../pages/signin/signin';
+import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
 
 declare var google;
 
@@ -54,6 +55,7 @@ public propertyshowSpinner : boolean = false;
   public openArray:Array<string> = new Array(); 
   public hasEmailVerified : boolean = false;
   public IsStaff : boolean = false;
+  public url: any;
   IsStaffCheck: any;
   
     public isMoreMenu: boolean = false;
@@ -61,7 +63,8 @@ public propertyshowSpinner : boolean = false;
     public modalCtrl: ModalController,
     public service: ServiceProvider, 
     private App: App,
-    public storage: StorageProvider) {
+    public storage: StorageProvider,
+    public inAppBrowser: InAppBrowser) {
   	 this.generalcollapseIcon = 'assets/imgs/up-arrow-white.svg';
   	 this.residencecollapseIcon = 'assets/imgs/down-arrow-blue.svg';
   	 this.featurescollapseIcon = 'assets/imgs/down-arrow-blue.svg';
@@ -96,6 +99,28 @@ if (auth_user_token) {
         }
       }
     });
+  }
+  openWebpage(url){
+    const options: InAppBrowserOptions = {
+      location : 'no',//Or 'no'
+      hidden : 'no', //Or 'yes'
+      clearcache : 'yes',
+      clearsessioncache : 'yes',
+      zoom : 'yes',//Android only ,shows browser zoom controls
+      hardwareback : 'yes',
+      mediaPlaybackRequiresUserAction : 'no',
+      shouldPauseOnSuspend : 'no', //Android only
+      closebuttoncaption : 'Close', //iOS only
+      toolbar : 'yes', //iOS only
+      fullscreen : 'yes',//Windows only
+      hidenavigationbuttons:'yes',
+      toolbarposition:'bottom',
+      toolbarcolor: '#000000',
+      navigationbuttoncolor: '#FFFFFF',
+      hideurlbar: 'yes', 
+  }
+    const browser = this.inAppBrowser.create(url,'_self',options);
+    browser.show();
   }
  sharesocial(County, State, ZipCode, slug, ListingID){
     console.log(County);
