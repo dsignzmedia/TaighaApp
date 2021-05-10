@@ -14,7 +14,7 @@
 config.xml
 GoogleService-Info.plist
 google-services.json
-google-services_old
+google-services_old.json
 ionic.config.json
 package.json
 package-lock.json
