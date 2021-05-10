@@ -19,7 +19,7 @@ var liveToken = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjlmMWZkMDky
 @Injectable()
 export class ServiceProvider {
    public baseUrl : string = "https://toptechrealty.com/api/auth";
-  //  public baseUrl : string = "http://127.0.0.1:8000/api/auth";
+  //  public baseUrl : string = "http://localhost:8080/Toptech/New/Taigha-Productions-Repository/public/api/auth";
 
   public apigetroles: string = this.baseUrl+"/rmls/listing/share/modal/roles-and-types";
   public apiModalUser: string = this.baseUrl+"/rmls/listing/share/modal/get-users";
@@ -42,8 +42,8 @@ export class ServiceProvider {
   public apiFBLogin: string = this.baseUrl+"/facebook/login";
   public apiGPlusLogin: string = this.baseUrl+"/google/login";
   public apiiOSLogin: string = this.baseUrl+"/ios/login";
-  public apiSignIn: string = this.baseUrl+"/signup"; 
-  public apiResetPassword: string = this.baseUrl+"/send/reset/link"; 
+  public apiSignIn: string = this.baseUrl+"/signup";
+  public apiResetPassword: string = this.baseUrl+"/send/reset/link";
   public apiTSI : string = this.baseUrl+"/get/timeframe/source/interest";
   public apiSentVerifyEmail : string = this.baseUrl+"/user/resend/verify/email";
   public apiTickets: string = this.baseUrl+"/user/tickets";
@@ -63,12 +63,12 @@ export class ServiceProvider {
   public apiEmails: string = this.baseUrl+"/user/emails";
   public apiProperties: string = this.baseUrl+"/user/properties";
   public apiPropertyOptins: string = this.baseUrl+"/user/properties/filter/options";
-  public apiPropertyCreateOptins: string = this.baseUrl+"/user/properties/create/options"; 
+  public apiPropertyCreateOptins: string = this.baseUrl+"/user/properties/create/options";
   public apiPropertyStore: string = this.baseUrl+"/user/properties/store/property";
-  public apiDocumentOptins: string = this.baseUrl+"/user/documents/filter/options";  
+  public apiDocumentOptins: string = this.baseUrl+"/user/documents/filter/options";
   public apiDocuments: string = this.baseUrl+"/user/documents";
   public apiDocumentstore: string = this.baseUrl+"/user/documents/store";
-  public apiDocumentUpdate: string = this.baseUrl+"/user/documents/update"; 
+  public apiDocumentUpdate: string = this.baseUrl+"/user/documents/update";
   public apiActivities: string = this.baseUrl+"/user/activities";
   public apiTasks: string = this.baseUrl+"/user/tasks";
   public apiMailCreate: string = this.baseUrl+"/user/emails/create/email";
@@ -103,7 +103,7 @@ export class ServiceProvider {
    }
 
    public toolbarOptions = [
-        [],   
+        [],
       ];
    public toolbarOptionsTicket = [
         ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -123,8 +123,8 @@ export class ServiceProvider {
       ];
 addapiHsPropertiesPara: any;
 //urlPara: any;
-  constructor(public http: HttpClient, 
-      public loadingCtrl: LoadingController, 
+  constructor(public http: HttpClient,
+      public loadingCtrl: LoadingController,
       public toastController: ToastController,
       public fcm: FCM,
       public events: Events,
@@ -269,7 +269,7 @@ getTextmessageDetails(msgID) {
       }
       });
   }
-     replytextmsg(formData, idd) { 
+     replytextmsg(formData, idd) {
        return this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
             try {
                 let httpOptions = {
@@ -284,7 +284,7 @@ getTextmessageDetails(msgID) {
             }
         });
      }
-     sendtextmsg(formData) { 
+     sendtextmsg(formData) {
        return this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
             try {
                 let httpOptions = {
@@ -332,7 +332,7 @@ getTemplates(userid){
      }
      });
   }
-     getMessageTemplates() { 
+     getMessageTemplates() {
        return this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
             try {
                 let httpOptions = {
@@ -366,7 +366,7 @@ getTemplates(userid){
      }
      });
   }
-       checkUserhavemsg(formData) { 
+       checkUserhavemsg(formData) {
        return this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
             try {
                 let httpOptions = {
@@ -618,7 +618,7 @@ deletesavedsearch(deleteId){
    //     let body: HttpParams = new HttpParams();
    //        body = body.append('searchurl', urlPara.searchurl);
    //        // body = body.append('params', urlPara.paramszip);
-          
+
    //     return this.http.post(this.apisavedsearchcreate, body, httpOptions).toPromise();
    //   } catch ( e ) {
    //     console.log(e);
@@ -639,7 +639,7 @@ updatesavedsearch(updateSearchdata){
           body = body.append('searchname', updateSearchdata.searchName);
           body = body.append('email_settings', updateSearchdata.searchnotify);
           // body = body.append('params', urlPara.paramszip);
-          
+
        return this.http.post(this.apisavedsearchupdate, body, httpOptions).toPromise();
      } catch ( e ) {
        console.log(e);
@@ -721,7 +721,7 @@ savesearch(urlPara){
 
 
           // body = body.append('params', urlPara.paramszip);
-          
+
        return this.http.post(this.apisavedsearchcreate, body, httpOptions).toPromise();
      } catch ( e ) {
        console.log(e);
@@ -778,7 +778,7 @@ homesearchpropertiesfavmulti(selectedlistarraycomma){
       });
 }
   homesearchpropertiesafter(currentPage, urlPara, userid) {
- this.addapiHsPropertiesPara = this.apiHsProperties+'?search-term='+urlPara[0]+'&request-type='+urlPara[1]+'&beds='+urlPara[2]+'&bath='+urlPara[3]+'&min_price='+urlPara[4]+'&max_price='+urlPara[5]+'&sqft-min='+urlPara[6]+'&sqft-max='+urlPara[7]+'&lotsize-min='+urlPara[8]+'&lotsize-max='+urlPara[9]+'&openhouse='+urlPara[10]+'&price_change='+urlPara[11]+'&yearbuild-min='+urlPara[12]+'&yearbuild-max='+urlPara[13]+'&streetname='+urlPara[14]+'&levels='+urlPara[15]+'&legaldescription='+urlPara[16]+'&elementaryschl='+urlPara[17]+'&middleschl='+urlPara[18]+'&highschl='+urlPara[18]+'&keywords='+urlPara[20]+'&listing_agent='+urlPara[21]+'&listing_office='+urlPara[22]+urlPara[23]+urlPara[24]+urlPara[25]+'&currentPage='+currentPage+'&user_id='+userid;
+ this.addapiHsPropertiesPara = this.apiHsProperties+'?search-term='+urlPara[0]+'&request-type='+urlPara[1]+'&beds='+urlPara[2]+'&bath='+urlPara[3]+'&min_price='+urlPara[4]+'&max_price='+urlPara[5]+'&sqft-min='+urlPara[6]+'&sqft-max='+urlPara[7]+'&lotsize-min='+urlPara[8]+'&lotsize-max='+urlPara[9]+'&openhouse='+urlPara[10]+'&price_change='+urlPara[11]+'&yearbuild-min='+urlPara[12]+'&yearbuild-max='+urlPara[13]+'&streetname='+urlPara[14]+'&levels='+urlPara[15]+'&legaldescription='+urlPara[16]+'&elementaryschl='+urlPara[17]+'&middleschl='+urlPara[18]+'&highschl='+urlPara[18]+'&keywords='+urlPara[20]+'&listing_agent='+urlPara[21]+'&listing_office='+urlPara[22]+urlPara[23]+urlPara[24]+urlPara[25]+'&currentPage='+currentPage+'&user_id='+userid+'&virtual_tour='+urlPara[26];
  //  this.addapiHsPropertiesPara = this.apiHsProperties+'?search-term='+urlPara.searchTearm+'&request-type='+urlPara.requestType+'&currentPage='+currentPage ;
  return this.http.get(this.addapiHsPropertiesPara).toPromise();
     // return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
@@ -819,7 +819,7 @@ homesearchpropertiesfavmulti(selectedlistarraycomma){
 
   homesearchproperties(currentPage, urlPara, userid) {
 
-   this.addapiHsPropertiesPara = this.apiHsProperties+'?search-term='+urlPara[0]+'&request-type='+urlPara[1]+'&beds='+urlPara[2]+'&bath='+urlPara[3]+'&min_price='+urlPara[4]+'&max_price='+urlPara[5]+'&sqft-min='+urlPara[6]+'&sqft-max='+urlPara[7]+'&lotsize-min='+urlPara[8]+'&lotsize-max='+urlPara[9]+'&openhouse='+urlPara[10]+'&price_change='+urlPara[11]+'&yearbuild-min='+urlPara[12]+'&yearbuild-max='+urlPara[13]+'&streetname='+urlPara[14]+'&levels='+urlPara[15]+'&legaldescription='+urlPara[16]+'&elementaryschl='+urlPara[17]+'&middleschl='+urlPara[18]+'&highschl='+urlPara[18]+'&keywords='+urlPara[20]+'&listing_agent='+urlPara[21]+'&listing_office='+urlPara[22]+urlPara[23]+urlPara[24]+urlPara[25]+'&currentPage='+currentPage+'&user_id='+userid;
+   this.addapiHsPropertiesPara = this.apiHsProperties+'?search-term='+urlPara[0]+'&request-type='+urlPara[1]+'&beds='+urlPara[2]+'&bath='+urlPara[3]+'&min_price='+urlPara[4]+'&max_price='+urlPara[5]+'&sqft-min='+urlPara[6]+'&sqft-max='+urlPara[7]+'&lotsize-min='+urlPara[8]+'&lotsize-max='+urlPara[9]+'&openhouse='+urlPara[10]+'&price_change='+urlPara[11]+'&yearbuild-min='+urlPara[12]+'&yearbuild-max='+urlPara[13]+'&streetname='+urlPara[14]+'&levels='+urlPara[15]+'&legaldescription='+urlPara[16]+'&elementaryschl='+urlPara[17]+'&middleschl='+urlPara[18]+'&highschl='+urlPara[18]+'&keywords='+urlPara[20]+'&listing_agent='+urlPara[21]+'&listing_office='+urlPara[22]+urlPara[23]+urlPara[24]+urlPara[25]+'&currentPage='+currentPage+'&user_id='+userid+'&virtual_tour='+urlPara[26];
 
    //this.apiHsProperties+'?search-term='+urlPara.searchTearm+'&request-type='+urlPara.requestType+'&currentPage='+currentPage ;
    if (userid == 0) {
@@ -893,12 +893,12 @@ homesearchpropertiesfavmulti(selectedlistarraycomma){
   //       this.unAuthorizedToken();
   //     }
   //     });
-      
+
   // }
   filterhomesearchproperties(currentPage, filters, urlPara, userid) {
  //   public apiHsProperties: string = this.homesearchUrl+"/home/search/listings?search-term=97229&request-type=listings";
- 
-   this.addapiHsPropertiesPara = this.apiHsProperties+'?search-term='+urlPara[0]+'&request-type='+urlPara[1]+'&beds='+urlPara[2]+'&bath='+urlPara[3]+'&min_price='+urlPara[4]+'&max_price='+urlPara[5]+'&sqft-min='+urlPara[6]+'&sqft-max='+urlPara[7]+'&lotsize-min='+urlPara[8]+'&lotsize-max='+urlPara[9]+'&openhouse='+urlPara[10]+'&price_change='+urlPara[11]+'&yearbuild-min='+urlPara[12]+'&yearbuild-max='+urlPara[13]+'&streetname='+urlPara[14]+'&levels='+urlPara[15]+'&legaldescription='+urlPara[16]+'&elementaryschl='+urlPara[17]+'&middleschl='+urlPara[18]+'&highschl='+urlPara[19]+'&keywords='+urlPara[20]+'&listing_agent='+urlPara[21]+'&listing_office='+urlPara[22]+urlPara[23]+urlPara[24]+urlPara[25]+'&user_id='+userid;
+
+   this.addapiHsPropertiesPara = this.apiHsProperties+'?search-term='+urlPara[0]+'&request-type='+urlPara[1]+'&beds='+urlPara[2]+'&bath='+urlPara[3]+'&min_price='+urlPara[4]+'&max_price='+urlPara[5]+'&sqft-min='+urlPara[6]+'&sqft-max='+urlPara[7]+'&lotsize-min='+urlPara[8]+'&lotsize-max='+urlPara[9]+'&openhouse='+urlPara[10]+'&price_change='+urlPara[11]+'&yearbuild-min='+urlPara[12]+'&yearbuild-max='+urlPara[13]+'&streetname='+urlPara[14]+'&levels='+urlPara[15]+'&legaldescription='+urlPara[16]+'&elementaryschl='+urlPara[17]+'&middleschl='+urlPara[18]+'&highschl='+urlPara[19]+'&keywords='+urlPara[20]+'&listing_agent='+urlPara[21]+'&listing_office='+urlPara[22]+urlPara[23]+urlPara[24]+urlPara[25]+'&user_id='+userid+'&virtual_tour='+urlPara[26];
  //  this.addapiHsPropertiesPara = this.apiHsProperties+'?zip-search=1&search-type=city&search-term=por&existing-tem=97229&search-term-full=Port+Orford-+OR' ;
   return this.http.get(this.addapiHsPropertiesPara).toPromise();
   //   if (userid == 0) {
@@ -921,8 +921,8 @@ homesearchpropertiesfavmulti(selectedlistarraycomma){
   }
   filterhomesearchpropertiesmapsort(currentPage, filters, urlPara, userid) {
  //   public apiHsProperties: string = this.homesearchUrl+"/home/search/listings?search-term=97229&request-type=listings";
- 
-   this.addapiHsPropertiesPara = this.apiHsProperties+'?search-term='+urlPara[0]+'&request-type=map&beds='+urlPara[2]+'&bath='+urlPara[3]+'&min_price='+urlPara[4]+'&max_price='+urlPara[5]+'&sqft-min='+urlPara[6]+'&sqft-max='+urlPara[7]+'&lotsize-min='+urlPara[8]+'&lotsize-max='+urlPara[9]+'&openhouse='+urlPara[10]+'&price_change='+urlPara[11]+'&yearbuild-min='+urlPara[12]+'&yearbuild-max='+urlPara[13]+'&streetname='+urlPara[14]+'&levels='+urlPara[15]+'&legaldescription='+urlPara[16]+'&elementaryschl='+urlPara[17]+'&middleschl='+urlPara[18]+'&highschl='+urlPara[18]+'&keywords='+urlPara[20]+'&listing_agent='+urlPara[21]+'&listing_office='+urlPara[22]+urlPara[23]+urlPara[24]+urlPara[25]+'&user_id='+userid;;
+
+   this.addapiHsPropertiesPara = this.apiHsProperties+'?search-term='+urlPara[0]+'&request-type=map&beds='+urlPara[2]+'&bath='+urlPara[3]+'&min_price='+urlPara[4]+'&max_price='+urlPara[5]+'&sqft-min='+urlPara[6]+'&sqft-max='+urlPara[7]+'&lotsize-min='+urlPara[8]+'&lotsize-max='+urlPara[9]+'&openhouse='+urlPara[10]+'&price_change='+urlPara[11]+'&yearbuild-min='+urlPara[12]+'&yearbuild-max='+urlPara[13]+'&streetname='+urlPara[14]+'&levels='+urlPara[15]+'&legaldescription='+urlPara[16]+'&elementaryschl='+urlPara[17]+'&middleschl='+urlPara[18]+'&highschl='+urlPara[18]+'&keywords='+urlPara[20]+'&listing_agent='+urlPara[21]+'&listing_office='+urlPara[22]+urlPara[23]+urlPara[24]+urlPara[25]+'&user_id='+userid+'&virtual_tour='+urlPara[26];
  //  this.addapiHsPropertiesPara = this.apiHsProperties+'?zip-search=1&search-type=city&search-term=por&existing-tem=97229&search-term-full=Port+Orford-+OR' ;
      if (userid == 0) {
         return this.http.get(this.addapiHsPropertiesPara).toPromise();
@@ -944,8 +944,8 @@ homesearchpropertiesfavmulti(selectedlistarraycomma){
   }
   filterhomesearchpropertiesmap(currentPage, filters, urlPara, userid) {
  //   public apiHsProperties: string = this.homesearchUrl+"/home/search/listings?search-term=97229&request-type=listings";
- 
-   this.addapiHsPropertiesPara = this.apiHsProperties+'?search-term='+urlPara[0]+'&request-type=map&beds='+urlPara[2]+'&bath='+urlPara[3]+'&min_price='+urlPara[4]+'&max_price='+urlPara[5]+'&sqft-min='+urlPara[6]+'&sqft-max='+urlPara[7]+'&lotsize-min='+urlPara[8]+'&lotsize-max='+urlPara[9]+'&openhouse='+urlPara[10]+'&price_change='+urlPara[11]+'&yearbuild-min='+urlPara[12]+'&yearbuild-max='+urlPara[13]+'&streetname='+urlPara[14]+'&levels='+urlPara[15]+'&legaldescription='+urlPara[16]+'&elementaryschl='+urlPara[17]+'&middleschl='+urlPara[18]+'&highschl='+urlPara[18]+'&keywords='+urlPara[20]+'&listing_agent='+urlPara[21]+'&listing_office='+urlPara[22]+urlPara[23]+urlPara[24]+urlPara[25]+'&user_id='+userid;
+
+   this.addapiHsPropertiesPara = this.apiHsProperties+'?search-term='+urlPara[0]+'&request-type=map&beds='+urlPara[2]+'&bath='+urlPara[3]+'&min_price='+urlPara[4]+'&max_price='+urlPara[5]+'&sqft-min='+urlPara[6]+'&sqft-max='+urlPara[7]+'&lotsize-min='+urlPara[8]+'&lotsize-max='+urlPara[9]+'&openhouse='+urlPara[10]+'&price_change='+urlPara[11]+'&yearbuild-min='+urlPara[12]+'&yearbuild-max='+urlPara[13]+'&streetname='+urlPara[14]+'&levels='+urlPara[15]+'&legaldescription='+urlPara[16]+'&elementaryschl='+urlPara[17]+'&middleschl='+urlPara[18]+'&highschl='+urlPara[18]+'&keywords='+urlPara[20]+'&listing_agent='+urlPara[21]+'&listing_office='+urlPara[22]+urlPara[23]+urlPara[24]+urlPara[25]+'&user_id='+userid+'&virtual_tour='+urlPara[26];
  //  this.addapiHsPropertiesPara = this.apiHsProperties+'?zip-search=1&search-type=city&search-term=por&existing-tem=97229&search-term-full=Port+Orford-+OR' ;
     if (userid == 0) {
         return this.http.get(this.addapiHsPropertiesPara).toPromise();
@@ -1064,7 +1064,7 @@ homesearchpropertiesfavmulti(selectedlistarraycomma){
     //     this.unAuthorizedToken();
     //   }
     //   });
-  } 
+  }
   homesearchpropertiesfealist(currentPage, urlPara, userid) {
 
    this.addapiHsPropertiesPara = this.apiHsProperties+'?currentPage='+currentPage+'&ourlistings=1'+"&user_id="+userid ;
@@ -1111,7 +1111,7 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
     //         'Authorization':  auth_user_token.token_type+" "+auth_user_token.access_token
     //       })
     //     };
-    //     // https://toptechre.com/public/api/auth/rmls/listing/filter/property-type?categories=Residential&classes=house 
+    //     // https://toptechre.com/public/api/auth/rmls/listing/filter/property-type?categories=Residential&classes=house
     //   //  return this.http.get(this.apiOption+"/property-type?categories="+category+"&classes="+property, httpOptions).toPromise();
     //    return this.http.get(this.apiOption+"/property-type?categories="+category+"&classes="+property, httpOptions).toPromise();
     //   } catch ( e ) {
@@ -1263,7 +1263,7 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
       });
   }
 
-  login(data) { 
+  login(data) {
     var email = data.email;
     var password = data.password;
     var remember_me = 1;
@@ -1273,7 +1273,7 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
     body = body.append('remember_me', remember_me.toString());
    return this.http.post(this.apiLogin, body).toPromise();
   }
-  login2(data) { 
+  login2(data) {
     var id = data.id;
     var email = data.email;
     var remember_me = 1;
@@ -1338,13 +1338,13 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
    return this.http.post(this.apiGPlusLogin, body).toPromise();
   }
 
-  resetPassword(data) { 
+  resetPassword(data) {
     var email = data.email;
     let body: HttpParams = new HttpParams();
     body = body.append('email', email);
    return this.http.post(this.apiResetPassword, body).toPromise();
   }
-  
+
 
   signup(data) {
     var first_name = data.first_name;
@@ -1389,7 +1389,7 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
       }
       });
   }
-  
+
 
   resendVerifyEmail() {
   return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
@@ -1404,7 +1404,7 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
       console.log(e);
       this.unAuthorizedToken();
     }
-    }); 
+    });
   }
 
   dashboard(currentPage, filters) {
@@ -1422,7 +1422,7 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
     }
     });
   }
-  
+
   tsi() {
         try {
           return this.http.get(this.apiTSI).toPromise();
@@ -1504,7 +1504,7 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
       }
       });
   }
-  
+
   convertToTicket(data) {
    return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
        try {
@@ -1569,7 +1569,7 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
               } else if(filters.priorities != undefined && filters.priorities != '') {
                 body = body.append('groups[]', filters.group);
               }
-              
+
               if(filters.staffs instanceof Array ) {
                filters.staffs.forEach(type => {
                  if(type != undefined && type != "") {
@@ -1606,7 +1606,7 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
         this.unAuthorizedToken();
       }
       });
-      
+
   }
 
   // hasAccess(ticketId) {
@@ -1625,7 +1625,7 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
   //       this.unAuthorizedToken();
   //     }
   //     });
-      
+
   // }
 
   //   hasAccess(body) {
@@ -1662,7 +1662,7 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
         this.unAuthorizedToken();
       }
       });
-      
+
   }
 
   // hasAccess(ticketId) {
@@ -1930,7 +1930,7 @@ getcustomer(body) {
               } else if(filters.priorities != undefined && filters.priorities != '') {
                 body = body.append('groups[]', filters.group);
               }
-              
+
               if(filters.staffs instanceof Array ) {
                filters.staffs.forEach(type => {
                  if(type != undefined && type != "") {
@@ -2102,7 +2102,7 @@ getcustomer(body) {
       });
   }
 
-  
+
   properties(currentPage, filters) {
       return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
         try {
@@ -2174,7 +2174,7 @@ getcustomer(body) {
         this.unAuthorizedToken();
       }
       });
-  } 
+  }
 
   propertyeimagedelete(id) {
     return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
@@ -2359,7 +2359,7 @@ getcustomer(body) {
         });
      }
 
-     documentstore(formData) { 
+     documentstore(formData) {
        return this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
             try {
                 let httpOptions = {
@@ -2374,7 +2374,7 @@ getcustomer(body) {
             }
         });
      }
-     
+
 
     documentFilterOptions() {
       return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
@@ -2466,7 +2466,7 @@ getcustomer(body) {
                 body = body.append('filter_category[]', filters.categories);
               }
           }
-          
+
       return this.http.post(this.apiTasks, body, httpOptions).toPromise();
       } catch ( e ) {
       console.log(e);
@@ -2607,7 +2607,7 @@ getcustomer(body) {
       }
     }
   }
-  
+
   showAlertPopup(data) {
     let alert = this.alertCtrl.create({
               title: data.title,
@@ -2621,7 +2621,7 @@ getcustomer(body) {
                   }
                 },
                 {
-                  text: 'View', 
+                  text: 'View',
                   handler: () => {
                     console.log('Buy clicked');
                     this.events.publish('fcminvoked:invoked', data);
@@ -2629,7 +2629,7 @@ getcustomer(body) {
                 }
               ]
             });
-            alert.present(); 
+            alert.present();
   }
   watchFcmNotifications() {
     if (this.platform.is('cordova')) {
@@ -2644,7 +2644,7 @@ getcustomer(body) {
             console.log(JSON.stringify(data));
             this.showAlertPopup(data);
           };
-        }); 
+        });
       }
   }
 

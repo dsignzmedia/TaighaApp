@@ -38,19 +38,20 @@ bedaddname : any;
 bathaddname : any;
 selectedArray :any = [];
 public optionResultprptycate : any = [];
+public optionvirtualtour : any = [];
 public optionResultstatus : any = [];
 public propertyTypeResult : any = [];
 public propertyTypeSelect : any = [];
 public propertyTypeSelectPara : any = [];
-public propertyTypeSelectP:Array<string> = new Array('','','',''); 
+public propertyTypeSelectP:Array<string> = new Array('','','','');
 public propertyTypeResultall : any = [];
 public checkpropertyTypeResult : any = [];
 public optionResultProperty : any = [];
 public Residential: any = "";
-public prptyclassarray:Array<string> = new Array(); 
-public statusarray:Array<string> = new Array('&status[]=Active','&status[]=Bumpable','','','',''); 
-public prptyresarray:Array<string> = new Array('','','','','',''); 
-public prptyresarrayPara:Array<string> = new Array('','','',''); 
+public prptyclassarray:Array<string> = new Array();
+public statusarray:Array<string> = new Array('&status[]=Active','&status[]=Bumpable','','','','');
+public prptyresarray:Array<string> = new Array('','','','','','');
+public prptyresarrayPara:Array<string> = new Array('','','','');
 public PropertyTypeToArray : any = [];
 public paraArray:Array<string> = new Array('','','','','','','','','','','','','','','','','','','','','','','','','',''); //24
 public propertyCat : any = [];
@@ -92,6 +93,7 @@ minSqftInput: string = '';
 maxSqftInput: string = '';
 minlostSizes: string = '';
 maxlostSizes: string = '';
+checkedVirtualTour : boolean = false;
 openHouse: string = '';
 priceChange: string = '';
 minYearInput: string = '';
@@ -162,7 +164,7 @@ totalRecordsMore: any;
 public fromlocationtest : any = [];
 public countfilter:Array<string> = new Array('','','','','','','','','','','','','','','','','','','','','','','', ''); //21 24
 public paraArrayReturn:Array<string> = new Array('','','','','','','','','','','','','','','','','','','','','','','','','',''); //24 26
-public searchArray:Array<string> = new Array(); 
+public searchArray:Array<string> = new Array();
   public storageparaArray:Array<string> = new Array('','','','','','','','','','','','','','','','','','','','','','','','',''); //24
 
   public valpCategories : any = [];
@@ -185,6 +187,8 @@ public searchArray:Array<string> = new Array();
     public service: ServiceProvider,
     public storage : StorageProvider,
     private App: App) {
+      console.log('this.navParams');
+      console.log(this.navParams);
        this.service.profile().then( (response : any) => {
          console.log(response);
          this.userid = response.data.id;
@@ -228,7 +232,7 @@ public searchArray:Array<string> = new Array();
           for(let i = 0; i < 3; i++) {
     this.storageResidential.push('Residential');
   }
-        
+
       }
     }
     if (val.pCategories[1]) {
@@ -510,16 +514,16 @@ this.valcombineproperty = this.valpCatfinal+this.valpTypefinal;
   // }else{
   //   console.log('ismodifiedlisting No');
   // }
-if (this.updatelistings.indexOf('new_listing=1') >= 0) { 
+if (this.updatelistings.indexOf('new_listing=1') >= 0) {
   this.checkednewlisting = true;
 }
-if (this.updatelistings.indexOf('modified_listing=1') >= 0) { 
+if (this.updatelistings.indexOf('modified_listing=1') >= 0) {
   this.checkedmodifiedlisting = true;
 }
-if (this.updatelistings.indexOf('new_listing=0') >= 0) { 
+if (this.updatelistings.indexOf('new_listing=0') >= 0) {
   this.checkednewlisting = false;
 }
-if (this.updatelistings.indexOf('modified_listing=0') >= 0) { 
+if (this.updatelistings.indexOf('modified_listing=0') >= 0) {
   this.checkedmodifiedlisting = false;
 }
 //  var isnewlisting = this.updatelistings.split(/\s+|\./).filter(word => word === 'new_listing=1').length;
@@ -614,7 +618,11 @@ if (this.updatelistings.indexOf('modified_listing=0') >= 0) {
         this.statusarray.splice(4, 1, '&status[]=Sold');
       }
     }
-
+    if(this.navParams.get('paraArrayReturn')){
+      if(this.navParams.get('paraArrayReturn')[26] == "Virtual Tour"){
+        this.checkedVirtualTour = true;
+      }
+    }
     if (this.navParams.get('selectedPropertyClass')) {
       this.getselectedPropertyClass = this.navParams.get('selectedPropertyClass');
       if (this.getselectedPropertyClass == 'yes') {
@@ -722,6 +730,7 @@ if (this.updatelistings.indexOf('modified_listing=0') >= 0) {
       this.paraArray.splice(23, 1, this.paraArrayReturn[23]);
       this.paraArray.splice(24, 1, this.paraArrayReturn[24]);
       this.paraArray.splice(25, 1, this.paraArrayReturn[25]);
+      this.paraArray.splice(26, 1, this.paraArrayReturn[26]);
     }
     function convert(value)
     {
@@ -773,6 +782,7 @@ if (this.updatelistings.indexOf('modified_listing=0') >= 0) {
     this.optionResultPricechange = this.optionResult.price_change;
     this.optionResultProperty = this.optionResult.property_class;
     this.optionResultprptycate = this.optionResult.property_category;
+    this.optionvirtualtour = this.optionResult.virtual_tour;
     this.optionResultstatus = this.optionResult.status;
     this.getselectedBeds = this.navParams.get('selectedBeds');
     this.paraArray.splice(2, 1, this.getselectedBeds);
@@ -900,7 +910,7 @@ if (this.updatelistings.indexOf('modified_listing=0') >= 0) {
          this.userid = '0';
            console.log(error);
        })
-          
+
   }
   listings(filterValue: any, $event): void {
 // console.log(filterValue);
@@ -1543,6 +1553,7 @@ resetAll(){
   this.checkedStatus2 = false;
   this.checkedStatus3 = false;
   this.checkedStatus4 = false;
+  this.checkedVirtualTour = false;
   this.checkedFav0 = false;
   this.checkedFav1 = false;
   this.propertyCat = '';
@@ -1603,6 +1614,7 @@ resetAll(){
        this.optionResultProperty = response.data.property_class;
        this.optionResultprptycate = response.data.property_category;
        this.optionResultstatus = response.data.status;
+       this.optionvirtualtour = response.data.virtual_tour;
        this.showSpinner = false;
      }).catch( error => {
      })
@@ -1632,10 +1644,29 @@ resetAll(){
        this.service.serverError();
      }
    }
+   virtualtourCheckbox(virtualtour: any, $event): void {
+    if(virtualtour == "Virtual Tour"){
+      this.paraArray.splice(26, 1, virtualtour);
+      try {
+        this.showtotalspin = true;
+        this.showtotal = false;
+        this.service.filterhomesearchproperties(this.currentPage, this.filters, this.paraArray, this.userid).then( (response : any) => {
+          this.totalRecords = response.totalRecords;
+          this.showtotalspin = false;
+          this.showtotal = true;
+        }).catch( error => {
 
+        })
+      } catch(e) {
+
+        this.service.serverError();
+      }
+    }
+   }
    changeopenHouse(){
      this.paraArray.splice(10, 1, this.openHouse);
      this.countfilter.splice(7, 1, 'openHouse');
+     console.log(this.paraArray);
      try {
        this.showtotalspin = true;
        this.showtotal = false;
@@ -1737,7 +1768,7 @@ resetAll(){
      } catch(e) {
        this.service.serverError();
      }
-   }   
+   }
 
    setstreetNameInput(){
      this.paraArray.splice(14, 1, this.streetNameInput);
@@ -1758,7 +1789,7 @@ resetAll(){
      } catch(e) {
        this.service.serverError();
      }
-   }  
+   }
 
    setminPriceInput(){
      if (this.minPriceInput == '' && this.maxPriceInput == '' ) {
@@ -1787,12 +1818,12 @@ resetAll(){
        if (this.minPriceInput == '') {
          this.minbackPriceInput = this.minPriceInput;
        }else{
-         this.minbackPriceInput = parseFloat(this.rmvSminaft)*multipliers[this.rmvSminaft.charAt(this.rmvSminaft.length-1).toLowerCase()];  
+         this.minbackPriceInput = parseFloat(this.rmvSminaft)*multipliers[this.rmvSminaft.charAt(this.rmvSminaft.length-1).toLowerCase()];
        }
        if (this.maxPriceInput == '') {
          this.maxbackPriceInput = this.maxPriceInput;
        }else{
-         this.maxbackPriceInput = parseFloat(this.rmvSmaxaft)*multipliers[this.rmvSmaxaft.charAt(this.rmvSmaxaft.length-1).toLowerCase()];  
+         this.maxbackPriceInput = parseFloat(this.rmvSmaxaft)*multipliers[this.rmvSmaxaft.charAt(this.rmvSmaxaft.length-1).toLowerCase()];
        }
      }else{
        this.rmvSmin = this.minPriceInput.replace('$', '');
@@ -1803,12 +1834,12 @@ resetAll(){
        if (this.minPriceInput == '') {
          this.minbackPriceInput = this.minPriceInput;
        }else{
-         this.minbackPriceInput = parseFloat(this.rmvSminaft)*multipliers[this.rmvSminaft.charAt(this.rmvSminaft.length-1).toLowerCase()];  
+         this.minbackPriceInput = parseFloat(this.rmvSminaft)*multipliers[this.rmvSminaft.charAt(this.rmvSminaft.length-1).toLowerCase()];
        }
        if (this.maxPriceInput == '') {
          this.maxbackPriceInput = this.maxPriceInput;
        }else{
-         this.maxbackPriceInput = parseFloat(this.rmvSmaxaft)*multipliers[this.rmvSmaxaft.charAt(this.rmvSmaxaft.length-1).toLowerCase()];  
+         this.maxbackPriceInput = parseFloat(this.rmvSmaxaft)*multipliers[this.rmvSmaxaft.charAt(this.rmvSmaxaft.length-1).toLowerCase()];
        }
      }
      this.paraArray.splice(4, 1, this.minbackPriceInput);
@@ -1854,12 +1885,12 @@ resetAll(){
        if (this.minPriceInput == '') {
          this.minbackPriceInput = this.minPriceInput;
        }else{
-         this.minbackPriceInput = parseFloat(this.rmvSminaft)*multipliers[this.rmvSminaft.charAt(this.rmvSminaft.length-1).toLowerCase()];  
+         this.minbackPriceInput = parseFloat(this.rmvSminaft)*multipliers[this.rmvSminaft.charAt(this.rmvSminaft.length-1).toLowerCase()];
        }
        if (this.maxPriceInput == '') {
          this.maxbackPriceInput = this.maxPriceInput;
        }else{
-         this.maxbackPriceInput = parseFloat(this.rmvSmaxaft)*multipliers[this.rmvSmaxaft.charAt(this.rmvSmaxaft.length-1).toLowerCase()];  
+         this.maxbackPriceInput = parseFloat(this.rmvSmaxaft)*multipliers[this.rmvSmaxaft.charAt(this.rmvSmaxaft.length-1).toLowerCase()];
        }
      }else{
        this.rmvSmax = this.maxPriceInput.replace('$', '');
@@ -1870,12 +1901,12 @@ resetAll(){
        if (this.minPriceInput == '') {
          this.minbackPriceInput = this.minPriceInput;
        }else{
-         this.minbackPriceInput = parseFloat(this.rmvSminaft)*multipliers[this.rmvSminaft.charAt(this.rmvSminaft.length-1).toLowerCase()];  
+         this.minbackPriceInput = parseFloat(this.rmvSminaft)*multipliers[this.rmvSminaft.charAt(this.rmvSminaft.length-1).toLowerCase()];
        }
        if (this.maxPriceInput == '') {
          this.maxbackPriceInput = this.maxPriceInput;
        }else{
-         this.maxbackPriceInput = parseFloat(this.rmvSmaxaft)*multipliers[this.rmvSmaxaft.charAt(this.rmvSmaxaft.length-1).toLowerCase()];  
+         this.maxbackPriceInput = parseFloat(this.rmvSmaxaft)*multipliers[this.rmvSmaxaft.charAt(this.rmvSmaxaft.length-1).toLowerCase()];
        }
      }
      this.paraArray.splice(4, 1, this.minbackPriceInput);
@@ -2006,8 +2037,8 @@ if (PropertyTypeName == 'Attached') {
 }
     }
     unqPropertyType(property, PropertyTypeName){
-//       
-// 
+//
+//
 //   if (property = false) {
 //   this.checkedCondo = true;
 // }
@@ -2015,7 +2046,7 @@ if (PropertyTypeName == 'Attached') {
     testt(){
       //this.ResidentialCat = 'Residential,Residential,Residential,Multi-family,Land,Commercial Sale';
     //  this.propertyCat = 'house,townhouse,condo,multifamily,land,commercial';
-    
+
       if (this.checkedHouse == true) {
     //  this.checkedHouse = true;
       this.unqCheckbox('Residential1');
@@ -2044,9 +2075,9 @@ if (PropertyTypeName == 'Attached') {
     }
 
     unqCheckbox(Residential){
-      
+
        this.countfilter.splice(3, 1, 'propertyClass');
-      
+
 
       if (this.checkedHouse == true || this.checkedThouse == true || this.checkedCondo == true) {
           this.prptyresarrayPara.splice(0, 1, '&pCategories[]=Residential');
@@ -2106,18 +2137,18 @@ this.prptyresarrayParastring = this.prptyresarrayPara.join('');
    try {
      this.showtotalspin = true;
 this.showtotal = false;
-      
+
      this.service.filterhomesearchproperties(this.currentPage, this.filters, this.paraArray, this.userid).then( (response : any) => {
        console.log(response);
-        
+
         this.totalRecords = response.totalRecords;
         this.showtotalspin = false;
 this.showtotal = true;
      }).catch( error => {
-     
+
      })
    } catch(e) {
-    
+
         this.service.serverError();
     }
           }
@@ -2127,7 +2158,7 @@ if (this.checkedMultifamily == false) {
         this.prptyresarray.splice(3, 1, '');
         this.prptyresarrayPara.splice(1, 1, '');
         this.selectedPropertyClass3 = "no";
-        
+
           }
 }
 if (this.checkedLand == true) {
@@ -2156,7 +2187,7 @@ if (this.checkedCommercial == false) {
         this.prptyresarray.splice(5, 1, '');
         this.prptyresarrayPara.splice(3, 1, '');
         this.selectedPropertyClass5 = "no";
-        
+
           }
 }
 
@@ -2178,7 +2209,7 @@ this.checkedCondo = false;
     this.propertyCat = '';
     this.ResidentialCat = '';
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -2201,7 +2232,7 @@ this.checkedCommercial = false;
     this.propertyCat = '';
     this.ResidentialCat = '';
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -2223,7 +2254,7 @@ this.checkedCommercial = false;
     this.propertyCat = '';
     this.ResidentialCat = '';
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -2245,7 +2276,7 @@ this.checkedCommercial = false;
     this.propertyCat = '';
     this.ResidentialCat = '';
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -2272,7 +2303,7 @@ if (this.checkedResidential0 == false && this.checkedResidential1 == false  && t
     this.prptyclassarray = [];
         this.prptyresarray = [];
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -2296,10 +2327,10 @@ this.propertyTypeSelect = [];
     this.ResidentialCat = " Residential,Residential,Residential,Multi-family,Land,Commercial Sale ";
     //this.propertyCat = 'house,townhouse,condo,multifamily,land,commercial  MultiFamily,Land,Commercial Sale';
     this.propertyCat = 'house,townhouse,condo,MultiFamily,Land,Commercial Sale';
-    
-    
+
+
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -2307,7 +2338,7 @@ this.propertyTypeSelect = [];
 //    return { 'PropertyType': i.PropertyType, 'matched': this.checkpropertyTypeResult.includes(i.PropertyType) };
 // });
 // this.propertyTypeSelect = jsonArray;
-// 
+//
 // common
     var jsonArray = this.propertyTypeResultall.map(i => {
    return { 'PropertyType': i.PropertyType, 'matched': this.checkpropertyTypeResult.includes(i.PropertyType) };
@@ -2326,24 +2357,24 @@ this.propertyTypeSelectPara.push('&pCategories[]=MultiFamily');
 this.propertyTypeSelectPara.push('&pCategories[]=Land');
 this.propertyTypeSelectPara.push('&pCategories[]=Commercial Sale');
     this.propertyTypeResultallPara = this.propertyTypeSelectPara.join('');
-    
+
      this.paraArray.splice(24, 1, this.propertyTypeResultallPara);
 
    try {
      this.showtotalspin = true;
 this.showtotal = false;
-      
+
      this.service.filterhomesearchproperties(this.currentPage, this.filters, this.paraArray, this.userid).then( (response : any) => {
-        
+
         this.totalRecords = response.totalRecords;
         this.showtotalspin = false;
 this.showtotal = true;
 
      }).catch( error => {
-     
+
      })
    } catch(e) {
-    
+
         this.service.serverError();
     }
 
@@ -2362,10 +2393,10 @@ this.showtotal = true;
     this.ResidentialCat = " Residential,Residential,Residential,,Land,Commercial Sale ";
    //this.propertyCat = 'house,townhouse,condo,multifamily,land,commercial  MultiFamily,Land,Commercial Sale';
     this.propertyCat = 'house,townhouse,condo,Land,Commercial Sale';
-    
-    
+
+
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -2385,23 +2416,23 @@ this.propertyTypeSelectPara.push('&pCategories[]=Residential');
 this.propertyTypeSelectPara.push('&pCategories[]=Land');
 this.propertyTypeSelectPara.push('&pCategories[]=Commercial Sale');
     this.propertyTypeResultallPara = this.propertyTypeSelectPara.join('');
-    
+
      this.paraArray.splice(24, 1, this.propertyTypeResultallPara);
    try {
      this.showtotalspin = true;
 this.showtotal = false;
-      
+
      this.service.filterhomesearchproperties(this.currentPage, this.filters, this.paraArray, this.userid).then( (response : any) => {
-        
+
         this.totalRecords = response.totalRecords;
         this.showtotalspin = false;
 this.showtotal = true;
 
      }).catch( error => {
-     
+
      })
    } catch(e) {
-    
+
         this.service.serverError();
     }
 
@@ -2419,10 +2450,10 @@ this.showtotal = true;
     //  this.propertyCat = 'house,townhouse,condo,multifamily,land,commercial';
     this.ResidentialCat = " ,,,Multi-family,Land,Commercial Sale ";
     this.propertyCat = 'MultiFamily,Land,Commercial Sale';
-    
-    
+
+
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -2442,23 +2473,23 @@ this.propertyTypeSelectPara.push('&pCategories[]=MultiFamily');
 this.propertyTypeSelectPara.push('&pCategories[]=Land');
 this.propertyTypeSelectPara.push('&pCategories[]=Commercial Sale');
     this.propertyTypeResultallPara = this.propertyTypeSelectPara.join('');
-    
+
      this.paraArray.splice(24, 1, this.propertyTypeResultallPara);
    try {
      this.showtotalspin = true;
 this.showtotal = false;
-      
+
      this.service.filterhomesearchproperties(this.currentPage, this.filters, this.paraArray, this.userid).then( (response : any) => {
-        
+
         this.totalRecords = response.totalRecords;
         this.showtotalspin = false;
 this.showtotal = true;
 
      }).catch( error => {
-     
+
      })
    } catch(e) {
-    
+
         this.service.serverError();
     }
 // common
@@ -2477,10 +2508,10 @@ this.showtotal = true;
     this.ResidentialCat = " Residential,Residential,Residential,Multi-family,,Commercial Sale ";
             //this.propertyCat = 'house,townhouse,condo,multifamily,land,commercial  MultiFamily,Land,Commercial Sale';
     this.propertyCat = 'house,townhouse,condo,MultiFamily,Commercial Sale';
-    
-    
+
+
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -2500,23 +2531,23 @@ this.propertyTypeSelectPara.push('&pCategories[]=Residential');
 this.propertyTypeSelectPara.push('&pCategories[]=MultiFamily');
 this.propertyTypeSelectPara.push('&pCategories[]=Commercial Sale');
     this.propertyTypeResultallPara = this.propertyTypeSelectPara.join('');
-    
+
      this.paraArray.splice(24, 1, this.propertyTypeResultallPara);
    try {
      this.showtotalspin = true;
 this.showtotal = false;
-      
+
      this.service.filterhomesearchproperties(this.currentPage, this.filters, this.paraArray, this.userid).then( (response : any) => {
-        
+
         this.totalRecords = response.totalRecords;
         this.showtotalspin = false;
 this.showtotal = true;
 
      }).catch( error => {
-     
+
      })
    } catch(e) {
-    
+
         this.service.serverError();
     }
 // common
@@ -2535,10 +2566,10 @@ this.showtotal = true;
     this.ResidentialCat = " Residential,Residential,Residential,Multi-family,Land, ";
     //this.propertyCat = 'house,townhouse,condo,multifamily,land,commercial  MultiFamily,Land,Commercial Sale';
     this.propertyCat = 'house,townhouse,condo,MultiFamily,Land';
-    
-    
+
+
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -2558,23 +2589,23 @@ this.propertyTypeSelectPara.push('&pCategories[]=Residential');
 this.propertyTypeSelectPara.push('&pCategories[]=MultiFamily');
 this.propertyTypeSelectPara.push('&pCategories[]=Land');
     this.propertyTypeResultallPara = this.propertyTypeSelectPara.join('');
-    
+
      this.paraArray.splice(24, 1, this.propertyTypeResultallPara);
    try {
      this.showtotalspin = true;
 this.showtotal = false;
-      
+
      this.service.filterhomesearchproperties(this.currentPage, this.filters, this.paraArray, this.userid).then( (response : any) => {
-        
+
         this.totalRecords = response.totalRecords;
         this.showtotalspin = false;
 this.showtotal = true;
 
      }).catch( error => {
-     
+
      })
    } catch(e) {
-    
+
         this.service.serverError();
     }
 // common
@@ -2595,10 +2626,10 @@ this.showtotal = true;
     this.ResidentialCat = "Residential,Residential,Residential,,Land, ";
             //this.propertyCat = 'house,townhouse,condo,multifamily,land,commercial  MultiFamily,Land,Commercial Sale';
     this.propertyCat = 'house,townhouse,condo,Land';
-    
-    
+
+
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -2618,23 +2649,23 @@ for(var i=0;i<this.propertyTypeSelectPara.length;i++){
 this.propertyTypeSelectPara.push('&pCategories[]=Residential');
 this.propertyTypeSelectPara.push('&pCategories[]=Land');
     this.propertyTypeResultallPara = this.propertyTypeSelectPara.join('');
-    
+
      this.paraArray.splice(24, 1, this.propertyTypeResultallPara);
    try {
      this.showtotalspin = true;
 this.showtotal = false;
-      
+
      this.service.filterhomesearchproperties(this.currentPage, this.filters, this.paraArray, this.userid).then( (response : any) => {
-        
+
         this.totalRecords = response.totalRecords;
         this.showtotalspin = false;
 this.showtotal = true;
 
      }).catch( error => {
-     
+
      })
    } catch(e) {
-    
+
         this.service.serverError();
     }
 // common
@@ -2656,10 +2687,10 @@ this.showtotal = true;
     this.ResidentialCat = "Residential,Residential,Residential,,,Commercial Sale ";
         //this.propertyCat = 'house,townhouse,condo,multifamily,land,commercial  MultiFamily,Land,Commercial Sale';
     this.propertyCat = 'house,townhouse,condo,Commercial Sale';
-    
-    
+
+
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -2679,23 +2710,23 @@ for(var i=0;i<this.propertyTypeSelectPara.length;i++){
 this.propertyTypeSelectPara.push('&pCategories[]=Residential');
 this.propertyTypeSelectPara.push('&pCategories[]=Commercial Sale');
     this.propertyTypeResultallPara = this.propertyTypeSelectPara.join('');
-    
+
      this.paraArray.splice(24, 1, this.propertyTypeResultallPara);
    try {
      this.showtotalspin = true;
 this.showtotal = false;
-      
+
      this.service.filterhomesearchproperties(this.currentPage, this.filters, this.paraArray, this.userid).then( (response : any) => {
-        
+
         this.totalRecords = response.totalRecords;
         this.showtotalspin = false;
 this.showtotal = true;
 
      }).catch( error => {
-     
+
      })
    } catch(e) {
-    
+
         this.service.serverError();
     }
 // common
@@ -2714,10 +2745,10 @@ this.showtotal = true;
     this.ResidentialCat = " ,,,Multi-family,Land, ";
         //this.propertyCat = 'house,townhouse,condo,multifamily,land,commercial  MultiFamily,Land,Commercial Sale';
     this.propertyCat = 'MultiFamily,Land';
-    
-    
+
+
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -2737,23 +2768,23 @@ for(var i=0;i<this.propertyTypeSelectPara.length;i++){
 this.propertyTypeSelectPara.push('&pCategories[]=MultiFamily');
 this.propertyTypeSelectPara.push('&pCategories[]=Land');
     this.propertyTypeResultallPara = this.propertyTypeSelectPara.join('');
-    
+
      this.paraArray.splice(24, 1, this.propertyTypeResultallPara);
    try {
      this.showtotalspin = true;
 this.showtotal = false;
-      
+
      this.service.filterhomesearchproperties(this.currentPage, this.filters, this.paraArray, this.userid).then( (response : any) => {
-        
+
         this.totalRecords = response.totalRecords;
         this.showtotalspin = false;
 this.showtotal = true;
 
      }).catch( error => {
-     
+
      })
    } catch(e) {
-    
+
         this.service.serverError();
     }
 // common
@@ -2772,10 +2803,10 @@ this.showtotal = true;
     this.ResidentialCat = " ,,,Multi-family,,Commercial Sale ";
         //this.propertyCat = 'house,townhouse,condo,multifamily,land,commercial  MultiFamily,Land,Commercial Sale';
     this.propertyCat = 'MultiFamily,Commercial Sale';
-    
-    
+
+
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -2795,23 +2826,23 @@ for(var i=0;i<this.propertyTypeSelectPara.length;i++){
 this.propertyTypeSelectPara.push('&pCategories[]=MultiFamily');
 this.propertyTypeSelectPara.push('&pCategories[]=Commercial Sale');
     this.propertyTypeResultallPara = this.propertyTypeSelectPara.join('');
-    
+
      this.paraArray.splice(24, 1, this.propertyTypeResultallPara);
    try {
      this.showtotalspin = true;
 this.showtotal = false;
-      
+
      this.service.filterhomesearchproperties(this.currentPage, this.filters, this.paraArray, this.userid).then( (response : any) => {
-        
+
         this.totalRecords = response.totalRecords;
         this.showtotalspin = false;
 this.showtotal = true;
 
      }).catch( error => {
-     
+
      })
    } catch(e) {
-    
+
         this.service.serverError();
     }
 // common
@@ -2829,10 +2860,10 @@ this.showtotal = true;
     //  this.propertyCat = 'house,townhouse,condo,multifamily,land,commercial';
     this.ResidentialCat = " ,,,,Land,Commercial Sale ";
     this.propertyCat = 'Land,Commercial Sale';
-    
-    
+
+
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -2852,23 +2883,23 @@ for(var i=0;i<this.propertyTypeSelectPara.length;i++){
 this.propertyTypeSelectPara.push('&pCategories[]=Land');
 this.propertyTypeSelectPara.push('&pCategories[]=Commercial Sale');
     this.propertyTypeResultallPara = this.propertyTypeSelectPara.join('');
-    
+
      this.paraArray.splice(24, 1, this.propertyTypeResultallPara);
    try {
      this.showtotalspin = true;
 this.showtotal = false;
-      
+
      this.service.filterhomesearchproperties(this.currentPage, this.filters, this.paraArray, this.userid).then( (response : any) => {
-        
+
         this.totalRecords = response.totalRecords;
         this.showtotalspin = false;
 this.showtotal = true;
 
      }).catch( error => {
-     
+
      })
    } catch(e) {
-    
+
         this.service.serverError();
     }
 
@@ -2883,7 +2914,7 @@ this.checkedCondo = true;
     this.propertyCat = 'house,townhouse,condo';
     this.ResidentialCat = "Residential,Residential,Residential,,, ";
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -2906,23 +2937,23 @@ for(var i=0;i<this.propertyTypeSelectPara.length;i++){
 this.propertyTypeSelectPara.push('&pCategories[]=Residential');
 
     this.propertyTypeResultallPara = this.propertyTypeSelectPara.join('');
-    
+
      this.paraArray.splice(24, 1, this.propertyTypeResultallPara);
    try {
      this.showtotalspin = true;
 this.showtotal = false;
-      
+
      this.service.filterhomesearchproperties(this.currentPage, this.filters, this.paraArray, this.userid).then( (response : any) => {
-        
+
         this.totalRecords = response.totalRecords;
         this.showtotalspin = false;
 this.showtotal = true;
 
      }).catch( error => {
-     
+
      })
    } catch(e) {
-    
+
         this.service.serverError();
     }
 
@@ -2938,7 +2969,7 @@ this.checkedMultifamily = true;
     this.propertyCat = 'MultiFamily';
     this.ResidentialCat = '';
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -2957,23 +2988,23 @@ for(var i=0;i<this.propertyTypeSelectPara.length;i++){
 }
 this.propertyTypeSelectPara.push('&pCategories[]=MultiFamily');
     this.propertyTypeResultallPara = this.propertyTypeSelectPara.join('');
-    
+
      this.paraArray.splice(24, 1, this.propertyTypeResultallPara);
    try {
      this.showtotalspin = true;
 this.showtotal = false;
-      
+
      this.service.filterhomesearchproperties(this.currentPage, this.filters, this.paraArray, this.userid).then( (response : any) => {
-        
+
         this.totalRecords = response.totalRecords;
         this.showtotalspin = false;
 this.showtotal = true;
 
      }).catch( error => {
-     
+
      })
    } catch(e) {
-    
+
         this.service.serverError();
     }
 // common
@@ -2990,7 +3021,7 @@ this.checkedLand = true;
     this.propertyCat = "Land";
     this.ResidentialCat = " ,,,,Land, ";
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -3009,23 +3040,23 @@ for(var i=0;i<this.propertyTypeSelectPara.length;i++){
 }
 this.propertyTypeSelectPara.push('&pCategories[]=Land');
     this.propertyTypeResultallPara = this.propertyTypeSelectPara.join('');
-    
+
      this.paraArray.splice(24, 1, this.propertyTypeResultallPara);
    try {
      this.showtotalspin = true;
 this.showtotal = false;
-      
+
      this.service.filterhomesearchproperties(this.currentPage, this.filters, this.paraArray, this.userid).then( (response : any) => {
-        
+
         this.totalRecords = response.totalRecords;
         this.showtotalspin = false;
 this.showtotal = true;
 
      }).catch( error => {
-     
+
      })
    } catch(e) {
-    
+
         this.service.serverError();
     }
 // common
@@ -3043,7 +3074,7 @@ this.checkedCommercial = true;
 
     this.ResidentialCat = " ,,,,,Commercial Sale";
   this.service.getpropertyType(this.ResidentialCat, this.propertyCat).then( (response : any) => {
-    
+
     this.propertyTypeResult = response.data;
     this.propertyTypeResultall = response.data.property_types;
     this.checkpropertyTypeResult = response.data.selected_property_types;
@@ -3062,29 +3093,29 @@ for(var i=0;i<this.propertyTypeSelectPara.length;i++){
 }
 this.propertyTypeSelectPara.push('&pCategories[]=Commercial Sale');
     this.propertyTypeResultallPara = this.propertyTypeSelectPara.join('');
-    
+
      this.paraArray.splice(24, 1, this.propertyTypeResultallPara);
    try {
      this.showtotalspin = true;
 this.showtotal = false;
-      
+
      this.service.filterhomesearchproperties(this.currentPage, this.filters, this.paraArray, this.userid).then( (response : any) => {
-        
+
         this.totalRecords = response.totalRecords;
         this.showtotalspin = false;
 this.showtotal = true;
 
      }).catch( error => {
-     
+
      })
    } catch(e) {
-    
+
         this.service.serverError();
     }
 // common
         }).catch( error => {
       // console.log(error);
-  })  
+  })
 } else {
   // code...
 }
@@ -3161,8 +3192,8 @@ this.propertyshowSpinner = true;
       this.prptyclassarray.push(property);
     }
     this.prptyclassarray.filter(item => item);
-    
-    
+
+
         this.propertyshowtitle = true;
         this.propertyTypeResultshow = true;
         this.propertyshowSpinner = true;
@@ -3170,7 +3201,7 @@ this.propertyshowSpinner = true;
     if (this.checkedHouse == true || this.checkedThouse == true || this.checkedCondo == true || this.checkedMultifamily == true || this.checkedLand == true || this.checkedCommercial == true) {
     property = this.prptyclassarray.toString();
     Residential = this.prptyresarray.toString();
-    
+
     // console.log(Residential);
     // console.log(property);
 
@@ -3179,7 +3210,7 @@ this.propertyshowSpinner = true;
       this.propertyTypeResult = response.data;
       this.propertyTypeResultall = response.data.property_types;
       this.checkpropertyTypeResult = response.data.selected_property_types;
-           
+
 
 function comparer(otherArray){
   return function(current){
@@ -3212,11 +3243,11 @@ console.log(this.paraArray);
 this.showtotal = true;
 
      }).catch( error => {
-     
+
      })
 
    } catch(e) {
-    
+
         this.service.serverError();
     }
             for (let i = 0; i < this.checkpropertyTypeResult.length ; i++) {
@@ -3282,7 +3313,7 @@ this.showtotal = true;
 this.showtotal = true;
 
      }).catch( error => {
-     
+
      })
 }
 if (this.checkedHouse == false && this.checkedThouse == false && this.checkedCondo == false && this.checkedMultifamily == false && this.checkedLand == false && this.checkedCommercial == false) {
@@ -3301,7 +3332,7 @@ if (this.checkedHouse == false && this.checkedThouse == false && this.checkedCon
 this.showtotal = true;
 
      }).catch( error => {
-     
+
      })
   }
 

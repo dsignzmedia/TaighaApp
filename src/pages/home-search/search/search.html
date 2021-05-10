@@ -50,13 +50,13 @@
         </ion-col>
         <ion-col col-7>
           <div class="choose-view-top">
-            <button [ngStyle]="{'display': showCardbtn}" class="btn btn-hasicon btn-curve" (click)="goToCard()"> 
+            <button [ngStyle]="{'display': showCardbtn}" class="btn btn-hasicon btn-curve" (click)="goToCard()">
               <p><i><img width="14" height="14" src="assets/imgs/cardview.svg" /></i>Card</p>
             </button>
-            <button [ngStyle]="{'display': showListbtn}" class="btn btn-hasicon btn-curve" (click)="goToList()"> 
+            <button [ngStyle]="{'display': showListbtn}" class="btn btn-hasicon btn-curve" (click)="goToList()">
               <p><i><img width="14" height="11" src="assets/imgs/listview.svg" /></i>List</p>
             </button>
-            <button [ngStyle]="{'display': showMapbtn}" class="btn btn-hasicon btn-curve" (click)="goToMap()"> 
+            <button [ngStyle]="{'display': showMapbtn}" class="btn btn-hasicon btn-curve" (click)="goToMap()">
               <p><i><img width="11" height="16" src="assets/imgs/placeholder.svg" /></i>Map</p>
             </button>
 
@@ -88,7 +88,7 @@
               <ion-option  value="desc" >Price: high to low</ion-option>
               <ion-option  value="d_asc" >Newest to oldest</ion-option>
               <ion-option  value="d_desc" >Oldest to newest</ion-option>
-              
+
               <ion-option  value="bd_sort" >Bedroom</ion-option>
               <ion-option  value="br_sort" >Bathroom</ion-option>
               <ion-option  value="yb_sort" >Year built</ion-option>
@@ -101,7 +101,7 @@
             </div>
           </ion-col>
        <!--    </ion-item> -->
-     
+
       </ion-row>
     </ion-grid>
   <div padding [ngStyle]="{'display': showCard}"   class="card-main-panel">
@@ -198,7 +198,7 @@
                   <!-- <a href="mailto:?Subject=&body=https://toptechrealty.com/{{property.County}}/{{property.State}}/{{property.ZipCode}}/{{property.slug}}/{{property.ListingID}}">
                   <img src="assets/imgs/outline-share.svg">
                   </a> -->
-                  
+
                 </i>
               </li>
             </ul>
@@ -219,7 +219,7 @@
           </ul>
           <div class="address-panel" >
             <ul>
-              <li  (click)="viewProperty(property.ListingID)"> 
+              <li  (click)="viewProperty(property.ListingID)">
                 {{ property.FullStreetAddress }}
 
               </li>
@@ -376,13 +376,13 @@
         </ion-col>
         <ion-col col-7>
           <div class="choose-view-top">
-            <button [ngStyle]="{'display': showCardbtn}" class="btn btn-hasicon btn-curve" (click)="goToCard()"> 
+            <button [ngStyle]="{'display': showCardbtn}" class="btn btn-hasicon btn-curve" (click)="goToCard()">
               <p><i><img width="14" height="14" src="assets/imgs/cardview.svg" /></i>Card</p>
             </button>
-            <button [ngStyle]="{'display': showListbtn}" class="btn btn-hasicon btn-curve" (click)="goToList()"> 
+            <button [ngStyle]="{'display': showListbtn}" class="btn btn-hasicon btn-curve" (click)="goToList()">
               <p><i><img width="14" height="11" src="assets/imgs/listview.svg" /></i>List</p>
             </button>
-            <button [ngStyle]="{'display': showMapbtn}" class="btn btn-hasicon btn-curve" (click)="goToMap()"> 
+            <button [ngStyle]="{'display': showMapbtn}" class="btn btn-hasicon btn-curve" (click)="goToMap()">
               <p><i><img width="11" height="16" src="assets/imgs/placeholder.svg" /></i>Map</p>
             </button>
 
@@ -398,7 +398,7 @@
               <ion-option  value="desc" >Price: high to low</ion-option>
               <ion-option  value="d_asc" >Newest to oldest</ion-option>
               <ion-option  value="d_desc" >Oldest to newest</ion-option>
-              
+
               <ion-option  value="bd_sort" >Bedroom</ion-option>
               <ion-option  value="br_sort" >Bathroom</ion-option>
               <ion-option  value="yb_sort" >Year built</ion-option>
@@ -411,7 +411,7 @@
           </div>
           </ion-col>
        <!--    </ion-item> -->
-     
+
       </ion-row>
     </ion-grid>
 <ion-grid no-padding class="property-info right-batch">
@@ -429,7 +429,7 @@
               <ion-select *ngIf="IsStaffCheck == undefined" class="cstm-select" placeholder="Batch Actions" [(ngModel)]="batchAction" (ionChange)="changebatchAction()">
                 <!-- <ion-option value="1" >Favorite</ion-option> -->
                 <!-- <ion-option *ngIf="IsStaffCheck == '1'"  value="2" >Share Listing</ion-option> -->
-                
+
                 <ion-option value="3" >Request Tour</ion-option>
                 <ion-option value="4" >Ask a Question</ion-option>
                 <ion-option value="5" [disabled]="disableOffer">Start Offer</ion-option>
@@ -438,7 +438,7 @@
               <ion-select *ngIf="IsStaffCheck != undefined"   class="cstm-select" placeholder="Batch Actions" [(ngModel)]="batchAction" (ionChange)="changebatchAction()">
                 <ion-option value="1" >Favorite</ion-option>
                 <ion-option *ngIf="IsStaffCheck == '1'"  value="2" >Share Listing</ion-option>
-                
+
                 <ion-option *ngIf="IsStaffCheck == '0'" value="3" >Request Tour</ion-option>
                 <ion-option *ngIf="IsStaffCheck == '0'" value="4" >Ask a Question</ion-option>
                 <ion-option *ngIf="IsStaffCheck == '0'" value="5" [disabled]="disableOffer">Start Offer</ion-option>
@@ -450,7 +450,7 @@
               <ion-select *ngIf="IsStaffCheck == undefined" class="cstm-select" placeholder="Batch Actions" [(ngModel)]="batchAction" (ionChange)="changebatchAction()">
                 <!-- <ion-option value="1" >Favorite</ion-option> -->
                 <!-- <ion-option *ngIf="IsStaffCheck == '1'"  value="2" >Share Listing</ion-option> -->
-                
+
                 <ion-option disabled value="3" >Request Tour</ion-option>
                 <ion-option disabled value="4" >Ask a Question</ion-option>
                 <ion-option disabled value="5" >Start Offer</ion-option>
@@ -460,7 +460,7 @@
                 <ion-label>Batch Actions</ion-label>
                 <ion-option value="1" disabled>Favorite</ion-option>
                 <ion-option *ngIf="IsStaffCheck == '1'"  value="2" disabled>Share Listing</ion-option>
-                
+
                 <ion-option *ngIf="IsStaffCheck == '0'" value="3" disabled>Request Tour</ion-option>
                 <ion-option *ngIf="IsStaffCheck == '0'" value="4" disabled>Ask a Question</ion-option>
                 <ion-option *ngIf="IsStaffCheck == '0'" value="5" disabled>Start Offer</ion-option>
@@ -486,11 +486,11 @@
                   <span class="price"  (click)="viewProperty(property.ListingID)">${{ property.PriceCurrentForStatus | number: '2.'}}</span>
                 </div>
                   <ul>
-                    <li> 
+                    <li>
                      <span   (click)="viewProperty(property.ListingID)"> {{ property.FullStreetAddress }}</span>
                    </li>
                    <li style="white-space: nowrap;">
-                  <span   (click)="viewProperty(property.ListingID)"> {{ property.State }} {{ property.ZipCode }}  <img src="assets/imgs/rmls-logo.svg" width="35" height="13" style="width: auto; margin-left: 10px; margin-top: 2px;"></span> 
+                  <span   (click)="viewProperty(property.ListingID)"> {{ property.State }} {{ property.ZipCode }}  <img src="assets/imgs/rmls-logo.svg" width="35" height="13" style="width: auto; margin-left: 10px; margin-top: 2px;"></span>
                   </li>
                 </ul>
               </div>
@@ -502,7 +502,7 @@
                   <ion-item  *ngIf="property.facCount == '0'" id="{{property.ListingID}}" >
                     <ion-label><i class="favorite-icon"></i></ion-label>
                     <ion-checkbox (click)="favorite(property.ListingID) "></ion-checkbox>
-                  </ion-item> 
+                  </ion-item>
                   <i class="share-icon" *ngIf="!IsStaff"  (click)="foropenEdit(property.ListingID)"><img width="20" height="20" src="assets/imgs/outline-chat.svg"></i>
                 </div>
             </ion-col>
@@ -610,13 +610,13 @@
         </ion-col>
         <ion-col col-7>
           <div class="choose-view-top">
-            <button [ngStyle]="{'display': showCardbtn}" class="btn btn-hasicon btn-curve" (click)="goToCard()"> 
+            <button [ngStyle]="{'display': showCardbtn}" class="btn btn-hasicon btn-curve" (click)="goToCard()">
               <p><i><img width="14" height="14" src="assets/imgs/cardview.svg" /></i>Card</p>
             </button>
-            <button [ngStyle]="{'display': showListbtn}" class="btn btn-hasicon btn-curve" (click)="goToList()"> 
+            <button [ngStyle]="{'display': showListbtn}" class="btn btn-hasicon btn-curve" (click)="goToList()">
               <p><i><img width="14" height="11" src="assets/imgs/listview.svg" /></i>List</p>
             </button>
-            <button [ngStyle]="{'display': showMapbtn}" class="btn btn-hasicon btn-curve" (click)="goToMap()"> 
+            <button [ngStyle]="{'display': showMapbtn}" class="btn btn-hasicon btn-curve" (click)="goToMap()">
               <p><i><img width="11" height="16" src="assets/imgs/placeholder.svg" /></i>Map</p>
             </button>
 
@@ -626,11 +626,11 @@
         <span class="sortby" style="justify-content: center;"><i  (click)="openEdit('save')"><img height="22" src="assets/imgs/search-home-icon-plus-blue.svg" width="22"></i> </span>
 <!--         <div class="filter-sort-panel">
             <ion-select class="filter-sort"  [(ngModel)]="sortvaluemap" (ionChange)="sortby()" >
-              
+
             </ion-select>
           </div> -->
           </ion-col>
-     
+
       </ion-row>
     </ion-grid>
       </div>
@@ -684,15 +684,15 @@
               <li *ngIf="!IsStaff">
                 <i class="outlineshare share-icon"  (click)="sharesocial(mapcountry, mapState, mapZipCode, mapslug, mapListingID)">
                   <img src="assets/imgs/outline-share.svg">
-                  
+
                 </i>
               </li>
             </ul>
           </ion-card-title>
           <div class="bottom-content" (click)="openProperty(mapListingID)">
              <div class="bottom-panel">
-               
-  
+
+
             <span class="price">${{ mapPriceCurrentForStatus | number: '2.'}}</span>
           <ul class="property-details">
             <li>
@@ -708,11 +708,11 @@
               <img src="assets/imgs/clock-white.svg"> <strong>{{ mappropertyRmlsDaysRe ? mappropertyRmlsDaysRe : '0' }}</strong>
             </li>
           </ul>
-          
+
 
           <div class="address-panel">
             <ul>
-              <li> 
+              <li>
                 {{ mapFullStreetAddress }}
 
               </li>
@@ -720,14 +720,14 @@
                 {{ mapCity }}, {{ mapState }} {{ mapZipCode }}
               </li>
             </ul>
-            <img src="assets/imgs/rmls-logo.svg"> 
+            <img src="assets/imgs/rmls-logo.svg">
                </div>
             </div>
 
             </div>
           </ion-card-content>
         </ion-card>
-</div>    
+</div>
   </div>
   <div  [ngStyle]="{'display': noproperty}" >
 <ion-grid class="noproperty" *ngIf="properties.length === 0">
