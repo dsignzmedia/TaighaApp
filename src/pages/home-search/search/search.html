@@ -168,7 +168,7 @@
         <figure class="main-card-img">
           <span *ngIf=" property.ListingStatus != 'Active'" class="badge">{{property.ListingStatus}}</span>
           <span *ngIf="property.is_open_house == '1'" class="badge">Open {{property.open_house_date}}</span>
-          <span *ngIf="property.is_virtual_tour == '1'" class="badge tour">Explore Tour <img src="assets/imgs/360-degrees-white.svg" width="58" height="21"></span>
+          <span *ngIf="property.is_virtual_tour == '1'" class="badge tour">Virtual Tour <img src="assets/imgs/360-degrees-white.svg" width="58" height="21"></span>
           <img (click)="viewProperty(property.ListingID)" src="{{ property.rmls_image }}"/>
           <span *ngIf="property.shared_by_name" class="badge underbadge">Recommended by {{property.shared_by_name}} {{property.shared_by_date}}</span>
         </figure>
@@ -482,6 +482,8 @@
                 </figure>
                 </div>
                 <div class="address-panel">
+
+                  <span *ngIf="property.is_virtual_tour == '1'" class="virtualtour"><img  src="assets/imgs/360-degrees-blue.svg"/></span>
                   <div class="price-col">
                   <span class="price"  (click)="viewProperty(property.ListingID)">${{ property.PriceCurrentForStatus | number: '2.'}}</span>
                 </div>
