@@ -8,7 +8,7 @@
         </div>
         <div [ngStyle]="{'display': showContent}">
           </div>
-        
+
 <ion-grid class="over-header">
     <ion-row>
         <ion-col class="no-border" text-left>
@@ -31,7 +31,7 @@
 </ion-slides>
   <span *ngIf=" propertyRmls.ListingStatus != 'Active'" class="upbadge">{{propertyRmls.ListingStatus}}</span>
   <span *ngIf="propertyRmls.is_open_house == '1'" class="upbadge">Open {{propertyRmls.open_house_date}}</span>
-  <span *ngIf="propertyRmls.is_virtual_tour == '1'" class="upbadge tour">Explore Tour <img src="assets/imgs/360-degrees-white.svg" width="58" height="21"></span>
+  <span *ngIf="propertyRmls.is_virtual_tour == '1'" class="upbadge tour">Virtual Tour <img src="assets/imgs/360-degrees-white.svg" width="58" height="21"></span>
   <span *ngIf="propertyRmls.shared_by_name" class="upbadge upunderbadge">Recommended by {{propertyRmls.shared_by_name}} {{propertyRmls.shared_by_date}}</span>
 <div class="property-detail">
     <ion-grid>
@@ -82,8 +82,8 @@
         <i> <img src="assets/imgs/clock.svg" width="20" height="20"> </i> <p> {{ propertyRmls.DaysOnMarketCustom ? propertyRmls.DaysOnMarketCustom : '0' }}</p>
       </li>
     </ul>
-        </ion-col>	
-      </ion-row>  
+        </ion-col>
+      </ion-row>
       <ion-row class="built-status">
         <ion-col col-4 no-padding>
           <p><strong>Built:</strong> {{ propertyRmls.YearBuilt ? propertyRmls.YearBuilt : '0' }}</p>
@@ -276,7 +276,7 @@
               </ion-row>
             </ion-col>
         </ion-row>
-        </ion-col>        
+        </ion-col>
        </ion-row>
        <ion-row *ngIf="virtualTour != null ">
         <ion-col col-6 no-padding>
@@ -853,7 +853,7 @@
           <ion-card-title>
             <span class="price" (click)="viewProperty(property.ListingID)">${{ property.PriceCurrentForStatus | number: '2.'}}</span>
             <ul>
-              
+
                <li *ngIf="!IsStaff"  (click)="foropenEdit(property.ListingID)">
                <i class="share-icon"><img src="assets/imgs/outline-chat.svg"></i>
                </li>
@@ -893,7 +893,7 @@
           </ul>
           <div class="address-panel" >
             <ul>
-              <li  (click)="viewProperty(property.ListingID)"> 
+              <li  (click)="viewProperty(property.ListingID)">
                 {{ property.FullStreetAddress }}
 
               </li>
@@ -910,14 +910,14 @@
 
 </ion-content>
 <div class="sticky-btn" *ngIf="IsStaffCheck == '0'">
-    <button class="btn btn-hasicon btn-curve" (click)="request('question', propertyRmls.ListingID)"> 
+    <button class="btn btn-hasicon btn-curve" (click)="request('question', propertyRmls.ListingID)">
       Ask a Question
     </button>
-    <button class="btn btn-hasicon btn-curve" (click)="request('tour', propertyRmls.ListingID)"> 
+    <button class="btn btn-hasicon btn-curve" (click)="request('tour', propertyRmls.ListingID)">
       Request Tour
     </button>
-    <button class="btn btn-hasicon btn-curve" (click)="request('offer', propertyRmls.ListingID)"> 
+    <button class="btn btn-hasicon btn-curve" (click)="request('offer', propertyRmls.ListingID)">
       Start an Offer
     </button>
-    
+
 </div>

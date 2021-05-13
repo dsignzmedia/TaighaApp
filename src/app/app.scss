@@ -151,7 +151,7 @@ height: 35px;
     margin: 0 auto;
 }
 .map-mobileApp-info.mobileApp-info{
-    justify-content: center; 
+    justify-content: center;
 }
 .mobileApp-info p{
     margin: 0 10px 0 0;
@@ -261,12 +261,12 @@ position: absolute;
     -moz-box-shadow: 1px 7px 23px 0px rgba(0,0,0,0.75);
     box-shadow: 1px 7px 23px 0px rgba(0,0,0,0.75);
     &.animated-background{
-      
+
       ion-card{
         .bottom-content{
           background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.4) 47%, rgba(0, 0, 0, 0.67));
         }
-      } 
+      }
     }
 
     ion-card{
@@ -498,19 +498,19 @@ width: 24px;
 
    }
    ion-backdrop{
-   // width: 100% !important; 
-   // height: 100% !important; 
-   // position: fixed; 
-   // left: 0; 
-   // right: 0; 
-   // top: 0; 
+   // width: 100% !important;
+   // height: 100% !important;
+   // position: fixed;
+   // left: 0;
+   // right: 0;
+   // top: 0;
    // bottom: 0;
    background: transparent !important;
    // --backdrop-opacity: 1;
    // opacity: 1 !important;
    }
-   // po60%sition: absolute; 
-   // display: block;  
+   // po60%sition: absolute;
+   // display: block;
 }
 [contenteditable] {
   -webkit-user-select: text;
@@ -1146,7 +1146,7 @@ ion-refresher, ion-refresher.refresher-active {
 .menuback_icon{
        position: absolute;
       left: 10px;
-      z-index: 2; 
+      z-index: 2;
 }
     .back_icon{
       position: absolute;
@@ -1170,7 +1170,7 @@ ion-refresher, ion-refresher.refresher-active {
       }
 
     }
-    
+
   }
 &.list-navbar{
    .home_icon{
@@ -1282,7 +1282,7 @@ ion-backdrop {
     top: 2px;
 }
   }
-  } 
+  }
 .text-input, .filter-grid .filter-select.select, .form-field-select.select { color: #000000; }
 .refreshicon { float: right; position: relative; right: 12px; }
 .popover-content { border-radius: 10px !important; }
@@ -1300,7 +1300,7 @@ ion-backdrop {
    .list > .item-block:first-child, .list > .item-wrapper:first-child .item-block { border-top: 0.55px solid #c8c7cc !important; }
 }
 .tabs .tab-button[aria-selected=true], .tabs-md .tab-button[aria-selected=true] { opacity: 1; }
-.icc-relative { position: relative; 
+.icc-relative { position: relative;
   .arrowimage {
       margin-right: 0; float: right;
   }
@@ -1401,7 +1401,7 @@ ion-header.homesearch{
       text-decoration: none;
       font-weight: 600;
             font-size: 16px;
-            &.text-link { 
+            &.text-link {
           color: #3366CC;
       }
     }
@@ -1721,7 +1721,7 @@ span{
   @include align-items($value: center);
       }
     }
-    
+
   }
   ion-content{
     background-color: $darkblue;
@@ -1820,7 +1820,7 @@ order: 5;
     &:nth-child(6){
 order: 1;
     }
-  }    
+  }
   }
 
   &.tabs{
@@ -2008,7 +2008,7 @@ ion-item{
     display: block;
 }
 ion-label{
-  margin-right:6px; 
+  margin-right:6px;
 }
       ion-checkbox{
         margin: 0px 3px !important;
@@ -2020,8 +2020,17 @@ ion-label{
         @include flexbox;
       }
       .address-panel{
+        position: relative;
         height: 100%;
         width: 100%;
+        .virtualtour {
+          position: absolute;
+          top: 0px;
+          right: 0px;
+          img{
+                width: 30px;
+          }
+            }
         .price{
           font-size: 18px;
           font-weight: 700;
@@ -2291,7 +2300,7 @@ order:6;
   //  #tab-t1-0{ order:4;}
   // #tab-t1-1{ order:2;}
   // #tab-t1-2{ order:3;}
-  // #tab-t1-3{ order:1;} 
+  // #tab-t1-3{ order:1;}
 }
 .map-info {
     // padding: 10px 15px;
@@ -2389,7 +2398,7 @@ ion-menu{
     overflow-y: scroll;
     }
     }
-    
+
 
     .search-more-panel{
           margin-right: 0;
@@ -2465,7 +2474,7 @@ ion-menu{
         align-items: center;
         color: #000;
         margin: 2px 8px 2px 0 !important;
-        
+
         }
         i{
             margin-right: 6px;
@@ -2491,8 +2500,8 @@ ion-menu{
           font-size: 13px;
         }
       }
-      
-      
+
+
     }
   }
 }
@@ -2559,7 +2568,7 @@ span.version {
       background-position: 468px 0
     }
   }
-  
+
   @keyframes placeHolderShimmer {
     0% {
       background-position: -468px 0
@@ -2682,7 +2691,7 @@ width: 8%;
     // padding: 20px;
     // border: 1px solid #ccc;
   }
-  
+
   .timeline-item {
     background: #fff;
     border: 1px solid;
@@ -2730,20 +2739,20 @@ width: 8%;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
-  
+
   .outlined .background-masker {
     border: 1px solid #ddd;
   }
-  
+
   .outlined:hover .background-masker {
     border: none;
   }
-  
+
   .outlined:hover .background-masker:hover {
     border: 1px solid #ccc;
     z-index: 1;
   }
-  
+
   .background-masker.line1 {
     width: 100%;
     height: 15px;
@@ -2852,7 +2861,7 @@ ion-select{
 }
 .my-custom-modal-css .popover-wrapper .popover-content{ height: 280px; overflow: hidden; }
 .my-custom-modal-css .popover-wrapper {
-.popover-content{ overflow: hidden; } 
+.popover-content{ overflow: hidden; }
     }
 .card-content-ios{ padding-top: 5px; }
 .homesearch ion-card ion-card-content ion-card-title.card-title-ios{ padding-bottom: 0; }
