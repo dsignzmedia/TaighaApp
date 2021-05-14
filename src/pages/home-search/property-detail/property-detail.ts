@@ -41,6 +41,7 @@ export class PropertyDetailPage {
   historyClicked=false;
   comparableClicked=false;
   financialClicked=false;
+  public authcheck: any;
 public propertyshowSpinner : boolean = false;
   propertyId: any;
   public property : any = [];
@@ -52,16 +53,16 @@ public propertyshowSpinner : boolean = false;
   public propertyImage : any = [];
   showContent: string = 'block';
   public forinfi : any = [];
-  public openArray:Array<string> = new Array(); 
+  public openArray:Array<string> = new Array();
   public hasEmailVerified : boolean = false;
   public IsStaff : boolean = false;
   public url: any;
   IsStaffCheck: any;
-  
+
     public isMoreMenu: boolean = false;
   constructor(private socialSharing: SocialSharing, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams,
     public modalCtrl: ModalController,
-    public service: ServiceProvider, 
+    public service: ServiceProvider,
     private App: App,
     public storage: StorageProvider,
     public inAppBrowser: InAppBrowser) {
@@ -85,8 +86,9 @@ public propertyshowSpinner : boolean = false;
      this.propertyshowSpinner = true;
     this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
 if (auth_user_token) {
+      this.authcheck = 1;
       this.IsStaffCheck = auth_user_token.is_staff;
-      
+
       if (this.IsStaffCheck == 0) {
         this.IsStaff = false;
       }else{
@@ -97,7 +99,7 @@ if (auth_user_token) {
               this.hasEmailVerified = true;
             }
         }
-      }
+      }else{this.authcheck = 0;}
     });
   }
   openWebpage(url){
@@ -117,7 +119,7 @@ if (auth_user_token) {
       toolbarposition:'bottom',
       toolbarcolor: '#000000',
       navigationbuttoncolor: '#FFFFFF',
-      hideurlbar: 'yes', 
+      hideurlbar: 'yes',
   }
     const browser = this.inAppBrowser.create(url,'_self',options);
     browser.show();
@@ -149,7 +151,7 @@ if (auth_user_token) {
 // });
   }
  getProperty() {
-    
+
    try {
        this.service.profile().then( (response : any) => {
          if (response == undefined) {
@@ -199,7 +201,7 @@ if (auth_user_token) {
 
    }
   viewProperty(propertyId){
-this.navCtrl.push(PropertyDetailPage, { propertyId : propertyId}); 
+this.navCtrl.push(PropertyDetailPage, { propertyId : propertyId});
   }
   generalButtons() {
     if (this.generalClicked === undefined) {
@@ -288,7 +290,7 @@ this.navCtrl.push(PropertyDetailPage, { propertyId : propertyId});
   ionViewDidLoad() {
     console.log('ionViewDidLoad PropertyDetailPage');
 
-   
+
   }
 
   loadMap() {
@@ -307,7 +309,7 @@ this.navCtrl.push(PropertyDetailPage, { propertyId : propertyId});
       gestureHandling: 'cooperative',
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
- 
+
     this.propertymap = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     var locations = [
   [address, lat,lng, 4]
@@ -315,7 +317,7 @@ this.navCtrl.push(PropertyDetailPage, { propertyId : propertyId});
 var infowindow = new google.maps.InfoWindow();
 
 var marker, i;
-for (i = 0; i < locations.length; i++) {  
+for (i = 0; i < locations.length; i++) {
   marker = new google.maps.Marker({
     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
     icon: icon ,
@@ -367,10 +369,10 @@ request(data, ListingID){
       if (!auth_user_token) {
         console.log(0);
         $(".favoritelist ion-item" ).removeClass('item-checkbox-checked');
-        
+
   let getsigninModal = this.modalCtrl.create(SigninPage, {asmodal : 'yes'});
   getsigninModal.present();
-  getsigninModal.onDidDismiss(data=>{ 
+  getsigninModal.onDidDismiss(data=>{
     console.log(propertyid);
 })
       }
