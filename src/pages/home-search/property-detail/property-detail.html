@@ -909,7 +909,7 @@
 </div>
 
 </ion-content>
-<div class="sticky-btn" *ngIf="IsStaffCheck == '0'">
+<div class="sticky-btn" *ngIf="authcheck == 0  || IsStaffCheck == '0'">
     <button class="btn btn-hasicon btn-curve" (click)="request('question', propertyRmls.ListingID)">
       Ask a Question
     </button>
