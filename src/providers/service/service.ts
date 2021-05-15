@@ -18,8 +18,9 @@ var liveToken = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjlmMWZkMDky
 
 @Injectable()
 export class ServiceProvider {
-   public baseUrl : string = "https://toptechrealty.com/api/auth";
+public baseUrl : string = "https://toptechrealty.com/api/auth";
   //  public baseUrl : string = "http://localhost:8080/Toptech/New/Taigha-Productions-Repository/public/api/auth";
+      //   public baseUrl : string = "http://127.0.0.1:8000/api/auth";
 
   public apigetroles: string = this.baseUrl+"/rmls/listing/share/modal/roles-and-types";
   public apiModalUser: string = this.baseUrl+"/rmls/listing/share/modal/get-users";
@@ -48,6 +49,7 @@ export class ServiceProvider {
   public apiSentVerifyEmail : string = this.baseUrl+"/user/resend/verify/email";
   public apiTickets: string = this.baseUrl+"/user/tickets";
   public apiTickets2: string = this.baseUrl+"/user/ticketsalter";
+  public apiTickets3: string = this.baseUrl+"/user/ticketsalter2";
   public apiUploadUserAvatar: string = this.baseUrl+"/user/upload/avatar";
   public apiTicketCreate: string = this.baseUrl+"/user/tickets/create/ticket";
   public apiTicketStore: string = this.baseUrl+"/user/tickets/store/ticket";
@@ -1711,6 +1713,21 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
       }
       });
   }
+    ticket3(ticketId) {
+    return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
+        try {
+          let httpOptions = {
+          headers: new HttpHeaders({
+            'Authorization':  auth_user_token.token_type+" "+auth_user_token.access_token
+          })
+        };
+        return this.http.get(this.apiTickets3+"/"+ticketId, httpOptions).toPromise();
+      } catch ( e ) {
+        console.log(e);
+        this.unAuthorizedToken();
+      }
+      });
+  }
 
   ticketactivities(ticketId, currentPage) {
     return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
@@ -1837,6 +1854,13 @@ getcustomer(body) {
         let body: HttpParams = new HttpParams();
         body = body.append('priority', ticket.priority);
         body = body.append('property_id', ticket.property_id);
+        body = body.append('status', ticket.status);
+        body = body.append('assigned_to', ticket.assigned_to);
+        body = body.append('assigned_to_staff', ticket.assigned_to_staff);
+        body = body.append('cc_emails', ticket.cc_emails);
+        body = body.append('class', ticket.class);
+        body = body.append('version', ticket.version);
+        
         return this.http.post(this.apiTickets+"/"+ticket.id+"/update", body, httpOptions).toPromise();
       } catch ( e ) {
         console.log(e);

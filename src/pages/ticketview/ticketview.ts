@@ -43,6 +43,8 @@ public shownavbar: boolean = true;
   public properties : any = [];
   public customer : any = "";
   public priorities: any = [];
+  public groups: any = [];
+  public status: any = [];
   public ticketId : number = 0;
   public lastmail: any;
     public ticketsub : any = "";
@@ -63,7 +65,12 @@ public GotTicketVersion : any = "";
 
   public editpriorityfield: boolean = false;
   public editpropertyfield: boolean = false;
+  public editgroupfield: boolean = false;
   public editstafffield: boolean = false;
+  public editstatusfield: boolean = false;
+  public editccfield: boolean = false;
+  public editclassfield: boolean = false;
+  public editversionfield: boolean = false;
 
 	public hideNotified() {
 	 	this.hidemeNotified = !this.hidemeNotified;
@@ -300,6 +307,7 @@ this.iab.create(event.target.href+"?token=dHJhbnomob", "_system", "beforeload=ye
    this.properties = [];
    this.priorities = [];
    this.customer = "";
+   this.getTicket3();
    this.getTicket();
    this.getTicket2();
  }
@@ -308,6 +316,7 @@ this.iab.create(event.target.href+"?token=dHJhbnomob", "_system", "beforeload=ye
     
    try {
      this.service.ticket(this.ticketId).then( (response : any) => {
+       console.log('viewticket');
        console.log(response);
        this.ticketDataOption = response.replydata;
        this.ticketData = response.data;
@@ -317,13 +326,15 @@ this.iab.create(event.target.href+"?token=dHJhbnomob", "_system", "beforeload=ye
        this.ticketHistory = response.data.ticket.ticket_histories;
        let l=this.ticketHistory[this.ticketHistory.length-1];  
   this.lastmail = l;
-  console.log("this.lastmail");
-  console.log(this.lastmail);
+  // console.log("this.lastmail");
+  // console.log(this.lastmail);
        this.properties = response.data.properties;
        this.priorities = response.data.priorities;
+       this.groups = response.replydata.groups;
+       this.status = response.replydata.status;
        this.customer = this.ticket.customer
        this.updateProgress(this.ticket.checklist_count_percentage);
-       console.log(this.ticket.checklist_count_percentage);
+      // console.log(this.ticket.checklist_count_percentage);
        this.property_id = this.ticket.property_id;
        this.priority = this.ticket.priority;
        this.body = response.data.signature;
@@ -347,6 +358,26 @@ this.iab.create(event.target.href+"?token=dHJhbnomob", "_system", "beforeload=ye
     
    try {
      this.service.ticket2(this.ticketId).then( (response : any) => {
+       console.log('viewticketAlter');
+       console.log(response);
+       
+
+     }).catch( error => {
+         this.showSpinner = false;
+         console.log(error);
+     })
+   } catch(e) {
+     console.log(e);
+     this.showSpinner = false;
+        this.service.serverError();
+    }
+
+   }
+    getTicket3() {
+    
+   try {
+     this.service.ticket3(this.ticketId).then( (response : any) => {
+       console.log('viewticketAlter2');
        console.log(response);
 
      }).catch( error => {
@@ -471,7 +502,8 @@ console.log(data);
     }
  }
 
- updateTicket() {
+ updateTicket(notif) {
+  this.showSpinner = true;
    let loading = this.loadingCtrl.create({
       spinner: 'crescent',
       duration: 5000
@@ -481,12 +513,21 @@ console.log(data);
       console.log('Dismissed loading');
     });
     loading.present();
+    if (notif == 'no') {
+      this.ticket['notify'] = 'no';
+    }else{
+      this.ticket['notify'] = 'notify';
+    }
+    console.log(this.ticket);
     this.service.updateTicket(this.ticket).then( (response : any) => {
         console.log(response);
        loading.dismiss();
        this.clearAndGetTicket();
+      // this.showSpinner = false;
+
      }).catch( error => {
         loading.dismiss();
+       this.showSpinner = false;
          console.log(error);
      }) 
  }
@@ -581,9 +622,20 @@ console.log(data);
       this.editpriorityfield = (this.editpriorityfield) ? false : true; 
     } else if(type == 'staff') {
       this.editstafffield = (this.editstafffield) ? false : true; 
+    } else if(type == 'group') {
+      this.editgroupfield = (this.editgroupfield) ? false : true; 
+    } else if(type == 'status') {
+      this.editstatusfield = (this.editstatusfield) ? false : true; 
+    } else if(type == 'cc') {
+      this.editccfield = (this.editccfield) ? false : true; 
+    } else if(type == 'class') {
+      this.editclassfield = (this.editclassfield) ? false : true; 
+    } else if(type == 'version') {
+      this.editversionfield = (this.editversionfield) ? false : true; 
     }else{
 
     }
+    // editstatusfield
     console.log(this.editpropertyfield)
   }
 back(){
@@ -690,10 +742,13 @@ var reduceHeight = height - 477;
 console.log(reduceHeight);
 var $p = $('.full-details .desc');
 var divh = $('.full-details .desc').height();
+console.log($p.outerHeight());
+
  while ($p.outerHeight() > reduceHeight) {
-    $p.text(function (index, text) {
-        return text.replace(/\W*\s(\S)*$/, '...');
-    });
+   $('.full-details .contentarea-acc-panel .desc').css('height',reduceHeight);
+    // $p.text(function (index, text) {
+    //     return text.replace(/\W*\s(\S)*$/, '...');
+    // });
  }
 
 console.log('height');

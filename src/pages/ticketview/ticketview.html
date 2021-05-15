@@ -84,7 +84,7 @@
                         <div class="label-panel"  (click) = "toggleShowHide('description')" [ngClass]="showDescription == true ? 'show-description' : ''" >
                         <label class="common-label">Description : </label>
                         <div class="sample-des-panel"  *ngIf="!showDescription" >
-                         <span class="sample-des" [innerHTML]=" ticket.body "></span>
+                         <span class="sample-des" [innerHTML]=" ticket.stripped_body "></span>
                          </div>
                          <i class="des-plus"> 
                             <img  [ngClass]="showDescription == true ? 'display-none' : ''" src='assets/imgs/plus.svg'>
@@ -104,12 +104,11 @@
                         <ion-col col-12>
                             <p>
                                 <label class="d-block d-flex-label">Property : </label>
-                                {{ ticket.property_address ? ticket.property_address : '-' }}
-                                <!-- <span class="sub-content" *ngIf=" !editpropertyfield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('property') ">
+                                <span class="sub-content" *ngIf=" !editpropertyfield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('property') ">
                                 <img src="assets/imgs/edit.svg"></span> 
                             {{ ticket.property_address ? ticket.property_address : '-' }}
 
-                        </span> --></p>
+                        </span></p>
 
                             <ion-select [(ngModel)]="ticket.property_id" class="form-field-select" (ionChange)="enableDisableStatus()" *ngIf="editpropertyfield">
                                 <ion-option value="{{ property.id }}" *ngFor=" let  property of properties  ">{{ property.address }}</ion-option>
@@ -123,29 +122,65 @@
                                 <ion-option value="{{ priority.id }}" *ngFor=" let  priority of priorities  ">{{ priority.priority }}</ion-option>
                             </ion-select>
                         </ion-col>
-                        <ion-col col-6>
                             <!-- ticketDataOption -->
+<!--                         <ion-col col-6>
                             <p>
                                 <label class="d-block">Group : </label>{{ ticket.groupname ? ticket.groupname : '-' }}</p>
-                        </ion-col>
+                        </ion-col> -->
+<ion-col col-6>
+    <p>
+        <label class="d-block d-flex-label">Group :</label>
+        <span  class="sub-content" *ngIf=" !editgroupfield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('group') "><img src="assets/imgs/edit.svg"></span> {{ ticket.groupname }}</span></p>
+    <ion-select [(ngModel)]="ticket.assigned_to" class="form-field-select" (ionChange)="enableDisableStatus()" *ngIf="editgroupfield">
+        <ion-option value="{{ group.id }}" *ngFor=" let  group of groups  ">{{ group.name }}</ion-option>
+    </ion-select>
+</ion-col>
                         <ion-col col-6>
                             <p>
                                 <label class="d-block d-flex-label">Staff :</label>
                                 <span  class="sub-content" *ngIf=" !editstafffield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('staff') "><img src="assets/imgs/edit.svg"></span> {{ ticket.staff_name ? ticket.staff_name : '-' }}</span></p>
-                            <ion-select [(ngModel)]="TicketStaff" class="form-field-select" (ionChange)="enableDisableStatus()" *ngIf="editstafffield">
+                            <ion-select [(ngModel)]="ticket.assigned_to_staff" class="form-field-select" (ionChange)="enableDisableStatus()" *ngIf="editstafffield">
                                 <ion-option value="{{ staff.id }}" *ngFor=" let  staff of ticketDataOption.users  ">{{ staff.first_name }} {{ staff.last_name }}</ion-option>
                             </ion-select>
 <!--                             <p>
                                 <label class="d-block">Staff : </label>{{ ticket.staff_name ? ticket.staff_name : '-' }}</p> -->
                         </ion-col>
-                        <ion-col col-6>
-                            <p>
-                                <label class="d-block">Status : </label>{{ ticket.status }}</p>
-                        </ion-col>
+<ion-col col-6>
+    <p>
+        <label class="d-block d-flex-label">Status :</label>
+        <span  class="sub-content" *ngIf=" !editstatusfield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('status') "><img src="assets/imgs/edit.svg"></span> {{ ticket.status }}</span></p>
+    <ion-select [(ngModel)]="ticket.status" class="form-field-select" (ionChange)="enableDisableStatus()" *ngIf="editstatusfield">
+        <ion-option value="{{ stat.id }}" *ngFor=" let  stat of status  ">{{ stat.status }}</ion-option>
+    </ion-select>
+</ion-col>
+<!-- <ion-col col-6>
+    <p>
+        <label class="d-block d-flex-label">CC :</label>
+        <span  class="sub-content" *ngIf=" !editccfield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('cc') "><img src="assets/imgs/edit.svg"></span> {{ ticket.cc }}</span></p>
+    <ion-input  (ionChange)="enableDisableStatus()" *ngIf="editccfield" [(ngModel)]="ticket.cc_emails">{{ ticket.cc }}</ion-input>
+</ion-col> -->
+<!-- ticket_type -->
+<ion-col col-6 *ngIf="ticket.ticket_type != 'customer'">
+    <p>
+        <label class="d-block d-flex-label">Class :</label>
+        <span  class="sub-content" *ngIf=" !editclassfield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('class') "><img src="assets/imgs/edit.svg"></span> {{ ticket.class }}</span></p>
+    <ion-select [(ngModel)]="ticket.class" class="form-field-select" (ionChange)="enableDisableStatus()" *ngIf="editclassfield">
+                        <ion-option value="Bug">Bug</ion-option>
+                        <ion-option value="Enhancement">Enhancement</ion-option>
+                        <ion-option value="Feature">Feature</ion-option>
+                        <ion-option value="Question">Question</ion-option>
+    </ion-select>
+</ion-col>
+<ion-col col-6 *ngIf="ticket.ticket_type != 'customer'">
+    <p>
+        <label class="d-block d-flex-label">Version :</label>
+        <span  class="sub-content" *ngIf=" !editversionfield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('version') "><img src="assets/imgs/edit.svg"></span> {{ ticket.version }}</span></p>
+    <ion-input  (ionChange)="enableDisableStatus()" *ngIf="editversionfield" [(ngModel)]="ticket.version">{{ ticket.version }}</ion-input>
+</ion-col>
                         <ion-col col-12>
                             <div class="inline-btn">
-                            <button ion-button block class="btn btn-blue" [disabled]="disableUpdate" (click)="updateTicket()">Update</button>
-<!--                             <button ion-button block class="btn btn-blue">Update & Notify</button> -->
+                            <button ion-button block class="btn btn-blue" [disabled]="disableUpdate" (click)="updateTicket('no')">Update</button>
+                            <button ion-button block class="btn btn-blue" [disabled]="disableUpdate" (click)="updateTicket('notify')">Update & Notify</button>
                             </div>
                         </ion-col>
 
@@ -386,7 +421,7 @@
         </ion-card> -->
     </div>
 
-    <p class="no-records-found" *ngIf="!showSpinner && !ticket">No Records Found!.</p>
+<!--     <p class="no-records-found" *ngIf="!showSpinner && !ticket">No Records Found!.</p> -->
     <div class="spinner center" *ngIf="showSpinner">
         <div class="bounce1"></div>
         <div class="bounce2"></div>

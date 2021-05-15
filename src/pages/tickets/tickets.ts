@@ -47,6 +47,7 @@ export class TicketsPage {
  public showNoRecords: boolean = false;
   public showSpinnertop : boolean = false;
  public tickets : any = [];
+ public ticketcreatedata : any = [];
  public isOnScroll: boolean = false;
  public showBottomInfo: boolean = false;
  show:boolean = false;
@@ -78,8 +79,24 @@ export class TicketsPage {
          this.clearAndGetTickets();
        });
    });
-
+// this.getticketcreate();
  }
+
+  //  getticketcreate() {
+  //    this.showSpinner = true;
+  //     try {
+  //      this.service.ticketcreate().then( (response : any) => {
+  //        console.log(response);
+  //        this.showSpinner = false;
+  //      }).catch( error => {
+  //        this.showSpinner = false;
+  //          console.log(error);
+  //      })
+  //    } catch(e) {
+  //         this.service.serverError();
+  //     }
+  // }
+
  protected resetChanges = () => {
     this.filters = this.filtersCopy;
 };
@@ -298,6 +315,8 @@ createnewTickets(){
      newticketmodal.present();
 }
 ticketview(ticketId, ticketsub){
+  console.log(ticketId +' '+ ticketsub);
+  // ticketId : 257, ticketsub : 'C259 : DummyLead : Home Search' }
 this.navCtrl.push(TicketviewPage, { ticketId : ticketId, ticketsub : ticketsub }); 
 }
 openPopover(myEvent) {

@@ -40,6 +40,8 @@ public list: any = "";
 public partners: any = "";
 public users: any = "";
 
+public content: any = "";
+
   public showSpinner: boolean = false;
   public showClassVersion: boolean = false;
   public showPartner: boolean = false;
@@ -59,6 +61,12 @@ public TicketPriority: any = "low";
 public TicketStatus: any = "open";
 public TicketGroup: any = "";
   public TicketGroupSelected: any = "";
+  public TicketStaffSelected: any = "";
+public TicketCustomerSelected: any = "";
+public TicketPropertySelected: any = "";
+public TicketTemplateSelected: any = "";
+public TicketPartnerSelected: any = "";
+public TicketAccessSelected: any = "";
 public TicketStaff: any = "";
 public TicketCustomer: any = "";
 public TicketProperty: any = "";
@@ -119,30 +127,58 @@ filterData = [];
   }
 
 openSelecttemplate(field){
+  // let content: any = {
+  //        field: field,
+  //        list: '',
+  //        selectedField : ''
+  //      }
+     //  console.log(content);
   if (field == 'group') {
-    this.list = this.groups;
-  }
-  if (field == 'staff') {
-    this.list = this.users;
-  }
-  if (field == 'customer') {
-    this.list = this.customers;
-  }
-  if (field == 'property') {
-    this.list = this.properties;
-  }
-  if (field == 'template') {
-    this.list = this.templates;
-  }
-  if (field == 'partner') {
-    this.list = this.partners;
-  }
-         let content: any = {
+         this.content = {
          field: field,
-         list: this.list,
+         list: this.groups,
          selectedField : this.TicketGroupSelected
        }
-      let searchmodal = this.modalCtrl.create(SearchableModalPage, {content: content}, {cssClass: 'template-modal' });
+  }else if (field == 'staff') {
+         this.content = {
+         field: field,
+         list: this.users,
+         selectedField : this.TicketStaffSelected
+       }
+  }else if (field == 'customer') {
+         this.content = {
+         field: field,
+         list: this.customers,
+         selectedField : this.TicketCustomerSelected
+       }
+  }else if (field == 'property') {
+         this.content = {
+         field: field,
+         list: this.properties,
+         selectedField : this.TicketPropertySelected
+       }
+  }else if (field == 'template') {
+         this.content = {
+         field: field,
+         list: this.templates,
+         selectedField : this.TicketTemplateSelected
+       }
+  }else if (field == 'partner') {
+         this.content = {
+         field: field,
+         list: this.partners,
+         selectedField : this.TicketPartnerSelected
+       }
+  }else{
+    //  (field == 'access') 
+         this.content = {
+         field: field,
+         list: this.accessibleUsers,
+         selectedField : this.TicketAccessSelected
+       }
+  }
+// console.log(content);
+      let searchmodal = this.modalCtrl.create(SearchableModalPage, {content: this.content}, {cssClass: 'template-modal' });
           searchmodal.present();
           searchmodal.onDidDismiss(data=>{ 
           console.log(data);
@@ -153,23 +189,35 @@ openSelecttemplate(field){
             }
             if (data.fieldInput == 'staff') {
               this.TicketStaff = data.selectedTemplate;
-              this.TicketGroupSelected = data.selectedTemplate;
+              this.TicketStaffSelected = data.selectedTemplate;
             }
             if (data.fieldInput == 'customer') {
               this.TicketCustomer = data.selectedTemplate;
-              this.TicketGroupSelected = data.selectedTemplate;
+              this.TicketCustomerSelected = data.selectedTemplate;
             }
             if (data.fieldInput == 'property') {
               this.TicketProperty = data.selectedTemplate;
-              this.TicketGroupSelected = data.selectedTemplate;
+              this.TicketPropertySelected = data.selectedTemplate;
             }
             if (data.fieldInput == 'template') {
               this.TicketTemplate = data.selectedTemplate;
-              this.TicketGroupSelected = data.selectedTemplate;
+              this.TicketTemplateSelected = data.selectedTemplate;
             }
             if (data.fieldInput == 'partner') {
               this.TicketPartner = data.selectedTemplate;
-              this.TicketGroupSelected = data.selectedTemplate;
+              this.TicketPartnerSelected = data.selectedTemplate;
+            }
+            if (data.fieldInput == 'access') {
+              // console.log( this.list);
+              // this.accessibleUsers = this.list;
+              // $('.access-select .select-text').css('display','none');
+              this.TicketAccess = null;
+              console.log(data.selectedTemplate);
+                setTimeout(() => {
+                  this.TicketAccess = data.selectedTemplate;
+                }, 100);
+              
+              this.TicketAccessSelected = data.selectedTemplate;
             }
           }
       })
@@ -216,6 +264,8 @@ openSelecttemplate(field){
 	  	try {
 	 		this.showSpinner = true;
 	 		this.service.ticketcreate().then( (response : any) => {
+         this.showSpinner = false;
+         this.service.loading.dismiss();
 		   	this.priorities = response.data.priorities;
 		   	this.properties = response.data.properties;
          this.status = response.data.status;
@@ -233,8 +283,7 @@ openSelecttemplate(field){
 		   	console.log(response);
 		   	this.body = response.data.signature ;
         this.signature = response.data.signature ;
-		   	this.showSpinner = false;
-         this.service.loading.dismiss();
+
 		   }).catch( error => {
 		   		this.showSpinner = false;
            this.service.loading.dismiss();

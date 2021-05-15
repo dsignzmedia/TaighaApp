@@ -146,9 +146,9 @@
 	    <ion-row no-line>
 	        <ion-col col-12 no-padding  no-line>
 	        	<ion-label>Access</ion-label>
-				<ion-item no-padding no-line>
+				<ion-item no-padding no-line  class="hasClick" (click)="openSelecttemplate('access')">
 					<ion-label class="display-none">Access</ion-label>
-					<ion-select class="filter-select" placeholder="Select"  multiple="true"  [(ngModel)]="TicketAccess">
+					<ion-select class="filter-select access-select" placeholder="Select"  multiple="true"  [(ngModel)]="TicketAccess">
 						<ion-option value="{{ access.id }}" *ngFor=" let  access of accessibleUsers  ">{{ access.first_name }} {{ access.last_name }}</ion-option>
 					</ion-select>
 				</ion-item>

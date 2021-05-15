@@ -21,6 +21,9 @@ public userslistsearch : any = [];
 selectedTemplate : any;
 fieldInput: any;
 selectedField : any;
+public paraArray : any = [];
+selectedArray :any = [];
+selectedArray2 :any = [];
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
   	this.content = this.navParams.data.content;
   	console.log(this.content);
@@ -29,6 +32,10 @@ selectedField : any;
   	this.fieldInput = this.content.field;
   	this.selectedField = this.content.selectedField;
   	this.selectedTemplate = this.selectedField;
+  	 console.log(this.selectedTemplate);
+  	 if (this.selectedTemplate) {
+  	 	this.selectedArray = this.selectedTemplate;
+  	 }
   }
 
   ionViewDidLoad() {
@@ -82,8 +89,54 @@ protected searchtag = () => {
 	      }
 	    })
     }
+    if (this.fieldInput == 'access') {
+	    this.templates = this.templates.filter((item)=>{
+	       if (item.first_name && item.first_name.trim() != '') {
+	        return item.first_name.toLowerCase().indexOf(this.searchTerm.toLowerCase())>-1;
+	      }
+	    })
+    }
 
 };
+updateAnswer(check, value, $event): void {
+console.log($event);
+console.log(check);
+console.log(value);
+ var ptypes = this.paraArray;
+// console.log(ptypes);
+ var addedpara = '&pTypes[]='+value;
+ if (check == false) {
+// var ptypeReplaced = ptypes.replace(addedpara,'');
+ }else{
+this.paraArray.push(value);
+ }
+}
+selectMember(data){
+ // if (data.checked == true) {
+ //    this.selectedArray.push(data);
+ //  } else {
+ //   let newArray = this.selectedArray.filter(function(el) {
+ //     return el.id !== data.id;
+ //  });
+ //   this.selectedArray = newArray;
+ // }
+ //  console.log(this.selectedArray);
+// if (data.checked == true) {
+// this.selectedArray.push(data.id);
+// }else{
+
+// }
+ console.log(this.selectedTemplate);
+     const foundAt = this.selectedArray.indexOf(data.id);
+     console.log(foundAt);
+     if (foundAt >= 0) {
+        this.selectedArray.splice(foundAt, 1);
+     } else {
+        this.selectedArray.push(data.id);
+    }
+    console.log(this.selectedArray);
+    this.selectedTemplate = this.selectedArray; 
+}
 
 chooseTemplate(){
    console.log(this.selectedTemplate);

@@ -286,7 +286,7 @@ vertical-align: middle;
     font-weight: 700;
     height: 25px;
     margin: 0 15px;
-    max-width: 100px;
+    max-width: 130px;
 }
 }
 	ion-grid{
@@ -511,7 +511,7 @@ ul {
   //  max-height: 230px;
     overflow: hidden;
     position: relative;
-
+    line-height: 33px;
    overflow: hidden;
    text-overflow: ellipsis;
    display: -webkit-box;
@@ -545,7 +545,7 @@ ul {
         	display: none;
         }
     br{
-    	display: none;
+    //	display: none;
     }
 
 }

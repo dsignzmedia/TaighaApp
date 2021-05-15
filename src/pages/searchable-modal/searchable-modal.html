@@ -113,7 +113,31 @@
 		</ion-list>
       </ion-row>
    </ion-grid>
-
+   <ion-grid *ngIf="fieldInput == 'access'">
+      <ion-row>
+        <ion-col col-12 no-padding class="inline-list inline-select">
+           <ion-searchbar type="text" [(ngModel)]="searchTerm" (ionInput)="searchtag()" (ionClear)="resetChanges()" ></ion-searchbar>
+           <ion-input type="hidden" [(ngModel)]="fieldInput" ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="templates.length != 0">
+    <ion-list radio-group [(ngModel)]="selectedTemplate">
+      <ion-item *ngFor="let temp of templates">
+          <ion-label>{{ temp.first_name }} {{ temp.last_name }}</ion-label>
+          <!--  (click)="updateAnswer(temp.checked, temp.id, $event)" -->
+          <ion-checkbox  [(ngModel)]="temp.checked" (click)="selectMember(temp)"></ion-checkbox>
+        </ion-item>
+<!--       <ion-item *ngFor="let temp of templates;let j =index">
+            <ion-label>{{ temp.first_name }} {{ temp.last_name }}</ion-label>
+            <ion-checkbox [(ngModel)]="temp.checked" (ionChange)="updateAnswer(j,temp.id,temp.checked)"></ion-checkbox>
+        </ion-item> -->
+<!--      <ion-item  *ngFor="let temp of templates">
+        <ion-label>{{ temp.first_name }} {{ temp.last_name }}</ion-label>
+        <ion-radio [value]="temp.id"></ion-radio>
+      </ion-item> -->
+    </ion-list>
+      </ion-row>
+   </ion-grid>
 
    </div>
 </ion-content>
