@@ -22,7 +22,7 @@ propertyId: any;
 storagePropertyImages : any;
 storagefullStreetAddress : any;
 userid: any;
-public propertyshowSpinner : boolean = false;
+  public propertyshowSpinner : boolean = false;
   public propertyImage : any = [];
   public rmlsproperty : any = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -101,5 +101,8 @@ public propertyshowSpinner : boolean = false;
   }
   goBack(){
     this.navCtrl.pop();
+  }
+  gridToggle(){
+
   }
 }
