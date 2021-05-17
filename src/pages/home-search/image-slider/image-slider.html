@@ -1,0 +1,60 @@
+<!--
+  Generated template for the ImageSliderPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header class="homesearch">
+  <ion-grid class="white-header">
+    <ion-row>
+      <ion-col no-padding class="hdr-left">
+      <img src="assets/imgs/backarrow-white.svg" width="20" height="20" (click)="goBack()" />
+      </ion-col>
+      <ion-col no-padding class="hdr-center">
+       <span class="title-head">{{storagefullStreetAddress}}</span>
+      </ion-col>
+      <ion-col no-padding class="hdr-right">
+        {{currentIndex+1}}<span> of </span>{{storagePropertyImages.length}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+
+<ion-content text-center>
+  <!-- <h3>Slide (default)</h3>
+  <ion-slides autoplay="2500" loop="true">
+    <ion-slide *ngFor="let slide of propertyImage" [ngStyle]="{'background' : 'url(' + slide.image + ')'}">
+      <h2>{{slide.image}}</h2>
+    </ion-slide>
+  </ion-slides> -->
+  <ion-slides #slider loop="true" (ionSlideWillChange)="onSlideChanged()">
+    <ion-slide *ngFor="let slide of storagePropertyImages">
+      <figure [ngStyle]="{'margin' : '0'}">
+				<img src="{{slide.image}}" />
+			</figure>
+    </ion-slide>
+    <!-- Add Pagination -->
+    <div *ngIf="currentIndex > 0"
+      class="swiper-button-prev swiper-button-white"
+      (click)="previousSlide(currentIndex)"></div>
+    <div *ngIf="currentIndex < storagePropertyImages.length-1"
+      class="swiper-button-next swiper-button-white"
+      (click)="nextSlide()"></div>
+  </ion-slides>
+
+  <!-- <h3>Coverflow</h3>
+  <ion-slides autoplay="2500" loop="true" effect="coverflow">
+    <ion-slide *ngFor="let slide of propertyImage" [ngStyle]="{'background' : 'url(' + slide.image + ')'}">
+      <h2>{{slide.image}}</h2>
+    </ion-slide>
+  </ion-slides>
+
+  <h3>Fade</h3>
+  <ion-slides autoplay="2500" loop="true" effect="fade">
+    <ion-slide *ngFor="let slide of propertyImage" [ngStyle]="{'background' : 'url(' + slide.image + ')'}">
+      <h2>{{slide.image}}</h2>
+    </ion-slide>
+  </ion-slides> -->
+</ion-content>

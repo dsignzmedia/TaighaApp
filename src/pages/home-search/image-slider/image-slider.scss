@@ -1,0 +1,34 @@
+page-image-slider {
+  ion-header {
+    background-color: #284C95 !important;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    img{
+    	    filter: brightness(10);
+    	    margin-left: 10px;
+    	}
+        .title-head{
+            font-size: 14px;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #ffffff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+        white-space: nowrap;
+            width: 200px;
+        }
+      .hdr-right {
+        font-weight: bolder;
+        span{
+          margin: 0 5px;
+        }
+      }
+}
+  ion-content{
+    background-color: #ffffff!important;
+  }
+
+
+}
