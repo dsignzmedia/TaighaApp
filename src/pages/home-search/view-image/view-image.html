@@ -14,6 +14,8 @@
          <span class="title-head" (click)="gridToggle()">{{storagefullStreetAddress}}</span>
         </ion-col>
         <ion-col no-padding class="hdr-right">
+          <img *ngIf="gridToggleView == 'col-12'" src="assets/imgs/squares_blue.svg" width="27" height="27" (click)="gridToggle()" />
+          <img *ngIf="gridToggleView == 'col-6'" src="assets/imgs/list_blue.svg" width="27" height="27" (click)="gridToggle()" />
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -42,10 +44,10 @@
         </ion-item>
     <ion-grid class="white-header">
       <ion-row>
-        <ion-col col-12 no-padding *ngFor="let property of storagePropertyImages; let i = index;">
-			<figure>
-				<img src="{{property.image}}" (click)="openSlider(propertyId,i)" />
-			</figure>
+        <ion-col [ngClass]="gridToggleView" no-padding *ngFor="let property of storagePropertyImages; let i = index;">
+          <figure>
+            <img src="{{property.image}}" (click)="openSlider(propertyId,i)" />
+          </figure>
         </ion-col>
 <!--         <ion-col col-6 no-padding>
 			<figure>

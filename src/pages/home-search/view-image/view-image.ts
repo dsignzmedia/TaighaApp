@@ -25,6 +25,7 @@ userid: any;
   public propertyshowSpinner : boolean = false;
   public propertyImage : any = [];
   public rmlsproperty : any = [];
+  public gridToggleView : any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public modalCtrl: ModalController,
     public service: ServiceProvider,
@@ -32,6 +33,7 @@ userid: any;
   	 this.propertyId = this.navParams.get('propertyId');
   	 console.log(this.propertyId);
   	 this.propertyshowSpinner = true;
+     this.gridToggleView = 'col-12';
   	 this.getProperty();
   }
  getProperty() {
@@ -103,6 +105,10 @@ userid: any;
     this.navCtrl.pop();
   }
   gridToggle(){
-
+    if(this.gridToggleView == 'col-12'){
+      this.gridToggleView = 'col-6';
+    }else if(this.gridToggleView == 'col-6'){
+      this.gridToggleView = 'col-12';
+    }
   }
 }

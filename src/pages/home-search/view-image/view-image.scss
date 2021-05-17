@@ -4,10 +4,14 @@ ion-header {
     color: #fff;
     text-align: center;
     font-size: 12px;
-    img{
+    img:first-child{
     	    filter: brightness(10);
     	    margin-left: 10px;
     	}
+    img:last-child{
+        filter: brightness(10);
+        margin-right: 10px;
+    }
         .title-head{
             font-size: 14px;
     text-transform: capitalize;
@@ -21,25 +25,33 @@ ion-header {
         }
 }
 ion-content.viewimage-content {
-    background-color: #ffffff !important;
+  background-color: #ffffff !important;
+  .scroll-content{
+      padding: 0!important;
+    }
+  .propety-gallery{
     // ion-slide{
     // 	align-items: flex-end;
     // }
-    .scroll-content{
-      padding: 0!important;
-    }
-    ion-slides{
-    	ion-slide{
-    		img{
-    			padding: 2px;
-    		}
-    	}
-    }
+    // ion-slides{
+    // 	ion-slide{
+    // 		img{
+    // 			padding: 2px;
+    // 		}
+    // 	}
+    // }
     ion-grid{
+      .col-12{
+        flex: 0 0 100%;width: 100%;max-width: 100%;
+      }
+      .col-6{
+        flex: 0 0 50%;width: 50%;max-width: 50%;
+      }
     	figure{
-    		margin: 0 !important;
+    		margin: 3px !important;
     	}
     }
+  }
 }
 }
 image-viewer{
