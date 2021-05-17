@@ -18,7 +18,9 @@ page-property-detail {
 //       z-index: 1;
 // }
       .tour{
-        top: 80px!important;
+        left: unset !important;
+        top: 250px !important;
+        right: 0;
         width: 135px;
         img{
           width: 22%!important;
@@ -36,7 +38,7 @@ page-property-detail {
     text-transform: inherit;
     line-height: 20px;
     font-size: 12px;
-        top: 53px;
+        top: 250px;
     z-index: 9;
         left: 0;
     &.upunderbadge{
@@ -224,12 +226,12 @@ ion-slides{
 	h4{
 		font-size: $smallx-fontsize;
 		font-weight: $regular-font-weight;
-		margin: 0 0 20px;
+		margin: 0 0 10px;
 	}
 	.price{
 		font-size: $xxxxlarge-fontsize;
 		font-weight: $bold-font-weight;
-	    margin: 0 0 20px;
+	    margin: 0 0 12px;
 	}
 
         .property-action{
@@ -258,12 +260,13 @@ justify-content: flex-end;
         }
         .property-details{
           display: inline-flex;
+          justify-content: flex-start;
           margin: 0;
           list-style-type: none;
           padding: 0;
     width: 100%;
           li{
-            margin: 0 20px;
+            margin: 0 23px;
             display: block;
             font-weight: $regular-font-weight;
             font-size: $smallx-fontsize;
@@ -307,6 +310,7 @@ justify-content: flex-end;
           .built-status{
           	p{
           		font-size: $smallx-fontsize;
+              margin : 5px 0 0;
           		strong{
 
           		}
@@ -536,7 +540,7 @@ justify-content: flex-end;
             @include justify-content($value: space-around);
   button {
     &.btn{
-      background-color: #3366CC;
+      background-color: #1649af;
       color: #fff;
       border: 1px solid #fff;
       font-size: 13px;

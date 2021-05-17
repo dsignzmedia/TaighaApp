@@ -58,6 +58,7 @@ public propertyshowSpinner : boolean = false;
   public IsStaff : boolean = false;
   public url: any;
   IsStaffCheck: any;
+  public storagePropertyImages : any;
 
     public isMoreMenu: boolean = false;
   constructor(private socialSharing: SocialSharing, public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams,
@@ -170,6 +171,8 @@ if (auth_user_token) {
        console.log(this.propertyRmls);
 
         this.loadMap();
+        this.setItem('fullStreetAddress',this.propertyRmls.FullStreetAddress);
+        this.setItem('propertyImage',this.propertyImage);
 
      }).catch( error => {
      })
@@ -188,6 +191,8 @@ if (auth_user_token) {
        this.propertyshowSpinner = false;
 
         this.loadMap();
+        this.setItem('fullStreetAddress',this.propertyRmls.FullStreetAddress);
+        this.setItem('propertyImage',this.propertyImage);
 
      }).catch( error => {
      })
@@ -200,6 +205,10 @@ if (auth_user_token) {
     }
 
    }
+   setItem(key: any, data: any) {
+    this.storage.removeStorage(key)
+    this.storage.setStorage(key, JSON.stringify(data));
+  }
   viewProperty(propertyId){
 this.navCtrl.push(PropertyDetailPage, { propertyId : propertyId});
   }

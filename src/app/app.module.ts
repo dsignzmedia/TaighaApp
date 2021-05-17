@@ -49,9 +49,9 @@ import { CreateMessagePage } from '../pages/create-message/create-message';
 import { SelectTemplatePage } from '../pages/select-template/select-template';
 import { TicketFieldsPage } from '../pages/ticket-fields/ticket-fields';
 import { SearchableModalPage } from '../pages/searchable-modal/searchable-modal';
- 
-// import { HomeSearchPage } from '../pages/home-search/home-search'; 
-// import { CardViewPage } from '../pages/home-search/card-view/card-view'; 
+
+// import { HomeSearchPage } from '../pages/home-search/home-search';
+// import { CardViewPage } from '../pages/home-search/card-view/card-view';
 import { TenantsPage } from '../pages/home-search/tenants/tenants';
 import { WhatwedoPage } from '../pages/home-search/whatwedo/whatwedo';
 import { BuyersPage } from '../pages/home-search/buyers/buyers';
@@ -61,16 +61,17 @@ import { OwnersPage } from '../pages/home-search/owners/owners';
 
 import { SellersPage } from '../pages/home-search/sellers/sellers';
 import { FilterPage } from '../pages/home-search/filter/filter';
-import { StartNowPage } from '../pages/home-search/start-now/start-now'; 
-import { PushTabsPage } from '../pages/home-search/push-tabs/push-tabs'; 
-import { SearchPage } from '../pages/home-search/search/search'; 
-import { FeaturedPage } from '../pages/home-search/featured/featured'; 
+import { StartNowPage } from '../pages/home-search/start-now/start-now';
+import { PushTabsPage } from '../pages/home-search/push-tabs/push-tabs';
+import { SearchPage } from '../pages/home-search/search/search';
+import { FeaturedPage } from '../pages/home-search/featured/featured';
 import { FavoritesPage } from '../pages/home-search/favorites/favorites';
 import { SavedPage } from '../pages/home-search/saved/saved';
 import { PropertyDetailPage } from '../pages/home-search/property-detail/property-detail';
 import { SearchModalPage } from '../pages/home-search/search-modal/search-modal';
 import { AboutUsPage } from '../pages/home-search/about-us/about-us';
 import { ViewImagePage } from '../pages/home-search/view-image/view-image';
+import { ImageSliderPage } from '../pages/home-search/image-slider/image-slider';
 import { RequestTourPage } from '../pages/home-search/request-tour/request-tour';
 import { EditChoosePage } from '../pages/home-search/edit-choose/edit-choose';
 import { QtoModalPage } from '../pages/home-search/qto-modal/qto-modal';
@@ -87,7 +88,7 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { PropertyviewPage } from '../pages/propertyview/propertyview';
 import { DocumentviewmodalPage } from '../pages/documentviewmodal/documentviewmodal';
-import { DocumentviewPage } from '../pages/documentview/documentview'; 
+import { DocumentviewPage } from '../pages/documentview/documentview';
 import { DatePipe } from '@angular/common'
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
@@ -161,6 +162,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RequestTourPage,
     QtoModalPage,
     ViewImagePage,
+    ImageSliderPage,
     PropertyDetailPage,
     AboutUsPage,
     PropertiesPage,
@@ -199,7 +201,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     PipesModule,
     IonicStorageModule.forRoot(),
-    // FroalaEditorModule.forRoot(), 
+    // FroalaEditorModule.forRoot(),
     // FroalaViewModule.forRoot(),
     IonicModule.forRoot(MyApp,{
         menuType: 'push',
@@ -267,6 +269,7 @@ SelectTemplatePage,
     RequestTourPage,
     QtoModalPage,
     ViewImagePage,
+    ImageSliderPage,
     PropertyDetailPage,
     AboutUsPage,
     SearchPage,

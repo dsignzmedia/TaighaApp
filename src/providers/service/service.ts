@@ -34,6 +34,7 @@ public baseUrl : string = "https://toptechrealty.com/api/auth";
   public apiSearchBy: string = this.baseUrl+"/home/search/by/term";
   public apiOption: string = this.baseUrl+"/rmls/listing/filter";
   public apiproperty: string = this.baseUrl+"/rmls/listing";
+  public apipropertyimage: string = this.baseUrl+"/rmls/listing";
   public apipropertyfav: string = this.baseUrl+"/rmls/listing/fav/unfav";
   public apiqto: string = this.baseUrl+"/rmls/request/qto";
   public apimapproperty: string = this.baseUrl+"/rmls/listing/map-infowindow";
@@ -1141,7 +1142,7 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
 
 
   singlepropertyimage(propertyId) {
- return this.http.get(this.apimapproperty+"?id="+propertyId).toPromise();
+ return this.http.get(this.apipropertyimage+"/"+propertyId+"/images"+"?id="+propertyId).toPromise();
     // return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
     //     try {
     //       let httpOptions = {
@@ -1860,7 +1861,7 @@ getcustomer(body) {
         body = body.append('cc_emails', ticket.cc_emails);
         body = body.append('class', ticket.class);
         body = body.append('version', ticket.version);
-        
+
         return this.http.post(this.apiTickets+"/"+ticket.id+"/update", body, httpOptions).toPromise();
       } catch ( e ) {
         console.log(e);

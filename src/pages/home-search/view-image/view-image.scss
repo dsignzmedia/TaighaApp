@@ -21,10 +21,13 @@ ion-header {
         }
 }
 ion-content.viewimage-content {
-    background-color: #ededed !important;
+    background-color: #ffffff !important;
     // ion-slide{
     // 	align-items: flex-end;
     // }
+    .scroll-content{
+      padding: 0!important;
+    }
     ion-slides{
     	ion-slide{
     		img{
@@ -34,7 +37,7 @@ ion-content.viewimage-content {
     }
     ion-grid{
     	figure{
-    		margin: 5px 5px !important;
+    		margin: 0 !important;
     	}
     }
 }
