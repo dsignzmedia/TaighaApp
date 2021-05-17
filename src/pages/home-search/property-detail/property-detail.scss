@@ -231,7 +231,7 @@ ion-slides{
 	.price{
 		font-size: $xxxxlarge-fontsize;
 		font-weight: $bold-font-weight;
-	    margin: 0 0 12px;
+	    margin: 0 0 15px;
 	}
 
         .property-action{
@@ -260,24 +260,25 @@ justify-content: flex-end;
         }
         .property-details{
           display: inline-flex;
-          justify-content: flex-start;
+          justify-content: center;
           margin: 0;
           list-style-type: none;
           padding: 0;
     width: 100%;
           li{
-            margin: 0 23px;
-            display: block;
+            padding: 0 16px 0 16px;
             font-weight: $regular-font-weight;
             font-size: $smallx-fontsize;
             position: relative;
+            display: flex;
+            align-items: center;
             &::before{
             	position: absolute;
             	content: '';
             	width: 1px;
             	height: 35px;
             	background-color: #ccc;
-            	left: -20px;
+            	left: 0;
             	top: 50%;
     transform: translateY(-50%);
             }
@@ -288,13 +289,13 @@ justify-content: flex-end;
               margin-right: 3px;
             }
             &:first-child{
-              margin-left: 0;
+              padding-left: 0;
               &::before{
               	content: unset;
               }
             }
             &:last-child{
-              margin-right: 0;
+              padding-right: 0;
             }
             i{
             @include flexbox;
@@ -303,14 +304,14 @@ justify-content: flex-end;
             vertical-align: middle;
             }
             p{
-            margin: 7px 0;
+              margin: 7px 0px 2px 7px;
+              flex: 0 0 auto;
             }
           }
         }
           .built-status{
           	p{
           		font-size: $smallx-fontsize;
-              margin : 5px 0 0;
           		strong{
 
           		}

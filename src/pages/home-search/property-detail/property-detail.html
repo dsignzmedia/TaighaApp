@@ -67,37 +67,37 @@
         <ion-col col-6 no-padding>
           <p class="price">${{ propertyRmls.PriceCurrentForStatus | number: '2.'}}</p>
         </ion-col>
-        <!-- <ion-col col-3 no-padding>
+        <ion-col col-3 no-padding>
           <p><strong>Built:</strong> {{ propertyRmls.YearBuilt ? propertyRmls.YearBuilt : '0' }}</p>
         </ion-col>
         <ion-col col-3 no-padding>
           <p><strong>Status:</strong> {{ propertyRmls.ListingStatus ? propertyRmls.ListingStatus : '0' }}</p>
-        </ion-col> -->
+        </ion-col>
         <ion-col col-12 no-padding>
     <ul class="property-details">
       <li>
-        <i> <img src="assets/imgs/bed.svg" width="36" height="19"> </i> <p> {{ propertyRmls.Beds ? propertyRmls.Beds : '0' }} bd</p>
+       <img src="assets/imgs/bed.svg" width="34" height="19"><p> {{ propertyRmls.Beds ? propertyRmls.Beds : '0' }} bd</p>
       </li>
       <li>
-        <i> <img src="assets/imgs/bathtube-with-shower.svg" width="20" height="20"> </i> <p> {{ propertyRmls.BathsCustom ? propertyRmls.BathsCustom : '0' }} ba</p>
+       <img src="assets/imgs/bathtube-with-shower.svg" width="24" height="24"><p> {{ propertyRmls.BathsCustom ? propertyRmls.BathsCustom : '0' }} ba</p>
       </li>
       <li>
-        <i> <img src="assets/imgs/triangular-ruler-for-school.svg" width="19" height="19"> </i> <p> {{ propertyRmls.SqFtApproximateTotal ? propertyRmls.SqFtApproximateTotal : '0' }} st</p>
+       <img src="assets/imgs/triangular-ruler-for-school.svg" width="20" height="20"><p> {{ propertyRmls.SqFtApproximateTotal ? propertyRmls.SqFtApproximateTotal : '0' }} st</p>
       </li>
       <li>
-        <i> <img src="assets/imgs/clock.svg" width="20" height="20"> </i> <p> {{ propertyRmls.DaysOnMarketCustom ? propertyRmls.DaysOnMarketCustom : '0' }}</p>
+       <img src="assets/imgs/clock.svg" width="20" height="20"><p> {{ propertyRmls.DaysOnMarketCustom ? propertyRmls.DaysOnMarketCustom : '0' }}</p>
       </li>
     </ul>
         </ion-col>
       </ion-row>
-      <ion-row class="built-status">
+      <!-- <ion-row class="built-status">
         <ion-col col-4 no-padding>
           <p><strong>Built:</strong> {{ propertyRmls.YearBuilt ? propertyRmls.YearBuilt : '0' }}</p>
         </ion-col>
         <ion-col no-padding>
           <p><strong>Status:</strong> {{ propertyRmls.ListingStatus ? propertyRmls.ListingStatus : '0' }}</p>
         </ion-col>
-       </ion-row>
+       </ion-row> -->
       </ion-grid>
 </div>
 <div class="property-map">
