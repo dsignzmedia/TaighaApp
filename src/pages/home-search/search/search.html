@@ -675,26 +675,9 @@
     </div>
       <div id="addInfo">
 <div class='addInfoContent animated-background' style="display: none;">
-<!--           <div  id="toclone" class="ForGuest">
-            <form class="form-inline mb-2 hdr-btn signin-createacc-panel">
-                <p>Please Sign In or Create Account to view more listings.</p>
-                <div class="guestbtnGrp">
-                <a href="javascript:;" class="btn sign__in" data-toggle="modal" data-target="#loginmodal">Sign In</a>
-              <a href="javascript:;" class="btn create__acc" data-toggle="modal" data-target="#siginmodal">Create Account</a>
-              </div>
-            </form>
-          </div> -->
-        <div class="guest-info-panel" *ngIf="userid == '0'">
-          <div class="ForGuest">
-              <p>Please Sign In or Create Account to view more details.</p>
-              <div class="guestbtnGrp">
-                <!-- (click)="gotoreply()"  -->
-                <button ion-button class="btn btn-blue sign__in" (click)="gotosignin()" >Sign In</button>
-                <button ion-button class="btn btn-blue create__acc" (click)="gotocreate()" >Create Account</button>
-              </div>
-          </div>
-        </div>
-      <ion-card  class="map-property"  [ngClass]="{'hide-content' : userid == '0'}" >
+
+
+      <ion-card  class="map-property" >
 
         <ion-card-content>
           <ion-card-title>
