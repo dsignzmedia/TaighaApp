@@ -933,6 +933,11 @@ display: flex;
 		white-space: initial;
 	}
 
+#dynamicdesc{
+	&.desc{
+		line-height: 1.2em;
+	}
+}
 
 
 }

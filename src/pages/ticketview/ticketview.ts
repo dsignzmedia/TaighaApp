@@ -738,18 +738,33 @@ var body = document.body,
     html = document.documentElement;
 var height = Math.max( body.scrollHeight, body.offsetHeight, 
                        html.clientHeight, html.scrollHeight, html.offsetHeight );
-var reduceHeight = height - 477;
-console.log(reduceHeight);
+// var reduceHeight = height - 477;
+var reduceHeight = height - 450;
+
 var $p = $('.full-details .desc');
 var divh = $('.full-details .desc').height();
 console.log($p.outerHeight());
-
- while ($p.outerHeight() > reduceHeight) {
-   $('.full-details .contentarea-acc-panel .desc').css('height',reduceHeight);
-    // $p.text(function (index, text) {
-    //     return text.replace(/\W*\s(\S)*$/, '...');
-    // });
- }
+console.log(reduceHeight);
+  // $('#dynamicdesc').each(function(){
+  //   console.log($(this).height());
+  //   console.log($(this)[0].scrollHeight);
+  //   if($(this).height() <  $(this)[0].scrollHeight){
+  //     $(this).parent().find(".txtcol").show();
+  //     $(this).toggleClass("truncate");
+  //   }
+  // });
+      var el = document.getElementById('dynamicdesc');
+    var wordArray = el.innerHTML.split(' ');
+    while($p.outerHeight() > reduceHeight) {
+        wordArray.pop();
+        el.innerHTML = wordArray.join(' ') + '...';
+      }
+ // while ($p.outerHeight() > reduceHeight) {
+ //   $('.full-details .contentarea-acc-panel .desc').css('height',reduceHeight);
+ //    // $p.text(function (index, text) {
+ //    //     return text.replace(/\W*\s(\S)*$/, '...');
+ //    // });
+ // }
 
 console.log('height');
 console.log(height);
