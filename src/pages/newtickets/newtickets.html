@@ -20,6 +20,7 @@
 	        <ion-col col-12 no-padding  no-line>
 	        	<ion-label>Template</ion-label>
 				<ion-item no-padding no-line class="hasClick" (click)="openSelecttemplate('template')">
+
 					<ion-select class="filter-select" placeholder="Select" [(ngModel)]="TicketTemplate"  (ionChange)="changeTemplate()">
 						<ion-option  *ngFor="let template of templates" value="{{template.id}}">{{template.title}}</ion-option>
 					</ion-select>
@@ -32,6 +33,7 @@
 				<ion-item no-padding no-line>
 					<ion-select class="filter-select" placeholder="Select"  [(ngModel)]="TicketType"  (ionChange)="changeTicketType()">
 						<!-- <ion-option  *ngFor="let types of tickettypes" value="types.id">{{types.type}}</ion-option> -->
+						<ion-label>Select Type</ion-label>
 						<ion-option value="customer">Customer</ion-option>
 						<ion-option value="internal">Internal</ion-option>
 						<ion-option value="partner">Partner</ion-option>
@@ -44,6 +46,7 @@
 	        <ion-col col-12 no-padding  no-line>
 	        	<ion-label>Priority *</ion-label>
 				<ion-item no-padding no-line>
+					<ion-label>Select Priority</ion-label>
 					<ion-select class="filter-select" placeholder="Select"  [(ngModel)]="TicketPriority">
 						<ion-option value="{{ priority.id }}" *ngFor=" let  priority of priorities  ">{{ priority.priority }}</ion-option>
 					</ion-select>
@@ -54,6 +57,7 @@
 	        <ion-col col-12 no-padding  no-line>
 	        	<ion-label>Status *</ion-label>
 				<ion-item no-padding no-line>
+					<ion-label>Select Status</ion-label>
 					<ion-select class="filter-select" placeholder="Select"  [(ngModel)]="TicketStatus">
 						<ion-option value="{{ stat.id }}" *ngFor=" let  stat of status  ">{{ stat.status }}</ion-option>
 					</ion-select>
@@ -126,6 +130,7 @@
 	        <ion-col col-12 no-padding  no-line>
 	        	<ion-label>Class</ion-label>
 				<ion-item no-padding no-line>
+					<ion-label>Select Class</ion-label>
 					<ion-select class="filter-select" placeholder="Class"   [(ngModel)]="TicketClass">
 						<ion-option value="Bug">Bug</ion-option>
 						<ion-option value="Enhancement">Enhancement</ion-option>

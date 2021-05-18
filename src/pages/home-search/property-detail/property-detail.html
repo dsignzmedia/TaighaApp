@@ -120,8 +120,18 @@
   </ion-card-content>
 </ion-card>
 </div>
+        <div class="guest-info-panel" *ngIf="userid == ''">
+          <div id="toclone2" class="ForGuest listview-info">
+              <p>Please Sign In or Create Account to view more details.</p>
+              <div class="guestbtnGrp">
+                <!-- (click)="gotoreply()"  -->
+                <button ion-button class="btn btn-blue sign__in" (click)="gotosignin()" >Sign In</button>
+                <button ion-button class="btn btn-blue create__acc" (click)="gotocreate()" >Create Account</button>
+              </div>
+          </div>
+        </div>
+<div class="information"  [ngClass]="{'hide-content-all' : userid == ''}">
 
-<div class="information">
 <ion-card >
   <ion-card-header (click)="generalButtons()" [ngClass]="this.generalClicked === true?'':'closed'" >
     <h3>General Information</h3>
@@ -848,7 +858,19 @@
 </div>
 <div class="similar-properties homesearch">
 	<h3>Similar Properties</h3>
-  <div class="card-panel">
+
+        <div class="guest-info-panel" *ngIf="userid == ''">
+          <div id="toclone2" class="ForGuest listview-info">
+              <p>Please Sign In or Create Account to view more details.</p>
+              <div class="guestbtnGrp">
+                <!-- (click)="gotoreply()"  -->
+                <button ion-button class="btn btn-blue sign__in" (click)="gotosignin()" >Sign In</button>
+                <button ion-button class="btn btn-blue create__acc" (click)="gotocreate()" >Create Account</button>
+              </div>
+          </div>
+        </div>
+
+  <div class="card-panel"  [ngClass]="{'hide-content-all' : userid == ''}">
       <ion-card *ngFor="let property of propertySimilar">
         <figure class="main-card-img">
           <span *ngIf=" property.ListingStatus != 'Active'" class="badge">{{property.ListingStatus}}</span>

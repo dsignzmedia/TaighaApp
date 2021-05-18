@@ -6,6 +6,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { PropertyDetailPage } from '../property-detail/property-detail';
 import { SearchModalPage } from '../search-modal/search-modal';
 import { SigninPage } from '../../../pages/signin/signin';
+import { SignupPage } from '../../../pages/signup/signup';
 import { QtoModalPage } from '../qto-modal/qto-modal';
 import { MapInfoPage } from '../map-info/map-info';
 import { FilterPage } from '../filter/filter';
@@ -1440,7 +1441,7 @@ searchByValue(){
            searchTearm: this.searchArray,
            requestType: 'map',
          }
-
+// $("#toclone2").clone().insertAfter(".card-panel ion-card:nth-child(4)");
 // storage property
   this.storage.getStorage('fromsavedsearch').then((val) => {
          console.log(val);
@@ -1617,7 +1618,10 @@ this.valcombineproperty = this.valpCatfinal+this.valpTypefinal;
    }
 
    doInfinite(infiniteScroll) {
-     console.log('1593');
+     console.log(this.userid);
+     if (this.userid != 0) {
+       // code...
+     }
      try {
        if(this.currentPage <= this.totalPages)
        {
@@ -1883,6 +1887,83 @@ goToMap(){
   this.showSpinner = false;
 //  this.loadMap();
 
+}
+gotosignin(){
+  let getsigninModal = this.modalCtrl.create(SigninPage, {asmodal : 'yes'});
+  getsigninModal.present();
+  getsigninModal.onDidDismiss(data=>{
+    try {
+       this.service.profile().then( (response : any) => {
+         console.log(response);
+
+                  if (response) {
+         var user = response.data;
+         this.name = user.first_name+" "+user.last_name;
+         this.email = user.email;
+         this.avatar = user.avatar;
+         $('.removeit').css('display','flex');
+         $('.signin-hs').css('display','none');
+         $('.signout-hs').css('display','flex');
+// document.getElementById('dynamicprofile').innerHTML ="<ion-row class='row'><ion-col class='col' no-padding=''><i><img width='165' src='"+this.avatar+"'></i></ion-col><ion-col class='col' col-9=''><h3 class='profile-title'>"+this.name+"</h3><h4 class='profile-info'>"+this.email+"</h4></ion-col></ion-row>";
+         console.log("email_verified_status" + user.email_verified_status);
+    this.storage.getStorage('customerstorage').then((customerstorage: any) => {
+       if(customerstorage) {
+            console.log(customerstorage);
+            document.getElementById('dynamicprofile').innerHTML ="<ion-row class='row'><ion-col class='col' no-padding=''><i><img width='165' src='"+this.avatar+"'></i></ion-col><ion-col class='col' col-9=''><h3 class='profile-title'>"+customerstorage.name+"</h3><h4 class='profile-info'>"+customerstorage.email+"</h4></ion-col></ion-row>";
+        }
+     });
+         }else{
+           $('.removeit').css('display','none');
+           $('.signin-hs').css('display','flex');
+           $('.signout-hs').css('display','none');
+document.getElementById('dynamicprofile').innerHTML ="";
+         }
+
+       }).catch( error => {
+           console.log(error);
+       })
+     } catch(e) {
+          this.service.serverError();
+      }
+})
+}
+gotocreate(){
+  let getsignupModal = this.modalCtrl.create(SignupPage, {asmodal : 'yes'});
+  getsignupModal.present();
+  getsignupModal.onDidDismiss(data=>{
+    try {
+       this.service.profile().then( (response : any) => {
+         console.log(response);
+
+                  if (response) {
+         var user = response.data;
+         this.name = user.first_name+" "+user.last_name;
+         this.email = user.email;
+         this.avatar = user.avatar;
+         $('.removeit').css('display','flex');
+         $('.signin-hs').css('display','none');
+         $('.signout-hs').css('display','flex');
+         console.log("email_verified_status" + user.email_verified_status);
+    this.storage.getStorage('customerstorage').then((customerstorage: any) => {
+       if(customerstorage) {
+            console.log(customerstorage);
+            document.getElementById('dynamicprofile').innerHTML ="<ion-row class='row'><ion-col class='col' no-padding=''><i><img width='165' src='"+this.avatar+"'></i></ion-col><ion-col class='col' col-9=''><h3 class='profile-title'>"+customerstorage.name+"</h3><h4 class='profile-info'>"+customerstorage.email+"</h4></ion-col></ion-row>";
+        }
+     });
+         }else{
+           $('.removeit').css('display','none');
+           $('.signin-hs').css('display','flex');
+           $('.signout-hs').css('display','none');
+document.getElementById('dynamicprofile').innerHTML ="";
+         }
+
+       }).catch( error => {
+           console.log(error);
+       })
+     } catch(e) {
+          this.service.serverError();
+      }
+})
 }
  getMapProperties() {
    try {
@@ -2223,6 +2304,7 @@ getPropertyImage(primaryid, idz,  country, state, zipcode, slug, PriceCurrentFor
          this.mapZipCode=ZipCode;
          this.mapfavcount=favcount;
    $(".map-property").css("background-image", "url()");
+   console.log(primaryid);
   this.service.singlepropertyimage(primaryid).then( (response : any) => {
     console.log(response);
     this.mappropertyRmlsDaysRe = response.data.timeago;

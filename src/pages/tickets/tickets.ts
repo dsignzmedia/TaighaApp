@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ModalController, PopoverController
 import { ServiceProvider } from '../../providers/service/service';
 import { FilterticketsPage } from '../../pages/filtertickets/filtertickets';
 import { NewticketsPage } from '../../pages/newtickets/newtickets';
+import { CustomerNewticketPage } from '../../pages/customer-newticket/customer-newticket';
 import { TicketviewPage } from '../../pages/ticketview/ticketview';
 import { PopoverpagePage } from '../../pages/popoverpage/popoverpage';
 import { InAppBrowser,InAppBrowserOptions  } from '@ionic-native/in-app-browser/ngx';
@@ -37,7 +38,7 @@ import { FCM } from '@ionic-native/fcm';
   ]
 })
 export class TicketsPage {
-
+  userid: any;
  public showSearch : boolean = false;
  public currentPage = 1;
  public pageLimit = 15;
@@ -56,6 +57,8 @@ export class TicketsPage {
  public filtersCopy: any = "";
  public isFilterApplied: boolean = false;
  public selectedFilters: any = { subject : "", group : [], staffs : [], status : ["open", "in_process", "completed"], priorities : [], updated_by : [], updated_at : '' };
+  IsStaffCheck: any;
+  public IsStaff : boolean = false;
 
  constructor(	private iab: InAppBrowser, public navCtrl: NavController, 
  	public navParams: NavParams,
@@ -80,6 +83,19 @@ export class TicketsPage {
        });
    });
 // this.getticketcreate();
+
+    this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
+      console.log(auth_user_token)
+        if(auth_user_token) {
+      this.IsStaffCheck = auth_user_token.is_staff;
+      if (this.IsStaffCheck == 0) {
+        this.IsStaff = false;
+      }else{
+        this.IsStaff = true;
+      }
+        }
+          console.log(this.IsStaff);
+    });
  }
 
   //  getticketcreate() {
@@ -312,6 +328,11 @@ openfilterModal(characterNum) {
 createnewTickets(){
 // this.navCtrl.push(NewticketsPage); 
     let newticketmodal = this.modalCtrl.create(NewticketsPage);
+     newticketmodal.present();
+}
+createnewTicketsCustomer(){
+  console.log('customer ticket');
+      let newticketmodal = this.modalCtrl.create(CustomerNewticketPage);
      newticketmodal.present();
 }
 ticketview(ticketId, ticketsub){

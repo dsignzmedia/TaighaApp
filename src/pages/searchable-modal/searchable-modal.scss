@@ -1,4 +1,10 @@
 page-searchable-modal {
+	.title{
+		.title-head{
+			font-size: 16px;
+    text-transform: capitalize;
+		}
+	}
 .back_icon{
 	background-image: url(../assets/imgs/close-white.svg);
 	&.right{

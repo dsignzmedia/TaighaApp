@@ -384,3 +384,35 @@ margin-right: 3px;
 .gm-style-iw{
 	max-width: 290px !important;
 }
+.ForGuest {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0px 10px !important;
+    margin: 10px 0;
+    background-color: #3366CC;
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.19), 0 3px 6px rgba(0, 0, 0, 0.23);
+    z-index: 2;
+    .guestbtnGrp{
+      .btn{
+            height: 35px;
+    font-size: 14px;
+    font-weight: 600;
+    width: auto;
+    line-height: 21px;
+    border-radius: 3px;
+      }
+      .sign__in {
+      background-color: transparent;
+      border: 1px solid #FFFFFF;
+      color: #FFFFFF;
+      margin: 0 5px;
+      }
+      .create__acc {
+        background-color: #FFFFFF;
+        color: #3366CC;
+        border: 1px solid #FFFFFF;
+      }
+    }
+
+}

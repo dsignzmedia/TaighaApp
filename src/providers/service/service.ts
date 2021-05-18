@@ -1142,7 +1142,8 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
 
 
   singlepropertyimage(propertyId) {
- return this.http.get(this.apipropertyimage+"/"+propertyId+"/images"+"?id="+propertyId).toPromise();
+ // return this.http.get(this.apipropertyimage+"/"+propertyId+"/images"+"?id="+propertyId).toPromise();
+ return this.http.get(this.apimapproperty+"?id="+propertyId).toPromise();
     // return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
     //     try {
     //       let httpOptions = {

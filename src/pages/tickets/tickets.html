@@ -7,7 +7,8 @@
             </div>
                 <p class="title"> <img height="25" src="assets/imgs/icon-tickets-white.svg" width="25"> Tickets ( {{totalRecords}} )</p>
             <div class="nav-right">
-              <span class="create-icon" (click)="createnewTickets()"><i><img src="assets/imgs/plus-dash-w.svg" width="20" height="20"></i></span>
+              <span class="create-icon" *ngIf="IsStaff" (click)="createnewTickets()"><i><img src="assets/imgs/plus-dash-w.svg" width="20" height="20"></i></span>
+              <span class="create-icon" *ngIf="!IsStaff" (click)="createnewTicketsCustomer()"><i><img src="assets/imgs/plus-dash-w.svg" width="20" height="20"></i></span>
                 <img class="advfiltericon"   (click)="openfilterModal({charNum: 0})" src="assets/imgs/filter-filled-white.svg" width="20" height="20">
             </div>
         </div>

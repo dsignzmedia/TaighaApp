@@ -1,0 +1,247 @@
+page-customer-newticket {
+.no-right .center {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    .back_icon {
+        width: 20px;
+        height: 20px;
+        background-image: url(../assets/imgs/backarrow-white.svg);
+        background-size: contain;
+        margin-right: 10px;
+    }
+    .title{
+        text-transform: capitalize;
+        color: #000;
+        font-weight: bold;
+        background-color: transparent !important;
+        font-size: 16px;
+        padding: 0 20px 0px 10px;
+        text-align: left;
+        top: auto !important;
+        span{
+            width: 100%;
+            display: block;
+        }
+        .title-head{
+            font-size: 16px;
+            text-transform: capitalize;
+            letter-spacing: 1px;
+            text-align: center;
+            color: #ffffff;
+        }
+    }
+}
+ion-content{
+	&.content{
+	background-color: #ffffff;
+	font-family: 'Roboto';
+    .upload-btn-wrapper {
+.u-btn {
+    border: 0px solid #3062cf; 
+    color: white;
+    background-color: #3062cf;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: bold;
+     height: auto; 
+    width: auto; 
+    display: flex;
+    align-items: center;
+    img{
+        margin-right: 5px;
+    }
+}
+}
+.attachment-panel-preview-group{
+    .uploaded-images{
+            flex-wrap: initial;
+            padding: 10px;
+    background-color: #f8f8f8;
+    }
+} 
+.select-disabled, .item-select-disabled ion-label{
+    opacity: 1;
+}
+	}
+	ion-grid{
+		    margin-bottom: 60px;
+		ion-row{
+			ion-col{
+				ion-label{
+                    font-family: 'Roboto';
+                    font-weight: 500;
+				}
+				ion-item{
+					.item-inner {
+					    border-bottom: 0px solid #c8c7cc !important;
+					}
+                    &.hasClick{
+                        position: relative;
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            background-color: transparent;
+                            width: 100%;
+                            height: 100%;
+                            z-index: 1;
+                        }
+                    }
+				}
+				ion-select{
+					border: 1px solid #D7D7D7;
+					border-radius: 4px;
+					max-width: 100%;
+					width: 100%;
+					padding: 6px 8px 6px 16px !important;
+.select-icon .select-icon-inner {
+    top: 50%;
+    margin-top: -3px ​!important;
+    position: absolute;
+    border: 0 !important;
+    width: 20px !important;
+    height: 20px !important;
+    background-image: url(../assets/imgs/down-arrow-grey.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    left: -20px !important;
+}
+				}
+				label{
+					margin: 11px 8px 11px 0;
+				}
+				ion-input{
+					    padding: 0px 8px 0px 17px !important;
+					    border: 1px solid #D7D7D7;
+    border-radius: 4px;
+    max-width: 100%;
+    width: 100%;
+    height: 35px;
+    input{
+    	margin: 8px 8px 6px 0px !important;
+    }
+				}
+			}
+		}
+	}
+}
+	// .back-button {
+	// 	display: inline-block;
+
+	// 	.back-button-text {
+	// 		display: none;
+	// 	}
+
+	// 	.back-button-icon {
+	// 		width: 20px;
+	// 		height: 20px;
+	// 		background-image: url(../assets/icon/right-arrow-white.svg);
+	// 		margin-right: 10px;
+	// 		margin: 0;
+	// 		background-size: 100%;
+	// 		background-position: center;
+	// 		background-repeat: no-repeat;
+	// 		display: inline-block;
+
+	// 		&::before {
+	// 			display: none;
+	// 		}
+
+	// 	}
+
+	// }
+
+}
+.form-panel{
+padding: 10px;
+background-color: color($colors, light);
+box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.form-field-label{
+		color: color($colors, primary);
+        margin-top: 0;
+        margin-bottom: 7px;
+		font-size: 14px;
+		margin-right: 0;
+	}
+	.form-field-input{
+		border: 1px solid color($colors, gray);
+		color: color($colors, gray);
+		font-weight: $bold-font-weight;
+		font-size: 14px;
+	}
+	.form-field-select{
+        border: 1px solid color($colors, gray);
+		color: color($colors, gray);
+		font-weight: $bold-font-weight;
+		font-size: 14px;
+		max-width: 100%;
+		.select-icon .select-icon-inner{
+			color: color($colors, gray);
+		}
+	}
+	.filter-btn-row{
+		margin-top: 50px;
+	}
+.ck.ck-editor__main>.ck-editor__editable {
+    min-height: 160px;
+}
+
+
+.sticky-btn {
+    padding-bottom: 0px;
+    position: sticky;
+    bottom: 0;
+    position: fixed;
+    bottom: 0;
+    background-color: #EFEFEF;
+    z-index: 9999;
+    height: 65px;
+    left: 0;
+    right: 0;
+            @include flexbox;
+            @include align-items($value: center);
+            @include justify-content($value: space-around);
+  button {
+    &.btn{
+    	    font-family: 'Roboto';
+      background-color: #3366CC;
+      color: #fff;
+      font-size: 14px;
+      font-weight: $medium-font-weight;
+      height: 45px;
+      // line-height: 30px;
+      width: 250px;
+      margin: 0 8px;
+      text-transform: initial;
+              @include flexbox;
+        @include justify-content($value: center);
+        @include align-items($value: center);
+            vertical-align: middle;
+      p{
+        margin: 0;
+        line-height: initial;
+        @include flexbox;
+        @include justify-content($value: center);
+        @include align-items($value: center);
+        i{
+            @include flexbox;
+            @include align-items($value: center);
+          margin-right: 8px;
+        }
+
+      }
+    }
+    &.btn-curve{
+      border-radius: 40px;
+    }
+    &.clr-btn{
+    	color: #3366CC;
+    	width: 83px;
+    	background-color: #fff;
+    }
+  }
+}

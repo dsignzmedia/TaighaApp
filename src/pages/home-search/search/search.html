@@ -164,15 +164,26 @@
 </div>
 </div>
     <div class="card-panel">
-      <ion-card *ngFor="let property of properties">
-        <figure class="main-card-img">
+
+      <ion-card *ngFor="let property of properties; let i = index">
+        <div class="guest-info-panel" *ngIf="userid == '0' && i == 4">
+          <div id="toclone2" class="ForGuest listview-info">
+              <p>Please Sign In or Create Account to view more listings.</p>
+              <div class="guestbtnGrp">
+                <!-- (click)="gotoreply()"  -->
+                <button ion-button class="btn btn-blue sign__in" (click)="gotosignin()" >Sign In</button>
+                <button ion-button class="btn btn-blue create__acc" (click)="gotocreate()" >Create Account</button>
+              </div>
+          </div>
+        </div>
+        <figure class="main-card-img"  [ngClass]="{'hide-content-all' : userid == '0' && i >= 4}">
           <span *ngIf=" property.ListingStatus != 'Active'" class="badge">{{property.ListingStatus}}</span>
           <span *ngIf="property.is_open_house == '1'" class="badge">Open {{property.open_house_date}}</span>
           <span *ngIf="property.is_virtual_tour == '1'" class="badge tour">Virtual Tour <img src="assets/imgs/360-degrees-white.svg" width="58" height="21"></span>
           <img (click)="viewProperty(property.ListingID)" src="{{ property.rmls_image }}"/>
           <span *ngIf="property.shared_by_name" class="badge underbadge">Recommended by {{property.shared_by_name}} {{property.shared_by_date}}</span>
         </figure>
-        <ion-card-content>
+        <ion-card-content [ngClass]="{'hide-content-all' : userid == '0' && i >= 4}">
           <ion-card-title>
             <span class="price" (click)="viewProperty(property.ListingID)">${{ property.PriceCurrentForStatus | number: '2.'}}</span>
             <ul>
@@ -288,7 +299,8 @@
   </div>
 </div>
 </div>
-        <ion-infinite-scroll threshold="200px" (ionInfinite)="doInfinite($event)" *ngIf="currentPage <= totalPages">
+<!--  *ngIf="userid == '0'" -->
+        <ion-infinite-scroll threshold="200px" (ionInfinite)="doInfinite($event)" *ngIf="currentPage <= totalPages && userid != '0'">
           <ion-infinite-scroll-content></ion-infinite-scroll-content>
         </ion-infinite-scroll>
       </div>
@@ -469,8 +481,18 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-      <ion-card  *ngFor="let property of properties">
-        <div class="listpanel">
+      <ion-card  *ngFor="let property of properties; let i = index">
+        <div class="guest-info-panel" *ngIf="userid == '0' && i == 4">
+          <div id="toclone2" class="ForGuest listview-info">
+              <p>Please Sign In or Create Account to view more listings.</p>
+              <div class="guestbtnGrp">
+                <!-- (click)="gotoreply()"  -->
+                <button ion-button class="btn btn-blue sign__in" (click)="gotosignin()" >Sign In</button>
+                <button ion-button class="btn btn-blue create__acc" (click)="gotocreate()" >Create Account</button>
+              </div>
+          </div>
+        </div>
+        <div class="listpanel"  [ngClass]="{'hide-content-all' : userid == '0' && i >= 4}">
           <ion-grid no-padding class="property-info">
             <ion-row>
               <ion-col col-12 no-padding class="d-flex">
@@ -511,7 +533,7 @@
           </ion-row>
         </ion-grid>
       </div>
-      <ul class="property-details" >
+      <ul class="property-details"  [ngClass]="{'hide-content-all' : userid == '0' && i >= 4}">
         <li>
           <img src="assets/imgs/bed.svg"> <strong>{{ property.Beds }}</strong> bed
         </li>
@@ -599,7 +621,7 @@
   </div>
 </div>
 </div>
-    <ion-infinite-scroll threshold="200px" (ionInfinite)="doInfinite($event)" *ngIf="currentPage <= totalPages">
+    <ion-infinite-scroll threshold="200px" (ionInfinite)="doInfinite($event)" *ngIf="currentPage <= totalPages && userid != '0'">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
 </div>
@@ -662,7 +684,18 @@
               </div>
             </form>
           </div> -->
+        <div class="guest-info-panel" *ngIf="userid == '0'">
+          <div class="ForGuest">
+              <p>Please Sign In or Create Account to view more details.</p>
+              <div class="guestbtnGrp">
+                <!-- (click)="gotoreply()"  -->
+                <button ion-button class="btn btn-blue sign__in" (click)="gotosignin()" >Sign In</button>
+                <button ion-button class="btn btn-blue create__acc" (click)="gotocreate()" >Create Account</button>
+              </div>
+          </div>
+        </div>
       <ion-card  class="map-property"  [ngClass]="{'hide-content' : userid == '0'}" >
+
         <ion-card-content>
           <ion-card-title>
            <!--  <i class="mapclose" (click)= "mapClosePopover()"><img src="assets/imgs/close-blue.svg"></i> -->
