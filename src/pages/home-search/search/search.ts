@@ -53,6 +53,8 @@ mappropertyRmlsDaysRe: any;
   checkprpty: boolean = true;
   propertysingleres: any;
   propertysingleimg: any;
+  propertysingleopenhouse : any;
+  propertysinglevirtualtour : any;
   propertyimg: any;
   propertyRmlsDays:any;
   public propertyRmls : any = [];
@@ -67,6 +69,7 @@ mappropertyRmlsDaysRe: any;
   selectedaddressarray: any = [];
   favfor :any = [];
   id: any;
+  mapohlabel : string = '';
   selectlabel: string = 'None';
   selectallchecked : boolean = false;
   selectedlistarraycomma :any = [];
@@ -410,7 +413,8 @@ this.socialSharing.shareViaEmail('https://toptechrealty.com/'+County+'/'+State+'
        var bounds = new google.maps.LatLngBounds();
        const icon = {
          url: 'assets/imgs/pricepin.svg',
-         scaledSize: new google.maps.Size(40, 60),
+         scaledSize: new google.maps.Size(48, 60),
+         origin: new google.maps.Point(0,-3),
        };
        let mapOptions = {
          center: latLng,
@@ -452,18 +456,23 @@ this.socialSharing.shareViaEmail('https://toptechrealty.com/'+County+'/'+State+'
        }
        for(i = 0; i < this.propertiesmap.length; i++)
        {
+        var lablefont = '12px';
+        if(this.propertiesmap[i]["is_open_house"] == 1){
+           this.mapohlabel = 'OH:';
+           var lablefont = '10px';
+        }else{this.mapohlabel = '';}
          var contentString = "";
          var Latlng = new google.maps.LatLng(this.propertiesmap[i].lat,this.propertiesmap[i].lon);
-         var saved_label = String(kFormatter(this.propertiesmap[i]["PriceCurrentForStatus"]));
+         var saved_label = String(this.mapohlabel+kFormatter(this.propertiesmap[i]["PriceCurrentForStatus"]));
          var marker = new google.maps.Marker({
            position: new google.maps.LatLng(this.propertiesmap[i]["Latitude"], this.propertiesmap[i]["Longitude"]),
            icon: icon ,
            label: {
-             color: '#fff',
-             fontSize: '12px',
-             fontWeight: 'bold',
-             text: saved_label,
-           },
+            color: '#fff',
+            fontSize: lablefont,
+            fontWeight: 'bold',
+            text: saved_label,
+          },
            map: this.map
          });
          bounds.extend(new google.maps.LatLng(this.propertiesmap[i]["Latitude"], this.propertiesmap[i]["Longitude"]));
@@ -1999,7 +2008,8 @@ document.getElementById('dynamicprofile').innerHTML ="";
        var bounds = new google.maps.LatLngBounds();
        const icon = {
          url: 'assets/imgs/pricepin.svg',
-         scaledSize: new google.maps.Size(40, 60),
+         scaledSize: new google.maps.Size(48, 60),
+         origin: new google.maps.Point(0,-3),
        };
        let mapOptions = {
          center: latLng,
@@ -2041,18 +2051,23 @@ document.getElementById('dynamicprofile').innerHTML ="";
        }
        for(i = 0; i < this.propertiesmap.length; i++)
        {
+        var lablefont = '12px';
+        if(this.propertiesmap[i]["is_open_house"] == 1){
+           this.mapohlabel = 'OH:';
+           var lablefont = '10px';
+        }else{this.mapohlabel = '';}
          var contentString = "";
          var Latlng = new google.maps.LatLng(this.propertiesmap[i].lat,this.propertiesmap[i].lon);
-         var saved_label = String(kFormatter(this.propertiesmap[i]["PriceCurrentForStatus"]));
+         var saved_label = String(this.mapohlabel+kFormatter(this.propertiesmap[i]["PriceCurrentForStatus"]));
          var marker = new google.maps.Marker({
            position: new google.maps.LatLng(this.propertiesmap[i]["Latitude"], this.propertiesmap[i]["Longitude"]),
            icon: icon ,
            label: {
-             color: '#fff',
-             fontSize: '12px',
-             fontWeight: 'bold',
-             text: saved_label,
-           },
+            color: '#fff',
+            fontSize: lablefont,
+            fontWeight: 'bold',
+            text: saved_label,
+          },
            map: this.map
          });
          bounds.extend(new google.maps.LatLng(this.propertiesmap[i]["Latitude"], this.propertiesmap[i]["Longitude"]));
@@ -2145,9 +2160,11 @@ console.log(this.userid);
        this.totalRecordsmap = response.totalRecords;
        let latLng = new google.maps.LatLng(this.propertiesmap[0]["Latitude"],this.propertiesmap[0]["Longitude"]);
        var bounds = new google.maps.LatLngBounds();
+       console.log('is_open_house');
        const icon = {
          url: 'assets/imgs/pricepin.svg',
-         scaledSize: new google.maps.Size(40, 60),
+         scaledSize: new google.maps.Size(48, 60),
+         origin: new google.maps.Point(0,-3),
        };
        let mapOptions = {
          center: latLng,
@@ -2191,17 +2208,22 @@ console.log(this.userid);
        }
        for(i = 0; i < this.propertiesmap.length; i++)
        {
+        var lablefont = '12px';
+        if(this.propertiesmap[i]["is_open_house"] == 1){
+            this.mapohlabel = 'OH:';
+            var lablefont = '10px';
+        }else{this.mapohlabel = '';}
          var contentString = "";
          var Latlng = new google.maps.LatLng(this.propertiesmap[i].lat,this.propertiesmap[i].lon);
         // var saved_label = String(this.propertiesmap[i]["id"]);
-         var saved_label = String(kFormatter(this.propertiesmap[i]["PriceCurrentForStatus"]));
+         var saved_label = String(this.mapohlabel+kFormatter(this.propertiesmap[i]["PriceCurrentForStatus"]));
          var marker = new google.maps.Marker({
            position: new google.maps.LatLng(this.propertiesmap[i]["Latitude"], this.propertiesmap[i]["Longitude"]),
            id: this.propertiesmap[i].ListingID+"id",
            icon: icon ,
            label: {
              color: '#fff',
-             fontSize: '12px',
+             fontSize: lablefont,
              fontWeight: 'bold',
              text: saved_label,
            },
@@ -2306,10 +2328,13 @@ getPropertyImage(primaryid, idz,  country, state, zipcode, slug, PriceCurrentFor
    $(".map-property").css("background-image", "url()");
    console.log(primaryid);
   this.service.singlepropertyimage(primaryid).then( (response : any) => {
+    console.log('click on label');
     console.log(response);
     this.mappropertyRmlsDaysRe = response.data.timeago;
        this.hidemapimage = 'show';
        this.propertysingleimg = response.data.image.image;
+       this.propertysingleopenhouse = response.data.openhouse_date;
+       this.propertysinglevirtualtour = response.data.virtualtour;
        $(".map-property").css("background-image", "url(" + this.propertysingleimg + ")");
          this.mappropertyRmlsDaysRe = response.data.timeago;
        }).catch( error => {

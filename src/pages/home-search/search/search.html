@@ -678,7 +678,8 @@
 
 
       <ion-card  class="map-property" >
-
+        <span *ngIf="propertysingleopenhouse != null" class="badge">Open {{propertysingleopenhouse}}</span>
+        <span *ngIf="propertysinglevirtualtour != null" class="badge hometour">Virtual Tour <img src="assets/imgs/360-degrees-white.svg" width="58" height="21"></span>
         <ion-card-content>
           <ion-card-title>
            <!--  <i class="mapclose" (click)= "mapClosePopover()"><img src="assets/imgs/close-blue.svg"></i> -->
