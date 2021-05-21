@@ -94,9 +94,20 @@
           <p  *ngIf="!firstmail.activity_checked" class="list-title"><span class="body-message">{{ ticket.stripped_body }}</span></p>
           <p  *ngIf="firstmail.activity_checked" class="list-title"><span class="body-message"><{{ firstmail.sent_by_email }}></span></p>
           </div>
+
         </div>
         <div  class="full-details">
           <div *ngIf="firstmail.activity_checked" class="contentarea-acc-panel">
+          <div *ngFor=" let notify of notifyuser; let firstItem = first;" >
+            <div class="notify" *ngIf="firstItem" (click)="countnotify(notify.activity)" (click)="toggleGroup1(notify)">
+               <span  *ngIf="!notify.id" >
+                (People were notified)
+               </span> 
+               <span  *ngIf="notify.id" >
+                (People were notified - {{notify.activity}})
+               </span>
+            </div> 
+          </div>
               <div class="desc" [innerHTML]=" ticket.body "></div>
               <div class="attachment-panel-group" *ngIf="ticket.email_attachments.length > 0">
                   <div *ngFor=" let attachment of ticket.email_attachments ">
@@ -106,7 +117,7 @@
           </div>
         </div>
     </ion-item>
-      <ion-item no-lines no-padding [ngClass]="{active: emailMessage.activity_checked }"  *ngFor="let emailMessage of slicedFirstLastTicket">
+      <ion-item no-lines no-padding [ngClass]="{active: emailMessage.activity_checked }"  *ngFor="let emailMessage of slicedFirstLastTicket; let i = index;">
         <div class="list-details">
           <div class="thumbnail-panel">
      <ion-thumbnail slot="start">
@@ -124,6 +135,16 @@
         </div>
         <div  class="full-details">
           <div *ngIf="emailMessage.activity_checked" class="contentarea-acc-panel">
+          <div *ngFor=" let notify of notifyuser; let ii = index;" >
+            <div *ngIf="notify.id == emailMessage.id" class="notify" (click)="countnotify(notify.activity)" (click)="toggleGroup(notify)">
+               <span  *ngIf="!notify.checked" >
+                (People were notified)
+               </span> 
+               <span  *ngIf="notify.checked" >
+                (People were notified - {{notify.activity}})
+               </span>
+            </div> 
+          </div>
               <div class="desc" [innerHTML]=" emailMessage.body "></div>
               <div class="attachment-panel-group" *ngIf="emailMessage.email_attachments.length > 0">
                   <div *ngFor=" let attachment of emailMessage.email_attachments ">
@@ -156,6 +177,16 @@
         </div>
         <div  class="full-details">
           <div *ngIf="firstmail.activity_checked" class="contentarea-acc-panel">
+          <div *ngFor=" let notify of notifyuser; let ii = index;" >
+            <div *ngIf="notify.id == ticket.id" class="notify" (click)="countnotify(notify.activity)" (click)="toggleGroup(notify)">
+               <span  *ngIf="!notify.checked" >
+                (People were notified)
+               </span> 
+               <span  *ngIf="notify.checked" >
+                (People were notified - {{notify.activity}})
+               </span>
+            </div> 
+          </div>
               <div class="desc" [innerHTML]=" ticket.body "></div>
               <div class="attachment-panel-group" *ngIf="ticket.email_attachments.length > 0">
                   <div *ngFor=" let attachment of ticket.email_attachments ">
@@ -190,6 +221,16 @@
         </div>
         <div  class="full-details">
           <div *ngIf="togglelast" class="contentarea-acc-panel">
+          <div *ngFor=" let notify of notifyuser; let ii = index;" >
+            <div *ngIf="notify.id == lastmail.id" class="notify" (click)="countnotify(notify.activity)" (click)="toggleGroup(notify)">
+               <span  *ngIf="!notify.checked" >
+                (People were notified)
+               </span> 
+               <span  *ngIf="notify.checked" >
+                (People were notified - {{notify.activity}})
+               </span>
+            </div> 
+          </div>
               <div class="desc" [innerHTML]=" lastmail.body "></div>
               <div class="attachment-panel-group" *ngIf="lastmail.email_attachments.length > 0">
                   <div *ngFor=" let attachment of lastmail.email_attachments ">

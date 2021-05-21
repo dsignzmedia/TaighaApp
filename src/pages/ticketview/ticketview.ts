@@ -28,6 +28,8 @@ export class TicketviewPage {
   @ViewChild('fileInput') inputEl: ElementRef;
   @ViewChild(Content) content: Content;
 
+public notifyuser : any = "";
+public accessuser: any ="";
 
 public shownavbar: boolean = true;
   public toggleUpdateFields: boolean = false;
@@ -152,9 +154,21 @@ public GotTicketVersion : any = "";
           id:['']
         })
     this.replyticket.patchValue({ id : this.ticketId })
-
+this.getAccess();
   }
+   getAccess() {
 
+   try {
+
+     this.service.hasAccess(this.ticketId, this.ticket.assigned_to_staff).then( (response : any) => {
+       console.log( response );
+     }).catch( error => {
+         console.log(error);
+     })
+   } catch(e) {
+        this.service.serverError();
+    }
+ }
   ionViewDidLoad() {
     console.log('ionViewDidLoad TicketviewPage');
   }
@@ -307,9 +321,10 @@ this.iab.create(event.target.href+"?token=dHJhbnomob", "_system", "beforeload=ye
    this.properties = [];
    this.priorities = [];
    this.customer = "";
-   this.getTicket3();
+   // this.getTicket3();
    this.getTicket();
    this.getTicket2();
+ //  this.getticketold();
  }
 
  getTicket() {
@@ -321,20 +336,15 @@ this.iab.create(event.target.href+"?token=dHJhbnomob", "_system", "beforeload=ye
        this.ticketDataOption = response.replydata;
        this.ticketData = response.data;
        this.ticket = response.data.ticket;
-       // id, fname, lname, phone, num
-    //   this.checkMsg(this.ticket.customer.id, this.ticket.customer.first_name, this.ticket.customer.last_name, this.ticket.customer.phone_number_stripped, this.ticket.customer.phone_number);
        this.ticketHistory = response.data.ticket.ticket_histories;
        let l=this.ticketHistory[this.ticketHistory.length-1];  
-  this.lastmail = l;
-  // console.log("this.lastmail");
-  // console.log(this.lastmail);
+       this.lastmail = l;
        this.properties = response.data.properties;
        this.priorities = response.data.priorities;
        this.groups = response.replydata.groups;
        this.status = response.replydata.status;
        this.customer = this.ticket.customer
        this.updateProgress(this.ticket.checklist_count_percentage);
-      // console.log(this.ticket.checklist_count_percentage);
        this.property_id = this.ticket.property_id;
        this.priority = this.ticket.priority;
        this.body = response.data.signature;
@@ -360,6 +370,8 @@ this.iab.create(event.target.href+"?token=dHJhbnomob", "_system", "beforeload=ye
      this.service.ticket2(this.ticketId).then( (response : any) => {
        console.log('viewticketAlter');
        console.log(response);
+       this.notifyuser = response.data.ticketHistories;
+       this.accessuser = response.data.accessibleUsers;
        
 
      }).catch( error => {
@@ -378,6 +390,25 @@ this.iab.create(event.target.href+"?token=dHJhbnomob", "_system", "beforeload=ye
    try {
      this.service.ticket3(this.ticketId).then( (response : any) => {
        console.log('viewticketAlter2');
+       console.log(response);
+
+     }).catch( error => {
+         this.showSpinner = false;
+         console.log(error);
+     })
+   } catch(e) {
+     console.log(e);
+     this.showSpinner = false;
+        this.service.serverError();
+    }
+
+   }
+   // ticketold
+       getticketold() {
+    
+   try {
+     this.service.ticketold(this.ticketId).then( (response : any) => {
+       console.log('ticketold');
        console.log(response);
 
      }).catch( error => {
@@ -457,7 +488,8 @@ gotoTextMessagecreate(idd, customer_name, sms_from, customer_avatar, yesorno, ui
                 from: 'gotoreply',
                 ticketData: this.ticketData,
                 ticketsub: this.ticketsub,
-                ticketDataOption: this.ticketDataOption
+                ticketDataOption: this.ticketDataOption,
+                notifyuser: this.notifyuser
       });
      TicketMailsmodal.present();
       TicketMailsmodal.onDidDismiss(data=>{ 
@@ -739,7 +771,7 @@ var body = document.body,
 var height = Math.max( body.scrollHeight, body.offsetHeight, 
                        html.clientHeight, html.scrollHeight, html.offsetHeight );
 // var reduceHeight = height - 477;
-var reduceHeight = height - 450;
+var reduceHeight = height - 500;
 
 var $p = $('.full-details .desc');
 var divh = $('.full-details .desc').height();
@@ -755,10 +787,14 @@ console.log(reduceHeight);
   // });
       var el = document.getElementById('dynamicdesc');
     var wordArray = el.innerHTML.split(' ');
+    console.log(wordArray);
+        //     wordArray.pop();
+        // el.innerHTML = wordArray.join(' ') + '...';
     while($p.outerHeight() > reduceHeight) {
         wordArray.pop();
         el.innerHTML = wordArray.join(' ') + '...';
       }
+
  // while ($p.outerHeight() > reduceHeight) {
  //   $('.full-details .contentarea-acc-panel .desc').css('height',reduceHeight);
  //    // $p.text(function (index, text) {

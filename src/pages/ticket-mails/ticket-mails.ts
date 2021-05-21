@@ -70,9 +70,11 @@ public GotTicketProperty : any = "";
 public GotTicketStatus : any = "";
 public GotTicketVersion : any = "";
 public GotTicketAccess : any = "";
+public notifyuser : any = "";
   public showEmails : boolean = false;
     public showReply: boolean = false;
     public showFields: boolean = false;
+    public activity: boolean = false;
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               public modalCtrl: ModalController,
@@ -87,6 +89,8 @@ public GotTicketAccess : any = "";
     this.ticketDataOption = this.navParams.get('ticketDataOption');
   	this.ticketsub = this.navParams.get('ticketsub');
     this.fromdata = this.navParams.get('from');
+    this.notifyuser = this.navParams.get('notifyuser');
+        console.log(this.notifyuser);
     console.log(this.fromdata);
   	this.ticket = this.ticketData.ticket;
     this.ticketHistory = this.ticketData.ticket.ticket_histories;
@@ -164,6 +168,27 @@ let f=this.ticketHistory[0];
 
   }
 
+countnotify(notify){
+console.log(notify);
+var array = notify.split(',');
+console.log(array);
+}
+ toggleGroup1(notify) {
+      if(notify.id) {
+        notify.id = false;
+      } else {
+        notify.id = true;
+      }
+    
+  } 
+   toggleGroup(notify) {
+      if(notify.checked) {
+        notify.checked = false;
+      } else {
+        notify.checked = true;
+      }
+    
+  }
 scrollToBottomOnInit() {
         setTimeout(() => {
             this.content.scrollToBottom(0);

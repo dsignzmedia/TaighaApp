@@ -99,8 +99,13 @@
 	    <ion-row  no-line>
 	        <ion-col col-12 no-padding  no-line>
 	        	<ion-label>Property</ion-label>
-				<ion-item no-padding no-line class="hasClick" (click)="openSelecttemplate('property')">
-					<ion-select class="filter-select" placeholder="Select"  [disabled]="properties.length == 0" [(ngModel)]="TicketProperty" >
+	        	<ion-item no-padding no-line class="hasClick" *ngIf="showProperty">
+					<ion-select class="filter-select" placeholder="Select" disabled='true' [(ngModel)]="TicketProperty" >
+						<ion-option value="{{ property.id }}" *ngFor=" let  property of properties  ">{{ property.address }}</ion-option>
+					</ion-select>
+				</ion-item>
+				<ion-item no-padding no-line class="hasClick"  *ngIf="!showProperty" (click)="openSelecttemplate('property')">
+					<ion-select class="filter-select" placeholder="Select" [(ngModel)]="TicketProperty" >
 						<ion-option value="{{ property.id }}" *ngFor=" let  property of properties  ">{{ property.address }}</ion-option>
 					</ion-select>
 				</ion-item>

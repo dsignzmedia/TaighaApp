@@ -18,9 +18,9 @@ var liveToken = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjlmMWZkMDky
 
 @Injectable()
 export class ServiceProvider {
-public baseUrl : string = "https://toptechrealty.com/api/auth";
+ public baseUrl : string = "https://toptechrealty.com/api/auth";
   //  public baseUrl : string = "http://localhost:8080/Toptech/New/Taigha-Productions-Repository/public/api/auth";
-      //   public baseUrl : string = "http://127.0.0.1:8000/api/auth";
+     //   public baseUrl : string = "http://127.0.0.1:8000/api/auth";  
 
   public apigetroles: string = this.baseUrl+"/rmls/listing/share/modal/roles-and-types";
   public apiModalUser: string = this.baseUrl+"/rmls/listing/share/modal/get-users";
@@ -51,6 +51,7 @@ public baseUrl : string = "https://toptechrealty.com/api/auth";
   public apiTickets: string = this.baseUrl+"/user/tickets";
   public apiTickets2: string = this.baseUrl+"/user/ticketsalter";
   public apiTickets3: string = this.baseUrl+"/user/ticketsalter2";
+  public apiTicketsold: string = this.baseUrl+"/user/ticketsold";
   public apiUploadUserAvatar: string = this.baseUrl+"/user/upload/avatar";
   public apiTicketCreate: string = this.baseUrl+"/user/tickets/create/ticket";
   public apiTicketStore: string = this.baseUrl+"/user/tickets/store/ticket";
@@ -1730,6 +1731,23 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
       }
       });
   }
+    ticketold(ticketId) {
+    return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
+        try {
+          let httpOptions = {
+          headers: new HttpHeaders({
+            'Authorization':  auth_user_token.token_type+" "+auth_user_token.access_token
+          })
+        };
+        return this.http.get(this.apiTicketsold+"/"+ticketId, httpOptions).toPromise();
+      } catch ( e ) {
+        console.log(e);
+        this.unAuthorizedToken();
+      }
+      });
+  }
+
+  //apiTicketsold
 
   ticketactivities(ticketId, currentPage) {
     return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {

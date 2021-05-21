@@ -67,6 +67,11 @@ page-ticket-mails {
 
 ion-content{
 	background-color: #fff !important;
+    .notify{
+        white-space: normal;
+        color: #3366cc;
+        margin-bottom: 10px;
+    }
 	.button.btn-blue{
 		border-radius: 40px;
 	}

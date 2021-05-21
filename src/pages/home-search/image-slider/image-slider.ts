@@ -10,7 +10,6 @@ import { StorageProvider } from '../../../providers/storage/storage';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-image-slider',
   templateUrl: 'image-slider.html',

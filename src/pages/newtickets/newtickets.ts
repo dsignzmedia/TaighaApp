@@ -43,6 +43,7 @@ public users: any = "";
 public content: any = "";
 
   public showSpinner: boolean = false;
+  public showProperty: boolean = true;
   public showClassVersion: boolean = false;
   public showPartner: boolean = false;
   public showCC: boolean = true;
@@ -415,11 +416,22 @@ changeGroup(){
 }
 
 changeCustomer(){
+  // showProperty
   console.log(this.TicketCustomer);
   this.formData.append('customer_id', this.TicketCustomer);
     this.service.getcustomer(this.formData).then( (response : any) => {
             console.log(response);
+            
             this.properties = response.data.properties;
+            if (this.properties.length == 0) {
+              this.showProperty = true;
+            }else{
+              if (this.properties[0].address == null) {
+                this.showProperty = true;
+              }else{
+              this.showProperty = false;
+              }
+            }
           } ).catch( (e : any) => { 
             console.log(e);
           });
@@ -474,6 +486,7 @@ console.log(this.TicketSubject);
     this.service.ticketstore(this.formData).then( (response : any) => {
             console.log(JSON.stringify(response));
             this.service.loading.dismiss();
+            this.service.toast('Ticket Created Successfully', 1500, 'middle');
             this.navCtrl.pop();
           } ).catch( (e : any) => { 
             console.log(e);
@@ -492,6 +505,7 @@ console.log(this.TicketSubject);
     this.service.ticketstore(this.formData).then( (response : any) => {
             console.log(JSON.stringify(response));
             this.service.loading.dismiss();
+            this.service.toast('Ticket Created Successfully', 1500, 'middle');
             this.navCtrl.pop();
           } ).catch( (e : any) => { 
             console.log(e);
@@ -507,6 +521,7 @@ console.log(this.TicketSubject);
     this.service.ticketstore(this.formData).then( (response : any) => {
             console.log(JSON.stringify(response));
             this.service.loading.dismiss();
+            this.service.toast('Ticket Created Successfully', 1500, 'middle');
             this.navCtrl.pop();
           } ).catch( (e : any) => { 
             console.log(e);
