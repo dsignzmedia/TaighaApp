@@ -100,12 +100,14 @@
           <div *ngIf="firstmail.activity_checked" class="contentarea-acc-panel">
           <div *ngFor=" let notify of notifyuser; let firstItem = first;" >
             <div class="notify" *ngIf="firstItem" (click)="countnotify(notify.activity)" (click)="toggleGroup1(notify)">
+              <div *ngIf="notify.activity != null">
                <span  *ngIf="!notify.id" >
-                (People were notified)
+                ({{notify.count}} People were notified)
                </span> 
                <span  *ngIf="notify.id" >
-                (People were notified - {{notify.activity}})
+                ({{notify.count}} People were notified - {{notify.activity}})
                </span>
+               </div>
             </div> 
           </div>
               <div class="desc" [innerHTML]=" ticket.body "></div>
@@ -137,12 +139,14 @@
           <div *ngIf="emailMessage.activity_checked" class="contentarea-acc-panel">
           <div *ngFor=" let notify of notifyuser; let ii = index;" >
             <div *ngIf="notify.id == emailMessage.id" class="notify" (click)="countnotify(notify.activity)" (click)="toggleGroup(notify)">
+              <div *ngIf="notify.activity != null">
                <span  *ngIf="!notify.checked" >
-                (People were notified)
+                ({{notify.count}} People were notified)
                </span> 
                <span  *ngIf="notify.checked" >
-                (People were notified - {{notify.activity}})
+                ({{notify.count}} People were notified - {{notify.activity}})
                </span>
+             </div>
             </div> 
           </div>
               <div class="desc" [innerHTML]=" emailMessage.body "></div>
@@ -179,12 +183,14 @@
           <div *ngIf="firstmail.activity_checked" class="contentarea-acc-panel">
           <div *ngFor=" let notify of notifyuser; let ii = index;" >
             <div *ngIf="notify.id == ticket.id" class="notify" (click)="countnotify(notify.activity)" (click)="toggleGroup(notify)">
+              <div *ngIf="notify.activity != null">
                <span  *ngIf="!notify.checked" >
-                (People were notified)
+                ({{notify.count}} People were notified)
                </span> 
                <span  *ngIf="notify.checked" >
-                (People were notified - {{notify.activity}})
+                ({{notify.count}} People were notified - {{notify.activity}})
                </span>
+             </div>
             </div> 
           </div>
               <div class="desc" [innerHTML]=" ticket.body "></div>
@@ -223,12 +229,14 @@
           <div *ngIf="togglelast" class="contentarea-acc-panel">
           <div *ngFor=" let notify of notifyuser; let ii = index;" >
             <div *ngIf="notify.id == lastmail.id" class="notify" (click)="countnotify(notify.activity)" (click)="toggleGroup(notify)">
+              <div *ngIf="notify.activity != null">
                <span  *ngIf="!notify.checked" >
-                (People were notified)
+                ({{notify.count}} People were notified)
                </span> 
                <span  *ngIf="notify.checked" >
-                (People were notified - {{notify.activity}})
+                ({{notify.count}} People were notified - {{notify.activity}})
                </span>
+             </div>
             </div> 
           </div>
               <div class="desc" [innerHTML]=" lastmail.body "></div>

@@ -38,6 +38,14 @@ ion-content{
 	&.content{
 	background-color: #ffffff;
 	font-family: 'Roboto';
+    .create-form{
+        ion-item{
+        ion-label{
+            margin: 0 !important;
+        }
+        }
+    }
+
     .upload-btn-wrapper {
 .u-btn {
     border: 0px solid #3062cf; 
