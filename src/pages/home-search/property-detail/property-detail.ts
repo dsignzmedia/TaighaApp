@@ -11,6 +11,7 @@ import { QtoModalPage } from '../qto-modal/qto-modal';
 import { PushTabsPage } from '../../home-search/push-tabs/push-tabs';
 import { SigninPage } from '../../../pages/signin/signin';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
+import { SignupPage } from '../../../pages/signup/signup';
 
 declare var google;
 
@@ -20,7 +21,9 @@ declare var google;
 })
 export class PropertyDetailPage {
   @ViewChild('propertymap') mapElement: ElementRef;
-
+  public name : string = "";
+  public email : string = "";
+  public avatar : string = "";
   propertymap: any;
   generalcollapseIcon: any;
   residencecollapseIcon: any;
@@ -343,6 +346,102 @@ for (i = 0; i < locations.length; i++) {
 
   }
 
+gotosignin(){
+  let getsigninModal = this.modalCtrl.create(SigninPage, {asmodal : 'yes'});
+  getsigninModal.present();
+  getsigninModal.onDidDismiss(data=>{
+    try {
+       this.service.profile().then( (response : any) => {
+         console.log(response);
+
+                  if (response) {
+                    this.userid= response.data.id;
+         var user = response.data;
+         this.name = user.first_name+" "+user.last_name;
+         this.email = user.email;
+         this.avatar = user.avatar;
+         $('.removeit').css('display','flex');
+         $('.signin-hs').css('display','none');
+         $('.signout-hs').css('display','flex');
+// document.getElementById('dynamicprofile').innerHTML ="<ion-row class='row'><ion-col class='col' no-padding=''><i><img width='165' src='"+this.avatar+"'></i></ion-col><ion-col class='col' col-9=''><h3 class='profile-title'>"+this.name+"</h3><h4 class='profile-info'>"+this.email+"</h4></ion-col></ion-row>";
+         console.log("email_verified_status" + user.email_verified_status);
+    this.storage.getStorage('customerstorage').then((customerstorage: any) => {
+       if(customerstorage) {
+            console.log(customerstorage);
+            document.getElementById('dynamicprofile').innerHTML ="<ion-row class='row'><ion-col class='col' no-padding=''><i><img width='165' src='"+this.avatar+"'></i></ion-col><ion-col class='col' col-9=''><h3 class='profile-title'>"+customerstorage.name+"</h3><h4 class='profile-info'>"+customerstorage.email+"</h4></ion-col></ion-row>";
+        }
+     });
+    this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
+if (auth_user_token) {
+      this.authcheck = 1;
+      this.IsStaffCheck = auth_user_token.is_staff;
+
+      if (this.IsStaffCheck == 0) {
+        this.IsStaff = false;
+      }else{
+        this.IsStaff = true;
+      }
+        if(auth_user_token) {
+            if(auth_user_token.is_email_verified == 1) {
+              this.hasEmailVerified = true;
+            }
+        }
+      }else{this.authcheck = 0;}
+    });
+         }else{
+           $('.removeit').css('display','none');
+           $('.signin-hs').css('display','flex');
+           $('.signout-hs').css('display','none');
+document.getElementById('dynamicprofile').innerHTML ="";
+         }
+
+       }).catch( error => {
+           console.log(error);
+       })
+     } catch(e) {
+          this.service.serverError();
+      }
+})
+}
+gotocreate(){
+  let getsignupModal = this.modalCtrl.create(SignupPage, {asmodal : 'yes'});
+  getsignupModal.present();
+  getsignupModal.onDidDismiss(data=>{
+    try {
+       this.service.profile().then( (response : any) => {
+         console.log(response);
+
+                  if (response) {
+         var user = response.data;
+         this.name = user.first_name+" "+user.last_name;
+         this.email = user.email;
+         this.avatar = user.avatar;
+         $('.removeit').css('display','flex');
+         $('.signin-hs').css('display','none');
+         $('.signout-hs').css('display','flex');
+         console.log("email_verified_status" + user.email_verified_status);
+    this.storage.getStorage('customerstorage').then((customerstorage: any) => {
+       if(customerstorage) {
+            console.log(customerstorage);
+            document.getElementById('dynamicprofile').innerHTML ="<ion-row class='row'><ion-col class='col' no-padding=''><i><img width='165' src='"+this.avatar+"'></i></ion-col><ion-col class='col' col-9=''><h3 class='profile-title'>"+customerstorage.name+"</h3><h4 class='profile-info'>"+customerstorage.email+"</h4></ion-col></ion-row>";
+        }
+     });
+    this.goBack();
+         }else{
+           $('.removeit').css('display','none');
+           $('.signin-hs').css('display','flex');
+           $('.signout-hs').css('display','none');
+document.getElementById('dynamicprofile').innerHTML ="";
+         }
+
+       }).catch( error => {
+           console.log(error);
+       })
+     } catch(e) {
+          this.service.serverError();
+      }
+})
+}
 
 goBack(){
   this.isMoreMenu = true;
