@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="63.577" height="46.631" viewBox="0 0 63.577 46.631">
+  <g id="Group_1225" data-name="Group 1225" transform="translate(-889.759 -549)">
+    <g id="Group_1224" data-name="Group 1224">
+      <g id="Group_1220" data-name="Group 1220" transform="translate(128)">
+        <g id="Group_1212" data-name="Group 1212" transform="translate(700.082 553)">
+          <g id="Group_1214" data-name="Group 1214" transform="translate(61.676 7)">
+            <rect id="Rectangle_166" data-name="Rectangle 166" width="63.577" height="26.473" rx="4" transform="translate(63.577 26.473) rotate(180)" fill="#36c"/>
+            <rect id="Rectangle_165" data-name="Rectangle 165" width="31.448" height="18.842" transform="translate(33.725 35.631) rotate(-135)" fill="#36c"/>
+          </g>
+          <g id="video-camera" transform="translate(73.439 -123.7)">
+            <path id="Path_672" data-name="Path 672" d="M15.784,86.084v6.565a.66.66,0,0,1-.989.572L12.06,91.644v.449A2.447,2.447,0,0,1,9.613,94.54H2.447A2.447,2.447,0,0,1,0,92.093V86.647A2.447,2.447,0,0,1,2.447,84.2H9.616a2.447,2.447,0,0,1,2.447,2.447V87.1L14.8,85.519A.655.655,0,0,1,15.784,86.084Z" transform="translate(-4 40)" stroke="#fff" stroke-width="2"/>
+          </g>
+        </g>
+      </g>
+      <g id="Group_1213-2" data-name="Group 1213" transform="translate(936.247 553.113)">
+        <g id="Group_1223" data-name="Group 1223">
+          <g id="Group_1222" data-name="Group 1222">
+            <g id="Group_1221" data-name="Group 1221">
+              <g id="Group_1215" data-name="Group 1215" transform="translate(-16.099 -4.113)">
+                <g id="Rectangle_829" data-name="Rectangle 829" transform="translate(-3.906)" stroke="#fff" stroke-width="1">
+                  <rect width="36" height="16" stroke="none"/>
+                  <rect x="0.5" y="0.5" width="35" height="15" fill="none"/>
+                </g>
+                <text id="Open" transform="translate(0.094 12)" fill="#fff" font-size="10" font-family="Lato-Bold, Lato" font-weight="700" letter-spacing="0.05em"><tspan x="0" y="0">OPEN</tspan></text>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

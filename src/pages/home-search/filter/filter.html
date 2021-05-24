@@ -324,14 +324,14 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col col-4>
-          <label>Virtual Tour</label>
+        <ion-col col-12 no-padding >
+          <ion-list class="status-checkbox">
+            <ion-item >
+              <ion-label>Virtual Tour</ion-label>
+              <ion-checkbox [(ngModel)]="checkedVirtualTour" (click)="virtualtourCheckbox(optionvirtualtour[0].value, checkedVirtualTour); "></ion-checkbox>
+            </ion-item>
+          </ion-list>
         </ion-col>
-        <ion-list class="status-checkbox">
-          <ion-item >
-            <ion-checkbox [(ngModel)]="checkedVirtualTour" (click)="virtualtourCheckbox(optionvirtualtour[0].value, $event); "></ion-checkbox>
-          </ion-item>
-        </ion-list>
       </ion-row>
       <ion-row class="selectbox">
         <ion-col col-12 no-padding>

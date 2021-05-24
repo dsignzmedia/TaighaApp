@@ -507,7 +507,10 @@
 
                   <span *ngIf="property.is_virtual_tour == '1'" class="virtualtour"><img  src="assets/imgs/360-degrees-blue.svg"/></span>
                   <div class="price-col">
-                  <span class="price"  (click)="viewProperty(property.ListingID)">${{ property.PriceCurrentForStatus | number: '2.'}}</span>
+                  <span class="price"  (click)="viewProperty(property.ListingID)">${{ property.PriceCurrentForStatus | number: '2.'}} </span>
+                  <span *ngIf="property.ListingStatus == 'Pending'"> (PEN)</span>
+                  <span *ngIf="property.ListingStatus == 'Sold'"> (SLD)</span>
+                  <span *ngIf="property.ListingStatus == 'Off Market'"> (OFM)</span>
                 </div>
                   <ul>
                     <li>
@@ -678,8 +681,9 @@
 
 
       <ion-card  class="map-property" >
-        <span *ngIf="propertysingleopenhouse != null" class="badge">Open {{propertysingleopenhouse}}</span>
-        <span *ngIf="propertysinglevirtualtour != null" class="badge hometour">Virtual Tour <img src="assets/imgs/360-degrees-white.svg" width="58" height="21"></span>
+        <span *ngIf="propertyStatus != 'Active'" class="badge propertystatus">{{propertyStatus}}</span>
+        <span *ngIf="is_open_house == 1" class="badge">Open {{propertysingleopenhouse}}</span>
+        <span *ngIf="is_virtual_tour == 1" class="badge hometour">Virtual Tour <img src="assets/imgs/360-degrees-white.svg" width="58" height="21"></span>
         <ion-card-content>
           <ion-card-title>
            <!--  <i class="mapclose" (click)= "mapClosePopover()"><img src="assets/imgs/close-blue.svg"></i> -->

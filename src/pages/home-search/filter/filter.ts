@@ -1645,8 +1645,13 @@ resetAll(){
      }
    }
    virtualtourCheckbox(virtualtour: any, $event): void {
-    if(virtualtour == "Virtual Tour"){
+     console.log(virtualtour);
+     console.log($event);
+    if($event == true){
       this.paraArray.splice(26, 1, virtualtour);
+    }else{
+      this.paraArray.splice(26, 1,'');
+    }
       try {
         this.showtotalspin = true;
         this.showtotal = false;
@@ -1661,7 +1666,6 @@ resetAll(){
 
         this.service.serverError();
       }
-    }
    }
    changeopenHouse(){
      this.paraArray.splice(10, 1, this.openHouse);

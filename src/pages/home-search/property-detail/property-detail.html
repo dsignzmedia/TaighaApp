@@ -64,14 +64,14 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col col-6 no-padding>
+        <ion-col col-5 no-padding>
           <p class="price">${{ propertyRmls.PriceCurrentForStatus | number: '2.'}}</p>
         </ion-col>
         <ion-col col-3 no-padding>
-          <p><strong>Built:</strong> {{ propertyRmls.YearBuilt ? propertyRmls.YearBuilt : '0' }}</p>
+          <p class="buildandstatus"><strong>Built:</strong> {{ propertyRmls.YearBuilt ? propertyRmls.YearBuilt : '0' }}</p>
         </ion-col>
-        <ion-col col-3 no-padding>
-          <p><strong>Status:</strong> {{ propertyRmls.ListingStatus ? propertyRmls.ListingStatus : '0' }}</p>
+        <ion-col col-4 no-padding>
+          <p class="buildandstatus"><strong>Status:</strong> {{ propertyRmls.ListingStatus ? propertyRmls.ListingStatus : '0' }}</p>
         </ion-col>
         <ion-col col-12 no-padding>
     <ul class="property-details">

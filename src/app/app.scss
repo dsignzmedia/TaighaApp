@@ -2050,6 +2050,7 @@ ion-label{
         .price{
           font-size: 18px;
           font-weight: 700;
+          padding-right: 5px;
               // margin-bottom: 10px;
     display: block;
         }
@@ -2860,7 +2861,7 @@ ion-grid.stickyinfo.property-info.grid {
 }
 .price-col {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
         align-items: center;
     margin-bottom: 5px;
 }

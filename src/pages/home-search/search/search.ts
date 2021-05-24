@@ -46,6 +46,9 @@ mapCity: any;
 mapState: any;
 mapZipCode: any;
 mapfavcount: any;
+is_open_house : any;
+is_virtual_tour : any;
+single_image : any;
 mappropertyRmlsDaysRe: any;
   saveSearchurl: any;
   hidemapimage: string = 'hide';
@@ -54,6 +57,7 @@ mappropertyRmlsDaysRe: any;
   propertysingleres: any;
   propertysingleimg: any;
   propertysingleopenhouse : any;
+  propertyStatus : any;
   propertysinglevirtualtour : any;
   propertyimg: any;
   propertyRmlsDays:any;
@@ -457,16 +461,54 @@ this.socialSharing.shareViaEmail('https://toptechrealty.com/'+County+'/'+State+'
        for(i = 0; i < this.propertiesmap.length; i++)
        {
         var lablefont = '12px';
-        if(this.propertiesmap[i]["is_open_house"] == 1){
-           this.mapohlabel = 'OH:';
-           var lablefont = '10px';
-        }else{this.mapohlabel = '';}
+        this.mapohlabel = '';
+        var icondy = {
+          url: 'assets/imgs/pricepin.svg',
+          scaledSize: new google.maps.Size(40, 50),
+          origin: new google.maps.Point(0,-3),
+        };
+      if(this.propertiesmap[i]["is_virtual_tour"] == 1 && this.propertiesmap[i]["is_open_house"] == 1){
+        this.mapohlabel = '';
+        var lablefont = '10px';
+        var icondy = {
+          url: 'assets/imgs/map-open-video-border-black.svg',
+          scaledSize: new google.maps.Size(50, 60),
+          origin: new google.maps.Point(0,3),
+        };
+      }
+      if(this.propertiesmap[i]["is_virtual_tour"] == 1 && this.propertiesmap[i]["is_open_house"] != 1){
+        this.mapohlabel = '';
+        var lablefont = '10px';
+        var icondy = {
+          url: 'assets/imgs/map-video-camera-black.svg',
+          scaledSize: new google.maps.Size(50, 50),
+          origin: new google.maps.Point(0,0),
+        };
+      }
+      if(this.propertiesmap[i]["is_virtual_tour"] != 1 && this.propertiesmap[i]["is_open_house"] == 1){
+        this.mapohlabel = '';
+        var lablefont = '10px';
+        var icondy = {
+          url: 'assets/imgs/map-open-border-black.svg',
+          scaledSize: new google.maps.Size(50, 50),
+          origin: new google.maps.Point(0,3),
+        };
+      }
+      if(this.propertiesmap[i]["ListOfficeName"] == 'TopTech Realty LLC'){
+        this.mapohlabel = '';
+        var lablefont = '10px';
+        var icondy = {
+          url: 'assets/imgs/map-taigha-label.svg',
+          scaledSize: new google.maps.Size(55, 60),
+          origin: new google.maps.Point(0,3),
+        };
+      }
          var contentString = "";
          var Latlng = new google.maps.LatLng(this.propertiesmap[i].lat,this.propertiesmap[i].lon);
          var saved_label = String(this.mapohlabel+kFormatter(this.propertiesmap[i]["PriceCurrentForStatus"]));
          var marker = new google.maps.Marker({
            position: new google.maps.LatLng(this.propertiesmap[i]["Latitude"], this.propertiesmap[i]["Longitude"]),
-           icon: icon ,
+           icon: icondy ,
            label: {
             color: '#fff',
             fontSize: lablefont,
@@ -494,6 +536,8 @@ this.socialSharing.shareViaEmail('https://toptechrealty.com/'+County+'/'+State+'
          this.mapState=this.propertiesmap[i].State;
          this.mapZipCode=this.propertiesmap[i].ZipCode;
          this.mapfavcount=this.propertiesmap[i].facCount;
+         this.is_open_house=this.propertiesmap[i].is_open_house;
+         this.is_virtual_tour=this.propertiesmap[i].is_virtual_tour;
 
          let primaryid=this.propertiesmap[i].id;
          let idz=this.propertiesmap[i].ListingID;
@@ -512,6 +556,12 @@ this.socialSharing.shareViaEmail('https://toptechrealty.com/'+County+'/'+State+'
          let State=this.propertiesmap[i].State;
          let ZipCode=this.propertiesmap[i].ZipCode;
          let favcount=this.propertiesmap[i].facCount;
+         let Isopenhouse=this.propertiesmap[i].is_open_house;
+         let Isvirtualtour=this.propertiesmap[i].is_virtual_tour;
+         let single_image=this.propertiesmap[i].single_image;
+         let DaysOnMarket=this.propertiesmap[i].DaysOnMarketCustom;
+         let openhousedate=this.propertiesmap[i].open_house_date;
+         let listingstatus=this.propertiesmap[i].ListingStatus;
 
          google.maps.event.addListener(infowindow, 'domready', () => {
            var clickableItem = document.getElementById('clickableItem');
@@ -531,7 +581,7 @@ this.map.addListener('click', function (event) {
           console.log(priceeee);
 
        this.hidemapimage = 'hide';
-            self.getPropertyImage(primaryid, idz, country, state, zipcode, slug, PriceCurrentForStatus, Beds, BathsTotalInteger, SqFtApproximateTotal, FullStreetAddress, City, State, ZipCode, favcount)
+            self.getPropertyImage(primaryid, idz, country, state, zipcode, slug, PriceCurrentForStatus, Beds, BathsTotalInteger, SqFtApproximateTotal, FullStreetAddress, City, State, ZipCode, favcount, Isopenhouse, Isvirtualtour, single_image, DaysOnMarket, openhousedate, listingstatus)
             $('.addInfoContent').css('display','block');
             $('.tabbar').css('display','none');
             $('.scroll-content').css('margin-bottom','0px');
@@ -2052,16 +2102,54 @@ document.getElementById('dynamicprofile').innerHTML ="";
        for(i = 0; i < this.propertiesmap.length; i++)
        {
         var lablefont = '12px';
-        if(this.propertiesmap[i]["is_open_house"] == 1){
-           this.mapohlabel = 'OH:';
-           var lablefont = '10px';
-        }else{this.mapohlabel = '';}
+        this.mapohlabel = '';
+        var icondy = {
+          url: 'assets/imgs/pricepin.svg',
+          scaledSize: new google.maps.Size(48, 60),
+          origin: new google.maps.Point(0,-3),
+        };
+      if(this.propertiesmap[i]["is_virtual_tour"] == 1 && this.propertiesmap[i]["is_open_house"] == 1){
+        this.mapohlabel = '';
+        var lablefont = '10px';
+        var icondy = {
+          url: 'assets/imgs/map-open-video-border-black.svg',
+          scaledSize: new google.maps.Size(50, 60),
+          origin: new google.maps.Point(0,3),
+        };
+      }
+      if(this.propertiesmap[i]["is_virtual_tour"] == 1 && this.propertiesmap[i]["is_open_house"] != 1){
+        this.mapohlabel = '';
+        var lablefont = '10px';
+        var icondy = {
+          url: 'assets/imgs/map-video-camera-black.svg',
+          scaledSize: new google.maps.Size(50, 50),
+          origin: new google.maps.Point(0,0),
+        };
+      }
+      if(this.propertiesmap[i]["is_virtual_tour"] != 1 && this.propertiesmap[i]["is_open_house"] == 1){
+        this.mapohlabel = '';
+        var lablefont = '10px';
+        var icondy = {
+          url: 'assets/imgs/map-open-border-black.svg',
+          scaledSize: new google.maps.Size(50, 50),
+          origin: new google.maps.Point(0,3),
+        };
+      }
+      if(this.propertiesmap[i]["ListOfficeName"] == 'TopTech Realty LLC'){
+        this.mapohlabel = '';
+        var lablefont = '10px';
+        var icondy = {
+          url: 'assets/imgs/map-taigha-label.svg',
+          scaledSize: new google.maps.Size(55, 60),
+          origin: new google.maps.Point(0,3),
+        };
+      }
          var contentString = "";
          var Latlng = new google.maps.LatLng(this.propertiesmap[i].lat,this.propertiesmap[i].lon);
          var saved_label = String(this.mapohlabel+kFormatter(this.propertiesmap[i]["PriceCurrentForStatus"]));
          var marker = new google.maps.Marker({
            position: new google.maps.LatLng(this.propertiesmap[i]["Latitude"], this.propertiesmap[i]["Longitude"]),
-           icon: icon ,
+           icon: icondy ,
            label: {
             color: '#fff',
             fontSize: lablefont,
@@ -2089,6 +2177,8 @@ document.getElementById('dynamicprofile').innerHTML ="";
          this.mapState=this.propertiesmap[i].State;
          this.mapZipCode=this.propertiesmap[i].ZipCode;
          this.mapfavcount=this.propertiesmap[i].facCount;
+         this.is_open_house=this.propertiesmap[i].is_open_house;
+         this.is_virtual_tour=this.propertiesmap[i].is_virtual_tour;
 
          let primaryid=this.propertiesmap[i].id;
          let idz=this.propertiesmap[i].ListingID;
@@ -2107,6 +2197,12 @@ document.getElementById('dynamicprofile').innerHTML ="";
          let State=this.propertiesmap[i].State;
          let ZipCode=this.propertiesmap[i].ZipCode;
          let favcount=this.propertiesmap[i].facCount;
+         let Isopenhouse=this.propertiesmap[i].is_open_house;
+         let Isvirtualtour=this.propertiesmap[i].is_virtual_tour;
+         let single_image=this.propertiesmap[i].single_image;
+         let DaysOnMarket=this.propertiesmap[i].DaysOnMarketCustom;
+         let openhousedate=this.propertiesmap[i].open_house_date;
+         let listingstatus=this.propertiesmap[i].ListingStatus;
 
          google.maps.event.addListener(infowindow, 'domready', () => {
            var clickableItem = document.getElementById('clickableItem');
@@ -2126,7 +2222,7 @@ this.map.addListener('click', function (event) {
           console.log(priceeee);
 
        this.hidemapimage = 'hide';
-            self.getPropertyImage(primaryid, idz, country, state, zipcode, slug, PriceCurrentForStatus, Beds, BathsTotalInteger, SqFtApproximateTotal, FullStreetAddress, City, State, ZipCode, favcount)
+            self.getPropertyImage(primaryid, idz, country, state, zipcode, slug, PriceCurrentForStatus, Beds, BathsTotalInteger, SqFtApproximateTotal, FullStreetAddress, City, State, ZipCode, favcount, Isopenhouse, Isvirtualtour, single_image, DaysOnMarket, openhousedate, listingstatus)
             $('.addInfoContent').css('display','block');
             $('.tabbar').css('display','none');
             $('.scroll-content').css('margin-bottom','0px');
@@ -2153,6 +2249,7 @@ console.log(this.userid);
 
      this.showSpinner = true;
      this.service.homesearchpropertiesmap(this.filters, urlParamap).then( (response : any) => {
+      console.log('homesearchpropertiesmap');
      console.log(response);
        this.propertiesmap = response.data;
        this.showMapLoader = 'none';
@@ -2209,10 +2306,48 @@ console.log(this.userid);
        for(i = 0; i < this.propertiesmap.length; i++)
        {
         var lablefont = '12px';
-        if(this.propertiesmap[i]["is_open_house"] == 1){
-            this.mapohlabel = 'OH:';
-            var lablefont = '10px';
-        }else{this.mapohlabel = '';}
+        this.mapohlabel = '';
+        var icondy = {
+          url: 'assets/imgs/pricepin.svg',
+          scaledSize: new google.maps.Size(48, 60),
+          origin: new google.maps.Point(0,-3),
+        };
+      if(this.propertiesmap[i]["is_virtual_tour"] == 1 && this.propertiesmap[i]["is_open_house"] == 1){
+        this.mapohlabel = '';
+        var lablefont = '10px';
+        var icondy = {
+          url: 'assets/imgs/map-open-video-border-black.svg',
+          scaledSize: new google.maps.Size(50, 60),
+          origin: new google.maps.Point(0,3),
+        };
+      }
+      if(this.propertiesmap[i]["is_virtual_tour"] == 1 && this.propertiesmap[i]["is_open_house"] != 1){
+        this.mapohlabel = '';
+        var lablefont = '10px';
+        var icondy = {
+          url: 'assets/imgs/map-video-camera-black.svg',
+          scaledSize: new google.maps.Size(50, 50),
+          origin: new google.maps.Point(0,0),
+        };
+      }
+      if(this.propertiesmap[i]["is_virtual_tour"] != 1 && this.propertiesmap[i]["is_open_house"] == 1){
+        this.mapohlabel = '';
+        var lablefont = '10px';
+        var icondy = {
+          url: 'assets/imgs/map-open-border-black.svg',
+          scaledSize: new google.maps.Size(50, 50),
+          origin: new google.maps.Point(0,3),
+        };
+      }
+      if(this.propertiesmap[i]["ListOfficeName"] == 'TopTech Realty LLC'){
+        this.mapohlabel = '';
+        var lablefont = '10px';
+        var icondy = {
+          url: 'assets/imgs/map-taigha-label.svg',
+          scaledSize: new google.maps.Size(55, 60),
+          origin: new google.maps.Point(0,3),
+        };
+      }
          var contentString = "";
          var Latlng = new google.maps.LatLng(this.propertiesmap[i].lat,this.propertiesmap[i].lon);
         // var saved_label = String(this.propertiesmap[i]["id"]);
@@ -2220,7 +2355,7 @@ console.log(this.userid);
          var marker = new google.maps.Marker({
            position: new google.maps.LatLng(this.propertiesmap[i]["Latitude"], this.propertiesmap[i]["Longitude"]),
            id: this.propertiesmap[i].ListingID+"id",
-           icon: icon ,
+           icon: icondy ,
            label: {
              color: '#fff',
              fontSize: lablefont,
@@ -2249,6 +2384,8 @@ console.log(this.userid);
          this.mapState=this.propertiesmap[i].State;
          this.mapZipCode=this.propertiesmap[i].ZipCode;
          this.mapfavcount=this.propertiesmap[i].facCount;
+         this.is_open_house=this.propertiesmap[i].is_open_house;
+         this.is_virtual_tour=this.propertiesmap[i].is_virtual_tour;
 
          let primaryid=this.propertiesmap[i].id;
          let idz=this.propertiesmap[i].ListingID;
@@ -2267,6 +2404,12 @@ console.log(this.userid);
          let State=this.propertiesmap[i].State;
          let ZipCode=this.propertiesmap[i].ZipCode;
          let favcount=this.propertiesmap[i].facCount;
+         let Isopenhouse=this.propertiesmap[i].is_open_house;
+         let Isvirtualtour=this.propertiesmap[i].is_virtual_tour;
+         let single_image=this.propertiesmap[i].single_image;
+         let DaysOnMarket=this.propertiesmap[i].DaysOnMarketCustom;
+         let openhousedate=this.propertiesmap[i].open_house_date;
+         let listingstatus=this.propertiesmap[i].ListingStatus;
 
          google.maps.event.addListener(infowindow, 'domready', () => {
            var clickableItem = document.getElementById('clickableItem');
@@ -2287,7 +2430,7 @@ this.map.addListener('click', function (event) {
        //   console.log(priceeee);
 
        this.hidemapimage = 'hide';
-            self.getPropertyImage(primaryid, idz, country, state, zipcode, slug, PriceCurrentForStatus, Beds, BathsTotalInteger, SqFtApproximateTotal, FullStreetAddress, City, State, ZipCode, favcount)
+            self.getPropertyImage(primaryid, idz, country, state, zipcode, slug, PriceCurrentForStatus, Beds, BathsTotalInteger, SqFtApproximateTotal, FullStreetAddress, City, State, ZipCode, favcount, Isopenhouse, Isvirtualtour, single_image, DaysOnMarket, openhousedate, listingstatus)
             $('.addInfoContent').css('display','block');
             $('.tabbar').css('display','none');
             $('.scroll-content').css('margin-bottom','0px');
@@ -2311,8 +2454,8 @@ this.map.addListener('click', function (event) {
    }
  }
 
-getPropertyImage(primaryid, idz,  country, state, zipcode, slug, PriceCurrentForStatus, Beds, BathsTotalInteger, SqFtApproximateTotal, FullStreetAddress, City, State, ZipCode, favcount){
-           this.mapListingID=idz;
+getPropertyImage(primaryid, idz,  country, state, zipcode, slug, PriceCurrentForStatus, Beds, BathsTotalInteger, SqFtApproximateTotal, FullStreetAddress, City, State, ZipCode, favcount, Isopenhouse, Isvirtualtour, single_image, DaysOnMarket, openhousedate, listingstatus){
+         this.mapListingID=idz;
          this.mapcountry=country;
          this.mapstate=state;
          this.mapslug=slug;
@@ -2325,20 +2468,24 @@ getPropertyImage(primaryid, idz,  country, state, zipcode, slug, PriceCurrentFor
          this.mapState=State;
          this.mapZipCode=ZipCode;
          this.mapfavcount=favcount;
-   $(".map-property").css("background-image", "url()");
+         this.is_open_house=Isopenhouse;
+         this.is_virtual_tour=Isvirtualtour;
+         this.mappropertyRmlsDaysRe=DaysOnMarket;
+         this.propertysingleopenhouse=openhousedate;
+         this.propertyStatus=listingstatus;
+        $(".map-property").css("background-image", "url(" + single_image + ")");
    console.log(primaryid);
-  this.service.singlepropertyimage(primaryid).then( (response : any) => {
-    console.log('click on label');
-    console.log(response);
-    this.mappropertyRmlsDaysRe = response.data.timeago;
-       this.hidemapimage = 'show';
-       this.propertysingleimg = response.data.image.image;
-       this.propertysingleopenhouse = response.data.openhouse_date;
-       this.propertysinglevirtualtour = response.data.virtualtour;
-       $(".map-property").css("background-image", "url(" + this.propertysingleimg + ")");
-         this.mappropertyRmlsDaysRe = response.data.timeago;
-       }).catch( error => {
-     })
+  // this.service.singlepropertyimage(primaryid).then( (response : any) => {
+  //   console.log('click on label');
+  //   console.log(response);
+  //   this.mappropertyRmlsDaysRe = response.data.timeago;
+  //      this.hidemapimage = 'show';
+  //     //  this.propertysingleimg = response.data.image.image;
+  //     //  this.propertysingleopenhouse = response.data.openhouse_date;
+  //     //  this.propertysinglevirtualtour = response.data.virtualtour;
+  //     //  $(".map-property").css("background-image", "url(" + this.propertysingleimg + ")");
+  //      }).catch( error => {
+  //    })
 
 }
  openProperty(idz){
