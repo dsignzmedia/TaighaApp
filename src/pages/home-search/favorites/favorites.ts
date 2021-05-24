@@ -26,7 +26,7 @@ export class FavoritesPage {
 @ViewChild(Nav) nav; Nav;
   @ViewChild(Content) pageTop: Content;
 public isMoreMenu: boolean = false;
-   public mapsearchArray:Array<string> = new Array(); 
+   public mapsearchArray:Array<string> = new Array();
 mapcountry: any;
 mapListingID: any;
 mapstate: any;
@@ -108,8 +108,8 @@ selectedlistcommaqto: any;
   public filterItems: any = "";
   public valWithString: any = "";
   public properties : any = [];
-  public searchArray:Array<string> = new Array(); 
-  public searchArrayLast:Array<string> = new Array(); 
+  public searchArray:Array<string> = new Array();
+  public searchArrayLast:Array<string> = new Array();
   public searchResult : any = [];
   public propertiesmap : any = [];
   public countfilter:Array<string> = new Array('','','','','','','','','','','','','','','','','','','','','',''); //21
@@ -144,8 +144,8 @@ selectedlistcommaqto: any;
   public storageparaArray:Array<string> = new Array('','','','','','','','','','','','','','','','','','','','','','','','',''); //24
   public commonarray:Array<string> = new Array('','','','','','','','','','','','','','','','','','','','','','','','','',''); //24 //sort 25
   public paraArraymap:Array<string> = new Array('','','','','','','','','','','','','','','','','','','','','','','','','');
-  public prptyresarray:Array<string> = new Array('','','','','',''); 
-  public prptyclassarray:Array<string> = new Array(); 
+  public prptyresarray:Array<string> = new Array('','','','','','');
+  public prptyclassarray:Array<string> = new Array();
   public selectedBeds: any = "";
   public selectedBaths: any = "";
   public searchData: any = "";
@@ -222,7 +222,7 @@ totalchecked: any;
            if(!this.hasEmailVerified && user.email_verified_status == 1) {
              this.hasEmailVerified = true;
              // this.resetAll();
-           }  
+           }
        }).catch( error => {
            console.log(error);
        })
@@ -276,17 +276,17 @@ totalchecked: any;
 
          console.log(response);
          if (response == undefined) {
-         // this.nav.push(PushTabsPage); 
+         // this.nav.push(PushTabsPage);
   // let getsigninModal = this.modalCtrl.create(SigninPage, {asmodal : 'yes'});
-  
+
   // getsigninModal.present();
   this.isMoreMenu = false;
- let nav = this.App.getRootNav(); 
+ let nav = this.App.getRootNav();
 nav.setRoot(PushTabsPage, {selectedTab: 5});
-//   getsigninModal.onDidDismiss(data=>{ 
+//   getsigninModal.onDidDismiss(data=>{
 
 
-// }) 
+// })
 
   // $(".order5").addClass("show-tab");
   // $(".order5").attr("aria-hidden","false");
@@ -297,7 +297,7 @@ nav.setRoot(PushTabsPage, {selectedTab: 5});
          console.log(this.userid);
     this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
       this.IsStaffCheck = auth_user_token.is_staff;
-      
+
       if (this.IsStaffCheck == 0) {
         this.IsStaff = false;
       }else{
@@ -316,7 +316,7 @@ nav.setRoot(PushTabsPage, {selectedTab: 5});
 
            console.log(error);
        })
-   
+
 
   }
  clearAndGetProperties() {
@@ -331,14 +331,14 @@ nav.setRoot(PushTabsPage, {selectedTab: 5});
          requestType: this.requestType,
          userid: this.userid
        }
-       this.showSpinnerProperty = false; 
+       this.showSpinnerProperty = false;
        console.log(urlPara);
        this.service.homesearchpropertiesfavlist(this.currentPage, urlPara).then( (response : any) => {
          console.log(response);
          this.properties = response.data;
          this.totalPages = response.totalPages;
          this.totalRecords = response.totalRecords;
-         this.showSpinnerProperty = false; 
+         this.showSpinnerProperty = false;
          this.showSpinner = false;
          this.properties.forEach(obj => {
            obj.propertyCheck = false;
@@ -350,7 +350,7 @@ nav.setRoot(PushTabsPage, {selectedTab: 5});
          }
          this.loadMap(urlParamap);
        }).catch( error => {
-         this.showSpinnerProperty = false; 
+         this.showSpinnerProperty = false;
          this.showSpinner = false;
        })
      } catch(e) {
@@ -370,13 +370,13 @@ nav.setRoot(PushTabsPage, {selectedTab: 5});
        let latLng = new google.maps.LatLng(this.propertiesmap[0]["Latitude"],this.propertiesmap[0]["Longitude"]);
        var bounds = new google.maps.LatLngBounds();
        const icon = {
-         url: 'assets/imgs/pricepin.svg', 
-         scaledSize: new google.maps.Size(40, 60), 
+         url: 'assets/imgs/pricepin.svg',
+         scaledSize: new google.maps.Size(40, 60),
        };
        let mapOptions = {
          center: latLng,
          zoom: 11,
-         minZoom: 11, 
+         minZoom: 11,
          icon: icon ,
          mapTypeId: google.maps.MapTypeId.ROADMAP
        }
@@ -433,12 +433,12 @@ nav.setRoot(PushTabsPage, {selectedTab: 5});
            content: contentString,
            maxWidth: 400
          });
-         this.mapListingID=this.propertiesmap[i].ListingID; 
-         this.mapcountry=this.propertiesmap[i].County; 
-         this.mapstate=this.propertiesmap[i].State; 
-         this.mapzipcode=this.propertiesmap[i].ZipCode; 
+         this.mapListingID=this.propertiesmap[i].ListingID;
+         this.mapcountry=this.propertiesmap[i].County;
+         this.mapstate=this.propertiesmap[i].State;
+         this.mapzipcode=this.propertiesmap[i].ZipCode;
          this.mapslug=this.propertiesmap[i].slug;
-         this.mapPriceCurrentForStatus=this.propertiesmap[i].PriceCurrentForStatus; 
+         this.mapPriceCurrentForStatus=this.propertiesmap[i].PriceCurrentForStatus;
          this.mapBeds=this.propertiesmap[i].Beds;
          this.mapBathsTotalInteger=this.propertiesmap[i].BathsTotalInteger;
          this.mapSqFtApproximateTotal=this.propertiesmap[i].SqFtApproximateTotal;
@@ -452,11 +452,11 @@ nav.setRoot(PushTabsPage, {selectedTab: 5});
          let idz=this.propertiesmap[i].ListingID;
          let priceeee=this.propertiesmap[i].PriceCurrentForStatus;
          let that=this;
-         let country=this.propertiesmap[i].County; 
-         let state=this.propertiesmap[i].State; 
-         let zipcode=this.propertiesmap[i].ZipCode; 
+         let country=this.propertiesmap[i].County;
+         let state=this.propertiesmap[i].State;
+         let zipcode=this.propertiesmap[i].ZipCode;
          let slug=this.propertiesmap[i].slug;
-         let PriceCurrentForStatus=this.propertiesmap[i].PriceCurrentForStatus; 
+         let PriceCurrentForStatus=this.propertiesmap[i].PriceCurrentForStatus;
          let Beds=this.propertiesmap[i].Beds;
          let BathsTotalInteger=this.propertiesmap[i].BathsTotalInteger;
          let SqFtApproximateTotal=this.propertiesmap[i].SqFtApproximateTotal;
@@ -469,7 +469,7 @@ nav.setRoot(PushTabsPage, {selectedTab: 5});
          google.maps.event.addListener(infowindow, 'domready', () => {
            var clickableItem = document.getElementById('clickableItem');
            clickableItem.addEventListener('click', () => {
-             that.navCtrl.push(PropertyDetailPage, { propertyId : idz}); 
+             that.navCtrl.push(PropertyDetailPage, { propertyId : idz});
            });
          });
          let self = this ;
@@ -482,7 +482,7 @@ this.map.addListener('click', function (event) {
 
           var marker_id = marker.id;
           console.log(priceeee);
-      
+
        this.hidemapimage = 'hide';
             self.getPropertyImage(primaryid, idz, country, state, zipcode, slug, PriceCurrentForStatus, Beds, BathsTotalInteger, SqFtApproximateTotal, FullStreetAddress, City, State, ZipCode, favcount)
                         $('.addInfoContent').css('display','block');
@@ -494,7 +494,7 @@ this.map.addListener('click', function (event) {
        this.map.setCenter(bounds.getCenter());
        this.map.fitBounds(bounds);
        function viewpropertymap(propertyid){
-         this.navCtrl.push(PropertyDetailPage, { propertyId : propertyid}); 
+         this.navCtrl.push(PropertyDetailPage, { propertyId : propertyid});
        }
        function  openQtoModal(propertyId){
        }
@@ -506,11 +506,11 @@ this.map.addListener('click', function (event) {
  }
 
 getPropertyImage(primaryid, idz,  country, state, zipcode, slug, PriceCurrentForStatus, Beds, BathsTotalInteger, SqFtApproximateTotal, FullStreetAddress, City, State, ZipCode, favcount){
-           this.mapListingID=idz; 
-         this.mapcountry=country; 
-         this.mapstate=state; 
+           this.mapListingID=idz;
+         this.mapcountry=country;
+         this.mapstate=state;
          this.mapslug=slug;
-         this.mapPriceCurrentForStatus=PriceCurrentForStatus; 
+         this.mapPriceCurrentForStatus=PriceCurrentForStatus;
          this.mapBeds=Beds;
          this.mapBathsTotalInteger=BathsTotalInteger;
          this.mapSqFtApproximateTotal=SqFtApproximateTotal;
@@ -562,7 +562,7 @@ getPropertyImage(primaryid, idz,  country, state, zipcode, slug, PriceCurrentFor
          }
            this.showSpinner = true;
            this.service.homesearchpropertiesfavlist(this.currentPage, urlPara).then( (response : any) => {
-             this.showSpinnerProperty = false; 
+             this.showSpinnerProperty = false;
              this.showSpinner = false;
              var nextTickets = response.data;
              nextTickets.forEach((item, index) => {
@@ -570,14 +570,14 @@ getPropertyImage(primaryid, idz,  country, state, zipcode, slug, PriceCurrentFor
              });
              infiniteScroll.complete();
            }).catch( error => {
-             this.showSpinnerProperty = false; 
+             this.showSpinnerProperty = false;
              this.showSpinner = false;
              infiniteScroll.complete();
            })
-         
+
        }
-     } catch(e) { 
-       this.showSpinnerProperty = false; 
+     } catch(e) {
+       this.showSpinnerProperty = false;
        this.showSpinner = false;
        this.service.serverError();
      }
@@ -633,7 +633,7 @@ goToMap(){
  // this.getProperties();
   this.showSpinnerProperty = false;
   this.showSpinner = false;
- 
+
 }
   scrollToTop() {
     this.pageTop.scrollTo(0, 0, 0);
@@ -670,13 +670,13 @@ viewProperty(propertyId){
       try {
         this.currentPage = 1;
             this.showSpinnerProperty = false;
-            this.showSpinner = false; 
+            this.showSpinner = false;
       } catch(e) {
         this.showSpinnerProperty = false;
         this.showSpinner = false;
         this.service.serverError();
       }
-    } 
+    }
 
   })
 }
@@ -878,7 +878,7 @@ if(this.selectedlistarray.indexOf(propertyid) === -1){
 }
   // console.log(this.selectedlistarray);
     var arr = this.selectedlistarray.filter(function(entry) { return entry.trim() != ''; });
-    // console.log(arr); 
+    // console.log(arr);
    this.selectedlistarraycomma = arr.toString();
     } else if (this.totalchecked == this.totalItems) {
       //If all are checked
@@ -996,7 +996,7 @@ Object.keys(this.properties).forEach(key => {
          sorturl:  this.sorturl,
          userid: this.userid
        }
-       this.showSpinnerProperty = false; 
+       this.showSpinnerProperty = false;
        this.service.homesearchpropertiesfavlistsort(this.currentPage, urlPara).then( (response : any) => {
             this.properties = response.data;
             this.totalPages = response.totalPages;
@@ -1008,7 +1008,7 @@ Object.keys(this.properties).forEach(key => {
       });
           }).catch( error => {
             this.showSpinnerProperty = false;
-            this.showSpinner = false; 
+            this.showSpinner = false;
           })
   }
    sortbycard() {
@@ -1062,13 +1062,13 @@ Object.keys(this.properties).forEach(key => {
           userid: this.userid
        }
       // this.showSpinnerProperty = false;
-      console.log(urlPara); 
+      console.log(urlPara);
        this.service.homesearchpropertiesfavlistsort(this.currentPage, urlPara).then( (response : any) => {
          console.log(response);
          this.properties = response.data;
          this.totalPages = response.totalPages;
          this.totalRecords = response.totalRecords;
-         this.showSpinnerProperty = false; 
+         this.showSpinnerProperty = false;
          this.showSpinner = false;
                  this.properties.forEach(obj => {
         obj.propertyCheck = false;
@@ -1081,7 +1081,7 @@ Object.keys(this.properties).forEach(key => {
          }
          this.loadMapsort(urlParamap);
        }).catch( error => {
-         this.showSpinnerProperty = false; 
+         this.showSpinnerProperty = false;
          this.showSpinner = false;
        })
      } catch(e) {
@@ -1138,14 +1138,14 @@ Object.keys(this.properties).forEach(key => {
          sorturl:  this.sorturl,
           userid: this.userid
        }
-      // this.showSpinnerProperty = false; 
+      // this.showSpinnerProperty = false;
        console.log(urlPara);
        this.service.homesearchpropertiesfavlistsort(this.currentPage, urlPara).then( (response : any) => {
          console.log(response);
          this.properties = response.data;
          this.totalPages = response.totalPages;
          this.totalRecords = response.totalRecords;
-         this.showSpinnerProperty = false; 
+         this.showSpinnerProperty = false;
          this.showSpinner = false;
                  this.properties.forEach(obj => {
         obj.propertyCheck = false;
@@ -1158,7 +1158,7 @@ Object.keys(this.properties).forEach(key => {
          }
          this.loadMapsort(urlParamap);
        }).catch( error => {
-         this.showSpinnerProperty = false; 
+         this.showSpinnerProperty = false;
          this.showSpinner = false;
        })
      } catch(e) {
@@ -1176,13 +1176,13 @@ Object.keys(this.properties).forEach(key => {
        let latLng = new google.maps.LatLng(this.propertiesmap[0]["Latitude"],this.propertiesmap[0]["Longitude"]);
        var bounds = new google.maps.LatLngBounds();
        const icon = {
-         url: 'assets/imgs/pricepin.svg', 
-         scaledSize: new google.maps.Size(40, 60), 
+         url: 'assets/imgs/pricepin.svg',
+         scaledSize: new google.maps.Size(40, 60),
        };
        let mapOptions = {
          center: latLng,
          zoom: 11,
-         minZoom: 11, 
+         minZoom: 11,
          icon: icon ,
          mapTypeId: google.maps.MapTypeId.ROADMAP
        }
@@ -1239,12 +1239,12 @@ Object.keys(this.properties).forEach(key => {
            content: contentString,
            maxWidth: 400
          });
-         this.mapListingID=this.propertiesmap[i].ListingID; 
-         this.mapcountry=this.propertiesmap[i].County; 
-         this.mapstate=this.propertiesmap[i].State; 
-         this.mapzipcode=this.propertiesmap[i].ZipCode; 
+         this.mapListingID=this.propertiesmap[i].ListingID;
+         this.mapcountry=this.propertiesmap[i].County;
+         this.mapstate=this.propertiesmap[i].State;
+         this.mapzipcode=this.propertiesmap[i].ZipCode;
          this.mapslug=this.propertiesmap[i].slug;
-         this.mapPriceCurrentForStatus=this.propertiesmap[i].PriceCurrentForStatus; 
+         this.mapPriceCurrentForStatus=this.propertiesmap[i].PriceCurrentForStatus;
          this.mapBeds=this.propertiesmap[i].Beds;
          this.mapBathsTotalInteger=this.propertiesmap[i].BathsTotalInteger;
          this.mapSqFtApproximateTotal=this.propertiesmap[i].SqFtApproximateTotal;
@@ -1258,11 +1258,11 @@ Object.keys(this.properties).forEach(key => {
          let idz=this.propertiesmap[i].ListingID;
          let priceeee=this.propertiesmap[i].PriceCurrentForStatus;
          let that=this;
-         let country=this.propertiesmap[i].County; 
-         let state=this.propertiesmap[i].State; 
-         let zipcode=this.propertiesmap[i].ZipCode; 
+         let country=this.propertiesmap[i].County;
+         let state=this.propertiesmap[i].State;
+         let zipcode=this.propertiesmap[i].ZipCode;
          let slug=this.propertiesmap[i].slug;
-         let PriceCurrentForStatus=this.propertiesmap[i].PriceCurrentForStatus; 
+         let PriceCurrentForStatus=this.propertiesmap[i].PriceCurrentForStatus;
          let Beds=this.propertiesmap[i].Beds;
          let BathsTotalInteger=this.propertiesmap[i].BathsTotalInteger;
          let SqFtApproximateTotal=this.propertiesmap[i].SqFtApproximateTotal;
@@ -1275,7 +1275,7 @@ Object.keys(this.properties).forEach(key => {
          google.maps.event.addListener(infowindow, 'domready', () => {
            var clickableItem = document.getElementById('clickableItem');
            clickableItem.addEventListener('click', () => {
-             that.navCtrl.push(PropertyDetailPage, { propertyId : idz}); 
+             that.navCtrl.push(PropertyDetailPage, { propertyId : idz});
            });
          });
          let self = this ;
@@ -1288,7 +1288,7 @@ this.map.addListener('click', function (event) {
 
           var marker_id = marker.id;
           console.log(priceeee);
-      
+
        this.hidemapimage = 'hide';
             self.getPropertyImage(primaryid, idz, country, state, zipcode, slug, PriceCurrentForStatus, Beds, BathsTotalInteger, SqFtApproximateTotal, FullStreetAddress, City, State, ZipCode, favcount)
                         $('.addInfoContent').css('display','block');
@@ -1300,7 +1300,7 @@ this.map.addListener('click', function (event) {
        this.map.setCenter(bounds.getCenter());
        this.map.fitBounds(bounds);
        function viewpropertymap(propertyid){
-         this.navCtrl.push(PropertyDetailPage, { propertyId : propertyid}); 
+         this.navCtrl.push(PropertyDetailPage, { propertyId : propertyid});
        }
        function  openQtoModal(propertyId){
        }
