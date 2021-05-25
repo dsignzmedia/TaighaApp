@@ -16,17 +16,17 @@
                     <img src="assets/imgs/backarrow-blue.svg" width="19" height="19">
                 </i>
             </ion-col>
-        <ion-col class="no-border" text-right>
+        <!-- <ion-col class="no-border" text-right>
                 <i class="gallery">
                     <img  (click)="viewimage(propertyRmls.ListingID)" src="assets/imgs/art-blue.svg" width="27" height="24">
                 </i>
-            </ion-col>
+            </ion-col> -->
     </ion-row>
 </ion-grid>
 <ion-slides *ngIf="propertyImage && propertyImage.length" autoplay="true" loop="true" pager="false" >
 
   <ion-slide *ngFor="let property of propertyImage">
-     <img src="{{property.image}}" />
+     <img src="{{property.image}}"  (click)="viewimage(propertyRmls.ListingID)" />
   </ion-slide>
 </ion-slides>
   <span *ngIf=" propertyRmls.ListingStatus != 'Active'" class="upbadge">{{propertyRmls.ListingStatus}}</span>
