@@ -43,6 +43,14 @@ page-ticketview {
 ion-content{
 	&.content{
 	background-color: #ffffff;
+	ion-select.onlyvalues-select {
+    opacity: 1;
+    border: 0 !important;
+    background: transparent;
+    .select-icon{
+    	display: none;
+    }
+}
 	a.phonecall{
 		display: inline-flex;
 	}

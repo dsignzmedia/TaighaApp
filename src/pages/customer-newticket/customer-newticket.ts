@@ -58,7 +58,7 @@ public TicketPartner: any = "";
   public quillEditorRef;
   public quill: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public service: ServiceProvider, public modalCtrl: ModalController, public loadingCtrl: LoadingController,) {
- // 	this.clearAndGetOptions();
+	this.clearAndGetOptions();
   }
 
   ionViewDidLoad() {

@@ -325,7 +325,7 @@ this.getAccess();
 
 openSelecttemplate(){
       let textmessagemodal = this.modalCtrl.create(TicketFieldsPage, {templates: this.ticketDataOption, ticket: this.ticket, ticketAllOption: this.ticketAllOption}, {cssClass: 'template-modal-mini' });
-          textmessagemodal.present();
+          textmessagemodal.present({animate: false});
           textmessagemodal.onDidDismiss(data=>{ 
             console.log(data);
             console.log(data);

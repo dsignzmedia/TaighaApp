@@ -37,7 +37,7 @@
     </ion-refresher>
     <div class="ticket-view-panel" *ngIf="ticket">
         
-        <div *ngIf="ticket.customer_id != 0" class="tickect-for-panel">
+        <div *ngIf="ticket.customer_id != 0 && IsStaffCheck != 0" class="tickect-for-panel">
             <div class="cust-panel">
             <figure>
                 <img src="assets/imgs/toptech-avatar.png">
@@ -103,8 +103,9 @@
                     <ion-row class="bottom">
                         <ion-col col-12>
                             <p>
+                                <!--  *ngIf="IsStaffCheck != 0" -->
                                 <label class="d-block d-flex-label">Property : </label>
-                                <span class="sub-content" *ngIf=" !editpropertyfield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('property') ">
+                                <span class="sub-content" *ngIf=" !editpropertyfield"><span *ngIf="ticket.property_id != 0 && IsStaffCheck != 0" class="pencil_edit" (click)=" toggleTopHeaderUpdate('property') ">
                                 <img src="assets/imgs/edit.svg"></span> 
                             {{ ticket.property_address ? ticket.property_address : '-' }}
 
@@ -130,7 +131,7 @@
 <ion-col col-6>
     <p>
         <label class="d-block d-flex-label">Group :</label>
-        <span  class="sub-content" *ngIf=" !editgroupfield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('group') "><img src="assets/imgs/edit.svg"></span> {{ ticket.groupname }}</span></p>
+        <span  class="sub-content" *ngIf=" !editgroupfield "><span class="pencil_edit"  *ngIf="IsStaffCheck != 0" (click)=" toggleTopHeaderUpdate('group') "><img src="assets/imgs/edit.svg"></span> {{ ticket.groupname }}</span></p>
     <ion-select [(ngModel)]="ticket.assigned_to" class="form-field-select" (ionChange)="enableDisableStatus()" *ngIf="editgroupfield">
         <ion-option value="{{ group.id }}" *ngFor=" let  group of groups  ">{{ group.name }}</ion-option>
     </ion-select>
@@ -138,7 +139,7 @@
                         <ion-col col-6>
                             <p>
                                 <label class="d-block d-flex-label">Staff :</label>
-                                <span  class="sub-content" *ngIf=" !editstafffield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('staff') "><img src="assets/imgs/edit.svg"></span> {{ ticket.staff_name ? ticket.staff_name : '-' }}</span></p>
+                                <span  class="sub-content" *ngIf=" !editstafffield "><span class="pencil_edit" *ngIf="IsStaffCheck != 0" (click)=" toggleTopHeaderUpdate('staff') "><img src="assets/imgs/edit.svg"></span> {{ ticket.staff_name ? ticket.staff_name : '-' }}</span></p>
                             <ion-select [(ngModel)]="ticket.assigned_to_staff" class="form-field-select" (ionChange)="enableDisableStatus()" *ngIf="editstafffield">
                                 <ion-option value="{{ staff.id }}" *ngFor=" let  staff of ticketDataOption.users  ">{{ staff.first_name }} {{ staff.last_name }}</ion-option>
                             </ion-select>
@@ -148,7 +149,7 @@
 <ion-col col-6>
     <p>
         <label class="d-block d-flex-label">Status :</label>
-        <span  class="sub-content" *ngIf=" !editstatusfield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('status') "><img src="assets/imgs/edit.svg"></span> {{ ticket.status }}</span></p>
+        <span  class="sub-content" *ngIf=" !editstatusfield "><span class="pencil_edit"  *ngIf="IsStaffCheck != 0" (click)=" toggleTopHeaderUpdate('status') "><img src="assets/imgs/edit.svg"></span> {{ ticket.status }}</span></p>
     <ion-select [(ngModel)]="ticket.status" class="form-field-select" (ionChange)="enableDisableStatus()" *ngIf="editstatusfield">
         <ion-option value="{{ stat.id }}" *ngFor=" let  stat of status  ">{{ stat.status }}</ion-option>
     </ion-select>
@@ -158,7 +159,7 @@
 <ion-col col-6 *ngIf="ticket.ticket_type != 'customer'">
     <p>
         <label class="d-block d-flex-label">Class :</label>
-        <span  class="sub-content" *ngIf=" !editclassfield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('class') "><img src="assets/imgs/edit.svg"></span> {{ ticket.class }}</span></p>
+        <span  class="sub-content" *ngIf=" !editclassfield "><span class="pencil_edit"  *ngIf="IsStaffCheck != 0" (click)=" toggleTopHeaderUpdate('class') "><img src="assets/imgs/edit.svg"></span> {{ ticket.class }}</span></p>
     <ion-select [(ngModel)]="ticket.class" class="form-field-select" (ionChange)="enableDisableStatus()" *ngIf="editclassfield">
                         <ion-option value="Bug">Bug</ion-option>
                         <ion-option value="Enhancement">Enhancement</ion-option>
@@ -169,23 +170,27 @@
 <ion-col col-6 *ngIf="ticket.ticket_type != 'customer'">
     <p>
         <label class="d-block d-flex-label">Version :</label>
-        <span  class="sub-content" *ngIf=" !editversionfield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('version') "><img src="assets/imgs/edit.svg"></span> {{ ticket.version }}</span></p>
+        <span  class="sub-content" *ngIf=" !editversionfield "><span class="pencil_edit"  *ngIf="IsStaffCheck != 0" (click)=" toggleTopHeaderUpdate('version') "><img src="assets/imgs/edit.svg"></span> {{ ticket.version }}</span></p>
     <ion-input  (ionChange)="enableDisableStatus()" *ngIf="editversionfield" [(ngModel)]="ticket.version">{{ ticket.version }}</ion-input>
 </ion-col>
 <ion-col col-6>
     <p>
         <label class="d-block d-flex-label">CC :</label>
-        <span  class="sub-content" *ngIf=" !editccfield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('cc') "><img src="assets/imgs/edit.svg"></span> {{ ticketHistory[0].cc }}</span></p>
+        <span  class="sub-content" *ngIf=" !editccfield "><span class="pencil_edit"  *ngIf="IsStaffCheck != 0" (click)=" toggleTopHeaderUpdate('cc') "><img src="assets/imgs/edit.svg"></span> {{ ticketHistory[0].cc }}</span></p>
     <ion-input  (ionChange)="enableDisableStatus()" *ngIf="editccfield" [(ngModel)]="ticket.cc_emails">{{ ticketHistory[0].cc }}</ion-input>
 </ion-col>
-<!-- <ion-col col-6>
+<ion-col col-6>
     <p>
         <label class="d-block d-flex-label">Access :</label>
-        <span  class="sub-content" *ngIf=" !editaccessfield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('access') "><img src="assets/imgs/edit.svg"></span> {{ ticket.groupname }}</span></p>
-    <ion-select [(ngModel)]="ticket.assigned_to" class="form-field-select" (ionChange)="enableDisableStatus()" *ngIf="editaccessfield">
-        <ion-option value="{{ access.id }}" *ngFor=" let  access of accessuser  ">{{ access.name }}</ion-option>
+        <span  class="sub-content" *ngIf=" !editaccessfield "><span class="pencil_edit"  *ngIf="IsStaffCheck != 0" (click)=" toggleTopHeaderUpdate('access') "><img src="assets/imgs/edit.svg"></span> 
+    <ion-select [(ngModel)]="accessibleUserIds" class="form-field-select onlyvalues-select" [disabled]="true" multiple="true">
+        <ion-option value="{{ access.id }}" *ngFor=" let  access of accessuser  ">{{ access.first_name }} {{ access.last_name }}</ion-option>
     </ion-select>
-</ion-col> -->
+    </span></p>
+    <ion-select [(ngModel)]="accessibleUserIds" class="form-field-select"  multiple="true" (ionChange)="enableDisableStatus()" *ngIf="editaccessfield">
+        <ion-option value="{{ access.id }}" *ngFor=" let  access of accessuser  ">{{ access.first_name }} {{ access.last_name }}</ion-option>
+    </ion-select>
+</ion-col>
 
                         <ion-col col-12>
                             <div class="inline-btn">
