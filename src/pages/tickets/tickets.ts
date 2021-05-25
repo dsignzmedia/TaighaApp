@@ -338,6 +338,7 @@ createnewTicketsCustomer(){
 ticketview(ticketId, ticketsub){
   console.log(ticketId +' '+ ticketsub);
   // ticketId : 257, ticketsub : 'C259 : DummyLead : Home Search' }
+  // access 7768
 this.navCtrl.push(TicketviewPage, { ticketId : ticketId, ticketsub : ticketsub }); 
 }
 openPopover(myEvent) {

@@ -49,7 +49,7 @@ import { CreateMessagePage } from '../pages/create-message/create-message';
 import { SelectTemplatePage } from '../pages/select-template/select-template';
 import { TicketFieldsPage } from '../pages/ticket-fields/ticket-fields';
 import { SearchableModalPage } from '../pages/searchable-modal/searchable-modal';
-import { CustomerNewticketPage } from '../pages/customer-newticket/customer-newticket';
+import { CustomerNewticketPage } from '../pages/customer-newticket/customer-newticket'; 
 
 // import { HomeSearchPage } from '../pages/home-search/home-search';
 // import { CardViewPage } from '../pages/home-search/card-view/card-view';

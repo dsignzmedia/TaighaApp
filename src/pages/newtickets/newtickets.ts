@@ -180,7 +180,7 @@ openSelecttemplate(field){
   }
 // console.log(content);
       let searchmodal = this.modalCtrl.create(SearchableModalPage, {content: this.content}, {cssClass: 'template-modal' });
-          searchmodal.present();
+          searchmodal.present({animate: false});
           searchmodal.onDidDismiss(data=>{ 
           console.log(data);
           if (data) {

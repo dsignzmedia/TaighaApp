@@ -18,9 +18,9 @@ var liveToken = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjlmMWZkMDky
 
 @Injectable()
 export class ServiceProvider {
- public baseUrl : string = "https://toptechrealty.com/api/auth";
+  public baseUrl : string = "https://toptechrealty.com/api/auth";
   //  public baseUrl : string = "http://localhost:8080/Toptech/New/Taigha-Productions-Repository/public/api/auth";
-     //   public baseUrl : string = "http://127.0.0.1:8000/api/auth";  
+   //    public baseUrl : string = "http://127.0.0.1:8000/api/auth";  
 
   public apigetroles: string = this.baseUrl+"/rmls/listing/share/modal/roles-and-types";
   public apiModalUser: string = this.baseUrl+"/rmls/listing/share/modal/get-users";
@@ -1880,6 +1880,9 @@ getcustomer(body) {
         body = body.append('cc_emails', ticket.cc_emails);
         body = body.append('class', ticket.class);
         body = body.append('version', ticket.version);
+        body = body.append('accessible_users', ticket.accessibleUserIds);
+
+        //accessibleUserIds
 
         return this.http.post(this.apiTickets+"/"+ticket.id+"/update", body, httpOptions).toPromise();
       } catch ( e ) {

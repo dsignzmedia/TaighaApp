@@ -73,6 +73,7 @@ public GotTicketVersion : any = "";
   public editccfield: boolean = false;
   public editclassfield: boolean = false;
   public editversionfield: boolean = false;
+  public editaccessfield: boolean = false;
 
 	public hideNotified() {
 	 	this.hidemeNotified = !this.hidemeNotified;
@@ -82,6 +83,7 @@ public GotTicketVersion : any = "";
 
   public formData = new FormData();
   public config : any;
+   public accessibleUserIds: any;
 
   public quillEditorRef;
   public quill: any;
@@ -162,6 +164,7 @@ this.getAccess();
 
      this.service.hasAccess(this.ticketId, this.ticket.assigned_to_staff).then( (response : any) => {
        console.log( response );
+       this.accessibleUserIds = response.totalAccessUsers;
      }).catch( error => {
          console.log(error);
      })
@@ -372,6 +375,7 @@ this.iab.create(event.target.href+"?token=dHJhbnomob", "_system", "beforeload=ye
        console.log(response);
        this.notifyuser = response.data.ticketHistories;
        this.accessuser = response.data.accessibleUsers;
+       
        
 
      }).catch( error => {
@@ -664,6 +668,8 @@ console.log(data);
       this.editclassfield = (this.editclassfield) ? false : true; 
     } else if(type == 'version') {
       this.editversionfield = (this.editversionfield) ? false : true; 
+    } else if(type == 'access') {
+      this.editaccessfield = (this.editaccessfield) ? false : true; 
     }else{
 
     }
