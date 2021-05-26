@@ -14,6 +14,7 @@ import { SearchableModalPage } from '../../pages/searchable-modal/searchable-mod
   templateUrl: 'customer-newticket.html',
 })
 export class CustomerNewticketPage {
+  public formData = new FormData();
   public showSpinner: boolean = false;
     public priorities: any = "";
   public properties: any = "";
@@ -69,26 +70,27 @@ public TicketPartner: any = "";
     this.service.showload();
 	  	try {
 	 		this.showSpinner = true;
-	 		this.service.ticketcreate().then( (response : any) => {
+	 		this.service.custicketcreate().then( (response : any) => {
+         console.log(response);
          this.showSpinner = false;
          this.service.loading.dismiss();
-		   	this.priorities = response.data.priorities;
+		   	 this.priorities = response.data.priorities;
 		   	this.properties = response.data.properties;
-         this.status = response.data.status;
+      //    this.status = response.data.status;
 
-         this.ticketclass = response.data.ticketclass;
-        // this.accessibleUsers = response.data.accessibleUsers;
-         this.accessibleUsers = response.data.allaccessibleUsers;
-         //allaccessibleUsers
-         this.tickettypes = response.data.tickettypes;
-         this.templates = response.data.template;
-         this.customers = response.data.customers;
-         this.groups = response.data.groups;
-         this.partners = response.data.partners;
-         this.users = response.data.users;
-		   	console.log(response);
+      //    this.ticketclass = response.data.ticketclass;
+      //   // this.accessibleUsers = response.data.accessibleUsers;
+      //    this.accessibleUsers = response.data.allaccessibleUsers;
+      //    //allaccessibleUsers
+      //    this.tickettypes = response.data.tickettypes;
+      //    this.templates = response.data.template;
+      //    this.customers = response.data.customers;
+      //    this.groups = response.data.groups;
+      //    this.partners = response.data.partners;
+      //    this.users = response.data.users;
+		   	// console.log(response);
 		   	this.body = response.data.signature ;
-        this.signature = response.data.signature ;
+       this.signature = response.data.signature ;
 
 		   }).catch( error => {
 		   		this.showSpinner = false;
@@ -248,6 +250,34 @@ openSelecttemplate(field){
   this.quill.insertEmbed(range.index, 'image', res.url);
 }
 storeTicketcustomer(){
-	this.service.toast('Create Feature is in process', 1500, 'middle');
+	// this.service.toast('Create Feature is in process', 1500, 'middle');
+if ((this.TicketSubject == '') ) {
+  this.service.toast('The subject field is required', 1500, 'middle');
+  this.service.loading.dismiss();
+}else{
+  this.service.showload();
+this.formData.append('priority', this.TicketPriority);
+this.formData.append('property_id', this.TicketProperty);
+this.formData.append('subject', this.TicketSubject);
+this.formData.append('body', this.body);
+console.log(this.TicketPriority);
+console.log(this.TicketProperty);
+console.log(this.TicketSubject);
+console.log(this.body);
+
+    this.service.custicketstore(this.formData).then( (response : any) => {
+            console.log(JSON.stringify(response));
+            this.service.loading.dismiss();
+            this.service.toast('Ticket Created Successfully', 1500, 'middle');
+            this.navCtrl.pop();
+          } ).catch( (e : any) => { 
+            console.log(e);
+            console.log(JSON.stringify(e));
+            this.service.loading.dismiss();
+            this.service.toast(e.error.message, 3000, 'middle');
+          });
+
 }
+}
+
 }

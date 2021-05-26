@@ -10,6 +10,7 @@ import { MailsPage } from '../../pages/mails/mails';
 import { ActivitiesPage } from '../../pages/activities/activities';
 import { TicketActivityPage } from '../../pages/ticket-activity/ticket-activity';
 import { StorageProvider } from '../../providers/storage/storage';
+import { SearchableModalPage } from '../../pages/searchable-modal/searchable-modal'; 
 /**
  * Generated class for the TicketviewPage page.
  *
@@ -28,9 +29,11 @@ export class TicketviewPage {
   @ViewChild('fileInput') inputEl: ElementRef;
   @ViewChild(Content) content: Content;
 
+  public contentfield: any = "";
+
 public notifyuser : any = "";
 public accessuser: any ="";
-
+public TicketAccessSelected: any = "";
 public shownavbar: boolean = true;
   public toggleUpdateFields: boolean = false;
   public dropdownFields: boolean = false;
@@ -193,6 +196,36 @@ this.getTicket();
   }
 
 
+openSelecttemplate(field){
+  // let content: any = {
+  //        field: field,
+  //        list: '',
+  //        selectedField : ''
+  //      }
+     //  console.log(content);
+         this.contentfield = {
+         field: field,
+         list: this.accessuser,
+         selectedField : this.TicketAccessSelected
+       }
+// console.log(content);
+      let searchmodal = this.modalCtrl.create(SearchableModalPage, {content: this.contentfield}, {cssClass: 'template-modal' });
+          searchmodal.present({animate: false});
+          searchmodal.onDidDismiss(data=>{ 
+          console.log(data);
+          if (data) {
+
+              this.accessibleUserIds = null;
+              console.log(data.selectedTemplate);
+                setTimeout(() => {
+                  this.accessibleUserIds = data.selectedTemplate;
+                }, 100);
+              
+              this.TicketAccessSelected = data.selectedTemplate;
+
+          }
+      })
+    }
 
   gotoActivity(){
       let textmessagemodal = this.modalCtrl.create(TicketActivityPage,{
@@ -555,7 +588,7 @@ console.log(data);
       this.ticket['notify'] = 'notify';
     }
     console.log(this.ticket);
-    this.service.updateTicket(this.ticket).then( (response : any) => {
+    this.service.updateTicket(this.ticket, this.accessibleUserIds).then( (response : any) => {
         console.log(response);
        loading.dismiss();
        this.clearAndGetTicket();

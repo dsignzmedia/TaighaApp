@@ -75,6 +75,9 @@ public notifyuser : any = "";
     public showReply: boolean = false;
     public showFields: boolean = false;
     public activity: boolean = false;
+
+      IsStaffCheck: any;
+  public IsStaff : boolean = false;
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               public modalCtrl: ModalController,
@@ -90,6 +93,19 @@ public notifyuser : any = "";
   	this.ticketsub = this.navParams.get('ticketsub');
     this.fromdata = this.navParams.get('from');
     this.notifyuser = this.navParams.get('notifyuser');
+    this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
+      console.log(auth_user_token)
+        if(auth_user_token) {
+      this.IsStaffCheck = auth_user_token.is_staff;
+      if (this.IsStaffCheck == 0) {
+        this.IsStaff = false;
+      }else{
+        this.IsStaff = true;
+      }
+        }
+          console.log(this.IsStaffCheck);
+    });
+
         console.log(this.notifyuser);
     console.log(this.fromdata);
   	this.ticket = this.ticketData.ticket;
@@ -205,6 +221,60 @@ toggleMail(){
         this.showMin = true;
         this.showMax = false;
       }
+}
+cusreply(){
+  console.log('cusreply');
+   try {
+    this.service.showload();
+    console.log( (this.GotTicketGroup) ? this.GotTicketGroup : this.group);
+    console.log( (this.GotTicketStaff) ? this.GotTicketStaff : this.staff);
+    console.log( (this.GotTicketPriority) ? this.GotTicketPriority : this.priority);
+    console.log( (this.GotTicketClass) ? this.GotTicketClass : this.class);
+    console.log( (this.GotTicketProperty) ? this.GotTicketProperty : this.property_id);
+    console.log( (this.GotTicketStatus) ? this.GotTicketStatus : this.status);
+    console.log( (this.GotTicketVersion) ? this.GotTicketVersion : this.version);
+    console.log( (this.GotTicketAccess) ? this.GotTicketAccess : this.access);
+    console.log( (this.body) ? this.body : this.oldbody);
+this.GotTicketGroup =  (this.GotTicketGroup) ? this.GotTicketGroup : this.group;
+this.GotTicketStaff =  (this.GotTicketStaff) ? this.GotTicketStaff : this.staff;
+this.GotTicketPriority = (this.GotTicketPriority) ? this.GotTicketPriority : this.priority;
+this.GotTicketClass = (this.GotTicketClass) ? this.GotTicketClass : this.class;
+this.GotTicketProperty = (this.GotTicketProperty) ? this.GotTicketProperty : this.property_id;
+this.GotTicketStatus = (this.GotTicketStatus) ? this.GotTicketStatus : this.status;
+this.GotTicketVersion = (this.GotTicketVersion) ? this.GotTicketVersion : this.version;
+this.GotTicketAccess = (this.GotTicketAccess) ? this.GotTicketAccess : this.access;
+this.body = (this.body) ? this.body : this.oldbody;
+    this.formData.append('group', this.GotTicketGroup);
+    this.formData.append('staff', this.GotTicketStaff);
+    this.formData.append('priority', this.GotTicketPriority);
+    this.formData.append('class', this.GotTicketClass);
+    this.formData.append('property_id', this.GotTicketProperty);
+    this.formData.append('status', this.GotTicketStatus);
+    this.formData.append('version', this.GotTicketVersion);
+    this.formData.append('accessible_users', this.GotTicketAccess);
+    this.formData.append('body', this.body);
+    this.formData.append('id', this.ticket.id);
+    console.log(this.GotTicketProperty);
+    console.log(this.property_id);
+    console.log('test');
+
+    console.log(this.ticket.id);
+     this.service.loading.dismiss();
+    this.service.ticketreply(this.formData).then( (response : any) => {
+            console.log(JSON.stringify(response));
+            this.service.loading.dismiss();
+            this.navCtrl.pop();
+          } ).catch( (e : any) => { 
+            console.log(e);
+            console.log(JSON.stringify(e));
+            this.service.loading.dismiss();
+            this.service.toast(e.error.message, 3000, 'middle');
+          });
+     } catch(e) {
+       // this.showSpinner = false;
+        this.service.serverError();
+        this.service.loading.dismiss();
+    }
 }
 
  reply() {

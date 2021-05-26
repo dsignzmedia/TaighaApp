@@ -407,7 +407,9 @@
     </div>
   </div>
   <div class="message-btn">
-   <button block text-uppercase  class="btn btn-blue"  (click)="reply()"> <img src="assets/icon/send.svg"></button>
+    
+    <button block text-uppercase  class="btn btn-blue" *ngIf="IsStaffCheck == 0" (click)="cusreply()"> <img src="assets/icon/send.svg"></button>
+   <button block text-uppercase  class="btn btn-blue" *ngIf="IsStaffCheck != 0"  (click)="reply()"> <img src="assets/icon/send.svg"></button>
  </div>
 </div>
 </div>

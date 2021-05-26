@@ -20,7 +20,7 @@ var liveToken = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjlmMWZkMDky
 export class ServiceProvider {
   public baseUrl : string = "https://toptechrealty.com/api/auth";
   //  public baseUrl : string = "http://localhost:8080/Toptech/New/Taigha-Productions-Repository/public/api/auth";
-   //    public baseUrl : string = "http://127.0.0.1:8000/api/auth";  
+    //   public baseUrl : string = "http://127.0.0.1:8000/api/auth";  
 
   public apigetroles: string = this.baseUrl+"/rmls/listing/share/modal/roles-and-types";
   public apiModalUser: string = this.baseUrl+"/rmls/listing/share/modal/get-users";
@@ -54,12 +54,15 @@ export class ServiceProvider {
   public apiTicketsold: string = this.baseUrl+"/user/ticketsold";
   public apiUploadUserAvatar: string = this.baseUrl+"/user/upload/avatar";
   public apiTicketCreate: string = this.baseUrl+"/user/tickets/create/ticket";
+  public apiTicketCusCreate: string = this.baseUrl+"/user/tickets/cuscreate/ticket";
   public apiTicketStore: string = this.baseUrl+"/user/tickets/store/ticket";
+  public apiCusTicketStore: string = this.baseUrl+"/user/tickets/cusstore/ticket";
 
   public apiTicketGroupUser: string = this.baseUrl+"/user/tickets/groupuser";
   public apiTicketCustomer: string = this.baseUrl+"/user/tickets/customer";
 
   public apiTicketReply: string = this.baseUrl+"/user/tickets/store/reply";
+  public apiCusTicketReply: string = this.baseUrl+"/user/tickets/cusstore/reply";
   public apiFcm: string = this.baseUrl+"/user/fcm/tokens";
   public apiuserByProperties: string = this.baseUrl+"/userby/properties";
   public apiChecklist: string = this.baseUrl+"/user/checklists";
@@ -1782,6 +1785,21 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
       }
       });
   }
+  custicketcreate(){
+    return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
+        try {
+          let httpOptions = {
+          headers: new HttpHeaders({
+            'Authorization':  auth_user_token.token_type+" "+auth_user_token.access_token
+          })
+        };
+        return this.http.get(this.apiTicketCusCreate, httpOptions).toPromise();
+      } catch ( e ) {
+        console.log(e);
+        this.unAuthorizedToken();
+      }
+      });
+  }
 
   ticketstore(body) {
     return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
@@ -1792,6 +1810,21 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
           })
         };
         return this.http.post(this.apiTicketStore, body, httpOptions).toPromise();
+      } catch ( e ) {
+        console.log(e);
+        this.unAuthorizedToken();
+      }
+      });
+  }
+  custicketstore(body) {
+    return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
+        try {
+          let httpOptions = {
+          headers: new HttpHeaders({
+            'Authorization':  auth_user_token.token_type+" "+auth_user_token.access_token
+          })
+        };
+        return this.http.post(this.apiCusTicketStore, body, httpOptions).toPromise();
       } catch ( e ) {
         console.log(e);
         this.unAuthorizedToken();
@@ -1846,6 +1879,22 @@ getcustomer(body) {
       }
       });
   }
+  custicketreply(body) {
+    return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
+        try {
+          let httpOptions = {
+          headers: new HttpHeaders({
+            'Authorization':  auth_user_token.token_type+" "+auth_user_token.access_token
+          })
+        };
+        return this.http.post(this.apiCusTicketReply, body, httpOptions).toPromise();
+      } catch ( e ) {
+        console.log(e);
+        this.unAuthorizedToken();
+      }
+      });
+  }
+
 
   ticketFilterOptions() {
     return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
@@ -1863,7 +1912,7 @@ getcustomer(body) {
       });
   }
 
-  updateTicket(ticket) {
+  updateTicket(ticket, accessibleUserIds) {
     return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
         try {
           let httpOptions = {
@@ -1880,7 +1929,8 @@ getcustomer(body) {
         body = body.append('cc_emails', ticket.cc_emails);
         body = body.append('class', ticket.class);
         body = body.append('version', ticket.version);
-        body = body.append('accessible_users', ticket.accessibleUserIds);
+        body = body.append('notify', ticket.notify);
+        body = body.append('accessible_users', accessibleUserIds);
 
         //accessibleUserIds
 
