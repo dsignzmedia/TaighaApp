@@ -320,6 +320,10 @@
           <ion-label>{{optionResultstatus[4].value}}</ion-label>
           <ion-checkbox [(ngModel)]="checkedStatus4" (click)="statusCheckbox(optionResultstatus[4].value, $event); "></ion-checkbox>
         </ion-item>
+        <ion-item  *ngIf="optionResultstatus.length > 5">
+          <ion-label>{{optionResultstatus[5].value}}</ion-label>
+          <ion-checkbox [(ngModel)]="checkedStatus5" (click)="statusCheckbox(optionResultstatus[5].value, $event); "></ion-checkbox>
+        </ion-item>
 			</ion-list>
         </ion-col>
       </ion-row>

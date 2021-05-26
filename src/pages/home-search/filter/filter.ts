@@ -85,6 +85,7 @@ checkedStatus1 : boolean = true;
 checkedStatus2 : boolean = false;
 checkedStatus3 : boolean = false;
 checkedStatus4 : boolean = false;
+checkedStatus5 : boolean = false;
 minPriceInput: string = '';
 maxPriceInput: string = '';
 minbackPriceInput: any;
@@ -150,6 +151,8 @@ public selectedStatus4 : any = [];
 getselectedStatus4 : any ;
 public selectedStatus5 : any = [];
 getselectedStatus5 : any ;
+public selectedStatus6 : any = [];
+getselectedStatus6 : any ;
 
 getupdatelistings : any ;
 
@@ -198,6 +201,7 @@ public searchArray:Array<string> = new Array();
            console.log(error);
        })
   this.storage.getStorage('fromsavedsearch').then((val) => {
+    console.log('val');
     console.log(val);
     if (val == null) {
     }else{
@@ -455,6 +459,16 @@ this.valcombineproperty = this.valpCatfinal+this.valpTypefinal;
         this.statusarray.splice(4, 1, '&status[]=Sold');
       }
     }
+    if (val.status[5]) {
+      console.log('val.status[5]');
+      console.log(val.status[5]);
+      this.getselectedStatus6 = val.status[5];
+      if (this.getselectedStatus6) {
+        this.selectedStatus6 = "yes";
+        this.checkedStatus5 = true;
+        this.statusarray.splice(5, 1, '&status[]=Off Market');
+      }
+    }
       this.paraArrayReturn.splice(0, 1, val.searchterm);
       this.paraArrayReturn.splice(1, 1, val.requesttype);
       this.paraArrayReturn.splice(2, 1, val.beds);
@@ -616,6 +630,16 @@ if (this.updatelistings.indexOf('modified_listing=0') >= 0) {
         this.selectedStatus5 = "yes";
         this.checkedStatus4 = true;
         this.statusarray.splice(4, 1, '&status[]=Sold');
+      }
+    }
+    console.log('selectedStatus6');
+    console.log(this.getselectedStatus6);
+    if (this.navParams.get('selectedStatus6')) {
+      this.getselectedStatus6 = this.navParams.get('selectedStatus6');
+      if (this.getselectedStatus6 == 'yes') {
+        this.selectedStatus6 = "yes";
+        this.checkedStatus5 = true;
+        this.statusarray.splice(5, 1, '&status[]=Off Market');
       }
     }
     if(this.navParams.get('paraArrayReturn')){
@@ -1048,6 +1072,7 @@ console.log(this.paraArray);
       selectedStatus3 : this.selectedStatus3,
       selectedStatus4 : this.selectedStatus4,
       selectedStatus5 : this.selectedStatus5,
+      selectedStatus6 : this.selectedStatus6,
       selectedPropertycate : this.selectedPropertycate,
       selectedPropertycate1 : this.selectedPropertycate1,
       selectedPropertycate2 : this.selectedPropertycate2,
@@ -1285,6 +1310,51 @@ console.log(this.paraArray);
          }
        }
      }
+     if (status == 'Off Market') {
+      if(this.checkedStatus5 == true){
+        this.selectedStatus6 = "yes";
+        this.statusarray.splice(5, 1, '&status[]=Off Market');
+        this.statusarraystring = this.statusarray.filter(item => item);
+        this.statusarraystring = this.statusarray.join('');
+        this.paraArray.splice(23, 1, this.statusarraystring);
+        try {
+          this.showtotalspin = true;
+          this.showtotal = false;
+          this.service.filterhomesearchproperties(this.currentPage, this.filters, this.paraArray, this.userid).then( (response : any) => {
+            console.log(response);
+            this.totalRecords = response.totalRecords;
+            this.showtotalspin = false;
+            this.showtotal = true;
+          }).catch( error => {
+
+          })
+        } catch(e) {
+
+          this.service.serverError();
+        }
+      }
+      if(this.checkedStatus5 == false){
+        this.selectedStatus6 = "no";
+        this.statusarray.splice(5, 1, '');
+        this.statusarraystring = this.statusarray.filter(item => item);
+        this.statusarraystring = this.statusarray.join('');
+        this.paraArray.splice(23, 1, this.statusarraystring);
+        try {
+          this.showtotalspin = true;
+          this.showtotal = false;
+          this.service.filterhomesearchproperties(this.currentPage, this.filters, this.paraArray, this.userid).then( (response : any) => {
+            this.totalRecords = response.totalRecords;
+            this.showtotalspin = false;
+            this.showtotal = true;
+          }).catch( error => {
+
+          })
+        } catch(e) {
+
+          this.service.serverError();
+        }
+      }
+    }
    }
 
    setlistingOfficeInput(){
@@ -1503,6 +1573,7 @@ dismissModal() {
       selectedStatus3 : this.selectedStatus3,
       selectedStatus4 : this.selectedStatus4,
       selectedStatus5 : this.selectedStatus5,
+      selectedStatus6 : this.selectedStatus6,
     selectedPropertycate : this.selectedPropertycate,
     selectedPropertycate1 : this.selectedPropertycate1,
     selectedPropertycate2 : this.selectedPropertycate2,
@@ -1553,6 +1624,7 @@ resetAll(){
   this.checkedStatus2 = false;
   this.checkedStatus3 = false;
   this.checkedStatus4 = false;
+  this.checkedStatus5 = false;
   this.checkedVirtualTour = false;
   this.checkedFav0 = false;
   this.checkedFav1 = false;
