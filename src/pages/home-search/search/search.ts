@@ -147,6 +147,7 @@ mappropertyRmlsDaysRe: any;
   selectedStatus3 : any ;
   selectedStatus4 : any ;
   selectedStatus5 : any ;
+  selectedStatus6 : any ;
   selectedPropertycate : any ;
   selectedPropertycate1 : any ;
   selectedPropertycate2 : any ;
@@ -1616,8 +1617,9 @@ this.valcombineproperty = this.valpCatfinal+this.valpTypefinal;
          var str = this.commonarray[23];
          var n = str.includes("Short Sale");
          var n2 = str.includes("Pending");
-         var n3 = str.includes("Sold");
-         if (n === true || n2 === true || n3 === true) {
+         var n3 = str.includes("Sold")
+         var n4 = str.includes("Off Market");
+         if (n === true || n2 === true || n3 === true || n4 === true) {
            this.countfilterlength = this.countfilterlength + 1;
          }
 
@@ -2618,7 +2620,7 @@ console.log("else"+ this.commonarray);
        this.countfilter = ['','','','','','','','','','','','','','','','','','','','','',''];
      }
     console.log(this.searchArray);
-     let addWeatherModal = this.modalCtrl.create(FilterPage,  {fromlocation: 'no', searchArray : this.searchArray, optionResult : this.optionResult, selectedBeds : this.selectedBeds, selectedBaths : this.selectedBaths, totalRecords : this.totalRecordsMore, paraArrayReturn : this.paraArray, selectedPropertyClass : this.selectedPropertyClass, selectedPropertyClass1 : this.selectedPropertyClass1, selectedPropertyClass2 : this.selectedPropertyClass2, selectedPropertyClass3 : this.selectedPropertyClass3, selectedPropertyClass4 : this.selectedPropertyClass4, selectedPropertyClass5 : this.selectedPropertyClass5, selectedStatus1 : this.selectedStatus1, selectedStatus2 : this.selectedStatus2, selectedStatus3 : this.selectedStatus3, selectedStatus4 : this.selectedStatus4, selectedStatus5 : this.selectedStatus5, selectedPropertycate : this.selectedPropertycate, selectedPropertycate1 : this.selectedPropertycate1, selectedPropertycate2 : this.selectedPropertycate2, selectedPropertycate3 : this.selectedPropertycate3, countfilter: this.countfilter, propertyTypeSelect : this.propertyTypeSelect, prptyresarray : this.prptyresarray, prptyclassarray : this.prptyclassarray, updatelistings: this.updatelistings}, { cssClass: 'morefilter' });
+     let addWeatherModal = this.modalCtrl.create(FilterPage,  {fromlocation: 'no', searchArray : this.searchArray, optionResult : this.optionResult, selectedBeds : this.selectedBeds, selectedBaths : this.selectedBaths, totalRecords : this.totalRecordsMore, paraArrayReturn : this.paraArray, selectedPropertyClass : this.selectedPropertyClass, selectedPropertyClass1 : this.selectedPropertyClass1, selectedPropertyClass2 : this.selectedPropertyClass2, selectedPropertyClass3 : this.selectedPropertyClass3, selectedPropertyClass4 : this.selectedPropertyClass4, selectedPropertyClass5 : this.selectedPropertyClass5, selectedStatus1 : this.selectedStatus1, selectedStatus2 : this.selectedStatus2, selectedStatus3 : this.selectedStatus3, selectedStatus4 : this.selectedStatus4, selectedStatus5 : this.selectedStatus5, selectedStatus6 : this.selectedStatus6, selectedPropertycate : this.selectedPropertycate, selectedPropertycate1 : this.selectedPropertycate1, selectedPropertycate2 : this.selectedPropertycate2, selectedPropertycate3 : this.selectedPropertycate3, countfilter: this.countfilter, propertyTypeSelect : this.propertyTypeSelect, prptyresarray : this.prptyresarray, prptyclassarray : this.prptyclassarray, updatelistings: this.updatelistings}, { cssClass: 'morefilter' });
      addWeatherModal.present();
      addWeatherModal.onDidDismiss(data=>{
 
@@ -2660,6 +2662,7 @@ console.log("else"+ this.commonarray);
        this.selectedStatus3 = data.selectedStatus3;
        this.selectedStatus4 = data.selectedStatus4;
        this.selectedStatus5 = data.selectedStatus5;
+       this.selectedStatus6 = data.selectedStatus6;
        this.selectedPropertycate = data.selectedPropertycate;
        this.selectedPropertycate1 = data.selectedPropertycate1;
        this.selectedPropertycate2 = data.selectedPropertycate2;
@@ -2731,7 +2734,8 @@ console.log(this.countfilterlength);
          var n = str.includes("Short Sale");
          var n2 = str.includes("Pending");
          var n3 = str.includes("Sold");
-         if (n === true || n2 === true || n3 === true) {
+         var n4 = str.includes("Off Market");
+         if (n === true || n2 === true || n3 === true || n4 === true) {
            this.countfilterlength = this.countfilterlength + 1;
          }
        if (this.countfilterlength == 0) {

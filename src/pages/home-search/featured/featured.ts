@@ -25,7 +25,7 @@ export class FeaturedPage {
   @ViewChild(Content) pageTop: Content;
   // @ViewChild('patientDDL') patientDDL:ElementRef;
 
-   public mapsearchArray:Array<string> = new Array(); 
+   public mapsearchArray:Array<string> = new Array();
 mapcountry: any;
 mapListingID: any;
 mapstate: any;
@@ -110,8 +110,8 @@ selectedlistcommaqto: any;
   public filterItems: any = "";
   public valWithString: any = "";
   public properties : any = [];
-  public searchArray:Array<string> = new Array(); 
-  public searchArrayLast:Array<string> = new Array(); 
+  public searchArray:Array<string> = new Array();
+  public searchArrayLast:Array<string> = new Array();
   public searchResult : any = [];
   public propertiesmap : any = [];
   public countfilter:Array<string> = new Array('','','','','','','','','','','','','','','','','','','','','',''); //21
@@ -129,6 +129,7 @@ selectedlistcommaqto: any;
   selectedStatus3 : any ;
   selectedStatus4 : any ;
   selectedStatus5 : any ;
+  selectedStatus6 : any ;
   selectedPropertycate : any ;
   selectedPropertycate1 : any ;
   selectedPropertycate2 : any ;
@@ -146,8 +147,8 @@ selectedlistcommaqto: any;
   public storageparaArray:Array<string> = new Array('','','','','','','','','','','','','','','','','','','','','','','','',''); //24
   public commonarray:Array<string> = new Array('','','','','','','','','','','','','','','','','','','','','','','','','',''); //24 //sort 25
   public paraArraymap:Array<string> = new Array('','','','','','','','','','','','','','','','','','','','','','','','','');
-  public prptyresarray:Array<string> = new Array('','','','','',''); 
-  public prptyclassarray:Array<string> = new Array(); 
+  public prptyresarray:Array<string> = new Array('','','','','','');
+  public prptyclassarray:Array<string> = new Array();
   public selectedBeds: any = "";
   public selectedBaths: any = "";
   public searchData: any = "";
@@ -217,10 +218,10 @@ totalchecked: any;
     $(".ion-ios-iconmoreblack-outline").css("background-image", "url(../assets/imgs/blue-more-full.svg)");
     $(".ion-md-iconmoreblack").css("background-image", "url(../assets/imgs/blue-more-full.svg)");
 
-    $(".ion-ios-iconmoreblack-outline").next().css("font-weight", "600"); 
+    $(".ion-ios-iconmoreblack-outline").next().css("font-weight", "600");
     $(".ion-ios-iconmoreblack-outline").next().css("color", "#3366CC");
-    $(".ion-md-iconmoreblack").next().css("font-weight", "600"); 
-    $(".ion-md-iconmoreblack").next().css("color", "#3366CC"); 
+    $(".ion-md-iconmoreblack").next().css("font-weight", "600");
+    $(".ion-md-iconmoreblack").next().css("color", "#3366CC");
     },600);
 
   }
@@ -263,7 +264,7 @@ var listingUrl = 'https://toptechrealty.com/'+County+'/'+State+'/'+ZipCode+'/'+s
          console.log(this.userid);
     this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
       this.IsStaffCheck = auth_user_token.is_staff;
-      
+
       if (this.IsStaffCheck == 0) {
         this.IsStaff = false;
       }else{
@@ -291,10 +292,10 @@ var listingUrl = 'https://toptechrealty.com/'+County+'/'+State+'/'+ZipCode+'/'+s
     // $(".ion-ios-iconmoreblack-outline").css("background-image", "url(../assets/imgs/blue-more-full.svg)");
     // $(".ion-md-iconmoreblack").css("background-image", "url(../assets/imgs/blue-more-full.svg)");
 
-    // $(".ion-ios-iconmoreblack-outline").next().css("font-weight", "600"); 
+    // $(".ion-ios-iconmoreblack-outline").next().css("font-weight", "600");
     // $(".ion-ios-iconmoreblack-outline").next().css("color", "#3366CC");
-    // $(".ion-md-iconmoreblack").next().css("font-weight", "600"); 
-    // $(".ion-md-iconmoreblack").next().css("color", "#3366CC"); 
+    // $(".ion-md-iconmoreblack").next().css("font-weight", "600");
+    // $(".ion-md-iconmoreblack").next().css("color", "#3366CC");
 
 
   }
@@ -309,7 +310,7 @@ var listingUrl = 'https://toptechrealty.com/'+County+'/'+State+'/'+ZipCode+'/'+s
          searchTearm: '',
          requestType: this.requestType,
        }
-      // this.showSpinnerProperty = false; 
+      // this.showSpinnerProperty = false;
       console.log(urlPara);
              this.service.profile().then( (response : any) => {
          if (response == undefined) {
@@ -319,7 +320,7 @@ var listingUrl = 'https://toptechrealty.com/'+County+'/'+State+'/'+ZipCode+'/'+s
          this.properties = response.data;
          this.totalPages = response.totalPages;
          this.totalRecords = response.totalRecords;
-         this.showSpinnerProperty = false; 
+         this.showSpinnerProperty = false;
          this.showSpinner = false;
          this.properties.forEach(obj => {
            obj.propertyCheck = false;
@@ -330,7 +331,7 @@ var listingUrl = 'https://toptechrealty.com/'+County+'/'+State+'/'+ZipCode+'/'+s
          }
          this.loadMap(urlParamap);
        }).catch( error => {
-         this.showSpinnerProperty = false; 
+         this.showSpinnerProperty = false;
          this.showSpinner = false;
        })
                     }else{
@@ -340,7 +341,7 @@ var listingUrl = 'https://toptechrealty.com/'+County+'/'+State+'/'+ZipCode+'/'+s
          this.properties = response.data;
          this.totalPages = response.totalPages;
          this.totalRecords = response.totalRecords;
-         this.showSpinnerProperty = false; 
+         this.showSpinnerProperty = false;
          this.showSpinner = false;
          this.properties.forEach(obj => {
            obj.propertyCheck = false;
@@ -351,7 +352,7 @@ var listingUrl = 'https://toptechrealty.com/'+County+'/'+State+'/'+ZipCode+'/'+s
          }
          this.loadMap(urlParamap);
        }).catch( error => {
-         this.showSpinnerProperty = false; 
+         this.showSpinnerProperty = false;
          this.showSpinner = false;
        })
                     }
@@ -374,8 +375,8 @@ var listingUrl = 'https://toptechrealty.com/'+County+'/'+State+'/'+ZipCode+'/'+s
        let latLng = new google.maps.LatLng(this.propertiesmap[0]["Latitude"],this.propertiesmap[0]["Longitude"]);
        var bounds = new google.maps.LatLngBounds();
        const icon = {
-         url: 'assets/imgs/pricepin.svg', 
-         scaledSize: new google.maps.Size(40, 60), 
+         url: 'assets/imgs/pricepin.svg',
+         scaledSize: new google.maps.Size(40, 60),
        };
        let mapOptions = {
          center: latLng,
@@ -437,12 +438,12 @@ var listingUrl = 'https://toptechrealty.com/'+County+'/'+State+'/'+ZipCode+'/'+s
            content: contentString,
            maxWidth: 400
          });
-         this.mapListingID=this.propertiesmap[i].ListingID; 
-         this.mapcountry=this.propertiesmap[i].County; 
-         this.mapstate=this.propertiesmap[i].State; 
-         this.mapzipcode=this.propertiesmap[i].ZipCode; 
+         this.mapListingID=this.propertiesmap[i].ListingID;
+         this.mapcountry=this.propertiesmap[i].County;
+         this.mapstate=this.propertiesmap[i].State;
+         this.mapzipcode=this.propertiesmap[i].ZipCode;
          this.mapslug=this.propertiesmap[i].slug;
-         this.mapPriceCurrentForStatus=this.propertiesmap[i].PriceCurrentForStatus; 
+         this.mapPriceCurrentForStatus=this.propertiesmap[i].PriceCurrentForStatus;
          this.mapBeds=this.propertiesmap[i].Beds;
          this.mapBathsTotalInteger=this.propertiesmap[i].BathsTotalInteger;
          this.mapSqFtApproximateTotal=this.propertiesmap[i].SqFtApproximateTotal;
@@ -456,11 +457,11 @@ var listingUrl = 'https://toptechrealty.com/'+County+'/'+State+'/'+ZipCode+'/'+s
          let idz=this.propertiesmap[i].ListingID;
          let priceeee=this.propertiesmap[i].PriceCurrentForStatus;
          let that=this;
-         let country=this.propertiesmap[i].County; 
-         let state=this.propertiesmap[i].State; 
-         let zipcode=this.propertiesmap[i].ZipCode; 
+         let country=this.propertiesmap[i].County;
+         let state=this.propertiesmap[i].State;
+         let zipcode=this.propertiesmap[i].ZipCode;
          let slug=this.propertiesmap[i].slug;
-         let PriceCurrentForStatus=this.propertiesmap[i].PriceCurrentForStatus; 
+         let PriceCurrentForStatus=this.propertiesmap[i].PriceCurrentForStatus;
          let Beds=this.propertiesmap[i].Beds;
          let BathsTotalInteger=this.propertiesmap[i].BathsTotalInteger;
          let SqFtApproximateTotal=this.propertiesmap[i].SqFtApproximateTotal;
@@ -473,7 +474,7 @@ var listingUrl = 'https://toptechrealty.com/'+County+'/'+State+'/'+ZipCode+'/'+s
          google.maps.event.addListener(infowindow, 'domready', () => {
            var clickableItem = document.getElementById('clickableItem');
            clickableItem.addEventListener('click', () => {
-             that.navCtrl.push(PropertyDetailPage, { propertyId : idz}); 
+             that.navCtrl.push(PropertyDetailPage, { propertyId : idz});
            });
          });
          let self = this ;
@@ -486,7 +487,7 @@ this.map.addListener('click', function (event) {
 
           var marker_id = marker.id;
           console.log(priceeee);
-      
+
        this.hidemapimage = 'hide';
             self.getPropertyImage(primaryid, idz, country, state, zipcode, slug, PriceCurrentForStatus, Beds, BathsTotalInteger, SqFtApproximateTotal, FullStreetAddress, City, State, ZipCode, favcount)
                                     $('.addInfoContent').css('display','block');
@@ -498,7 +499,7 @@ this.map.addListener('click', function (event) {
        this.map.setCenter(bounds.getCenter());
        this.map.fitBounds(bounds);
        function viewpropertymap(propertyid){
-         this.navCtrl.push(PropertyDetailPage, { propertyId : propertyid}); 
+         this.navCtrl.push(PropertyDetailPage, { propertyId : propertyid});
        }
        function  openQtoModal(propertyId){
        }
@@ -519,7 +520,7 @@ this.map.addListener('click', function (event) {
       }
 
    doInfinite(infiniteScroll) {
-            this.showSpinnerProperty = false; 
+            this.showSpinnerProperty = false;
        this.showSpinner = false;
      try {
        if(this.currentPage <= this.totalPages)
@@ -536,7 +537,7 @@ if (response == undefined) {
 this.userid = '';
            this.showSpinner = true;
            this.service.homesearchpropertiesfealist(this.currentPage, urlPara, this.userid).then( (response : any) => {
-             this.showSpinnerProperty = false; 
+             this.showSpinnerProperty = false;
              this.showSpinner = false;
              var nextTickets = response.data;
              nextTickets.forEach((item, index) => {
@@ -544,7 +545,7 @@ this.userid = '';
              });
              infiniteScroll.complete();
            }).catch( error => {
-             this.showSpinnerProperty = false; 
+             this.showSpinnerProperty = false;
              this.showSpinner = false;
              infiniteScroll.complete();
            })
@@ -552,7 +553,7 @@ this.userid = '';
 this.userid = response.data.id;
            this.showSpinner = true;
            this.service.homesearchpropertiesfealist(this.currentPage, urlPara, this.userid).then( (response : any) => {
-             this.showSpinnerProperty = false; 
+             this.showSpinnerProperty = false;
              this.showSpinner = false;
              var nextTickets = response.data;
              nextTickets.forEach((item, index) => {
@@ -560,7 +561,7 @@ this.userid = response.data.id;
              });
              infiniteScroll.complete();
            }).catch( error => {
-             this.showSpinnerProperty = false; 
+             this.showSpinnerProperty = false;
              this.showSpinner = false;
              infiniteScroll.complete();
            })
@@ -569,10 +570,10 @@ this.userid = response.data.id;
 })
 
 
-         
+
        }
-     } catch(e) { 
-       this.showSpinnerProperty = false; 
+     } catch(e) {
+       this.showSpinnerProperty = false;
        this.showSpinner = false;
        this.service.serverError();
      }
@@ -628,7 +629,7 @@ goToMap(){
  // this.getProperties();
   this.showSpinnerProperty = false;
   this.showSpinner = false;
- 
+
 }
   scrollToTop() {
     this.pageTop.scrollTo(0, 0, 0);
@@ -665,13 +666,13 @@ viewProperty(propertyId){
       try {
         this.currentPage = 1;
             this.showSpinnerProperty = false;
-            this.showSpinner = false; 
+            this.showSpinner = false;
       } catch(e) {
         this.showSpinnerProperty = false;
         this.showSpinner = false;
         this.service.serverError();
       }
-    } 
+    }
 
   })
 }
@@ -684,7 +685,7 @@ viewProperty(propertyId){
         $(".favoritelist" ).removeClass('active');
   let getsigninModal = this.modalCtrl.create(SigninPage, {asmodal : 'yes'});
   getsigninModal.present();
-  getsigninModal.onDidDismiss(data=>{ 
+  getsigninModal.onDidDismiss(data=>{
     console.log(propertyid);
 })
       }
@@ -735,7 +736,7 @@ Object.keys(this.favActivedata).forEach(key => {
         $(".favoritelist ion-item" ).removeClass('item-checkbox-checked');
   let getsigninModal = this.modalCtrl.create(SigninPage, {asmodal : 'yes'});
   getsigninModal.present();
-  getsigninModal.onDidDismiss(data=>{ 
+  getsigninModal.onDidDismiss(data=>{
     console.log(propertyid);
 })
       }
@@ -896,7 +897,7 @@ if(this.selectedlistarray.indexOf(propertyid) === -1){
 }
   // console.log(this.selectedlistarray);
     var arr = this.selectedlistarray.filter(function(entry) { return entry.trim() != ''; });
-    // console.log(arr); 
+    // console.log(arr);
    this.selectedlistarraycomma = arr.toString();
     } else if (this.totalchecked == this.totalItems) {
       //If all are checked
@@ -1010,7 +1011,7 @@ Object.keys(this.properties).forEach(key => {
          sorturl:  this.sorturl
        }
 
-      // this.showSpinnerProperty = false; 
+      // this.showSpinnerProperty = false;
 this.service.profile().then( (response : any) => {
 if (response == undefined) {
 this.userid = '';
@@ -1018,7 +1019,7 @@ this.userid = '';
          this.properties = response.data;
          this.totalPages = response.totalPages;
          this.totalRecords = response.totalRecords;
-         this.showSpinnerProperty = false; 
+         this.showSpinnerProperty = false;
          this.showSpinner = false;
                  this.properties.forEach(obj => {
         obj.propertyCheck = false;
@@ -1030,7 +1031,7 @@ this.userid = '';
          }
          this.loadMapsort(urlParamap);
        }).catch( error => {
-         this.showSpinnerProperty = false; 
+         this.showSpinnerProperty = false;
          this.showSpinner = false;
        })
         }else{
@@ -1039,7 +1040,7 @@ this.userid = response.data.id;
          this.properties = response.data;
          this.totalPages = response.totalPages;
          this.totalRecords = response.totalRecords;
-         this.showSpinnerProperty = false; 
+         this.showSpinnerProperty = false;
          this.showSpinner = false;
                  this.properties.forEach(obj => {
         obj.propertyCheck = false;
@@ -1051,7 +1052,7 @@ this.userid = response.data.id;
          }
          this.loadMapsort(urlParamap);
        }).catch( error => {
-         this.showSpinnerProperty = false; 
+         this.showSpinnerProperty = false;
          this.showSpinner = false;
        })
         }
@@ -1073,8 +1074,8 @@ this.userid = response.data.id;
        let latLng = new google.maps.LatLng(this.propertiesmap[0]["Latitude"],this.propertiesmap[0]["Longitude"]);
        var bounds = new google.maps.LatLngBounds();
        const icon = {
-         url: 'assets/imgs/pricepin.svg', 
-         scaledSize: new google.maps.Size(40, 60), 
+         url: 'assets/imgs/pricepin.svg',
+         scaledSize: new google.maps.Size(40, 60),
        };
        let mapOptions = {
          center: latLng,
@@ -1136,12 +1137,12 @@ this.userid = response.data.id;
            content: contentString,
            maxWidth: 400
          });
-         this.mapListingID=this.propertiesmap[i].ListingID; 
-         this.mapcountry=this.propertiesmap[i].County; 
-         this.mapstate=this.propertiesmap[i].State; 
-         this.mapzipcode=this.propertiesmap[i].ZipCode; 
+         this.mapListingID=this.propertiesmap[i].ListingID;
+         this.mapcountry=this.propertiesmap[i].County;
+         this.mapstate=this.propertiesmap[i].State;
+         this.mapzipcode=this.propertiesmap[i].ZipCode;
          this.mapslug=this.propertiesmap[i].slug;
-         this.mapPriceCurrentForStatus=this.propertiesmap[i].PriceCurrentForStatus; 
+         this.mapPriceCurrentForStatus=this.propertiesmap[i].PriceCurrentForStatus;
          this.mapBeds=this.propertiesmap[i].Beds;
          this.mapBathsTotalInteger=this.propertiesmap[i].BathsTotalInteger;
          this.mapSqFtApproximateTotal=this.propertiesmap[i].SqFtApproximateTotal;
@@ -1155,11 +1156,11 @@ this.userid = response.data.id;
          let idz=this.propertiesmap[i].ListingID;
          let priceeee=this.propertiesmap[i].PriceCurrentForStatus;
          let that=this;
-         let country=this.propertiesmap[i].County; 
-         let state=this.propertiesmap[i].State; 
-         let zipcode=this.propertiesmap[i].ZipCode; 
+         let country=this.propertiesmap[i].County;
+         let state=this.propertiesmap[i].State;
+         let zipcode=this.propertiesmap[i].ZipCode;
          let slug=this.propertiesmap[i].slug;
-         let PriceCurrentForStatus=this.propertiesmap[i].PriceCurrentForStatus; 
+         let PriceCurrentForStatus=this.propertiesmap[i].PriceCurrentForStatus;
          let Beds=this.propertiesmap[i].Beds;
          let BathsTotalInteger=this.propertiesmap[i].BathsTotalInteger;
          let SqFtApproximateTotal=this.propertiesmap[i].SqFtApproximateTotal;
@@ -1172,7 +1173,7 @@ this.userid = response.data.id;
          google.maps.event.addListener(infowindow, 'domready', () => {
            var clickableItem = document.getElementById('clickableItem');
            clickableItem.addEventListener('click', () => {
-             that.navCtrl.push(PropertyDetailPage, { propertyId : idz}); 
+             that.navCtrl.push(PropertyDetailPage, { propertyId : idz});
            });
          });
          let self = this ;
@@ -1185,7 +1186,7 @@ this.map.addListener('click', function (event) {
 
           var marker_id = marker.id;
           console.log(priceeee);
-      
+
        this.hidemapimage = 'hide';
             self.getPropertyImage(primaryid, idz, country, state, zipcode, slug, PriceCurrentForStatus, Beds, BathsTotalInteger, SqFtApproximateTotal, FullStreetAddress, City, State, ZipCode, favcount)
                                     $('.addInfoContent').css('display','block');
@@ -1197,7 +1198,7 @@ this.map.addListener('click', function (event) {
        this.map.setCenter(bounds.getCenter());
        this.map.fitBounds(bounds);
        function viewpropertymap(propertyid){
-         this.navCtrl.push(PropertyDetailPage, { propertyId : propertyid}); 
+         this.navCtrl.push(PropertyDetailPage, { propertyId : propertyid});
        }
        function  openQtoModal(propertyId){
        }
@@ -1209,11 +1210,11 @@ this.map.addListener('click', function (event) {
  }
 
 getPropertyImage(primaryid, idz,  country, state, zipcode, slug, PriceCurrentForStatus, Beds, BathsTotalInteger, SqFtApproximateTotal, FullStreetAddress, City, State, ZipCode, favcount){
-           this.mapListingID=idz; 
-         this.mapcountry=country; 
-         this.mapstate=state; 
+           this.mapListingID=idz;
+         this.mapcountry=country;
+         this.mapstate=state;
          this.mapslug=slug;
-         this.mapPriceCurrentForStatus=PriceCurrentForStatus; 
+         this.mapPriceCurrentForStatus=PriceCurrentForStatus;
          this.mapBeds=Beds;
          this.mapBathsTotalInteger=BathsTotalInteger;
          this.mapSqFtApproximateTotal=SqFtApproximateTotal;
@@ -1239,7 +1240,7 @@ getPropertyImage(primaryid, idz,  country, state, zipcode, slug, PriceCurrentFor
        let addWeatherModal = this.modalCtrl.create(PropertyDetailPage, { propertyId : idz, openArray : openArray});
     addWeatherModal.present();
  }
- 
+
 foropenEdit(edit){
 
  this.modalCtrl.create(QtoModalPage, {propertyID: edit}, {cssClass: 'half-modal' }).present();

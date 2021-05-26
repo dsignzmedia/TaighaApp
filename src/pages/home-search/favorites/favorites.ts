@@ -127,6 +127,7 @@ selectedlistcommaqto: any;
   selectedStatus3 : any ;
   selectedStatus4 : any ;
   selectedStatus5 : any ;
+  selectedStatus6 : any ;
   selectedPropertycate : any ;
   selectedPropertycate1 : any ;
   selectedPropertycate2 : any ;
