@@ -187,9 +187,12 @@
         <ion-option value="{{ access.id }}" *ngFor=" let  access of accessuser  ">{{ access.first_name }} {{ access.last_name }}</ion-option>
     </ion-select>
     </span></p>
+    <div class="hasClick" (click)="openSelecttemplate('access')" >
+        
     <ion-select [(ngModel)]="accessibleUserIds" class="form-field-select"  multiple="true" (ionChange)="enableDisableStatus()" *ngIf="editaccessfield">
         <ion-option value="{{ access.id }}" *ngFor=" let  access of accessuser  ">{{ access.first_name }} {{ access.last_name }}</ion-option>
     </ion-select>
+      </div>
 </ion-col>
 
                         <ion-col col-12>
