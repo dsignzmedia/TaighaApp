@@ -60,6 +60,7 @@ public shownavbar: boolean = true;
   public property_id : any = "";
   public body : any = "";
 
+public TicketCC : any = "";
 public GotTicketTemplate : any = "";
 public GotTicketGroup : any = "";
 public GotTicketStaff : any = "";
@@ -202,7 +203,7 @@ openSelecttemplate(field){
   //        list: '',
   //        selectedField : ''
   //      }
-     //  console.log(content);
+      console.log(this.TicketAccessSelected);
          this.contentfield = {
          field: field,
          list: this.accessuser,
@@ -375,6 +376,7 @@ this.iab.create(event.target.href+"?token=dHJhbnomob", "_system", "beforeload=ye
        this.ticketHistory = response.data.ticket.ticket_histories;
        let l=this.ticketHistory[this.ticketHistory.length-1];  
        this.lastmail = l;
+       console.log(this.lastmail);
        this.properties = response.data.properties;
        this.priorities = response.data.priorities;
        this.groups = response.replydata.groups;
@@ -587,9 +589,21 @@ console.log(data);
     }else{
       this.ticket['notify'] = 'notify';
     }
+    this.ticket.cc_emails = this.TicketCC;
     console.log(this.ticket);
+
     this.service.updateTicket(this.ticket, this.accessibleUserIds).then( (response : any) => {
         console.log(response);
+
+this.editpropertyfield = false;
+this.editpriorityfield = false;
+this.editstafffield = false;
+this.editgroupfield = false;
+this.editstatusfield = false;
+this.editccfield = false;
+this.editclassfield = false;
+this.editversionfield = false;
+this.editaccessfield = false;
        loading.dismiss();
        this.clearAndGetTicket();
       // this.showSpinner = false;

@@ -18,9 +18,9 @@ var liveToken = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjlmMWZkMDky
 
 @Injectable()
 export class ServiceProvider {
-  public baseUrl : string = "https://toptechrealty.com/api/auth";
+   public baseUrl : string = "https://toptechrealty.com/api/auth";
   //  public baseUrl : string = "http://localhost:8080/Toptech/New/Taigha-Productions-Repository/public/api/auth";
-    //   public baseUrl : string = "http://127.0.0.1:8000/api/auth";  
+   //   public baseUrl : string = "http://127.0.0.1:8000/api/auth";  
 
   public apigetroles: string = this.baseUrl+"/rmls/listing/share/modal/roles-and-types";
   public apiModalUser: string = this.baseUrl+"/rmls/listing/share/modal/get-users";

@@ -65,6 +65,7 @@ public GotTicketTemplate : any = "";
 public GotTicketGroup : any = "";
 public GotTicketStaff : any = "";
 public GotTicketClass : any = "";
+public GotTicketCC : any = "";
 public GotTicketPriority : any = "";
 public GotTicketProperty : any = "";
 public GotTicketStatus : any = "";
@@ -225,33 +226,15 @@ toggleMail(){
 cusreply(){
   console.log('cusreply');
    try {
-    this.service.showload();
-    console.log( (this.GotTicketGroup) ? this.GotTicketGroup : this.group);
-    console.log( (this.GotTicketStaff) ? this.GotTicketStaff : this.staff);
+   this.service.showload();
     console.log( (this.GotTicketPriority) ? this.GotTicketPriority : this.priority);
-    console.log( (this.GotTicketClass) ? this.GotTicketClass : this.class);
     console.log( (this.GotTicketProperty) ? this.GotTicketProperty : this.property_id);
-    console.log( (this.GotTicketStatus) ? this.GotTicketStatus : this.status);
-    console.log( (this.GotTicketVersion) ? this.GotTicketVersion : this.version);
-    console.log( (this.GotTicketAccess) ? this.GotTicketAccess : this.access);
     console.log( (this.body) ? this.body : this.oldbody);
-this.GotTicketGroup =  (this.GotTicketGroup) ? this.GotTicketGroup : this.group;
-this.GotTicketStaff =  (this.GotTicketStaff) ? this.GotTicketStaff : this.staff;
 this.GotTicketPriority = (this.GotTicketPriority) ? this.GotTicketPriority : this.priority;
-this.GotTicketClass = (this.GotTicketClass) ? this.GotTicketClass : this.class;
 this.GotTicketProperty = (this.GotTicketProperty) ? this.GotTicketProperty : this.property_id;
-this.GotTicketStatus = (this.GotTicketStatus) ? this.GotTicketStatus : this.status;
-this.GotTicketVersion = (this.GotTicketVersion) ? this.GotTicketVersion : this.version;
-this.GotTicketAccess = (this.GotTicketAccess) ? this.GotTicketAccess : this.access;
 this.body = (this.body) ? this.body : this.oldbody;
-    this.formData.append('group', this.GotTicketGroup);
-    this.formData.append('staff', this.GotTicketStaff);
     this.formData.append('priority', this.GotTicketPriority);
-    this.formData.append('class', this.GotTicketClass);
     this.formData.append('property_id', this.GotTicketProperty);
-    this.formData.append('status', this.GotTicketStatus);
-    this.formData.append('version', this.GotTicketVersion);
-    this.formData.append('accessible_users', this.GotTicketAccess);
     this.formData.append('body', this.body);
     this.formData.append('id', this.ticket.id);
     console.log(this.GotTicketProperty);
@@ -260,7 +243,7 @@ this.body = (this.body) ? this.body : this.oldbody;
 
     console.log(this.ticket.id);
      this.service.loading.dismiss();
-    this.service.ticketreply(this.formData).then( (response : any) => {
+    this.service.custicketreply(this.formData).then( (response : any) => {
             console.log(JSON.stringify(response));
             this.service.loading.dismiss();
             this.navCtrl.pop();
@@ -271,7 +254,6 @@ this.body = (this.body) ? this.body : this.oldbody;
             this.service.toast(e.error.message, 3000, 'middle');
           });
      } catch(e) {
-       // this.showSpinner = false;
         this.service.serverError();
         this.service.loading.dismiss();
     }
@@ -394,7 +376,7 @@ this.getAccess();
   }
 
 openSelecttemplate(){
-      let textmessagemodal = this.modalCtrl.create(TicketFieldsPage, {templates: this.ticketDataOption, ticket: this.ticket, ticketAllOption: this.ticketAllOption}, {cssClass: 'template-modal-mini' });
+      let textmessagemodal = this.modalCtrl.create(TicketFieldsPage, {IsStaffCheck: this.IsStaffCheck, templates: this.ticketDataOption, ticket: this.ticket, ticketAllOption: this.ticketAllOption}, {cssClass: 'template-modal-mini' });
           textmessagemodal.present({animate: false});
           textmessagemodal.onDidDismiss(data=>{ 
             console.log(data);
@@ -430,6 +412,25 @@ this.body = data.body;
           //     setTimeout(()=>{
           //     this.resize();
           //   },500);
+      })
+    }
+openSelecttemplateCus(){
+      let textmessagemodal = this.modalCtrl.create(TicketFieldsPage, {IsStaffCheck: this.IsStaffCheck, templates: this.ticketDataOption, ticket: this.ticket, ticketAllOption: this.ticketAllOption}, {cssClass: 'template-modal-mini' });
+          textmessagemodal.present({animate: false});
+          textmessagemodal.onDidDismiss(data=>{ 
+            console.log(data);
+            if (data == undefined) {
+this.GotTicketPriority = '';
+this.GotTicketProperty = '';
+this.GotTicketCC = '';
+            }else{
+this.GotTicketPriority = data.GotTicketPriority;
+this.GotTicketCC = data.GotTicketCC;
+this.GotTicketProperty = data.GotTicketProperty;
+if (data.body != '') {
+this.body = data.body;
+}
+}
       })
     }
 resize() {

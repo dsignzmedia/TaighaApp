@@ -11,7 +11,7 @@
            
 <!-- #content -->
 <ion-content padding class="taigha-dashboard bg-white" >
-	<div class="panel">
+	<div class="panel" *ngIf="IsStaffCheck != 0">
 		<ion-grid>
         <ion-row no-line>
             <ion-col col-12 no-padding class="inline-list inline-select">
@@ -73,7 +73,7 @@
               </ion-item>
             </ion-col>
         </ion-row>
-        <ion-row  no-line>
+        <ion-row  no-line  *ngIf="ticket.ticket_type != 'customer'">
           <ion-col col-12 no-padding  class="inline-list inline-select" no-line>
         <ion-item no-padding no-line>
            <ion-label>Class</ion-label>
@@ -86,7 +86,7 @@
         </ion-item>
           </ion-col>
       </ion-row>
-        <ion-row no-line>
+        <ion-row no-line  *ngIf="ticket.ticket_type != 'customer'">
             <ion-col col-12 no-padding  class="inline-list">
                <ion-label>Version</ion-label>
                <ion-input placeholder=""  [(ngModel)]="TicketVersion"></ion-input>
@@ -110,8 +110,42 @@
         </ion-row> -->
     </ion-grid>
    </div>
+
+  <div class="panel" *ngIf="IsStaffCheck == 0">
+    <ion-grid>
+        <ion-row no-line>
+            <ion-col col-12 no-padding class="inline-list inline-select">
+               <ion-item no-padding no-lines class="hasClick" (click)="openSelecttemplate('property')">
+                <ion-label>Property</ion-label>
+                <ion-select class="filter-select" [(ngModel)]="TicketProperty" placeholder="Select">
+                  <ion-option value="{{ property.id }}" *ngFor=" let  property of properties  ">{{ property.address }}</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row no-line>
+            <ion-col col-12 no-padding class="inline-list inline-select" >
+               <ion-item no-padding no-lines>
+                <ion-label>Priority</ion-label>
+                <ion-select class="filter-select" placeholder="Select"  [(ngModel)]="TicketPriority">
+                  <ion-option value="{{ priority.id }}" *ngFor=" let  priority of priorities  ">{{ priority.priority }}</ion-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row no-line >
+          <ion-col col-12 no-padding>
+             <ion-label>CC</ion-label>
+          </ion-col>
+          <ion-col col-12 no-padding class="inline-list">
+             <ion-input placeholder="CC"   [(ngModel)]="TicketCC"></ion-input>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
+   </div>
 </ion-content>
    <div class="float-btn">
-   	  <button color="primary" (click)="chooseTemplate()">Apply</button>
+   	  <button color="primary" *ngIf="IsStaffCheck != 0" (click)="chooseTemplate()">Apply</button>
+      <button color="primary" *ngIf="IsStaffCheck == 0" (click)="chooseTemplateCus()">Apply</button>
    </div>
 

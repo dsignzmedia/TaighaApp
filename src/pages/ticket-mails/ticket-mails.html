@@ -399,7 +399,8 @@
 <!--   <textarea class="message-area-text" placeholder="Type your message" #myInput id="myInput"  (click)="textareaClicked()" (keyup)="resize()" (input)='onChangeTime($event.target.value)' [(ngModel)]="replymsg"></textarea> -->
   <div class="message-area-bottom">
    <div class="message-area">
-    <img src="assets/imgs/choosetemplate.svg"  (click)="openSelecttemplate()" width="20" height="20">
+    <img src="assets/imgs/choosetemplate.svg"  *ngIf="IsStaffCheck != 0" (click)="openSelecttemplate()" width="20" height="20">
+    <img src="assets/imgs/choosetemplate.svg"  *ngIf="IsStaffCheck == 0" (click)="openSelecttemplateCus()" width="20" height="20">
 
     <div class="upload-btn-wrapper"> 
       <img src="assets/imgs/chat-attachment.svg"  (click)="openSelecttemplate()" width="20" height="20">
