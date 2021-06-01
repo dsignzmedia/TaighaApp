@@ -801,7 +801,9 @@ if (response) {
          //   console.log("error", JSON.stringify(error) );
          //   this.service.toast(error.error.message, 3000, 'middle');
          // } );
-
+           console.log("response", JSON.stringify(response) );
+           this.service.toast('message sent successfully', 2000, 'middle');
+           this.service.loading.dismiss();
            }
          } ).catch( error => {
            console.log("error", JSON.stringify(error) );
