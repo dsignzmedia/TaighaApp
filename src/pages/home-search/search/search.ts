@@ -229,7 +229,9 @@ mappropertyRmlsDaysRe: any;
     // app: App
 //this.storage.removeStorage('fromsavedsearch');
 
-
+        // $('.MenuForCustomer').css('display','none');
+        // $('.MenuForStaff').css('display','none');
+        // $('.MenuForGuest').css('display','none');
        this.service.profile().then( (response : any) => {
          if (response == undefined) {
            this.userid = 0;
@@ -239,23 +241,23 @@ mappropertyRmlsDaysRe: any;
        }).catch( error => {
          this.userid = '0';
        })
-     try {
-       let urlPara: any = {
-         searchTearm: 'test'
-       }
-       this.service.getsavedsearch(urlPara).then( (response : any) => {
-         console.log(response);
-         this.savedlist = response.data;
-         this.searchlist = response.data.rmlsSavedSearches;
-         this.searchagentlist = response.data.agentrmlsSavedSearches;
-         this.userfirstname = response.user.first_name;
-         this.userlastname = response.user.last_name;
-         this.showSpinner = false;
-       }).catch( error => {
-       })
-     } catch(e) {
-       this.service.serverError();
-     }
+     // try {
+     //   let urlPara: any = {
+     //     searchTearm: 'test'
+     //   }
+     //   this.service.getsavedsearch(urlPara).then( (response : any) => {
+     //     console.log(response);
+     //     this.savedlist = response.data;
+     //     this.searchlist = response.data.rmlsSavedSearches;
+     //     this.searchagentlist = response.data.agentrmlsSavedSearches;
+     //     this.userfirstname = response.user.first_name;
+     //     this.userlastname = response.user.last_name;
+     //     this.showSpinner = false;
+     //   }).catch( error => {
+     //   })
+     // } catch(e) {
+     //   this.service.serverError();
+     // }
     this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
 console.log(auth_user_token);
 if (auth_user_token) {
@@ -266,9 +268,15 @@ if (auth_user_token) {
       if (this.IsStaffCheck == 0) {
         this.IsStaff = false;
         this.IsStaffstring = 'no';
+                $('.MenuForCustomer').css('display','block');
+        $('.MenuForStaff').css('display','none');
+        $('.MenuForGuest').css('display','none');
       }else{
         this.IsStaff = true;
         this.IsStaffstring = 'yes';
+                $('.MenuForCustomer').css('display','none');
+        $('.MenuForStaff').css('display','block');
+        $('.MenuForGuest').css('display','none');
       }
         if(auth_user_token) {
             if(auth_user_token.is_email_verified == 1) {
@@ -277,7 +285,45 @@ if (auth_user_token) {
         }
         }
         console.log(this.IsStaffCheck);
+                if (this.IsStaffCheck == undefined) {
+        $('.MenuForCustomer').css('display','none');
+        $('.MenuForStaff').css('display','none');
+        $('.MenuForGuest').css('display','block');
+        }
     });
+
+//                       this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
+// console.log("ionViewWillEnter hideforcustomer");
+// if (auth_user_token) {
+//       this.IsStaffCheck = auth_user_token.is_staff;
+//       if (this.IsStaffCheck == 0) {
+//         this.IsStaffstring = 'no';
+//         // hideforcustomer
+//         console.log("hideforcustomer none");
+//         // $('.hideforCustomerandUser').css('display','none');
+
+//         $('.MenuForCustomer').css('display','block');
+//         $('.MenuForStaff').css('display','none');
+//         $('.MenuForGuest').css('display','none');
+//         // tab-t1-4
+//         $('#tab-t3-4').css('display','none');
+//       }else{
+//         console.log("hideforcustomer flex");
+//         // $('.hideforCustomerandUser').css('display','flex');
+
+//         $('.MenuForCustomer').css('display','none');
+//         $('.MenuForStaff').css('display','block');
+//         $('.MenuForGuest').css('display','none');
+//         this.IsStaff = true;
+//       }
+//         if(auth_user_token) {
+//             if(auth_user_token.is_email_verified == 1) {
+//               this.hasEmailVerified = true;
+//             }
+//         }
+//         }
+//         console.log(this.IsStaffCheck);
+//     });
       this.searchData = this.navParams.get('searchData');
       this.getstyle = 'none';
       this.showMapbtn = 'none';
@@ -291,8 +337,15 @@ if (auth_user_token) {
  console.log(this.IsStaff);
  console.log(this.IsStaffCheck);
   }
-
-
+ngOnInit(){
+ console.log('this.ngOnInit');
+}
+ionViewDidEnter(){
+  console.log('this.ionViewDidEnter');
+}
+  ionViewDidLoad() {
+  console.log('this.ionViewDidLoad');
+  }
 
   sharesocial(County, State, ZipCode, slug, ListingID){
     console.log(County);
@@ -890,6 +943,7 @@ document.getElementById('dynamicprofile').innerHTML ="";
     this.isShown = false;
   }
 
+
   ionViewWillEnter() {
     try {
        this.service.profile().then( (response : any) => {
@@ -983,9 +1037,9 @@ document.getElementById('dynamicprofile').innerHTML ="";
 
   }
 
-ngOnInit(){
-// bubble();
-}
+// ngOnInit(){
+// // bubble();
+// }
 
 openSearch(){
   this.noproperty = 'none';
@@ -1742,8 +1796,7 @@ getCountry(id) {
     return this.properties.find(c => c.id === '19451');
 }
 
-  ionViewDidLoad() {
-  }
+
 
   public dismissPushTab(){
     this.viewCtrl.dismiss();

@@ -242,7 +242,7 @@ this.body = (this.body) ? this.body : this.oldbody;
     console.log('test');
 
     console.log(this.ticket.id);
-     this.service.loading.dismiss();
+     // this.service.loading.dismiss();
     this.service.custicketreply(this.formData).then( (response : any) => {
             console.log(JSON.stringify(response));
             this.service.loading.dismiss();
@@ -309,7 +309,7 @@ this.body = (this.body) ? this.body : this.oldbody;
     console.log('test');
 
     console.log(this.ticket.id);
-     this.service.loading.dismiss();
+    // this.service.loading.dismiss();
     this.service.ticketreply(this.formData).then( (response : any) => {
             console.log(JSON.stringify(response));
             this.service.loading.dismiss();

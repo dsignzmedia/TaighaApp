@@ -1,6 +1,7 @@
 <ion-tabs #toptechTabs class="homesearch-tabs maintab" >
-  <ion-tab class="activities-icon"  [root]="tab7Root" tabTitle="Dashboard" tabIcon="dashboard"></ion-tab>
-  <ion-tab class="myproperties-icon" [enabled]="hasEmailVerified"  [root]="tab8Root" (ionSelect)="goHomesearch()" tabTitle="Search" tabIcon="myproperties"></ion-tab>
+  <ion-tab class="activities-icon"  [root]="tab7Root" tabTitle="BDashboard" tabIcon="dashboard"></ion-tab>
+  <!--  (ionSelect)="goHomesearch()" -->
+  <ion-tab class="myproperties-icon" [enabled]="hasEmailVerified"  [root]="tab8Root"  tabTitle="Search" tabIcon="myproperties"></ion-tab>
   <ion-tab class="activities-icon" [enabled]="hasEmailVerified" show= "false" [root]="tab1Root" tabTitle="Activities" tabIcon="activities"></ion-tab>
   <ion-tab class="myproperties-icon" show= "false" [enabled]="hasEmailVerified" [root]="tab2Root" tabTitle="Properties" tabIcon="myproperties"></ion-tab>
   <ion-tab class="tickets-icon smstab"  [enabled]="hasEmailVerified" [root]="tab9Root" tabTitle="Messages" tabIcon="sms"></ion-tab> 
@@ -13,7 +14,11 @@
 
 <ion-tabs #toptechTabs2  class="homesearch-tabs maintab maintabCust" >
   <ion-tab class="activities-icon"  [root]="tab7Root" tabTitle="Dashboard" tabIcon="dashboard"></ion-tab>
-  <ion-tab class="myproperties-icon" [enabled]="hasEmailVerified"  [root]="tab8Root" (ionSelect)="goHomesearch()" tabTitle="Search" tabIcon="myproperties"></ion-tab>
+  <!--  (ionSelect)="goHomesearch()" -->
+  <ion-tab class="myproperties-icon" [enabled]="hasEmailVerified"  [root]="tab8Root" tabTitle="Search" tabIcon="myproperties"></ion-tab>
+
+  <ion-tab class="favorites-icon" [enabled]="hasEmailVerified"  [root]="tab10Root" (ionSelect)="gofav()" tabTitle="Favorites" tabIcon="favorites"></ion-tab>
+
   <ion-tab class="activities-icon" [enabled]="hasEmailVerified" show= "false" [root]="tab1Root" tabTitle="Activities" tabIcon="activities"></ion-tab>
   <ion-tab class="myproperties-icon" show= "false" [enabled]="hasEmailVerified" [root]="tab2Root" tabTitle="Properties" tabIcon="myproperties"></ion-tab>
   <ion-tab class="tickets-icon smstab" [enabled]="hasEmailVerified" show= "false" [root]="tab9Root" tabTitle="Messagees" tabIcon="sms"></ion-tab> 

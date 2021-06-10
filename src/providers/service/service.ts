@@ -18,9 +18,9 @@ var liveToken = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjlmMWZkMDky
 
 @Injectable()
 export class ServiceProvider {
-   public baseUrl : string = "https://toptechrealty.com/api/auth";
+ public baseUrl : string = "https://toptechrealty.com/api/auth";
   //  public baseUrl : string = "http://localhost:8080/Toptech/New/Taigha-Productions-Repository/public/api/auth";
-   //   public baseUrl : string = "http://127.0.0.1:8000/api/auth";  
+      //  public baseUrl : string = "http://127.0.0.1:8000/api/auth";  
 
   public apigetroles: string = this.baseUrl+"/rmls/listing/share/modal/roles-and-types";
   public apiModalUser: string = this.baseUrl+"/rmls/listing/share/modal/get-users";
@@ -54,6 +54,12 @@ export class ServiceProvider {
   public apiTicketsold: string = this.baseUrl+"/user/ticketsold";
   public apiUploadUserAvatar: string = this.baseUrl+"/user/upload/avatar";
   public apiTicketCreate: string = this.baseUrl+"/user/tickets/create/ticket";
+  public apiTicketCreateGetAccess: string = this.baseUrl+"/user/tickets/create/getaccessusers";
+  public apiTicketCreateAllCustomers: string = this.baseUrl+"/user/tickets/create/getallcustomers";
+  public apiTicketCreateData: string = this.baseUrl+"/user/tickets/create/ticketdata";
+  public apiTicketCreateAllPartners: string = this.baseUrl+"/user/tickets/create/getallpartners";
+  public apiTicketCreateAllProperties: string = this.baseUrl+"/user/tickets/create/getallproperties";
+
   public apiTicketCusCreate: string = this.baseUrl+"/user/tickets/cuscreate/ticket";
   public apiTicketStore: string = this.baseUrl+"/user/tickets/store/ticket";
   public apiCusTicketStore: string = this.baseUrl+"/user/tickets/cusstore/ticket";
@@ -1779,6 +1785,85 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
           })
         };
         return this.http.get(this.apiTicketCreate, httpOptions).toPromise();
+      } catch ( e ) {
+        console.log(e);
+        this.unAuthorizedToken();
+      }
+      });
+  }
+  
+
+
+  ticketcreateData() {
+    return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
+        try {
+          let httpOptions = {
+          headers: new HttpHeaders({
+            'Authorization':  auth_user_token.token_type+" "+auth_user_token.access_token
+          })
+        };
+        return this.http.get(this.apiTicketCreateData, httpOptions).toPromise();
+      } catch ( e ) {
+        console.log(e);
+        this.unAuthorizedToken();
+      }
+      });
+  }
+    ticketcreateGetAllPartners() {
+    return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
+        try {
+          let httpOptions = {
+          headers: new HttpHeaders({
+            'Authorization':  auth_user_token.token_type+" "+auth_user_token.access_token
+          })
+        };
+        return this.http.get(this.apiTicketCreateAllPartners, httpOptions).toPromise();
+      } catch ( e ) {
+        console.log(e);
+        this.unAuthorizedToken();
+      }
+      });
+  }
+    ticketcreateGetAllProperties() {
+    return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
+        try {
+          let httpOptions = {
+          headers: new HttpHeaders({
+            'Authorization':  auth_user_token.token_type+" "+auth_user_token.access_token
+          })
+        };
+        return this.http.get(this.apiTicketCreateAllProperties, httpOptions).toPromise();
+      } catch ( e ) {
+        console.log(e);
+        this.unAuthorizedToken();
+      }
+      });
+  }
+  ticketcreateGetAccess() {
+    return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
+        try {
+          let httpOptions = {
+          headers: new HttpHeaders({
+            'Authorization':  auth_user_token.token_type+" "+auth_user_token.access_token
+          })
+        };
+        return this.http.get(this.apiTicketCreateGetAccess, httpOptions).toPromise();
+      } catch ( e ) {
+        console.log(e);
+        this.unAuthorizedToken();
+      }
+      });
+  }
+  
+  ticketcreateGetAllCustomers() {
+    return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
+        try {
+          let httpOptions = {
+          headers: new HttpHeaders({
+            'Authorization':  auth_user_token.token_type+" "+auth_user_token.access_token
+          })
+        };
+        return this.http.get(this.apiTicketCreateAllCustomers, httpOptions).toPromise();
       } catch ( e ) {
         console.log(e);
         this.unAuthorizedToken();

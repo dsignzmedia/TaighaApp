@@ -13,6 +13,7 @@ import { TasksPage } from '../tasks/tasks';
 import { PushTabsPage } from '../home-search/push-tabs/push-tabs';
 import { SearchPage } from '../home-search/search/search'; 
 import { StorageProvider } from '../../providers/storage/storage';
+import { FavoritesPage } from '../home-search/favorites/favorites';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class TabsPage {
   @ViewChild('toptechTabs') tabRef: Tabs;
     @ViewChild('toptechTabs2') tabRef2: Tabs;
   private selectedTab: number;
-  tab8Root:any ; 
+  // tab8Root:any ; 
   IsStaffCheck: any;
   public IsStaff : boolean = false;
   public showsmsTab : boolean = false;
@@ -38,6 +39,7 @@ export class TabsPage {
   tab4Root = MailsPage;
   tab5Root = DocumentsPage;
   tab6Root = TasksPage;
+  tab8Root = SearchPage;
   public hasEmailVerified : boolean = false;
   constructor(private popoverCtrl: PopoverController, 
     public menuCtrl: MenuController,
@@ -141,7 +143,15 @@ if (auth_user_token) {
 goHomesearch(){
   this.isMoreMenu = true;
  // this.nav.setRoot(TabsPage);
-  this.App.getRootNav().push(PushTabsPage);
+  this.App.getRootNav().push(PushTabsPage,{},{animate:false});
  // this.tab8Root = PushTabsPage;
+}
+gofav(){
+ //    this.isMoreMenu = true;
+ // // this.nav.setRoot(TabsPage);
+ //  this.App.getRootNav().push(FavoritesPage);
+   this.isMoreMenu = false;
+ let nav = this.App.getRootNav(); 
+nav.setRoot(PushTabsPage, {selectedTab: 2});
 }
 }

@@ -259,6 +259,7 @@ li {
 		font-weight: 600;
 		font-size: 15px;
 		margin-bottom: 5px;
+		text-transform: capitalize;
 		label {
 			// color: color($colors, gray);
 			    color: #000;
@@ -634,6 +635,7 @@ display: flex;
 					max-width: 100%;
 					width: 100%;
 					padding: 6px 8px 6px 16px !important;
+					text-transform: capitalize;
 
 .select-icon .select-icon-inner {
     top: 50%;
@@ -742,7 +744,9 @@ display: flex;
 
 	.view-content-panel {
 		padding: 0;
-
+.inline-btn .button.btn-blue{
+margin: 0 3px;
+}
 		.grid {
 			padding: 0;
 
@@ -989,4 +993,9 @@ display: flex;
 	padding-top: 0 !important;
 	text-align: center;
 	    justify-content: center;
+}
+.select-alert{
+	button{
+		text-transform: capitalize;
+	}
 }

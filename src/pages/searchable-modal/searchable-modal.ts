@@ -21,6 +21,7 @@ public userslistsearch : any = [];
 selectedTemplate : any;
 fieldInput: any;
 selectedField : any;
+TicketAccess: any;
 public paraArray : any = [];
 selectedArray :any = [];
 selectedArray2 :any = [];
@@ -32,6 +33,46 @@ selectedArray2 :any = [];
   	this.fieldInput = this.content.field;
   	this.selectedField = this.content.selectedField;
   	this.selectedTemplate = this.selectedField;
+    // for (let i = 0; i < this.templates.length; i++) {
+    //         this.selectedCategory.push(
+    //               this.templates[i].id
+    //             );
+    //         }
+// var result = this.templates.filter(function(e) {
+//   return this.selectedTemplate.every(function(a) {
+//      e.push({'checked': 'true'});
+//   })
+// })
+
+// console.log(result);
+
+    // this.templates.forEach(function(item){
+    //       if(item.id === this.selectedTemplate) {
+    //   item.checked = true;
+    // }
+     
+    // });
+
+// for(var i = this.templates.length - 1; i >= 0; i--) {
+//     if(this.templates[i] === this.selectedField) {
+//        cart.push({element: element});
+//     }
+// }
+  // for (var i = 0; i < this.templates.length; i++) {
+  //   if (this.templates[i].id == this.selectedTemplate){
+  //     this.templates.push({checked: 'true'});
+  //   }
+  // }
+  //   for (var i = 0; i < this.templates.length; i++) {
+  //   if (this.templates[i].id == this.selectedTemplate){
+  //     this.templates.push({checked: 'true'});
+  //   }
+  // }
+// if(this.selectedTemplate[1] == undefined && a[1][2] == undefined) {
+//     // code...
+//   }
+   console.log(this.templates);
+    this.TicketAccess = this.selectedField;
   	 console.log(this.selectedTemplate);
   	 if (this.selectedTemplate) {
   	 	this.selectedArray = this.selectedTemplate;
@@ -41,7 +82,22 @@ selectedArray2 :any = [];
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchableModalPage');
   }
+ //   getAccess() {
 
+ //   try {
+ //   //  this.currentPage = 7;
+ //   console.log(this.ticket.id);
+ //   console.log(this.ticket.assigned_to_staff);
+ //     this.service.hasAccess(this.ticket.id, this.ticket.assigned_to_staff).then( (response : any) => {
+ //       console.log( response );
+ //       this.TicketAccess = response.totalAccessUsers;
+ //     }).catch( error => {
+ //         console.log(error);
+ //     })
+ //   } catch(e) {
+ //        this.service.serverError();
+ //    }
+ // }
 protected resetChanges = () => {
     this.templates = this.userslistsearch;
 };
@@ -126,14 +182,28 @@ selectMember(data){
 // }else{
 
 // }
+console.log(data);
  console.log(this.selectedTemplate);
+ console.log(this.selectedArray);
+
+ const index = this.selectedArray.indexOf(0);
+if (index > -1) {
+  this.selectedArray.splice(index, 1);
+}
      const foundAt = this.selectedArray.indexOf(data.id);
      console.log(foundAt);
+     // this.selectedArray.splice(0,1);
+// const index = array.indexOf(5);
+// if (index > -1) {
+//   array.splice(index, 1);
+// }
+
      if (foundAt >= 0) {
         this.selectedArray.splice(foundAt, 1);
      } else {
         this.selectedArray.push(data.id);
     }
+
     console.log(this.selectedArray);
     this.selectedTemplate = this.selectedArray; 
 }

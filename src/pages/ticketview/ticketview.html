@@ -132,7 +132,7 @@
     <p>
         <label class="d-block d-flex-label">Group :</label>
         <span  class="sub-content" *ngIf=" !editgroupfield "><span class="pencil_edit"  *ngIf="IsStaffCheck != 0" (click)=" toggleTopHeaderUpdate('group') "><img src="assets/imgs/edit.svg"></span> {{ ticket.groupname }}</span></p>
-    <ion-select [(ngModel)]="ticket.assigned_to" class="form-field-select" (ionChange)="enableDisableStatus()" *ngIf="editgroupfield">
+    <ion-select [(ngModel)]="ticket.assigned_to" class="form-field-select" (ionChange)="enableDisableStatus(); changeGroup();" *ngIf="editgroupfield">
         <ion-option value="{{ group.id }}" *ngFor=" let  group of groups  ">{{ group.name }}</ion-option>
     </ion-select>
 </ion-col>
@@ -179,13 +179,14 @@
         <label class="d-block d-flex-label">CC :</label>
         <!-- ticketHistory[0].cc -->
         <span  class="sub-content" *ngIf=" !editccfield "><span class="pencil_edit"  *ngIf="IsStaffCheck != 0" (click)=" toggleTopHeaderUpdate('cc') "><img src="assets/imgs/edit.svg"></span> {{ lastmail.cc }}</span></p>
-    <ion-input  (ionChange)="enableDisableStatus()" *ngIf="editccfield" [(ngModel)]="TicketCC">{{ lastmail.cc }}</ion-input>
+        <!--  [value]="lastmail.cc" -->
+    <ion-input  (ionChange)="enableDisableStatus()" *ngIf="editccfield" [(ngModel)]="TicketCC"></ion-input>
 </ion-col>
 <ion-col col-6  *ngIf="IsStaffCheck == 0">
     <p>
         <label class="d-block d-flex-label">CC :</label>
         <span  class="sub-content" *ngIf=" !editccfield "><span class="pencil_edit" (click)=" toggleTopHeaderUpdate('cc') "><img src="assets/imgs/edit.svg"></span> {{ lastmail.cc }}</span></p>
-    <ion-input  (ionChange)="enableDisableStatus()" *ngIf="editccfield" [(ngModel)]="ticket.cc_emails">{{ lastmail.cc }}</ion-input>
+    <ion-input  (ionChange)="enableDisableStatus()" *ngIf="editccfield" [(ngModel)]="ticket.cc_emails" [value]="lastmail.cc"></ion-input>
 </ion-col>
 
 <ion-col col-6  *ngIf="IsStaffCheck != 0">
@@ -208,6 +209,8 @@
                             <div class="inline-btn">
                             <button ion-button block class="btn btn-blue" [disabled]="disableUpdate" (click)="updateTicket('no')">Update</button>
                             <button ion-button block class="btn btn-blue" [disabled]="disableUpdate" (click)="updateTicket('notify')">Update & Notify</button>
+                            <button ion-button block class="btn btn-blue" [disabled]="disableUpdate" (click)="cancelupdate()">Cancel</button>
+
                             </div>
                         </ion-col>
 
