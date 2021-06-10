@@ -9,10 +9,87 @@
     <ion-tab class="order5" (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" [root]="pushOneRoot" [rootParams]="data" tabTitle="Search" tabIcon="search"></ion-tab>
 
 <!--      <ion-tab *ngIf="userid == 0" class="order3" [tabsHideOnSubPages]="true"(ionSelect)="gosignin()" tabTitle="Saved" tabIcon="saved"></ion-tab> -->
-    <ion-tab  (ionSelect)="hidemore()" class="order3" [tabsHideOnSubPages]="true" [root]="pushTwoRoot" [rootParams]="data" tabTitle="Saved" tabIcon="saved"></ion-tab>
-    <ion-tab  (ionSelect)="hidemore()" class="order4" [tabsHideOnSubPages]="true" [root]="pushThreeRoot" [rootParams]="data" tabTitle="Favorites" tabIcon="favorites"></ion-tab>
+    <ion-tab  (ionSelect)="hidemore()" class="order3" [tabsHideOnSubPages]="true" show= "false" [root]="pushTwoRoot" [rootParams]="data" tabTitle="Saved" tabIcon="saved"></ion-tab>
+    <ion-tab  (ionSelect)="hidemore()" class="order4" [tabsHideOnSubPages]="true" show= "false" [root]="pushThreeRoot" [rootParams]="data" tabTitle="Favorites" tabIcon="favorites"></ion-tab>
+
+
+
     <ion-tab (ionSelect)="openSideMenu2()" tabTitle="More"  tabIcon="iconmoreblack"></ion-tab>
     <ion-tab  class="order2" [tabsHideOnSubPages]="true"  show= "false" [root]="pushFourRoot" [rootParams]="data" tabTitle="Featured" tabIcon="featured"></ion-tab>
-<!--     *ngIf="userid == 0" -->
-    <ion-tab  class="order1" [tabsHideOnSubPages]="true" (ionSelect)="goDashboard()" tabTitle="Dashboard" tabIcon="homedashboard"></ion-tab>
+<!--     *ngIf="userid == 0" (ionSelect)="goDashboard()" -->
+    <ion-tab  class="order1" [tabsHideOnSubPages]="true" [root]="pushSixRoot"  tabTitle="Dashboard" tabIcon="homedashboard"></ion-tab>
+
+            <ion-tab  [tabsHideOnSubPages]="true" [root]="pushSevenRoot"  tabTitle="Messagees" tabIcon="sms"></ion-tab>
+    <ion-tab  [tabsHideOnSubPages]="true" [root]="pushEightRoot" tabTitle="Tickets" tabIcon="tickets"></ion-tab>
+
+    <ion-tab  (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" show= "false" [root]="pushNineRoot" [rootParams]="data" tabTitle="Properties" tabIcon="properties"></ion-tab>
+    <ion-tab  (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" show= "false" [root]="pushTenRoot" [rootParams]="data" tabTitle="Mails" tabIcon="mails"></ion-tab>
+    <ion-tab  (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" show= "false" [root]="push11Root" [rootParams]="data" tabTitle="Tasks" tabIcon="tasks"></ion-tab>
+    <ion-tab  (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" show= "false" [root]="push12Root" [rootParams]="data" tabTitle="Documents" tabIcon="documents"></ion-tab>
+    <ion-tab  (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" show= "false" [root]="push13Root" [rootParams]="data" tabTitle="Activities" tabIcon="activities"></ion-tab>
+</ion-tabs>
+
+<ion-tabs class="homesearch-tabs hometabsCust" #HomesearchTabs2>
+    
+<!--     <ion-tab class="order5" [tabsHideOnSubPages]="true" [root]="pushOneRoot" [rootParams]="data" tabTitle="Search" tabIcon="search"></ion-tab>
+    <ion-tab  class="order3" [tabsHideOnSubPages]="true" [root]="pushTwoRoot" [rootParams]="data" tabTitle="Saved" tabIcon="saved"></ion-tab>
+    <ion-tab  class="order4" [tabsHideOnSubPages]="true" [root]="pushThreeRoot" [rootParams]="data" tabTitle="Favorites" tabIcon="favorites"></ion-tab>
+    <ion-tab  class="order2" [tabsHideOnSubPages]="true" [root]="pushFourRoot" [rootParams]="data" tabTitle="Featured" tabIcon="featured"></ion-tab>
+    <ion-tab  class="order1" [tabsHideOnSubPages]="true" [root]="pushFiveRoot" [rootParams]="data" tabTitle="Dashboard" tabIcon="homedashboard"></ion-tab> -->
+
+<!--     <ion-tab class="order5" (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" [root]="pushOneRoot" [rootParams]="data" tabTitle="Search" tabIcon="search"></ion-tab>
+
+     <ion-tab *ngIf="userid == 0" class="order3" [tabsHideOnSubPages]="true"(ionSelect)="gosignin()" tabTitle="Saved" tabIcon="saved"></ion-tab> // nope
+    <ion-tab  (ionSelect)="hidemore()" class="order3" [tabsHideOnSubPages]="true" show= "false" [root]="pushTwoRoot" [rootParams]="data" tabTitle="Saved" tabIcon="saved"></ion-tab>
+    <ion-tab  (ionSelect)="hidemore()" class="order4" [tabsHideOnSubPages]="true" show= "false" [root]="pushThreeRoot" [rootParams]="data" tabTitle="Favorites" tabIcon="favorites"></ion-tab>
+    <ion-tab (ionSelect)="openSideMenu2()" tabTitle="More"  tabIcon="iconmoreblack"></ion-tab>
+    <ion-tab  class="order2" [tabsHideOnSubPages]="true"  show= "false" [root]="pushFourRoot" [rootParams]="data" tabTitle="Featured" tabIcon="featured"></ion-tab>
+    *ngIf="userid == 0" (ionSelect)="goDashboard()"
+    <ion-tab  class="order1" [tabsHideOnSubPages]="true" [root]="pushSixRoot"  tabTitle="HCDashboard" tabIcon="homedashboard"></ion-tab>
+
+            <ion-tab  [tabsHideOnSubPages]="true" [root]="pushSevenRoot"  tabTitle="Messagees" tabIcon="sms"></ion-tab>
+    <ion-tab  [tabsHideOnSubPages]="true" [root]="pushEightRoot" tabTitle="Tickets" tabIcon="tickets"></ion-tab> -->
+    <ion-tab class="order5" (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" [root]="pushOneRoot" [rootParams]="data" tabTitle="Search" tabIcon="search"></ion-tab>
+
+<!--      <ion-tab *ngIf="userid == 0" class="order3" [tabsHideOnSubPages]="true"(ionSelect)="gosignin()" tabTitle="Saved" tabIcon="saved"></ion-tab> -->
+    <ion-tab  (ionSelect)="hidemore()" class="order3" [tabsHideOnSubPages]="true" show= "false" [root]="pushTwoRoot" [rootParams]="data" tabTitle="Saved" tabIcon="saved"></ion-tab>
+    <ion-tab  (ionSelect)="hidemore()" class="order4" [tabsHideOnSubPages]="true" [root]="pushThreeRoot" [rootParams]="data" tabTitle="Favorites" tabIcon="favorites"></ion-tab>
+
+
+
+    <ion-tab (ionSelect)="openSideMenu2()" tabTitle="More"  tabIcon="iconmoreblack"></ion-tab>
+    <ion-tab  class="order2" [tabsHideOnSubPages]="true"  show= "false" [root]="pushFourRoot" [rootParams]="data" tabTitle="Featured" tabIcon="featured"></ion-tab>
+<!--     *ngIf="userid == 0" (ionSelect)="goDashboard()" -->
+    <ion-tab  class="order1" [tabsHideOnSubPages]="true" [root]="pushSixRoot"  tabTitle="Dashboard" tabIcon="homedashboard"></ion-tab>
+
+            <ion-tab  [tabsHideOnSubPages]="true" [root]="pushSevenRoot" show= "false"  tabTitle="Messagees" tabIcon="sms"></ion-tab>
+    <ion-tab  [tabsHideOnSubPages]="true" [root]="pushEightRoot" tabTitle="Tickets" tabIcon="tickets"></ion-tab>
+
+    <ion-tab  (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" show= "false" [root]="pushNineRoot" [rootParams]="data" tabTitle="Properties" tabIcon="properties"></ion-tab>
+    <ion-tab  (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" show= "false" [root]="pushTenRoot" [rootParams]="data" tabTitle="Mails" tabIcon="mails"></ion-tab>
+    <ion-tab  (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" show= "false" [root]="push11Root" [rootParams]="data" tabTitle="Tasks" tabIcon="tasks"></ion-tab>
+    <ion-tab  (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" show= "false" [root]="push12Root" [rootParams]="data" tabTitle="Documents" tabIcon="documents"></ion-tab>
+    <ion-tab  (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" show= "false" [root]="push13Root" [rootParams]="data" tabTitle="Activities" tabIcon="activities"></ion-tab>
+</ion-tabs>
+
+<ion-tabs class="homesearch-tabs hometabsGuest" #HomesearchTabs3>
+    <ion-tab class="order5" (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" [root]="pushOneRoot" [rootParams]="data" tabTitle="Search" tabIcon="search"></ion-tab>
+    <ion-tab  (ionSelect)="hidemore()" class="order3" [tabsHideOnSubPages]="true" show= "false" [root]="pushTwoRoot" [rootParams]="data" tabTitle="Saved" tabIcon="saved"></ion-tab>
+    <ion-tab  (ionSelect)="GuestUser()" class="order4" [tabsHideOnSubPages]="true"  [rootParams]="data" tabTitle="Favorites" tabIcon="favorites"></ion-tab>
+
+
+
+    <ion-tab (ionSelect)="openSideMenu2()" tabTitle="More"  tabIcon="iconmoreblack"></ion-tab>
+    <ion-tab  [tabsHideOnSubPages]="true" [root]="pushEightRoot"   show= "false"  tabTitle="Tickets" tabIcon="tickets"></ion-tab>
+    <ion-tab  class="order1" [tabsHideOnSubPages]="true" (ionSelect)="GuestUser()" tabTitle="Dashboard" tabIcon="homedashboard"></ion-tab>
+
+    <ion-tab  [tabsHideOnSubPages]="true" [root]="pushSevenRoot" show= "false"  tabTitle="Messagees" tabIcon="sms"></ion-tab>
+    
+    <ion-tab  class="order2" [tabsHideOnSubPages]="true" [root]="pushFourRoot" [rootParams]="data" tabTitle="Featured" tabIcon="featured"></ion-tab>
+
+    <ion-tab  (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" show= "false" [root]="pushNineRoot" [rootParams]="data" tabTitle="Properties" tabIcon="properties"></ion-tab>
+    <ion-tab  (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" show= "false" [root]="pushTenRoot" [rootParams]="data" tabTitle="Mails" tabIcon="mails"></ion-tab>
+    <ion-tab  (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" show= "false" [root]="push11Root" [rootParams]="data" tabTitle="Tasks" tabIcon="tasks"></ion-tab>
+    <ion-tab  (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" show= "false" [root]="push12Root" [rootParams]="data" tabTitle="Documents" tabIcon="documents"></ion-tab>
+    <ion-tab  (ionSelect)="hidemore()" [tabsHideOnSubPages]="true" show= "false" [root]="push13Root" [rootParams]="data" tabTitle="Activities" tabIcon="activities"></ion-tab>
 </ion-tabs>

@@ -77,6 +77,9 @@ public storedTokens : any = "";
               public storage: StorageProvider,
               private App: App) {
     console.log("testetstetset");
+        // $('.MenuForCustomer').css('display','none');
+        // $('.MenuForStaff').css('display','none');
+        // $('.MenuForGuest').css('display','block');
       this.initializeApp();
         events.subscribe('user:created', (user, time) => {
     // user and time are the same arguments passed in `events.publish(user, time)`
@@ -176,12 +179,20 @@ if (auth_user_token) {
         this.IsStaffstring = 'no';
         // hideforcustomer
         console.log("hideforcustomer none");
-        $('.hideforCustomerandUser').css('display','none');
+        // $('.hideforCustomerandUser').css('display','none');
+
+        $('.MenuForCustomer').css('display','block');
+        $('.MenuForStaff').css('display','none');
+        $('.MenuForGuest').css('display','none');
         // tab-t1-4
         $('#tab-t3-4').css('display','none');
       }else{
         console.log("hideforcustomer flex");
-        $('.hideforCustomerandUser').css('display','flex');
+        // $('.hideforCustomerandUser').css('display','flex');
+
+        $('.MenuForCustomer').css('display','none');
+        $('.MenuForStaff').css('display','block');
+        $('.MenuForGuest').css('display','none');
         this.IsStaff = true;
       }
         if(auth_user_token) {
@@ -191,6 +202,11 @@ if (auth_user_token) {
         }
         }
         console.log(this.IsStaffCheck);
+        if (this.IsStaffCheck == undefined) {
+        $('.MenuForCustomer').css('display','none');
+        $('.MenuForStaff').css('display','none');
+        $('.MenuForGuest').css('display','block');
+        }
     });
   }
   chechEmailVerified() {
@@ -319,10 +335,31 @@ if (auth_user_token) {
           });
   }
   menuClosed() {
+      $(".ion-ios-tickets").parent().removeClass("dashinactive");
+    $(".ion-md-tickets").parent().removeClass("dashinactive");
+    $(".ion-ios-sms-outline").parent().removeClass("dashinactive");
+    $(".ion-md-sms-outline").parent().removeClass("dashinactive");
+    $(".ion-ios-myproperties-outline").parent().removeClass("dashinactive");
+    $(".ion-md-myproperties-outline").parent().removeClass("dashinactive");
+    $(".ion-ios-dashboard").parent().removeClass("dashinactive");
+    $(".ion-md-dashboard").parent().removeClass("dashinactive");
     console.log('closed');
     this.isMoreMenu = false;
     this.currentActiveTab = "";
   }
+  menuOpened(){
+     console.log('opened');
+      $(".ion-ios-tickets").parent().addClass("dashinactive");
+    $(".ion-md-tickets").parent().addClass("dashinactive");
+    $(".ion-ios-sms-outline").parent().addClass("dashinactive");
+    $(".ion-md-sms-outline").parent().addClass("dashinactive");
+    $(".ion-ios-myproperties-outline").parent().addClass("dashinactive");
+    $(".ion-md-myproperties-outline").parent().addClass("dashinactive");
+    $(".ion-ios-dashboard").parent().addClass("dashinactive");
+    $(".ion-md-dashboard").parent().addClass("dashinactive");
+  }
+
+
   rightsidemenuopen(){
     console.log("open");
     $(".ion-ios-search").parent().addClass("inactive");
@@ -332,8 +369,19 @@ if (auth_user_token) {
     $(".ion-ios-favorites").parent().addClass("inactive");
     $(".ion-md-favorites").parent().addClass("inactive");
 
+            $(".ion-ios-tickets").parent().addClass("inactive");
+    $(".ion-md-tickets").parent().addClass("inactive");
+    $(".ion-ios-homedashboard").parent().addClass("inactive");
+    $(".ion-md-homedashboard").parent().addClass("inactive");
+    $(".ion-ios-sms").parent().addClass("inactive");
+    $(".ion-md-sms").parent().addClass("inactive");
+  
+
     $(".ion-ios-iconmoreblack-outline").css("background-image", "url(../assets/imgs/blue-more-full.svg)");
     $(".ion-md-iconmoreblack").css("background-image", "url(../assets/imgs/blue-more-full.svg)");
+
+    $(".ion-ios-iconmore-outline").css("background-image", "url(../assets/imgs/blue-more-full.svg)");
+    $(".ion-md-iconmore").css("background-image", "url(../assets/imgs/blue-more-full.svg)");
 
     $(".ion-ios-iconmoreblack-outline").next().css("font-weight", "600"); 
     $(".ion-ios-iconmoreblack-outline").next().css("color", "#3366CC");
@@ -352,8 +400,18 @@ if (auth_user_token) {
     $(".ion-ios-favorites").parent().removeClass("inactive");
     $(".ion-md-favorites").parent().removeClass("inactive");
 
+            $(".ion-ios-tickets").parent().removeClass("inactive");
+    $(".ion-md-tickets").parent().removeClass("inactive");
+    $(".ion-ios-homedashboard").parent().removeClass("inactive");
+    $(".ion-md-homedashboard").parent().removeClass("inactive");
+    $(".ion-ios-sms").parent().removeClass("inactive");
+    $(".ion-md-sms").parent().removeClass("inactive");
+  
+
     $(".ion-ios-iconmoreblack-outline").css("background-image", "url(../assets/imgs/grey-more.svg)");
     $(".ion-md-iconmoreblack").css("background-image", "url(../assets/imgs/grey-more.svg)");
+        $(".ion-ios-iconmore-outline").css("background-image", "url(../assets/imgs/grey-more.svg)");
+    $(".ion-md-iconmore").css("background-image", "url(../assets/imgs/grey-more.svg)");
 
     $(".ion-ios-iconmoreblack-outline").next().css("font-weight", "400");
     $(".ion-ios-iconmoreblack-outline").next().css("color", "#989898");
@@ -393,10 +451,14 @@ openPageDocuments():void {
 nav.setRoot(TabsPage, {selectedTab: 6});
 }
 openPageMessage():void {
-  this.isMoreMenu = false;
- let nav = this.App.getRootNav(); 
-nav.setRoot(TabsPage, {selectedTab: 4});
+//   this.isMoreMenu = false;
+//  let nav = this.App.getRootNav(); 
+// nav.setRoot(TabsPage, {selectedTab: 4});
  // this.nav.setRoot(TextMessagePage);
+
+   this.isMoreMenu = false;
+ let nav = this.App.getRootNav(); 
+nav.setRoot(PushTabsPage, {selectedTab: 0});
 }
 goToActivities():void {
   this.isMoreMenu = false;
@@ -790,7 +852,33 @@ goToProperties():void {
   //  this.App.getRootNav().push(MypropertiesPage);
  //this.nav.push(MypropertiesPage); 
  let nav = this.App.getRootNav(); 
-nav.setRoot(TabsPage, {selectedTab: 3});
+nav.setRoot(PushTabsPage, {selectedTab: 8});
+}
+goToMails():void {
+  this.isMoreMenu = false;
+ let nav = this.App.getRootNav(); 
+nav.setRoot(PushTabsPage, {selectedTab: 9});
+}
+goToTasks():void {
+  this.isMoreMenu = false;
+ let nav = this.App.getRootNav(); 
+nav.setRoot(PushTabsPage, {selectedTab: 10});
+}
+goToDocuments():void {
+  this.isMoreMenu = false;
+ let nav = this.App.getRootNav(); 
+nav.setRoot(PushTabsPage, {selectedTab: 11});
+}
+goToActivity():void {
+  this.isMoreMenu = false;
+ let nav = this.App.getRootNav(); 
+nav.setRoot(PushTabsPage, {selectedTab: 12});
+}
+goToFeaturedGuest():void {
+//   this.isMoreMenu = false;
+//  let nav = this.App.getRootNav(); 
+// nav.setRoot(PushTabsPage, {selectedTab: 7});
+this.App.getRootNav().push(PushTabsPage,{selectedTab: 7},{animate:false});
 }
 goToFeatured():void {
   this.isMoreMenu = false;
@@ -798,9 +886,11 @@ goToFeatured():void {
 nav.setRoot(PushTabsPage, {selectedTab: 4});
 }
 goToSaved():void {
-  this.isMoreMenu = false;
- let nav = this.App.getRootNav(); 
-nav.setRoot(PushTabsPage, {selectedTab: 1});
+//   this.isMoreMenu = false;
+//  let nav = this.App.getRootNav(); 
+// nav.setRoot(PushTabsPage, {selectedTab: 1});
+
+  this.App.getRootNav().push(PushTabsPage,{selectedTab: 1},{animate:false});
 }
 goToFavorites():void {
   this.isMoreMenu = false;

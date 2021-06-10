@@ -264,22 +264,20 @@ openSelecttemplate(field){
     this.service.showload();
 	  	try {
 	 		this.showSpinner = true;
-	 		this.service.ticketcreate().then( (response : any) => {
+	 		this.service.ticketcreateData().then( (response : any) => {
          this.showSpinner = false;
          this.service.loading.dismiss();
 		   	this.priorities = response.data.priorities;
-		   	this.properties = response.data.properties;
+		   	
          this.status = response.data.status;
 
          this.ticketclass = response.data.ticketclass;
-        // this.accessibleUsers = response.data.accessibleUsers;
-         this.accessibleUsers = response.data.allaccessibleUsers;
          //allaccessibleUsers
          this.tickettypes = response.data.tickettypes;
          this.templates = response.data.template;
-         this.customers = response.data.customers;
+         
          this.groups = response.data.groups;
-         this.partners = response.data.partners;
+         
          this.users = response.data.users;
 		   	console.log(response);
 		   	this.body = response.data.signature ;
@@ -294,8 +292,49 @@ openSelecttemplate(field){
 	 		this.showSpinner = false;
 	        this.service.serverError();
 	    }
+      this.getAccessUser();
+      this.getAllCustomers();
+      this.getAllPartners();
+      this.getAllProperties();
   }
 
+getAccessUser(){
+         this.service.ticketcreateGetAccess().then( (response : any) => {
+console.log(response);
+         this.accessibleUsers = response.data.allaccessibleUsers;
+
+       }).catch( error => {
+           console.log(error);
+       })
+}
+
+getAllCustomers(){
+         this.service.ticketcreateGetAllCustomers().then( (response : any) => {
+console.log(response);
+       this.customers = response.data.customers;
+
+       }).catch( error => {
+           console.log(error);
+       })
+}
+getAllPartners(){
+         this.service.ticketcreateGetAllPartners().then( (response : any) => {
+console.log(response);
+      this.partners = response.data.partners;
+
+       }).catch( error => {
+           console.log(error);
+       })
+}
+getAllProperties(){
+         this.service.ticketcreateGetAllProperties().then( (response : any) => {
+console.log(response);
+       this.properties = response.data.properties;
+
+       }).catch( error => {
+           console.log(error);
+       })
+}
   back() {
   	// this.navCtrl.push(TicketsPage);    
       this.navCtrl.pop();

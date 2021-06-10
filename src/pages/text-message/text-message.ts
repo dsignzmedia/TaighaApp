@@ -344,13 +344,23 @@ checkMsg(id, fname, lname, phone, num){
            }else{
              this.yesorno = 'no';
            }
-           this.gotoTextMessagecreate(this.messagehistory, fname+' '+lname, num, '', this.yesorno, id );
+           console.log(this.yesorno);
+                 let checkdata: any = {
+         checkid: id,
+         checknum: num,
+         checkfname: fname,
+         checklname: lname,
+         checkphone: phone,
+         checkyesorno: this.yesorno,
+       }
+       console.log(checkdata);
+           this.gotoTextMessagecreate(this.messagehistory, fname+' '+lname, num, '', this.yesorno, id, checkdata );
          } ).catch( error => {
            console.log("error", JSON.stringify(error) );
            this.service.toast(error.error.message, 3000, 'middle');
          } );
 }
-gotoTextMessagecreate(idd, customer_name, sms_from, customer_avatar, yesorno, uid){
+gotoTextMessagecreate(idd, customer_name, sms_from, customer_avatar, yesorno, uid, checkdata){
   console.log(idd);
   console.log(customer_name);
   console.log(sms_from);
@@ -362,7 +372,8 @@ gotoTextMessagecreate(idd, customer_name, sms_from, customer_avatar, yesorno, ui
         smsFromcreate: sms_from,
         customerAvatar: customer_avatar,
         fromcreate: yesorno,
-        uid: uid
+        uid: uid,
+        checkdata: checkdata
       });
      textmessagemodal.present();
 }

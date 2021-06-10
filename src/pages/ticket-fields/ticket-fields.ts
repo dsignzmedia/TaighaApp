@@ -58,6 +58,7 @@ public ticketAllOption : any = [];
 
 public list: any = "";
 public TicketGroupSelected: any = "";
+public IsStaffCheck: any = "";
   constructor(public navCtrl: NavController, 
           public service: ServiceProvider, 
           public viewCtrl: ViewController,
@@ -69,9 +70,11 @@ public TicketGroupSelected: any = "";
     this.AllOptions = this.navParams.get('templates');
     this.ticket = this.navParams.get('ticket');
     this.ticketAllOption = this.navParams.get('ticketAllOption');
-    
+    this.IsStaffCheck = this.navParams.get('IsStaffCheck');
+    console.log(this.IsStaffCheck);
     console.log(this.AllOptions);
     console.log(this.ticket);
+        console.log(this.ticketAllOption);
     this.priorities = this.AllOptions.priorities ;
     this.templates = this.AllOptions.emailTemplates ;
     this.groups = this.AllOptions.groups ;
@@ -91,7 +94,7 @@ public TicketGroupSelected: any = "";
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TicketFieldsPage');
-    // this.clearAndGetOptions();
+   this.clearAndGetOptions();
     this.getAccess();
   }
    getAccess() {
@@ -143,7 +146,7 @@ goBack(){
          // this.properties = response.data.properties;
           this.status = response.data.status;
          // this.ticketclass = response.data.ticketclass;
-         // this.accessibleUsers = response.data.accessibleUsers;
+         this.accessibleUsers = response.data.allaccessibleUsers;
          // this.tickettypes = response.data.tickettypes;
          // this.templates = response.data.template;
          // this.customers = response.data.customers;
@@ -224,6 +227,19 @@ chooseTemplate(){
          GotTicketVersion: this.TicketVersion,
          GotTicketAccess: this.TicketAccess,
          GotTicketClass: this.TicketClass,
+         body: this.body
+        })
+}
+chooseTemplateCus(){
+    console.log(this.TicketPriority);
+    console.log(this.TicketProperty);
+    console.log(this.TicketCC);
+    console.log('this.body');
+    console.log(this.body);
+     this.viewCtrl.dismiss({
+         GotTicketPriority: this.TicketPriority,
+         GotTicketProperty: this.TicketProperty,
+         GotTicketCC: this.TicketCC,
          body: this.body
         })
 }

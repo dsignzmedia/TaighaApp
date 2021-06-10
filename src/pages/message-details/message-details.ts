@@ -37,6 +37,7 @@ export class MessageDetailsPage {
 @ViewChild('selectUser') selectRef: Select;
 @ViewChild('selectTemplate') selectRef2: Select;
 msgID: any;
+yesorno: any;
 customerName: any;
 smsFrom: any;
 Textmsguserid: any;
@@ -79,6 +80,7 @@ Textmsguserid: any;
    smsFromcreate: any;
   customerNamecreate: any;
   uid: any;
+  checkdata:any;
   urls = new Array<string>();
     @ViewChild('fileInput') inputEl: ElementRef;
   constructor(  public navCtrl: NavController, 
@@ -113,6 +115,11 @@ Textmsguserid: any;
       }
       if (this.navParams.data.uid) {
         this.uid = this.navParams.data.uid;
+      }
+      if (this.navParams.data.checkdata) {
+        this.checkdata = this.navParams.data.checkdata;
+        console.log('this.checkdata');
+          console.log(this.checkdata);
       }
       
       console.log(this.msgID);
@@ -702,8 +709,11 @@ if (this.urls.length === 0 && this.replymsg === '') {
          formData2.append('message', this.replymsgSignature);
          //
          this.service.showload();
-
-  
+    console.log('formData2');
+       console.log('sms_to', this.uid);
+       console.log('sms_to_number', this.smsFromcreate);
+       console.log('message', this.replymsgSignature);
+    console.log('formData2');
         // let formData2 = new FormData();
         //  formData2.append('user_id', this.uid);
          // this.service.checkUserhavemsg(formData2).then( (response : any) => {
@@ -737,8 +747,26 @@ if (response) {
      //   this.textTemplates = response.data.textTemplates;
      //   this.tonumbersvar = response.data.tonumbers;
      //   this.scrollToBottomOnInit();
+     console.log('this.msgID');
+console.log(this.msgID);
+// checkMsg(id, fname, lname, phone, num){
 
-     this.service.getTextmessageDetailsPage(this.currentPage, this.msgID).then( (response : any) => {
+
+  console.log(this.checkdata);
+        let formData = new FormData();
+         formData.append('user_id', this.checkdata.checkid);
+         formData.append('phone_number', this.checkdata.checknum);
+         this.service.checkUserhavemsg(formData).then( (response : any) => {
+           
+           console.log(response);
+           this.messagehistory = response.data;
+           if (this.messagehistory == '0') {
+             this.yesorno = 'yes';
+           }else{
+             this.yesorno = 'no';
+           }
+           console.log(this.yesorno);
+     this.service.getTextmessageDetailsPage(this.currentPage, this.messagehistory).then( (response : any) => {
      // this.service.getTextmessageDetails(this.msgID).then( (response : any) => {
       // console.log( response.data.messages );
       console.log(response);
@@ -761,16 +789,28 @@ if (response) {
        this.textMessageCurrentNumber = response.data.textMessageCurrentNumber;
        this.textTemplates = response.data.textTemplates;
        this.tonumbersvar = response.data.tonumbers;
+       this.service.loading.dismiss();
        // console.log(this.tonumbersvar);
   this.scrollToBottomOnInit();
        // console.log(this.tonumbersvar);
    }).catch( error => {
          console.log(error);
      })
+           // this.gotoTextMessagecreate(this.messagehistory, fname+' '+lname, this.smsFromcreate, '', this.yesorno, this.checkdata.checkid );
+         } ).catch( error => {
+           console.log("error", JSON.stringify(error) );
+           this.service.loading.dismiss();
+           this.service.toast(error.error.message, 3000, 'middle');
+         } );
+
+// }
+
+
 
 
    } catch(e) {
      console.log(e);
+     this.service.loading.dismiss();
         this.service.serverError();
     }
 // recall
@@ -801,7 +841,9 @@ if (response) {
          //   console.log("error", JSON.stringify(error) );
          //   this.service.toast(error.error.message, 3000, 'middle');
          // } );
-
+           console.log("response", JSON.stringify(response) );
+           this.service.toast('message sent successfully', 2000, 'middle');
+           this.service.loading.dismiss();
            }
          } ).catch( error => {
            console.log("error", JSON.stringify(error) );

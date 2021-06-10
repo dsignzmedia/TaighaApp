@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, LoadingController } from 'ionic-angular';
 import { ServiceProvider } from '../../providers/service/service';
 import { SearchableModalPage } from '../../pages/searchable-modal/searchable-modal'; 
@@ -14,6 +14,9 @@ import { SearchableModalPage } from '../../pages/searchable-modal/searchable-mod
   templateUrl: 'customer-newticket.html',
 })
 export class CustomerNewticketPage {
+  urls = new Array<string>();
+  @Input() multiple: boolean = false;
+  @ViewChild('fileInput') inputEl: ElementRef;
   public formData = new FormData();
   public showSpinner: boolean = false;
     public priorities: any = "";
@@ -210,7 +213,26 @@ openSelecttemplate(field){
     this.quill = editorInstance;
 
   }
-
+  changeListener(event) : void {
+        let files = event.target.files;
+        if (files) {
+          for (let file of files) {
+            let reader = new FileReader();
+            reader.onload = (e: any) => {
+              this.urls.push(e.target.result);
+            }
+            reader.readAsDataURL(file);
+          }
+        }
+        console.log(JSON.stringify(this.urls));
+        let inputEl: HTMLInputElement = this.inputEl.nativeElement;
+        let fileCount: number = inputEl.files.length;
+        if (fileCount > 0) { // a file was selected
+            for (let i = 0; i < fileCount; i++) {
+                this.formData.append('attachments[]', inputEl.files.item(i));
+            }
+         }
+     }
   imageHandler() {
       const Imageinput = document.createElement('input');
       Imageinput.setAttribute('type', 'file');

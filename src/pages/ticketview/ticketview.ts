@@ -42,6 +42,17 @@ public shownavbar: boolean = true;
   public options : Object;
   public showSpinner : boolean = true;
   public ticket : any = "";
+  public ticketforclear : any = "";
+  public ticketforpriority : any = "";
+  public ticketforstatus : any = "";
+public ticketforproperty_id : any = "";
+public ticketforassigned_to : any = "";
+public ticketforassigned_to_staff : any = "";
+public ticketforccess : any = "";
+public ticketforclass : any = "";
+public ticketforversion : any = "";
+
+  
   public ticketHistory : any = "";
   public ticketData : any = "";
   public ticketDataOption : any = "";
@@ -60,6 +71,7 @@ public shownavbar: boolean = true;
   public property_id : any = "";
   public body : any = "";
 
+public TicketCC : any = "";
 public GotTicketTemplate : any = "";
 public GotTicketGroup : any = "";
 public GotTicketStaff : any = "";
@@ -168,6 +180,11 @@ this.getAccess();
      this.service.hasAccess(this.ticketId, this.ticket.assigned_to_staff).then( (response : any) => {
        console.log( response );
        this.accessibleUserIds = response.totalAccessUsers;
+       this.TicketAccessSelected = response.totalAccessUsers;
+       this.ticketforccess = response.totalAccessUsers;
+       var correctedArray = this.TicketAccessSelected.map(Number);
+       this.TicketAccessSelected = correctedArray;
+       console.log( this.TicketAccessSelected );
      }).catch( error => {
          console.log(error);
      })
@@ -175,6 +192,18 @@ this.getAccess();
         this.service.serverError();
     }
  }
+
+changeGroup(){
+  console.log(this.ticket.assigned_to);
+  this.formData.append('group_id', this.ticket.assigned_to);
+    this.service.getgroupuser(this.formData).then( (response : any) => {
+            console.log(response);
+             this.ticketDataOption.users = response.data.user;
+          } ).catch( (e : any) => { 
+            console.log(e);
+          });
+}
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad TicketviewPage');
   }
@@ -202,7 +231,9 @@ openSelecttemplate(field){
   //        list: '',
   //        selectedField : ''
   //      }
-     //  console.log(content);
+      console.log(this.TicketAccessSelected);
+      var correctedArray = this.TicketAccessSelected.map(Number);
+       this.TicketAccessSelected = correctedArray;
          this.contentfield = {
          field: field,
          list: this.accessuser,
@@ -372,9 +403,20 @@ this.iab.create(event.target.href+"?token=dHJhbnomob", "_system", "beforeload=ye
        this.ticketDataOption = response.replydata;
        this.ticketData = response.data;
        this.ticket = response.data.ticket;
+       this.ticketforclear = response.data.ticket;
+
+        this.ticketforpriority = response.data.ticket.priority;
+        this.ticketforstatus = response.data.ticket.status;
+        this.ticketforproperty_id = response.data.ticket.property_id;
+        this.ticketforassigned_to = response.data.ticket.assigned_to;
+        this.ticketforassigned_to_staff = response.data.ticket.assigned_to_staff;
+        this.ticketforclass = response.data.ticket.class;
+        this.ticketforversion = response.data.ticket.version;
+
        this.ticketHistory = response.data.ticket.ticket_histories;
        let l=this.ticketHistory[this.ticketHistory.length-1];  
        this.lastmail = l;
+       console.log(this.lastmail);
        this.properties = response.data.properties;
        this.priorities = response.data.priorities;
        this.groups = response.replydata.groups;
@@ -408,16 +450,20 @@ this.iab.create(event.target.href+"?token=dHJhbnomob", "_system", "beforeload=ye
        console.log(response);
        this.notifyuser = response.data.ticketHistories;
        this.accessuser = response.data.accessibleUsers;
-       
-       
+//        for (var i = 0; i < this.accessuser.length; i++) {
+//     this.accessuser.push({"checked": 'false'});
+// }
+this.accessuser.forEach(v => {v.checked = false;});
+       // this.accessuser.push({"checked": 'false'});
+       console.log(this.accessuser);
 
      }).catch( error => {
-         this.showSpinner = false;
+        // this.showSpinner = false;
          console.log(error);
      })
    } catch(e) {
      console.log(e);
-     this.showSpinner = false;
+    // this.showSpinner = false;
         this.service.serverError();
     }
 
@@ -530,8 +576,12 @@ gotoTextMessagecreate(idd, customer_name, sms_from, customer_avatar, yesorno, ui
       });
      TicketMailsmodal.present();
       TicketMailsmodal.onDidDismiss(data=>{ 
+        this.showSpinner = true;
+                  setTimeout(() => {
 this.getTicket();
-console.log(data);
+          });
+
+console.log(this.ticketId);
 // this.GotTicketTemplate = data.GotTicketTemplate;
 // this.GotTicketGroup = data.GotTicketGroup;
 // this.GotTicketStaff = data.GotTicketStaff;
@@ -587,9 +637,21 @@ console.log(data);
     }else{
       this.ticket['notify'] = 'notify';
     }
+    this.ticket.cc_emails = this.TicketCC;
     console.log(this.ticket);
+
     this.service.updateTicket(this.ticket, this.accessibleUserIds).then( (response : any) => {
         console.log(response);
+
+this.editpropertyfield = false;
+this.editpriorityfield = false;
+this.editstafffield = false;
+this.editgroupfield = false;
+this.editstatusfield = false;
+this.editccfield = false;
+this.editclassfield = false;
+this.editversionfield = false;
+this.editaccessfield = false;
        loading.dismiss();
        this.clearAndGetTicket();
       // this.showSpinner = false;
@@ -709,6 +771,41 @@ console.log(data);
     // editstatusfield
     console.log(this.editpropertyfield)
   }
+  cancelupdate(){
+ // this.editccfield = false; 
+
+ this.editpropertyfield = false;
+ this.editpriorityfield = false;
+this.editstafffield = false;
+this.editgroupfield = false;
+this.editstatusfield = false;
+ this.editccfield = false;
+this.editclassfield = false;
+this.editversionfield = false;
+this.editaccessfield = false;
+ // this.ticket = this.ticketforclear;
+
+ // this.ticket.cc_emails = this.TicketCC;
+ this.TicketCC = this.lastmail.cc;
+ this.ticket.priority = this.ticketforpriority;
+this.ticket.property_id = this.ticketforproperty_id;
+this.ticket.assigned_to = this.ticketforassigned_to;
+this.ticket.assigned_to_staff = this.ticketforassigned_to_staff;
+this.ticket.status = this.ticketforstatus;
+this.accessibleUserIds = this.ticketforccess;
+this.TicketAccessSelected = this.ticketforccess;
+this.ticket.class = this.ticketforclass;
+this.ticket.version = this.ticketforversion;
+ console.log(this.accessibleUserIds);
+ console.log(this.ticketforccess);
+
+
+this.disableUpdate = true;
+
+console.log(this.ticketforclear);
+console.log(this.ticketforpriority);
+ //  console.log(this.ticket);
+}
 back(){
   //TicketsPage
    this.shownavbar = false;

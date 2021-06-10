@@ -499,14 +499,19 @@ this.iab.create(link+"?token=dHJhbnomob", "_system", "beforeload=yes");
   }
 
   resetAll() {
-    this.getProfile();
-  	this.clearAndGetActivities();
-  	this.clearAndGetTasks();
-  	this.clearAndGetTickets();
-  	this.clearAndGetEmails();
-  	this.clearAndGetProperties();
-  	this.clearAndGetDocuments();
-  	this.getContacts();
+    if (this.IsStaffCheck == 0) {
+    this.clearAndGetActivities();
+    this.clearAndGetTasks();
+    this.clearAndGetTickets();
+    this.clearAndGetEmails();
+    this.clearAndGetProperties();
+    this.clearAndGetDocuments();
+    this.getContacts();
+    }else{
+      this.getProfile();
+    }
+    
+
   }
   getProfile() {
     try {
