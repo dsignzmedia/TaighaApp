@@ -177,6 +177,15 @@ page-search {
   .lowercase{
         white-space: nowrap;
   }
+  .pleasewaitloading{
+    color: #3266cc;
+    text-align: center;
+    border-radius: 6px;
+    padding: 2px 0;
+    width: 100%;
+    font-weight: bold;
+    font-size: 20px;
+  }
   .spinner{
     margin-top: 20px;
   }
