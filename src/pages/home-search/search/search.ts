@@ -233,6 +233,7 @@ mappropertyRmlsDaysRe: any;
         // $('.MenuForStaff').css('display','none');
         // $('.MenuForGuest').css('display','none');
        this.service.profile().then( (response : any) => {
+         console.log(response);
          if (response == undefined) {
            this.userid = 0;
          }else{
@@ -367,7 +368,6 @@ this.socialSharing.canShareViaEmail().then(() => {
 }).catch(() => {
   // Sharing via email is not possible
 });
-
 // Share via email
 this.socialSharing.shareViaEmail('https://toptechrealty.com/'+County+'/'+State+'/'+ZipCode+'/'+slug+'/'+ListingID+'', '', ['']).then(() => {
   // Success!
