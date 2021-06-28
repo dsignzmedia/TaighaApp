@@ -1,4 +1,5 @@
 page-mailview {
+
 	.back-button {
 		display: none !important;
 
@@ -24,4 +25,41 @@ page-mailview {
 		}
 
 	}
+.no-right .center {
+    width: 100%;
+    text-align: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    .back_icon {
+        width: 20px;
+        height: 20px;
+        background-image: url(../assets/imgs/backarrow-white.svg);
+        background-size: contain;
+        margin-right: 10px;
+    }
+    .title{
+        text-transform: capitalize;
+        color: #000;
+        font-weight: bold;
+        background-color: transparent !important;
+        font-size: 16px;
+        padding: 0 20px 0px 10px;
+        text-align: left;
+        top: auto !important;
+        span{
+            width: 100%;
+            display: block;
+        }
+        .title-head{
+            font-size: 16px;
+            text-transform: capitalize;
+            letter-spacing: 1px;
+            text-align: center;
+            color: #ffffff;
+            overflow: hidden;
+    text-overflow: ellipsis;
+        }
+    }
+}
 }

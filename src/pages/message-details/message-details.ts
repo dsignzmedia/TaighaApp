@@ -236,41 +236,42 @@ resize() {
   }
 
   pagerefresh(){
-   this.messageData = [];
-   this.currentPage = 1;
-   try {
-     this.showSpinner = true;
-     this.service.getTextmessageDetailsPage(this.currentPage, this.msgID).then( (response : any) => {
-      var datalength = Object.keys(response.data.messages.data).length;
-        this.resjson = response.data.messages.data;
-        var keys = this.resjson, key, i;
-        for(let i=0;key = keys[i];i++){
-        this.messageData.push(this.resjson[i]);
-      }
-       this.totalPages = response.data.messages.last_page;
-       this.textmessagecommon = response.data;
-       this.textmessage = this.messageData;
-       this.textMessageCurrentNumber = response.data.textMessageCurrentNumber;
-       this.textTemplates = response.data.textTemplates;
-       this.Textmsguserid = response.data.user.id;
-       var array2 = [];
-       this.scrollToBottomOnInit();
-       setTimeout(()=>{
-          this.resize();
-       },200); 
-       this.topHeaderName = response.data.topHeaderName;
-       this.topHeaderNumber = response.data.textMessageCurrentNumber;
-       this.customer_avatar = response.data.customer_avatar;
-       this.showSpinner = false;
-     }).catch( error => {
-      this.showSpinner = false;
-         console.log(error);
-     })
-   } catch(e) {
-     console.log(e);
-      this.showSpinner = false;
-      this.service.serverError();
-    }
+    this.changeConversation();
+   // this.messageData = [];
+   // this.currentPage = 1;
+   // try {
+   //   this.showSpinner = true;
+   //   this.service.getTextmessageDetailsPage(this.currentPage, this.msgID).then( (response : any) => {
+   //    var datalength = Object.keys(response.data.messages.data).length;
+   //      this.resjson = response.data.messages.data;
+   //      var keys = this.resjson, key, i;
+   //      for(let i=0;key = keys[i];i++){
+   //      this.messageData.push(this.resjson[i]);
+   //    }
+   //     this.totalPages = response.data.messages.last_page;
+   //     this.textmessagecommon = response.data;
+   //     this.textmessage = this.messageData;
+   //     this.textMessageCurrentNumber = response.data.textMessageCurrentNumber;
+   //     this.textTemplates = response.data.textTemplates;
+   //     this.Textmsguserid = response.data.user.id;
+   //     var array2 = [];
+   //     this.scrollToBottomOnInit();
+   //     setTimeout(()=>{
+   //        this.resize();
+   //     },200); 
+   //     this.topHeaderName = response.data.topHeaderName;
+   //     this.topHeaderNumber = response.data.textMessageCurrentNumber;
+   //     this.customer_avatar = response.data.customer_avatar;
+   //     this.showSpinner = false;
+   //   }).catch( error => {
+   //    this.showSpinner = false;
+   //       console.log(error);
+   //   })
+   // } catch(e) {
+   //   console.log(e);
+   //    this.showSpinner = false;
+   //    this.service.serverError();
+   //  }
   }
 
     scrollToBottomm(){

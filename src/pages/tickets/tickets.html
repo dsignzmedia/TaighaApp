@@ -16,7 +16,8 @@
  <div class="name-search-panel"   *ngIf="showSearch" >
              <div class="all-search">
                 <ion-searchbar type="text" debounce="500"  [(ngModel)]="selectedFilters.subject" (ionInput)="searchtag()" (ionClear)="resetChanges()"></ion-searchbar>
-                <span class="adminSearchbar-icon" ><img *ngIf="showSearchIcon" src="assets/imgs/search-dash.svg" width="18" height="18"><img *ngIf="showClearIcon" src="assets/imgs/x-clear-b.svg" width="15" height="15"></span>
+<!--                 <span class="adminSearchbar-icon" ><img *ngIf="showClearIcon" src="assets/imgs/x-clear-b.svg" width="15" height="15"></span> -->
+                <span class="adminSearchbar-icon" ><img (click)="searchtagno()" *ngIf="showClearIcon" src="assets/imgs/x-clear-b.svg" width="13" height="13"></span>
              </div>
  </div>
 </ion-header>

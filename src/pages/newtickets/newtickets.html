@@ -192,9 +192,15 @@
                  <input type="file" class="form-field-input" multiple="multiple" #fileInput (change)="changeListener($event)">
              </div>
              	</div>
-             	<div class="attachment-panel-preview-group">
+             	<div class="conversation-panel-demo" *ngIf="urls.length != 0" >
              		<div class="uploaded-images">
-                    <img *ngFor="let url of urls" [src]="url" class="rounded mb-3" width="180">
+<!--                     <img *ngFor="let url of urls" [src]="url" class="rounded mb-3" width="180"> -->
+					  <figure  *ngFor="let url of urls; let i = index " id="uploaded_image_{{ i }}">
+
+					    <span class="delete-icon" (click)="deleteMedia(i, url.name)"><img src="assets/imgs/delete.svg" height="15"></span>
+					    <img [src]="url.url" class="rounded mb-3" height="150">
+
+					  </figure>
                 </div>
                 </div>
 			</ion-col>

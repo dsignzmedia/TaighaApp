@@ -172,6 +172,7 @@ public GotTicketVersion : any = "";
         })
     this.replyticket.patchValue({ id : this.ticketId })
 this.getAccess();
+this.relatedTickets();
   }
    getAccess() {
 
@@ -192,7 +193,16 @@ this.getAccess();
         this.service.serverError();
     }
  }
-
+relatedTickets(){
+       this.service.getRelatedTickets().then( (response : any) => {
+          console.log('getRelatedTickets');
+         console.log(response);
+       }).catch( error => {
+           this.showSpinner = false;
+           this.service.loading.dismiss();
+           console.log(error);
+       })  
+}
 changeGroup(){
   console.log(this.ticket.assigned_to);
   this.formData.append('group_id', this.ticket.assigned_to);
@@ -388,7 +398,7 @@ this.iab.create(event.target.href+"?token=dHJhbnomob", "_system", "beforeload=ye
    this.properties = [];
    this.priorities = [];
    this.customer = "";
-   // this.getTicket3();
+ this.getTicket3();
    this.getTicket();
    this.getTicket2();
  //  this.getticketold();
@@ -486,6 +496,7 @@ this.accessuser.forEach(v => {v.checked = false;});
     }
 
    }
+  
    // ticketold
        getticketold() {
     

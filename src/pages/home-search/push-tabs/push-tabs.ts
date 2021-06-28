@@ -62,6 +62,10 @@ public isMoreMenu: boolean = false;
   public data: {viewCtrl: any};
   public saveddata : any = [];
   public IsStaff : boolean = false;
+
+  public hometabsCust: boolean = false;
+  public hometabsGuest: boolean = false;
+  public hometabs: boolean = false;
   constructor(
     public navCtrl: NavController,
     public viewCtrl: ViewController,
@@ -75,6 +79,7 @@ public isMoreMenu: boolean = false;
         //          $('.MenuForCustomer').css('display','none');
         // $('.MenuForStaff').css('display','none');
         // $('.MenuForGuest').css('display','block');
+
     this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
       console.log(auth_user_token)
         if(auth_user_token) {
@@ -147,10 +152,16 @@ if (auth_user_token) {
         $('.MenuForGuest').css('display','none');
       }
         }
+        if (this.IsStaffCheck == undefined) {
+        $('.hometabs').css('display','none');
+        $('.hometabsCust').css('display','none');
+        $('.hometabsGuest').css('display','block');
+        }
         console.log(this.IsStaffCheck);
     }); 
   }
    openSideMenu2(){
+
 console.log(this.IsStaffCheck);
        this.menuCtrl.enable(false, 'isHomeSearchMoreMenu');
   this.menuCtrl.enable(false, 'homesearchMenu');
@@ -208,7 +219,13 @@ gosignin(){
     this.isMoreMenu = false;
     // this.currentActiveTab = "";
   }
-GuestUser():void {  
+  GuestUser(){  
+     this.service.getFcmToken("Logout");
+     this.service.watchFcmNotifications();
+this.navCtrl.push(SigninPage, {asmodal : 'yes'},{animate:false});
+  }
+
+GuestUser1():void {  
      this.service.getFcmToken("Logout");
      this.service.watchFcmNotifications();
   let getsigninModal = this.modalCtrl.create(SigninPage, {asmodal : 'yes'});
@@ -311,14 +328,43 @@ if (auth_user_token) {
 
 //   // this.nav.push(PushTabsPage);
 // }
-hidemore(){
+
+
+hidemoreguest(){
     $(".ion-ios-search").parent().removeClass("inactive");
     $(".ion-md-search").parent().removeClass("inactive");
+    $(".ion-ios-search-outline").parent().removeClass("inactive");
+    $(".ion-md-search-outline").parent().removeClass("inactive");
+
+    $(".ion-ios-featured").parent().removeClass("inactive");
+    $(".ion-md-featured").parent().removeClass("inactive");
+    $(".ion-ios-featured-outline").parent().removeClass("inactive");
+    $(".ion-md-featured-outline").parent().removeClass("inactive");
+
+    $(".ion-ios-iconmoreblack-outline").css("background-image", "url(../assets/imgs/grey-more.svg)");
+    $(".ion-md-iconmoreblack").css("background-image", "url(../assets/imgs/grey-more.svg)");
+        $(".ion-ios-iconmore-outline").css("background-image", "url(../assets/imgs/grey-more.svg)");
+    $(".ion-md-iconmore").css("background-image", "url(../assets/imgs/grey-more.svg)");
+
+    $(".ion-ios-iconmoreblack-outline").next().css("font-weight", "400");
+    $(".ion-ios-iconmoreblack-outline").next().css("color", "#989898");
+    $(".ion-md-iconmoreblack").next().css("font-weight", "400");
+    $(".ion-md-iconmoreblack").next().css("color", "#989898");
+  }
+hidemore(){
+  console.log('hidemore');
+    $(".ion-ios-search").parent().removeClass("inactive");
+    $(".ion-md-search").parent().removeClass("inactive");
+    $(".ion-ios-search-outline").parent().removeClass("inactive");
+    $(".ion-md-search-outline").parent().removeClass("inactive");
     $(".ion-ios-saved-outline").parent().removeClass("inactive");
     $(".ion-md-saved-outline").parent().removeClass("inactive");
     $(".ion-ios-favorites").parent().removeClass("inactive");
     $(".ion-md-favorites").parent().removeClass("inactive");
-
+    $(".ion-ios-featured").parent().removeClass("inactive");
+    $(".ion-md-featured").parent().removeClass("inactive");
+    $(".ion-ios-featured-outline").parent().removeClass("inactive");
+    $(".ion-md-featured-outline").parent().removeClass("inactive");
     $(".ion-ios-favorites").parent().removeClass("inactive");
     $(".ion-md-favorites").parent().removeClass("inactive");
 
@@ -336,6 +382,11 @@ hidemore(){
     $(".ion-ios-iconmoreblack-outline").next().css("color", "#989898");
     $(".ion-md-iconmoreblack").next().css("font-weight", "400"); 
     $(".ion-md-iconmoreblack").next().css("color", "#989898"); 
+
+                $(".ion-ios-iconmoreblack-outline").removeClass("activemore");
+            $(".ion-ios-iconmoreblack").removeClass("activemore");
+            $(".ion-md-iconmoreblack-outline").removeClass("activemore");
+            $(".ion-md-iconmoreblack").removeClass("activemore");
 }
 
 

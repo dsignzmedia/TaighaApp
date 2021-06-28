@@ -19,7 +19,8 @@ import { SearchableModalPage } from '../../pages/searchable-modal/searchable-mod
 })
 export class NewticketsPage {
 
-  urls = new Array<string>();
+  // urls = new Array<string>();
+  urls : any = [];
   @Input() multiple: boolean = false;
   @ViewChild('fileInput') inputEl: ElementRef;
   
@@ -178,7 +179,7 @@ openSelecttemplate(field){
          selectedField : this.TicketAccessSelected
        }
   }
-// console.log(content);
+console.log(this.content);
       let searchmodal = this.modalCtrl.create(SearchableModalPage, {content: this.content}, {cssClass: 'template-modal' });
           searchmodal.present({animate: false});
           searchmodal.onDidDismiss(data=>{ 
@@ -292,11 +293,22 @@ openSelecttemplate(field){
 	 		this.showSpinner = false;
 	        this.service.serverError();
 	    }
+      // this.getpart();
       this.getAccessUser();
       this.getAllCustomers();
       this.getAllPartners();
       this.getAllProperties();
   }
+getpart(){
+       this.service.ticketcreate().then( (response : any) => {
+         console.log(response);
+          this.partners = response.data.partners;
+       }).catch( error => {
+           this.showSpinner = false;
+           this.service.loading.dismiss();
+           console.log(error);
+       })  
+}
 
 getAccessUser(){
          this.service.ticketcreateGetAccess().then( (response : any) => {
@@ -340,6 +352,27 @@ console.log(response);
       this.navCtrl.pop();
   }
   
+ deleteMedia(index, name) {
+
+console.log(this.urls);
+   console.log(index);
+   this.formData.append("address", "test");
+    var elem = document.getElementById('uploaded_image_'+index);
+    elem.parentNode.removeChild(elem);
+
+    var files = this.formData.getAll("attachments[]");
+    console.log(files);
+    this.formData.delete("attachments[]");
+    files.forEach((v, i) => {
+      console.log(v['name']);
+        if(v['name'] != name) {
+        this.formData.append("attachments[]", v);
+      }
+    });
+    console.log(this.urls);
+    return false;
+
+ }
 
   changeListener(event) : void {
         let files = event.target.files;
@@ -347,12 +380,14 @@ console.log(response);
           for (let file of files) {
             let reader = new FileReader();
             reader.onload = (e: any) => {
-              this.urls.push(e.target.result);
+              this.urls.push({url:e.target.result, name: file.name});
+              // this.urls.push(e.target.result);
             }
             reader.readAsDataURL(file);
           }
         }
-        console.log(JSON.stringify(this.urls));
+        // console.log(JSON.stringify(this.urls));
+        console.log(this.urls);
         let inputEl: HTMLInputElement = this.inputEl.nativeElement;
         let fileCount: number = inputEl.files.length;
         if (fileCount > 0) { // a file was selected
@@ -400,11 +435,19 @@ if (this.selectedTemplate.ticket_type == null) {
   this.TicketType = this.selectedTemplate.ticket_type;
 }
 this.TicketSubject = this.selectedTemplate.subject;
-// this.TicketStaff = this.selectedTemplate.assigned_to_staff;
+if ((this.selectedTemplate.assigned_to_staff != '738') && (this.selectedTemplate.assigned_to_staff != '251')) {
+   this.TicketStaff = this.selectedTemplate.assigned_to_staff;
+   this.TicketStaffSelected =  this.selectedTemplate.assigned_to_staff;
+}else{
+
+}
+
 this.body = this.selectedTemplate.body;
 this.TicketCC = this.selectedTemplate.cc;
 this.TicketCustomer = this.selectedTemplate.customer_id;
 this.TicketGroup = this.selectedTemplate.group_id;
+this.TicketGroupSelected =  this.selectedTemplate.group_id;
+
 this.TicketPartner = this.selectedTemplate.partner_id;
 this.TicketProperty = this.selectedTemplate.property_id;
 

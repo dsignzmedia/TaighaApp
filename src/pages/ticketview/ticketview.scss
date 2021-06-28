@@ -56,6 +56,19 @@ page-ticketview {
 ion-content{
 	&.content{
 	background-color: #ffffff;
+	ion-card-header{
+		&.header-active{
+			&.card-header{
+    background: rgba(167, 191, 243, .6);
+    color: #000000;
+    .inline-div{
+    	.card-title{
+    		 color: #000000;
+    	}
+    }
+			}	
+		}	
+	}
 	ion-select.onlyvalues-select {
     opacity: 1;
     border: 0 !important;
@@ -310,6 +323,10 @@ vertical-align: middle;
     margin: 0 15px;
     max-width: 130px;
 }
+.smallbtn{
+	    width: 110px;
+}
+
 }
 	ion-grid{
 		    margin-bottom: 20px;

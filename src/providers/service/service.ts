@@ -18,9 +18,9 @@ var liveToken = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjlmMWZkMDky
 
 @Injectable()
 export class ServiceProvider {
- public baseUrl : string = "https://toptechrealty.com/api/auth";
+    public baseUrl : string = "https://toptechrealty.com/api/auth";
   //  public baseUrl : string = "http://localhost:8080/Toptech/New/Taigha-Productions-Repository/public/api/auth";
-      //  public baseUrl : string = "http://127.0.0.1:8000/api/auth";  
+   //  public baseUrl : string = "http://127.0.0.1:8000/api/auth";  
 
   public apigetroles: string = this.baseUrl+"/rmls/listing/share/modal/roles-and-types";
   public apiModalUser: string = this.baseUrl+"/rmls/listing/share/modal/get-users";
@@ -53,6 +53,10 @@ export class ServiceProvider {
   public apiTickets3: string = this.baseUrl+"/user/ticketsalter2";
   public apiTicketsold: string = this.baseUrl+"/user/ticketsold";
   public apiUploadUserAvatar: string = this.baseUrl+"/user/upload/avatar";
+
+
+  public apiTicketRelatedTickets: string = this.baseUrl+"/user/tickets/view/relatedtickets";
+
   public apiTicketCreate: string = this.baseUrl+"/user/tickets/create/ticket";
   public apiTicketCreateGetAccess: string = this.baseUrl+"/user/tickets/create/getaccessusers";
   public apiTicketCreateAllCustomers: string = this.baseUrl+"/user/tickets/create/getallcustomers";
@@ -1776,6 +1780,22 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
       });
   }
 
+  getRelatedTickets() {
+    return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
+        try {
+          let httpOptions = {
+          headers: new HttpHeaders({
+            'Authorization':  auth_user_token.token_type+" "+auth_user_token.access_token
+          })
+        };
+        return this.http.get(this.apiTicketRelatedTickets, httpOptions).toPromise();
+      } catch ( e ) {
+        console.log(e);
+        this.unAuthorizedToken();
+      }
+      });
+  }
+
   ticketcreate() {
     return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
         try {
@@ -2067,7 +2087,7 @@ getcustomer(body) {
       });
   }
 
-  emails(currentPage, filters) {
+  emails(currentPage, filters, ticket) {
       return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
         try {
           let httpOptions = {
@@ -2143,6 +2163,7 @@ getcustomer(body) {
                 body = body.append('updated_by[]', filters.updated_by);
               }
         }
+        body = body.append('ticket', ticket);
 
         return this.http.post(this.apiEmails, body, httpOptions).toPromise();
       } catch ( e ) {

@@ -39,20 +39,23 @@
         <ion-card class="view-card withpadding activity-history" id="tickettop_of_activity_focus">
             <!--   -->
             <!-- (click) = "gotoActivity()" -->
+
             <ion-card-content class="view-content-panel activitylog-text-panel icc-relative" >
                 <ion-list class="list-content" *ngIf="activities.length > 0">
                     <ion-item [ngClass]="{active: activity.sub_activity_checked }" *ngFor="let activity of activities">
                         <ion-avatar item-start>
-                            <img src="assets/icon/white-icon-checklist.svg" alt="icon" 
+                            <img src="assets/imgs/white-icon-checklist.svg" alt="icon" 
                                  *ngIf=" activity.eloquent_tree == 'checklist' ||  activity.eloquent_tree == 'checklist_create_update' || activity.eloquent_tree == 'checklist_assigned_to' || activity.eloquent_tree == 'checklist_update' ||  activity.eloquent_tree == 'checklist_complete' || activity.eloquent_tree == 'checklist_delete' " />
-                            <img src="assets/icon/white-icon-{{ activity.eloquent_tree == 'reply' ? 'mail' : activity.eloquent }}.svg" alt="icon"
-                                *ngIf=" activity.eloquent_tree != 'checklist' &&  activity.eloquent_tree != 'checklist_create_update' && activity.eloquent_tree != 'checklist_assigned_to' && activity.eloquent_tree != 'checklist_update' &&  activity.eloquent_tree != 'checklist_complete' && activity.eloquent_tree != 'checklist_delete' " />
+<!--                             <img src="assets/imgs/white-icon-{{ activity.eloquent_tree == 'reply' ? 'mail' : activity.eloquent }}.svg" alt="icon"
+                                *ngIf=" activity.eloquent_tree != 'checklist' &&  activity.eloquent_tree != 'checklist_create_update' && activity.eloquent_tree != 'checklist_assigned_to' && activity.eloquent_tree != 'checklist_update' &&  activity.eloquent_tree != 'checklist_complete' && activity.eloquent_tree != 'checklist_delete' " /> -->
+                                <img src="assets/imgs/white-icon-{{ activity.eloquent_tree }}.svg" alt="icon"
+                                *ngIf=" activity.eloquent_tree != 'checklist' &&  activity.eloquent_tree != 'checklist_create_update' && activity.eloquent_tree != 'checklist_assigned_to' && activity.eloquent_tree != 'checklist_update' &&  activity.eloquent_tree != 'checklist_complete' && activity.eloquent_tree != 'checklist_delete' " onerror="this.onerror=null;this.src='assets/imgs/white-icon-update.svg';" />
                         </ion-avatar>
                         <div class="contentarea">
                             <div class="activity-on">
                                 <p>{{activity.created_at_formatted}}</p>
                                 <ul>
-                                    <li  (click)="toggleGroup(activity)">
+                                    <li   *ngIf="activity.sub_activity" (click)="toggleGroup(activity)">
                     <img src="assets/imgs/add-b.svg" width="15" height="15">
                 </li>
 <!--                 <li>
