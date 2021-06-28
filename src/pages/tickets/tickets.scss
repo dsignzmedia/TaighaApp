@@ -1,4 +1,13 @@
 page-tickets {
+    .searchbar-has-value.searchbar-has-focus .searchbar-clear-icon {
+    display: none;
+} 
+.adminSearchbar-icon{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 16px;
+}
 .nav-custom .nav-right .plusicon{
 	    margin-right: 0;
 }
@@ -55,6 +64,7 @@ ion-searchbar{
 	// searchbar
 	ion-content{
 		background-color: #fff !important;
+
         .mail-count-panel{
             display: flex;
     align-items: center;

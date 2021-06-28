@@ -233,6 +233,7 @@ mappropertyRmlsDaysRe: any;
         // $('.MenuForStaff').css('display','none');
         // $('.MenuForGuest').css('display','none');
        this.service.profile().then( (response : any) => {
+         console.log(response);
          if (response == undefined) {
            this.userid = 0;
          }else{

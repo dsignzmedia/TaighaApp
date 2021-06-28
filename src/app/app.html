@@ -10,17 +10,21 @@
 			<button ion-item menuClose (click)="goToFeatured()"> 
 				<p class="menu__item"><i><img width="15" src="assets/imgs/list-white.svg" /></i>Featured</p>
 			</button>
-			<button ion-item menuClose (click)="goToProperties()"> 
-				<p class="menu__item"><i><img width="15" src="assets/icon/icon-properties-white-new-two.svg" /></i>Properties</p>
+			<button ion-item menuClose (click)="goToProperties()">  
+				<!-- changed -->
+				<p class="menu__item"><i><img width="15" src="assets/imgs/icon-properties-white-new-two.svg" /></i>Properties</p>
 			</button>
 			<button ion-item menuClose (click)="goToMails()" [ngClass]="{'active': currentActiveTab == 8}"  > 
-				<p class="menu__item mailicon"><i><img width="15" src="assets/icon/white-icon-mail.svg" /></i>Mails</p>
+				<!-- changed -->
+				<p class="menu__item mailicon"><i><img width="15" src="assets/imgs/white-icon-mail.svg" /></i>Mails</p>
 			</button>
 			<button ion-item menuClose (click)="goToTasks()" [ngClass]="{'active': currentActiveTab == 7}" > 
-				<p class="menu__item taskicon"><i><img width="20" src="assets/icon/white-icon-checklist.svg" /></i>Tasks</p>
+				<!-- changed -->
+				<p class="menu__item taskicon"><i><img width="20" src="assets/imgs/white-icon-checklist.svg" /></i>Tasks</p>
 			</button>
 			<button ion-item menuClose (click)="goToDocuments()" [ngClass]="{'active': currentActiveTab == 6}"> 
-				<p class="menu__item documenticon"><i><img width="15" src="assets/icon/white-icon-document.svg" /></i>Documents</p>
+				<!-- changed -->
+				<p class="menu__item documenticon"><i><img width="15" src="assets/imgs/white-icon-document.svg" /></i>Documents</p>
 			</button>
 			<button class="hideforcustomer" ion-item menuClose (click)="goToActivity()"> 
 				<p class="menu__item"><i><img width="15" src="assets/imgs/icon-activities-white.svg" /></i>Activities</p>
@@ -41,26 +45,30 @@
 				<p class="menu__item"><i><img width="15" src="assets/imgs/list-white.svg" /></i>Featured</p>
 			</button>
 			<button ion-item menuClose (click)="goToProperties()"> 
-				<p class="menu__item"><i><img width="15" src="assets/icon/icon-properties-white-new-two.svg" /></i>Properties</p>
+				<!-- changed -->
+				<p class="menu__item"><i><img width="15" src="assets/imgs/icon-properties-white-new-two.svg" /></i>Properties</p>
 			</button>
-			<button ion-item menuClose (click)="goToMails()" [ngClass]="{'active': currentActiveTab == 8}"  > 
-				<p class="menu__item mailicon"><i><img width="15" src="assets/icon/white-icon-mail.svg" /></i>Mails</p>
+			<button ion-item menuClose (click)="checkTab();goToMails();" [ngClass]="{'active': currentActiveTab == 8}"  > 
+				<!-- changed -->
+				<p class="menu__item mailicon"><i><img width="15" src="assets/imgs/white-icon-mail.svg" /></i>Mails</p>
 			</button>
-			<button ion-item menuClose (click)="goToTasks()" [ngClass]="{'active': currentActiveTab == 7}" > 
-				<p class="menu__item taskicon"><i><img width="20" src="assets/icon/white-icon-checklist.svg" /></i>Tasks</p>
+			<button ion-item menuClose (click)="checkTab();goToTasks();" [ngClass]="{'active': currentActiveTab == 7}" > 
+				<!-- changed -->
+				<p class="menu__item taskicon"><i><img width="20" src="assets/imgs/white-icon-checklist.svg" /></i>Tasks</p>
 			</button>
-			<button ion-item menuClose (click)="goToDocuments()" [ngClass]="{'active': currentActiveTab == 6}"> 
-				<p class="menu__item documenticon"><i><img width="15" src="assets/icon/white-icon-document.svg" /></i>Documents</p>
+			<button ion-item menuClose (click)="checkTab();goToDocuments();" [ngClass]="{'active': currentActiveTab == 6}"> 
+				<!-- changed -->
+				<p class="menu__item documenticon"><i><img width="15" src="assets/imgs/white-icon-document.svg" /></i>Documents</p>
 			</button>
-			<button class="hideforcustomer" ion-item menuClose (click)="goToActivity()"> 
+			<button class="hideforcustomer" ion-item menuClose (click)="checkTab();goToActivity();"> 
 				<p class="menu__item"><i><img width="15" src="assets/imgs/icon-activities-white.svg" /></i>Activities</p>
 			</button>
 		</ion-list>
 
 		<ion-list class="MenuForGuest" >
-			<button ion-item menuClose (click)="goToFeaturedGuest()"> 
+<!-- 			<button ion-item menuClose (click)="goToFeaturedGuest()"> 
 				<p class="menu__item"><i><img width="15" src="assets/imgs/list-white.svg" /></i>Featured</p>
-			</button>
+			</button> -->
 		</ion-list>
 		<div class="logo"><img src="assets/imgs/Taigha-Logo_Smal.png" width="97" height="97" /></div>
 	</ion-content>
@@ -72,16 +80,16 @@
 
 		<ion-list>
             <button  class="removeit" ion-item menuClose (click)="goToProperties()"> 
-				<p class="menu__item"><i><img width="15" src="assets/icon/icon-properties-white-new-two.svg" /></i>Properties</p>
+				<p class="menu__item"><i><img width="15" src="assets/imgs/icon-properties-white-new-two.svg" /></i>Properties</p>
 			</button>
 			<button  class="removeit" ion-item menuClose (click)="openPageTasks()"> 
-				<p class="menu__item"><i><img width="15" src="assets/icon/white-icon-checklist.svg" /></i>Tasks</p>
+				<p class="menu__item"><i><img width="15" src="assets/imgs/white-icon-checklist.svg" /></i>Tasks</p>
 			</button>
 			<button  class="removeit" ion-item menuClose (click)="openPageMails()"> 
-				<p class="menu__item"><i><img width="15" src="assets/icon/white-icon-mail.svg" /></i>Mails</p>
+				<p class="menu__item"><i><img width="15" src="assets/imgs/white-icon-mail.svg" /></i>Mails</p>
 			</button>
             <button  class="removeit" ion-item menuClose (click)="openPageDocuments()"> 
-				<p class="menu__item"><i><img width="15" src="assets/icon/white-icon-document.svg" /></i>Documents</p>
+				<p class="menu__item"><i><img width="15" src="assets/imgs/white-icon-document.svg" /></i>Documents</p>
 			</button>
 			<button class="removeit" ion-item menuClose (click)="goToActivities()"> 
 				<p class="menu__item"><i><img width="15" src="assets/imgs/icon-activities-white.svg" /></i>Activities</p>
@@ -109,7 +117,7 @@
         </ion-toolbar>
 <!--               <span class="version">Testing 3.3</span> -->
      <!--  <span class="version">Version 4.5</span> -->
-      <span class="version">Version 5.5.3</span>
+      <span class="version">Version 5.6.2</span>
       </ion-header>
       <ion-content>
 <ion-grid id="dynamicprofile" class="menu-profile">
@@ -189,12 +197,14 @@
 
 	 <ion-item>
 	    <button ion-item menuClose  (click)="goToPrivacyPolicy()"> 
-			<p><i><img width="17" src="assets/icon/privacy.svg" /></i>Privacy Policy</p>
+	    	<!-- changed -->
+			<p><i><img width="17" src="assets/imgs/privacy.svg" /></i>Privacy Policy</p>
 		</button>
 	 </ion-item>
 	 <ion-item>
 	    <button ion-item menuClose   (click)="goToTermsService()"> 
-			<p><i><img width="17" src="assets/icon/term.svg" /></i>Terms of Service</p>
+	    	<!-- changed -->
+			<p><i><img width="17" src="assets/imgs/term.svg" /></i>Terms of Service</p>
 		</button>
 	 </ion-item>
 
@@ -216,8 +226,8 @@
 <ion-nav #mycontent menuClose  [root]="rootPage" swipeBackEnabled="false"></ion-nav>
 
 <!-- 			<button ion-item menuClose (click)="goToPrivacyPolicy()"> 
-				<p class="menu__item"><i><img width="15" src="assets/icon/privacy.svg" /></i>Privacy Policy</p>
+				<p class="menu__item"><i><img width="15" src="assets/imgs/privacy.svg" /></i>Privacy Policy</p>
 			</button>
 			<button ion-item menuClose (click)="goToTermsService()"> 
-				<p class="menu__item"><i><img width="15" src="assets/icon/term.svg" /></i>Terms of Service</p>
+				<p class="menu__item"><i><img width="15" src="assets/imgs/term.svg" /></i>Terms of Service</p>
 			</button> -->

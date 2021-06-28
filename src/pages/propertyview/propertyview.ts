@@ -506,7 +506,7 @@ export class PropertyviewPage {
  getEmails() {
    try {
      this.mailshowSpinner = true;
-     this.service.emails(this.mailcurrentPage, { property : this.property.id }).then( (response : any) => {
+     this.service.emails(this.mailcurrentPage, { property : this.property.id }, 1).then( (response : any) => {
        console.log( response )
        this.emails = response.data;
        this.mailtotalPages = response.totalPages;
@@ -529,7 +529,7 @@ export class PropertyviewPage {
      {
        this.mailcurrentPage++;
        this.mailshowSpinner = true;
-       this.service.emails(this.mailcurrentPage, { property : this.property.id }).then( (response : any) => {
+       this.service.emails(this.mailcurrentPage, { property : this.property.id }, 1).then( (response : any) => {
          console.log( response )
          var nextTickets = response.data;
            nextTickets.forEach((item, index) => {

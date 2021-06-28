@@ -13,7 +13,7 @@
                 <ion-col class="no-border" text-center col-12 >
                         <span (click)="openfilterModal({charNum: 0})">Filter
                         <i>
-                            <img src="assets/icon/filter-filled.svg" width="15" height="15">
+                            <img src="assets/imgs/filter-filled.svg" width="15" height="15">
                             <span *ngIf="isFilterApplied" class="filter-applied"></span>
                         </i>
                         </span>
@@ -46,15 +46,15 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
     <p class="records-found" *ngIf="!showSpinner">{{ totalRecords }} records found.
-         <img src="assets/icon/arrow-up-scroll.svg" id="top_of_activity_das" width="" height="" class="arrowimage down top-zero" *ngIf="activities.length > 0" (click) = "scrollTo('bottom_of_activity_das')" >
+         <img src="assets/imgs/arrow-up-scroll.svg" id="top_of_activity_das" width="" height="" class="arrowimage down top-zero" *ngIf="activities.length > 0" (click) = "scrollTo('bottom_of_activity_das')" >
     </p>
     <ion-list class="list-content" *ngIf="activities.length > 0">
        
         <ion-item [ngClass]="{active: activity.sub_activity_checked }" *ngFor="let activity of activities">
             <ion-avatar item-start (click) ="goToCorrespondActivity(activity)" >
-                <img src="assets/icon/white-icon-checklist.svg" alt="icon" 
+                <img src="assets/imgs/white-icon-checklist.svg" alt="icon" 
                 *ngIf=" activity.eloquent_tree == 'checklist' ||  activity.eloquent_tree == 'checklist_create_update' || activity.eloquent_tree == 'checklist_assigned_to' || activity.eloquent_tree == 'checklist_update' ||  activity.eloquent_tree == 'checklist_complete' || activity.eloquent_tree == 'checklist_delete' " />
-                <img src="assets/icon/white-icon-{{ activity.eloquent }}.svg" alt="icon"
+                <img src="assets/imgs/white-icon-{{ activity.eloquent }}.svg" alt="icon"
                 *ngIf=" activity.eloquent_tree != 'checklist' &&  activity.eloquent_tree != 'checklist_create_update' && activity.eloquent_tree != 'checklist_assigned_to' && activity.eloquent_tree != 'checklist_update' &&  activity.eloquent_tree != 'checklist_complete' && activity.eloquent_tree != 'checklist_delete' " />
             </ion-avatar>
             <div class="contentarea">
@@ -74,7 +74,7 @@
         </ion-item>
     </ion-list> 
     <p class="no-records-found" *ngIf="!showSpinner && activities.length == 0">No Records Found!.</p>
-    <img src="assets/icon/arrow-up-scroll.svg" id="bottom_of_activity_das" width="" height="" *ngIf="activities.length > 0"  class="bottomarrowimage" (click) = "scrollTo('top_of_activity_das')" >
+    <img src="assets/imgs/arrow-up-scroll.svg" id="bottom_of_activity_das" width="" height="" *ngIf="activities.length > 0"  class="bottomarrowimage" (click) = "scrollTo('top_of_activity_das')" >
     <div class="spinner center" *ngIf="showSpinner" ><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
     <ion-infinite-scroll  threshold="200px"  (ionInfinite)="doInfinite($event)" *ngIf="currentPage <= totalPages" >
        <ion-infinite-scroll-content></ion-infinite-scroll-content>

@@ -127,6 +127,32 @@ public storedTokens : any = "";
           this.service.serverError();
       }
   }
+
+landing(){
+        this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
+      console.log(auth_user_token)
+        if(auth_user_token) {
+      this.IsStaffCheck = auth_user_token.is_staff;
+      if (this.IsStaffCheck == 0) {
+       let nav = this.App.getRootNav(); 
+nav.setRoot(PushTabsPage, {selectedTab: 0});
+      }else{
+       let nav = this.App.getRootNav(); 
+nav.setRoot(PushTabsPage, {selectedTab: 5});
+      }
+        }
+        if (this.IsStaffCheck == undefined) {
+        $('.hometabs').css('display','none');
+        $('.hometabsCust').css('display','none');
+        $('.hometabsGuest').css('display','block');
+        }
+          console.log(this.IsStaffCheck);
+        $("page-push-tabs").removeAttr("hidden");
+        $('page-signin').css('display','none');
+    }); 
+
+}
+
   ngOnInit () {
 // new FroalaEditor();
 
@@ -273,6 +299,29 @@ if (auth_user_token) {
   }
 
   initializeApp() {
+        this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
+      console.log(auth_user_token)
+        if(auth_user_token) {
+      this.IsStaffCheck = auth_user_token.is_staff;
+      if (this.IsStaffCheck == 0) {
+        this.IsStaff = false;
+        $('.hometabs').css('display','none');
+        $('.hometabsCust').css('display','block');
+        $('.hometabsGuest').css('display','none');
+      }else{
+        $('.hometabs').css('display','block');
+        $('.hometabsCust').css('display','none');
+        $('.hometabsGuest').css('display','none');
+        this.IsStaff = true;
+      }
+        }
+        if (this.IsStaffCheck == undefined) {
+        $('.hometabs').css('display','none');
+        $('.hometabsCust').css('display','none');
+        $('.hometabsGuest').css('display','block');
+        }
+          console.log(this.IsStaffCheck);
+    });
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -301,6 +350,7 @@ if (auth_user_token) {
           }).catch( error => {
               this.rootPage = PushTabsPage; // SigninPage  PushTabsPage
           });
+          this.landing();
       } else {
         this.dynamicRedirect(PushTabsPage);
       }
@@ -325,15 +375,34 @@ if (auth_user_token) {
      //    this.rootPage = TabsPage;
      //  }
      //    }
-                this.rootPage = PushTabsPage;    // 07 PushTabsPage
+     this.landing();
+              //  this.rootPage = PushTabsPage;    // 07 PushTabsPage
                                   
               } else {
-                this.rootPage = PushTabsPage; // SigninPage  PushTabsPage   // 07 PushTabsPage
+                this.landing();
+              //  this.rootPage = PushTabsPage; // SigninPage  PushTabsPage   // 07 PushTabsPage
               }
         }).catch( error => {
-              this.rootPage = PushTabsPage // SigninPage  PushTabsPage   // 07 PushTabsPage
+          this.landing();
+            //  this.rootPage = PushTabsPage // SigninPage  PushTabsPage   // 07 PushTabsPage
           });
   }
+activemore(){
+  console.log('activemore');
+          setTimeout(()=>{
+            $(".ion-ios-iconmoreblack-outline").addClass("activemore");
+            $(".ion-ios-iconmoreblack").addClass("activemore");
+            $(".ion-md-iconmoreblack-outline").addClass("activemore");
+            $(".ion-md-iconmoreblack").addClass("activemore");
+    $(".ion-ios-iconmoreblack-outline").css("background-image", "url(../assets/imgs/blue-more-full.svg)");
+    $(".ion-md-iconmoreblack").css("background-image", "url(../assets/imgs/blue-more-full.svg)");
+
+    $(".ion-ios-iconmoreblack-outline").next().css("font-weight", "600");
+    $(".ion-ios-iconmoreblack-outline").next().css("color", "#3366CC");
+    $(".ion-md-iconmoreblack").next().css("font-weight", "600");
+    $(".ion-md-iconmoreblack").next().css("color", "#3366CC");
+    },1000);
+    }
   menuClosed() {
       $(".ion-ios-tickets").parent().removeClass("dashinactive");
     $(".ion-md-tickets").parent().removeClass("dashinactive");
@@ -344,6 +413,7 @@ if (auth_user_token) {
     $(".ion-ios-dashboard").parent().removeClass("dashinactive");
     $(".ion-md-dashboard").parent().removeClass("dashinactive");
     console.log('closed');
+    this.rightmenuClosed();
     this.isMoreMenu = false;
     this.currentActiveTab = "";
   }
@@ -357,6 +427,8 @@ if (auth_user_token) {
     $(".ion-md-myproperties-outline").parent().addClass("dashinactive");
     $(".ion-ios-dashboard").parent().addClass("dashinactive");
     $(".ion-md-dashboard").parent().addClass("dashinactive");
+
+    this.rightsidemenuopen();
   }
 
 
@@ -376,6 +448,10 @@ if (auth_user_token) {
     $(".ion-ios-sms").parent().addClass("inactive");
     $(".ion-md-sms").parent().addClass("inactive");
   
+      $(".ion-ios-featured").parent().removeClass("inactive");
+    $(".ion-md-featured").parent().removeClass("inactive");
+    $(".ion-ios-featured-outline").parent().removeClass("inactive");
+    $(".ion-md-featured-outline").parent().removeClass("inactive");
 
     $(".ion-ios-iconmoreblack-outline").css("background-image", "url(../assets/imgs/blue-more-full.svg)");
     $(".ion-md-iconmoreblack").css("background-image", "url(../assets/imgs/blue-more-full.svg)");
@@ -407,16 +483,34 @@ if (auth_user_token) {
     $(".ion-ios-sms").parent().removeClass("inactive");
     $(".ion-md-sms").parent().removeClass("inactive");
   
-
+    $(".ion-ios-featured").parent().removeClass("inactive");
+    $(".ion-md-featured").parent().removeClass("inactive");
+    $(".ion-ios-featured-outline").parent().removeClass("inactive");
+    $(".ion-md-featured-outline").parent().removeClass("inactive");
     $(".ion-ios-iconmoreblack-outline").css("background-image", "url(../assets/imgs/grey-more.svg)");
     $(".ion-md-iconmoreblack").css("background-image", "url(../assets/imgs/grey-more.svg)");
         $(".ion-ios-iconmore-outline").css("background-image", "url(../assets/imgs/grey-more.svg)");
     $(".ion-md-iconmore").css("background-image", "url(../assets/imgs/grey-more.svg)");
 
+
+
+
+
     $(".ion-ios-iconmoreblack-outline").next().css("font-weight", "400");
     $(".ion-ios-iconmoreblack-outline").next().css("color", "#989898");
     $(".ion-md-iconmoreblack").next().css("font-weight", "400");
     $(".ion-md-iconmoreblack").next().css("color", "#989898");
+
+
+        $(".activemore.ion-ios-iconmoreblack-outline").css("background-image", "url(../assets/imgs/blue-more-full.svg)");
+    $(".activemore.ion-md-iconmoreblack").css("background-image", "url(../assets/imgs/blue-more-full.svg)");
+        $(".activemore.ion-ios-iconmore-outline").css("background-image", "url(../assets/imgs/blue-more-full.svg)");
+    $(".activemore.ion-md-iconmore").css("background-image", "url(../assets/imgs/blue-more-full.svg)");
+
+    $(".activemore.ion-ios-iconmoreblack-outline").next().css("font-weight", "600");
+    $(".activemore.ion-ios-iconmoreblack-outline").next().css("color", "#3366CC");
+    $(".activemore.ion-md-iconmoreblack").next().css("font-weight", "600");
+    $(".activemore.ion-md-iconmoreblack").next().css("color", "#3366CC");
     // }
 //      .homesearch-tabs.tabs .tabbar .tab-button[aria-selected=true] span {
 //     color: #3366CC;
@@ -439,16 +533,19 @@ if (auth_user_token) {
   this.isMoreMenu = false;
  let nav = this.App.getRootNav(); 
 nav.setRoot(TabsPage, {selectedTab: 8});
+this.activemore();
 }
 openPageTasks():void {
   this.isMoreMenu = false;
  let nav = this.App.getRootNav(); 
 nav.setRoot(TabsPage, {selectedTab: 7});
+this.activemore();
 }
 openPageDocuments():void {
   this.isMoreMenu = false;
  let nav = this.App.getRootNav(); 
 nav.setRoot(TabsPage, {selectedTab: 6});
+this.activemore();
 }
 openPageMessage():void {
 //   this.isMoreMenu = false;
@@ -464,11 +561,13 @@ goToActivities():void {
   this.isMoreMenu = false;
  let nav = this.App.getRootNav(); 
 nav.setRoot(TabsPage, {selectedTab: 2});
+this.activemore();
 }
 goToTickets():void {
   this.isMoreMenu = false;
  let nav = this.App.getRootNav(); 
 nav.setRoot(TabsPage, {selectedTab: 5});
+this.activemore();
 }
 
 
@@ -480,7 +579,10 @@ this.nav.push(PushTabsPage);
 
      // this.nav.setRoot(CardViewPage);      
 }
-login():void {     
+login(){  
+this.nav.push(SigninPage, {asmodal : 'yes'},{animate:false})
+  }
+login1():void {     
      this.service.getFcmToken("Logout");
      this.service.watchFcmNotifications();
   let getsigninModal = this.modalCtrl.create(SigninPage, {asmodal : 'yes'});
@@ -576,7 +678,16 @@ if (auth_user_token) {
   })
      // this.nav.setRoot(SigninPage, {asmodal : 'yes'});    
 }
-logout():void { 
+logout(){  
+               $('.removeit').css('display','none');
+           $('.signin-hs').css('display','flex');
+           $('.signout-hs').css('display','none');
+document.getElementById('dynamicprofile').innerHTML ="";
+     this.service.getFcmToken("Logout");
+     this.service.watchFcmNotifications();
+this.nav.push(SigninPage, {asmodal : 'yes', FromLog : 'yes'},{animate:false})
+  }
+logout1():void { 
              $('.removeit').css('display','none');
            $('.signin-hs').css('display','flex');
            $('.signout-hs').css('display','none');
@@ -853,26 +964,31 @@ goToProperties():void {
  //this.nav.push(MypropertiesPage); 
  let nav = this.App.getRootNav(); 
 nav.setRoot(PushTabsPage, {selectedTab: 8});
+this.activemore();
 }
 goToMails():void {
   this.isMoreMenu = false;
  let nav = this.App.getRootNav(); 
 nav.setRoot(PushTabsPage, {selectedTab: 9});
+this.activemore();
 }
 goToTasks():void {
   this.isMoreMenu = false;
  let nav = this.App.getRootNav(); 
 nav.setRoot(PushTabsPage, {selectedTab: 10});
+this.activemore();
 }
 goToDocuments():void {
   this.isMoreMenu = false;
  let nav = this.App.getRootNav(); 
 nav.setRoot(PushTabsPage, {selectedTab: 11});
+this.activemore();
 }
 goToActivity():void {
   this.isMoreMenu = false;
  let nav = this.App.getRootNav(); 
 nav.setRoot(PushTabsPage, {selectedTab: 12});
+this.activemore();
 }
 goToFeaturedGuest():void {
 //   this.isMoreMenu = false;
@@ -891,11 +1007,44 @@ goToSaved():void {
 // nav.setRoot(PushTabsPage, {selectedTab: 1});
 
   this.App.getRootNav().push(PushTabsPage,{selectedTab: 1},{animate:false});
+  this.activemore();
 }
 goToFavorites():void {
   this.isMoreMenu = false;
  let nav = this.App.getRootNav(); 
 nav.setRoot(PushTabsPage, {selectedTab: 2});
+this.activemore();
+}
+
+checkTab(){
+    console.log(this.IsStaffCheck);
+          if (this.IsStaffCheck == 0) {
+        $('.hometabs').css('display','none');
+        $('.hometabsCust').css('display','block');
+        $('.hometabsGuest').css('display','none');
+      }else{
+        $('.hometabs').css('display','block');
+        $('.hometabsCust').css('display','none');
+        $('.hometabsGuest').css('display','none');
+      }
+    //       this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
+    //   console.log(auth_user_token)
+    //     if(auth_user_token) {
+    //   this.IsStaffCheck = auth_user_token.is_staff;
+    //   if (this.IsStaffCheck == 0) {
+    //     this.IsStaff = false;
+    //     $('.hometabs').css('display','none');
+    //     $('.hometabsCust').css('display','block');
+    //     $('.hometabsGuest').css('display','none');
+    //   }else{
+    //     $('.hometabs').css('display','block');
+    //     $('.hometabsCust').css('display','none');
+    //     $('.hometabsGuest').css('display','none');
+    //     this.IsStaff = true;
+    //   }
+    //     }
+    //       console.log(this.IsStaffCheck);
+    // });
 }
 
 goToAboutUs():void {  

@@ -13,7 +13,7 @@ import { MailsPage } from '../../pages/mails/mails';
 import { PropertiesPage } from '../../pages/properties/properties';
 import { NotesPage } from '../../pages/notes/notes';
 import { TabsPage } from '../../pages/tabs/tabs';
-
+import { PushTabsPage } from '../../pages/home-search/push-tabs/push-tabs';
 import { DocumentviewPage } from '../../pages/documentview/documentview'; 
 import { PropertyviewPage } from '../../pages/propertyview/propertyview';
 import { DocumentviewmodalPage } from '../../pages/documentviewmodal/documentviewmodal';
@@ -131,6 +131,7 @@ public dashboardNotescount: any;
 public dashboardOwnerscount: any;
 public dashboardPropertiescount: any;
 public dashboardTicketscount: any;
+public dashboardActivitiescount: any;
 public showSearchIcon : boolean = true;
 public showClearIcon : boolean = false;
 
@@ -177,7 +178,8 @@ public checklength: any;
 gototicket(){
     this.isMoreMenu = false;
  let nav = this.App.getRootNav(); 
-nav.setRoot(TabsPage, {selectedTab: 5});  
+// nav.setRoot(TabsPage, {selectedTab: 5});  
+nav.setRoot(PushTabsPage, {selectedTab: 7});  
 }
 gotoproperties(){
      //  let propertiesmodal = this.modalCtrl.create(PropertiesPage);
@@ -189,7 +191,7 @@ gotoproperties(){
   //  this.App.getRootNav().push(MypropertiesPage);
  //this.nav.push(MypropertiesPage); 
  let nav = this.App.getRootNav(); 
-nav.setRoot(TabsPage, {selectedTab: 3});
+nav.setRoot(PushTabsPage, {selectedTab: 8});
 }
 gotonotes(){
       let notesmodal = this.modalCtrl.create(NotesPage);
@@ -200,18 +202,20 @@ gotomails(){
      // mailsmodal.present();
        this.isMoreMenu = false;
  let nav = this.App.getRootNav(); 
-nav.setRoot(TabsPage, {selectedTab: 8});
+nav.setRoot(PushTabsPage, {selectedTab: 9});
 }
 gotoActivities(){
          this.isMoreMenu = false;
  let nav = this.App.getRootNav(); 
-nav.setRoot(TabsPage, {selectedTab: 2});
+nav.setRoot(PushTabsPage, {selectedTab: 12});
 }
 
 
 gotoTextMessage(){
-      let textmessagemodal = this.modalCtrl.create(TextMessagePage);
-     textmessagemodal.present();
+     //  let textmessagemodal = this.modalCtrl.create(TextMessagePage);
+     // textmessagemodal.present();
+      let nav = this.App.getRootNav(); 
+nav.setRoot(PushTabsPage, {selectedTab: 6});
 }
   togglecreate(){
       this.ishidden = false;
@@ -540,6 +544,9 @@ this.iab.create(link+"?token=dHJhbnomob", "_system", "beforeload=yes");
 console.log(auth_user_token);
 if (auth_user_token) {
        this.getCount();
+       this.getEmails();
+       this.getActivities();
+       this.getTextmsg();
       this.IsStaffCheck = auth_user_token.is_staff;
       if (this.IsStaffCheck == 0) {
         this.IsStaff = false;
@@ -559,15 +566,28 @@ if (auth_user_token) {
         console.log(this.IsStaffCheck);
     });
   }
+ getTextmsg() {
+   try {
+     
+     this.service.getTextmessage(1, '').then( (response : any) => {
+       console.log( response );
+       this.dashboardMessagescount = response.data.total;
+     }).catch( error => {
+         console.log(error);
+     })
+   } catch(e) {
+        this.service.serverError();
+    }
 
+ }
   getCount() {
     try {
      this.service.dashboardCount().then( (response : any) => {
        console.log( response.data );
        this.dashboardcount = response.data;
-       this.dashboardEmailscount = this.dashboardcount.emails_count;
+       // this.dashboardEmailscount = this.dashboardcount.emails_count;
        this.dashboardLeadscount = this.dashboardcount.leads_count;
-       this.dashboardMessagescount = this.dashboardcount.messages_count;
+    //   this.dashboardMessagescount = this.dashboardcount.messages_count;
        this.dashboardNotescount = this.dashboardcount.notes_count;
        this.dashboardOwnerscount = this.dashboardcount.owners_count;
        this.dashboardPropertiescount = this.dashboardcount.properties_count;
@@ -650,6 +670,7 @@ if (auth_user_token) {
        this.activities = response.data;
        this.activitytotalPages = response.totalPages;
        this.activitytotalRecords = response.totalRecords;
+       this.dashboardActivitiescount  = response.totalRecords;
        this.activityshowSpinner = false;
      }).catch( error => { 
          this.activityshowSpinner = false; 
@@ -902,11 +923,11 @@ if (auth_user_token) {
  getEmails() {
    try {
      this.mailshowSpinner = true;
-     this.service.emails(this.mailcurrentPage, "").then( (response : any) => {
+     this.service.emails(this.mailcurrentPage, "", 1).then( (response : any) => {
        console.log( response )
        this.emails = response.data;
        this.mailtotalPages = response.totalPages;
-       this.mailtotalRecords = response.totalRecords;
+       this.dashboardEmailscount = response.totalRecords;
        this.mailshowSpinner = false;
      }).catch( error => {
          this.mailshowSpinner = false;
@@ -925,7 +946,7 @@ if (auth_user_token) {
      {
        this.mailcurrentPage++;
        this.mailshowSpinner = true;
-       this.service.emails(this.mailcurrentPage, "").then( (response : any) => {
+       this.service.emails(this.mailcurrentPage, "", 1).then( (response : any) => {
          console.log( response )
          var nextTickets = response.data;
            nextTickets.forEach((item, index) => {

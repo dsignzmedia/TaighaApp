@@ -22,6 +22,8 @@ declare var cordova:any; // global
 export class SigninPage {
  passwordType: string = 'password';
  passwordText= 'Show Password';
+   IsStaffCheck: any;
+  public IsStaff : boolean = false;
   private login : FormGroup;
   public isMoreMenu: boolean = false;
   public name : string = "";
@@ -29,6 +31,7 @@ export class SigninPage {
   public avatar : string = "";
   public storageToken: any;
   public asmodal: string = "no";
+  public FromLogout: string = "no";
   public platformname : string = "";
       public hasEmailVerified : boolean = false;
     public setprofileDetail: any = { first_name : "", last_name:"", email: "", avatar: "",};
@@ -51,6 +54,10 @@ if (this.navParams.get('asmodal')) {
   this.asmodal = this.navParams.get('asmodal');
   console.log(this.asmodal);
 }
+if (this.navParams.get('FromLogout')) {
+  this.FromLogout = this.navParams.get('FromLogout');
+  console.log(this.FromLogout);
+}
     this.login = this.formBuilder.group ( {
           email: ['', Validators.compose([Validators.required, Validators.email]) ],
           password: ['', Validators.required ],
@@ -61,17 +68,76 @@ if (this.navParams.get('asmodal')) {
     this.viewCtrl.dismiss({
 
   })
+       let nav = this.App.getRootNav(); 
+nav.setRoot(PushTabsPage, {selectedTab: 0});
 //   this.isMoreMenu = false;
 //  let nav = this.App.getRootNav(); 
 // nav.setRoot(PushTabsPage, {selectedTab: 5});
 
 }
-dismissModal() {
-    this.viewCtrl.dismiss({
 
-  })
-   let nav = this.App.getRootNav(); 
-nav.setRoot(PushTabsPage, {selectedTab: 3});
+deleteModal(){
+        this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
+      console.log(auth_user_token)
+        if(auth_user_token) {
+      this.IsStaffCheck = auth_user_token.is_staff;
+      if (this.IsStaffCheck == 0) {
+       let nav = this.App.getRootNav(); 
+nav.setRoot(PushTabsPage, {selectedTab: 0});
+      }else{
+       let nav = this.App.getRootNav(); 
+nav.setRoot(PushTabsPage, {selectedTab: 5});
+      }
+        }
+        if (this.IsStaffCheck == undefined) {
+        $('.hometabs').css('display','none');
+        $('.hometabsCust').css('display','none');
+        $('.hometabsGuest').css('display','block');
+        }
+          console.log(this.IsStaffCheck);
+        $("page-push-tabs").removeAttr("hidden");
+        $('page-signin').css('display','none');
+    }); 
+}
+
+dismissModal() {
+  // $('page-push-tabs').css('display','block !important');
+  if (this.FromLogout == 'yes') {
+       let nav = this.App.getRootNav(); 
+nav.setRoot(PushTabsPage, {selectedTab: 0});
+  }else{
+        this.storage.getStorage('auth_user_tokens').then((auth_user_token: any) => {
+      console.log(auth_user_token)
+        if(auth_user_token) {
+      this.IsStaffCheck = auth_user_token.is_staff;
+      if (this.IsStaffCheck == 0) {
+        this.IsStaff = false;
+        $('.hometabs').css('display','none');
+        $('.hometabsCust').css('display','block');
+        $('.hometabsGuest').css('display','none');
+      }else{
+        $('.hometabs').css('display','block');
+        $('.hometabsCust').css('display','none');
+        $('.hometabsGuest').css('display','none');
+        this.IsStaff = true;
+      }
+        }
+        if (this.IsStaffCheck == undefined) {
+        $('.hometabs').css('display','none');
+        $('.hometabsCust').css('display','none');
+        $('.hometabsGuest').css('display','block');
+        }
+          console.log(this.IsStaffCheck);
+        $("page-push-tabs").removeAttr("hidden");
+        $('page-signin').css('display','none');
+    });
+
+  }
+//     this.viewCtrl.dismiss({
+
+//   })
+//    let nav = this.App.getRootNav(); 
+// nav.setRoot(PushTabsPage, {selectedTab: 3});
 
 
 }
@@ -119,7 +185,7 @@ ionViewWillEnter() {
 goToStartnow(){
  this.navCtrl.push(StartNowPage); 
 }
-  doLogin(){    
+  doLogin(){ 
     //this.navCtrl.push(TabsPage);   
     //this.service.loading.present();
     if (this.asmodal == 'yes') {
@@ -188,7 +254,8 @@ document.getElementById('dynamicprofile').innerHTML ="";
        }).catch( error => {
            console.log(error);
        })
-              this.dismissModalx();
+          this.deleteModal();
+              // this.dismissModalx();
               this.service.loading.dismiss();
             });
 this.chechEmailVerified();
@@ -341,10 +408,10 @@ document.getElementById('dynamicprofile').innerHTML ="";
        }).catch( error => {
            console.log(error);
        })
-                         this.dismissModalx();
+                         this.deleteModal();
                          fbthis.service.loading.dismiss();
                         }else{
-                          this.dismissModalx();
+                          this.deleteModal();
                       //  fbthis.navCtrl.push(PushTabsPage); 
                         fbthis.service.loading.dismiss();
                         }
@@ -360,7 +427,7 @@ document.getElementById('dynamicprofile').innerHTML ="";
                                                 } catch (e) {
                         // fbthis.navCtrl.push(PushTabsPage); 
                                                 fbthis.service.loading.dismiss();
-                             fbthis.dismissModalx();
+                             fbthis.deleteModal();
                          //   $('ion-modal.show-page').css('display','none');
 //   this.isMoreMenu = false;
 //  let nav = this.App.getRootNav(); 
@@ -436,7 +503,7 @@ document.getElementById('dynamicprofile').innerHTML ="";
        }).catch( error => {
            console.log(error);
        })
-                         ioslogin.dismissModalx();
+                         ioslogin.deleteModal();
                          ioslogin.service.loading.dismiss();
                         }else{
                         ioslogin.navCtrl.push(PushTabsPage); 
@@ -513,10 +580,10 @@ document.getElementById('dynamicprofile').innerHTML ="";
        }).catch( error => {
            console.log(error);
        })
-                         this.dismissModalx();
+                         this.deleteModal();
                          gplus.service.loading.dismiss();
                         }else{
-                          this.dismissModalx();
+                          this.deleteModal();
                        // gplus.navCtrl.push(PushTabsPage); 
                         gplus.service.loading.dismiss();
                         }
