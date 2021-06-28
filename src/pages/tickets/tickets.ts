@@ -59,7 +59,7 @@ export class TicketsPage {
  public selectedFilters: any = { subject : "", group : [], staffs : [], status : ["open", "in_process", "completed"], priorities : [], updated_by : [], updated_at : '' };
   IsStaffCheck: any;
   public IsStaff : boolean = false;
-
+public showClearIcon : boolean = false;
  constructor(	private iab: InAppBrowser, public navCtrl: NavController, 
  	public navParams: NavParams,
  	public modalCtrl: ModalController,
@@ -116,11 +116,21 @@ export class TicketsPage {
  protected resetChanges = () => {
     this.filters = this.filtersCopy;
 };
+searchtagno(){
+  this.selectedFilters.subject = '';
+  this.searchtag();
+}
+
 searchtag(){
   this.showSpinnertop = true;
   this.showSpinner = false;
 console.log(this.selectedFilters);
 this.filters = this.selectedFilters;
+if (this.selectedFilters.subject != '') {
+    this.showClearIcon = true;
+  }else{
+    this.showClearIcon = false;
+  }
 if (this.showSearch) {
   $('.list-card').css('margin-top', '44px');
 }else{

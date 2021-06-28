@@ -77,6 +77,25 @@ selectedArray2 :any = [];
   	 if (this.selectedTemplate) {
   	 	this.selectedArray = this.selectedTemplate;
   	 }
+
+if (this.fieldInput == 'access') {
+//      for ( var i=0 ; i< this.templates.length ; i++ ) {
+//   console.log(this.selectedField[i].getAttribute("checked"))
+// }
+    for(let i = 0; i < this.templates.length; i++) {
+          
+        // Loop for array2
+        for(let j = 0; j < this.selectedField.length; j++) {
+              
+            // Compare the element of each and
+            // every element from both of the
+            // arrays
+            if(this.templates[i].id === this.selectedField[j]) {
+                this.templates[i].checked = true;
+            }
+        }
+    }
+}
   }
 
   ionViewDidLoad() {

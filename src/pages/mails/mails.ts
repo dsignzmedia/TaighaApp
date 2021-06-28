@@ -33,15 +33,19 @@ import { StorageProvider } from '../../providers/storage/storage';
   ]
 })
 export class MailsPage {
+   public disableUpdate = true;
+   public ticket = 1;
    public currentPage = 1;
    public pageLimit = 15;
    public totalPages = 0;
    public totalRecords = 0;
    public showSpinner : boolean = true;
+   public showSpinnerEmail : boolean = false;
    public emails : any = [];
    public isOnScroll: boolean = false;
    public filters: any = "";
    public isFilterApplied: boolean = false;
+   public TicketEmailBtn: any = "Hide ticket emails";
 
     //public showBottomInfo: boolean = false;
  show:boolean = false;
@@ -80,6 +84,25 @@ export class MailsPage {
 }
   ionViewDidLoad() {
     console.log('ionViewDidLoad MailsPage');
+  }
+  showTicketEmail(){
+    console.log(this.TicketEmailBtn);
+          if(this.TicketEmailBtn === 'Hide ticket emails') { 
+             this.showSpinnerEmail = true;
+             this.disableUpdate = true;
+        this.TicketEmailBtn = 'Show ticket emails';
+        this.ticket = 0;
+        this.currentPage = 1;
+        this.getEmails();
+      } else {
+         this.showSpinnerEmail = true;
+         this.disableUpdate = true;
+        this.TicketEmailBtn = 'Hide ticket emails';
+        this.ticket = 1;
+        this.currentPage = 1;
+        this.getEmails();
+      }
+   // this.TicketEmailBtn = (this.TicketEmailBtn) ? 'Hide ticket emails' : 'Show ticket emails';
   }
   openfilterModal(characterNum) {
       let opts: any = {
@@ -130,20 +153,26 @@ export class MailsPage {
  }
 
  getEmails() {
+  console.log( 'this.ticket ' );
+   console.log( this.ticket  );
    try {
      this.showSpinner = true;
-     this.service.emails(this.currentPage, this.filters).then( (response : any) => {
+     this.service.emails(this.currentPage, this.filters, this.ticket).then( (response : any) => {
        console.log( response )
        this.emails = response.data;
        this.totalPages = response.totalPages;
        this.totalRecords = response.totalRecords;
+       this.disableUpdate = false;
        this.showSpinner = false;
+       this.showSpinnerEmail = false;
      }).catch( error => {
          this.showSpinner = false;
+         this.showSpinnerEmail = false;
          console.log(error);
      })
    } catch(e) {
      this.showSpinner = false;
+     this.showSpinnerEmail = false;
         this.service.serverError();
     }
 
@@ -155,7 +184,7 @@ export class MailsPage {
      {
        this.currentPage++;
        this.isOnScroll = true;
-       this.service.emails(this.currentPage, this.filters).then( (response : any) => {
+       this.service.emails(this.currentPage, this.filters, this.ticket).then( (response : any) => {
          console.log( response )
          var nextTickets = response.data;
            nextTickets.forEach((item, index) => {
@@ -185,11 +214,13 @@ export class MailsPage {
           }, 2000);
   }
 mailsview(email){
+  console.log(email); 
     if(email.email_from == 'tickets')
     {
-      this.navCtrl.push(TicketviewPage, { ticketId : email.ticket_id }); 
+
+      this.navCtrl.push(TicketviewPage, { ticketId : email.ticket_id, ticketsub : email.common_subject }); 
     } else {
-      this.navCtrl.push(MailviewPage, { emailId : email.id } );
+      this.navCtrl.push(MailviewPage, { emailId : email.id, ticketsub : email.common_subject } );
     }
 }
 

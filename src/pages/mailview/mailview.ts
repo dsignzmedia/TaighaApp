@@ -51,11 +51,12 @@ export class MailviewPage {
    public body : any = "";
 
    public config : any;
+   public mailsub: any;
 
    public quillEditorRef;
    public quill: any;
    public toolbarOptions;
-
+public shownavbar: boolean = true;
    public showSubject : boolean = false;
    public showEmails : boolean = false;
    public expandAll:boolean = false;
@@ -69,6 +70,7 @@ export class MailviewPage {
     this.toolbarOptions = this.service.toolbarOptions;
     this.config = this.service.ckeImageUploadOptions;
     this.emailId = this.navParams.get('emailId');
+    this.mailsub = this.navParams.get('ticketsub');
 
     this.replyemail = this.formBuilder.group ( {
           priority: ['', Validators.required ],
@@ -326,6 +328,7 @@ export class MailviewPage {
 
 back(){
    //this.navCtrl.push(MailsPage); 
+   this.shownavbar = false;
    this.navCtrl.pop();
   }
 

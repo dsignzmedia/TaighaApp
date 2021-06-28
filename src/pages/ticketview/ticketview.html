@@ -37,7 +37,7 @@
     </ion-refresher>
     <div class="ticket-view-panel" *ngIf="ticket">
         
-        <div *ngIf="ticket.customer_id != 0 && IsStaffCheck != 0" class="tickect-for-panel">
+        <div *ngIf="ticket.customer_id != 0 && ticket.partner_id == 0 && IsStaffCheck != 0" class="tickect-for-panel">
             <div class="cust-panel">
             <figure>
                 <img src="assets/imgs/toptech-avatar.png">
@@ -55,12 +55,30 @@
                 </li>
             </ul>
         </div>
+        <div *ngIf="ticket.partner_id != 0 && IsStaffCheck != 0" class="tickect-for-panel">
+            <div class="cust-panel">
+            <figure>
+                <img src="assets/imgs/toptech-avatar.png">
+            </figure>
+            <h2 class="tickect-for" *ngIf="ticket.partner_id != 0">{{ ticket.partner_name }}</h2>
+            </div>
+            <ul>
+                <li>
+                    <a *ngIf="ticket.partner_id != 0"  href="tel:{{ticket.partner_num_stripped}}" class="phonecall">
+                    <img src="assets/imgs/phone-call-b.svg" width="22" height="22">
+                    </a>
+                </li>
+                <li *ngIf="IsStaff"  (click)="checkMsg(ticket.partner_id, ticket.partner_f_name, ticket.partner_l_name, ticket.partner_num_stripped, ticket.partner_num)">
+                    <img src="assets/imgs/sms-green.svg" width="24" height="24">
+                </li>
+            </ul>
+        </div>
         <ion-card class="view-card withpadding">
-            <ion-card-header (click) = "toggleShowHide('subject')">
+            <ion-card-header [ngClass]="showSubject ? '' : 'header-active'" (click) = "toggleShowHide('subject')">
                 <div class="inline-div">
-                <ion-card-title><img src="assets/imgs/ticket-white.svg" width="22" height="22"> <span>Subject: {{ticket.subject}}</span> </ion-card-title>
+                <ion-card-title><img *ngIf="showSubject" src="assets/imgs/ticket-white.svg" width="22" height="22"><img  *ngIf="!showSubject" src="assets/imgs/ticket-black.svg" width="22" height="22"> <span>Subject: {{ticket.subject}}</span> </ion-card-title>
                 <span> <img *ngIf="showSubject" src="assets/imgs/up-arrow-white.svg">
-                 <img *ngIf="!showSubject" src="assets/imgs/downarrowwhite.svg">
+                 <img *ngIf="!showSubject" src="assets/imgs/down-arrow-blue.svg">
                  </span>
                 </div>
             </ion-card-header>
@@ -205,11 +223,11 @@
       </div>
 </ion-col>
 
-                        <ion-col col-12>
+                        <ion-col col-12  no-padding>
                             <div class="inline-btn">
-                            <button ion-button block class="btn btn-blue" [disabled]="disableUpdate" (click)="updateTicket('no')">Update</button>
-                            <button ion-button block class="btn btn-blue" [disabled]="disableUpdate" (click)="updateTicket('notify')">Update & Notify</button>
-                            <button ion-button block class="btn btn-blue" [disabled]="disableUpdate" (click)="cancelupdate()">Cancel</button>
+                            <button ion-button block class="btn btn-blue smallbtn" [disabled]="disableUpdate" (click)="updateTicket('no')">Update</button>
+                            <button ion-button block class="btn btn-blue largebtn" [disabled]="disableUpdate" (click)="updateTicket('notify')">Update & Notify</button>
+                            <button ion-button block class="btn btn-blue smallbtn" [disabled]="disableUpdate" (click)="cancelupdate()">Cancel</button>
 
                             </div>
                         </ion-col>
@@ -312,12 +330,12 @@
         <ion-card class="view-card withpadding activity-history" id="tickettop_of_activity_focus">
             <!--   -->
             <!-- (click) = "gotoActivity()" -->
-            <ion-card-header  (click) = "gotoActivity()"  >
+            <ion-card-header  class="header-active"  (click) = "gotoActivity()"  >
 
                 <!--     <i class="dash-icon da-icon-act vertical-align-bottom"></i>ACTIVITIES ({{ activities.length }}) -->
                                     <div class="inline-div">
-                <ion-card-title><img src="assets/imgs/icon-activities-white.svg" width="22" height="22"> <span> Activity History ({{ activities.length }})</span></ion-card-title>
-                <span> <img src="assets/imgs/right-arrow-white.svg"> </span>
+                <ion-card-title><img src="assets/imgs/icon-activities-b.svg" width="22" height="22"> <span> Activity History ({{ activities.length }})</span></ion-card-title>
+                <span> <img src="assets/imgs/right-arrow-blue.svg"> </span>
                 </div>
             </ion-card-header>
 <!--             <ion-card-content class="view-content-panel activitylog-text-panel icc-relative" >
@@ -374,7 +392,7 @@
             <ion-card-header  (click)="gotoMail()"  >
                 <!--     <i class="dash-icon da-icon-act vertical-align-bottom"></i>ACTIVITIES ({{ activities.length }}) -->
                                     <div class="inline-div">
-                <ion-card-title><img src="assets/icon/white-icon-mail.svg" width="22" height="22"> <span> Email Messages ({{ ticket.ticket_histories.length }})</span></ion-card-title>
+                <ion-card-title><img src="assets/imgs/white-icon-mail.svg" width="22" height="22"> <span> Email Messages ({{ ticket.ticket_histories.length }})</span></ion-card-title>
                 <span> <img src="assets/imgs/right-arrow-white.svg"> </span>
                 <!-- <span> <span> <img *ngIf="showEmails" src="assets/imgs/up-arrow-white.svg">
                  <img *ngIf="!showEmails" src="assets/imgs/downarrowwhite.svg">

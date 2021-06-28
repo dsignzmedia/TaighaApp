@@ -64,6 +64,34 @@ page-mails {
 //     display: block;
 // }
 // }
-
+.nav-custom{
+	    justify-content: center;
+}
+.btn{
+	&.commonbtn{
+		    border-radius: 4px;
+    /* position: relative; */
+    padding-left: 0;
+    padding-right: 0;
+    /* right: 0; */
+    background: #3366cb;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0 10px;
+    height: 27px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 13px;
+    width: 150px;
+    float: right;
+    margin-bottom: 10px;
+    &:hover {
+    background: #3366cb;
+    color: #ffffff;
+}
+	}
+}
 
 }
