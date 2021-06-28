@@ -343,6 +343,18 @@ ngOnInit(){
 }
 ionViewDidEnter(){
   console.log('this.ionViewDidEnter');
+  this.allStorage();
+}
+allStorage() {
+  this.localstorage.forEach( (value, key, index) => {
+    // Search for whatever you're looking for using if/else statements
+    if(key.includes("propertyImage_") || key.includes("fullStreetAddress_")){
+      this.storage.removeStorage(key);
+    }
+    console.log(key);
+  }).then(() => {
+    // Do your thing
+  });
 }
   ionViewDidLoad() {
   console.log('this.ionViewDidLoad');

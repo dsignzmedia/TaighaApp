@@ -171,11 +171,14 @@ if (auth_user_token) {
        this.propertySimilar = response.data.similarLisitings;
        this.propertyImage = response.data.rmls_property_images;
        this.propertyshowSpinner = false;
-       console.log(this.propertyRmls);
-
         this.loadMap();
-        this.setItem('fullStreetAddress',this.propertyRmls.FullStreetAddress);
-        this.setItem('propertyImage',this.propertyImage);
+        console.log(this.propertyRmls.historyDatas);
+        console.log('propertyImage_'+this.propertyRmls.ListingID);
+        console.log('fullStreetAddress_'+this.propertyRmls.ListingID);
+        this.setItem('fullStreetAddress_'+this.propertyRmls.ListingID,this.propertyRmls.FullStreetAddress);
+        this.setItem('propertyImage_'+this.propertyRmls.ListingID,this.propertyImage);
+        // this.setItem('fullStreetAddress',this.propertyRmls.FullStreetAddress);
+        // this.setItem('propertyImage',this.propertyImage);
 
      }).catch( error => {
      })
@@ -194,8 +197,11 @@ if (auth_user_token) {
        this.propertyshowSpinner = false;
 
         this.loadMap();
-        this.setItem('fullStreetAddress',this.propertyRmls.FullStreetAddress);
-        this.setItem('propertyImage',this.propertyImage);
+        console.log(this.propertyRmls.historyDatas);
+        console.log('propertyImage_'+this.propertyRmls.ListingID);
+        console.log('fullStreetAddress_'+this.propertyRmls.ListingID);
+        this.setItem('fullStreetAddress_'+this.propertyRmls.ListingID,this.propertyRmls.FullStreetAddress);
+        this.setItem('propertyImage_'+this.propertyRmls.ListingID,this.propertyImage);
 
      }).catch( error => {
      })
