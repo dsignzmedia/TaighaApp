@@ -37,14 +37,15 @@ userid: any;
   	 this.getProperty();
   }
  getProperty() {
-
+  console.log('propertyImage_'+this.propertyId);
+  console.log('fullStreetAddress_'+this.propertyId);
    try {
-    this.storage.getStorage('fullStreetAddress').then((address) => {
+    this.storage.getStorage('fullStreetAddress_'+this.propertyId).then((address) => {
       console.log('storagefullStreetAddress 3');
       console.log(JSON.parse(address));
       this.storagefullStreetAddress = JSON.parse(address);
     });
-    this.storage.getStorage('propertyImage').then((images) => {
+    this.storage.getStorage('propertyImage_'+this.propertyId).then((images) => {
       console.log('storagePropertyImages 3');
       console.log(JSON.parse(images));
       this.storagePropertyImages = JSON.parse(images);

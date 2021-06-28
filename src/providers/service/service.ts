@@ -8,7 +8,6 @@ import { FCM } from '@ionic-native/fcm';
 
 /*
   Generated class for the ServiceProvider provider.
-
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
@@ -20,7 +19,7 @@ var liveToken = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjlmMWZkMDky
 export class ServiceProvider {
     public baseUrl : string = "https://toptechrealty.com/api/auth";
   //  public baseUrl : string = "http://localhost:8080/Toptech/New/Taigha-Productions-Repository/public/api/auth";
-   //  public baseUrl : string = "http://127.0.0.1:8000/api/auth";  
+   //  public baseUrl : string = "http://127.0.0.1:8000/api/auth";
 
   public apigetroles: string = this.baseUrl+"/rmls/listing/share/modal/roles-and-types";
   public apiModalUser: string = this.baseUrl+"/rmls/listing/share/modal/get-users";
@@ -1811,7 +1810,7 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
       }
       });
   }
-  
+
 
 
   ticketcreateData() {
@@ -1874,7 +1873,7 @@ return this.http.get(this.apiOption+"/property-type?categories="+category+"&clas
       }
       });
   }
-  
+
   ticketcreateGetAllCustomers() {
     return this.storage.getStorage('auth_user_tokens').then( (auth_user_token : any) => {
         try {
@@ -2852,5 +2851,3 @@ getcustomer(body) {
   }
 
 }
-
-
